@@ -11,7 +11,7 @@
         :root {
             --bg-dark: #0f172a;      /* Deep Space Blue */
             --bg-panel: #1e293b;     /* Lighter panel */
-            --accent: #3b82f6;       /* Electric Blue */
+            --accent: #3b82f6;       /* Electric Blue (다른 요소에 사용됨) */
             --accent-glow: #60a5fa;
             --text-main: #f1f5f9;
             --text-muted: #94a3b8;
@@ -22,10 +22,11 @@
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
 
         body { 
-            background-color: #f0f4f8; 
-            background-image: radial-gradient(circle at 10% 20%, #1e293b 0%, #0f172a 90%);
+            /* 💡 배경 색상 변수 사용 (배경 패턴 유지) */
+            background-color: var(--bg-dark); 
+            background-image: radial-gradient(circle at 10% 20%, var(--bg-panel) 0%, var(--bg-dark) 90%);
             color: var(--text-main); 
-            font-family: 'Roboto', sans-serif; /* 👈 Roboto 폰트 적용 */
+            font-family: 'Roboto', sans-serif;
             display: flex; flex-direction: column; height: 100vh; 
         }
 
@@ -41,6 +42,13 @@
             border-bottom: 1px solid #334155;
             z-index: 10;
         }
+        
+        /* 로고 링크 스타일 */
+        .logo-link {
+            text-decoration: none; 
+            color: inherit;        
+            cursor: pointer;      
+        }
 
         .logo { 
             font-family: 'Orbitron', sans-serif; 
@@ -52,15 +60,15 @@
             font-weight: 900; 
         }
         
-        /* New Logo Class: 로고 크기 60px로 확대 */
         .logo-image {
-            height: 60px; /* 로고 높이 확대 */
-            width: auto;  /* 비율 유지 */
+            height: 60px;
+            width: auto; 
             object-fit: contain;
             border-radius: 50%;
         }
-
-        .logo span { color: var(--accent); }
+        
+        /* 💡 로고 span에 적용했던 파란색 스타일은 HTML 인라인에서 노란색으로 직접 덮어씁니다. */
+        /* .logo span { color: var(--accent); } */ 
 
         .auth-buttons { display: flex; gap: 15px; align-items: center; }
         
@@ -102,25 +110,23 @@
         }
 
         .category-btn {
-    text-align: left;
-    background: transparent;
-    border: 1px solid transparent;
-    padding: 14px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    color: var(--text-main);
-    
-    /* ▼▼▼ 폰트 변경 부분 ▼▼▼ */
-    font-family: 'Chakra Petch', sans-serif; /* Scientific Gothic 스타일 적용 */
-    font-size: 1.1rem;                   /* 폰트가 얇으므로 크기를 약간 키움 */
-    font-weight: 600;                    /* 두께감을 줌 */
-    text-transform: uppercase;           /* 모든 글자를 대문자로 (더 로봇 느낌 남) */
-    letter-spacing: 1px;                 /* 자간을 넓혀 가독성 확보 */
-    /* ▲▲▲ 폰트 변경 부분 ▲▲▲ */
+            text-align: left;
+            background: transparent;
+            border: 1px solid transparent;
+            padding: 14px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-main);
+            
+            font-family: 'Chakra Petch', sans-serif; 
+            font-size: 1.1rem;                   
+            font-weight: 600;                    
+            text-transform: uppercase;           
+            letter-spacing: 1px;                 
 
-    display: flex; align-items: center; gap: 12px;
-    transition: all 0.2s;
-}
+            display: flex; align-items: center; gap: 12px;
+            transition: all 0.2s;
+        }
         
         .category-btn:hover { 
             background: rgba(255,255,255,0.05); 
@@ -227,7 +233,7 @@
             justify-content: center; align-items: center; z-index: 100;
         }
         .modal-content {
-            background: #1e293b; padding: 2.5rem; border-radius: 12px; width: 450px; 
+            background: var(--bg-panel); padding: 2.5rem; border-radius: 12px; width: 450px; 
             border: 1px solid #334155; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             color: var(--text-main);
         }
@@ -243,7 +249,7 @@
         
         .form-input, select { 
             width: 100%; padding: 12px; margin: 10px 0; 
-            background: #0f172a; border: 1px solid #334155; 
+            background: var(--bg-dark); border: 1px solid #334155; 
             border-radius: 6px; color: white; font-size: 0.95rem;
         }
         .form-input:focus { border-color: var(--accent); }
@@ -253,12 +259,19 @@
 <body>
 
     <header>
-    <a href="#" class="logo-link">
-        <div class="logo">
-            <img src="Xmas logo.png" alt="LearnRobot 로고" class="logo-image">
-            <span style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; letter-spacing: 1px; color: var(--text-main);">LEARN<span style="color: var(--accent);">ROBOT</span></span>
+        <a href="#" class="logo-link">
+            <div class="logo">
+                <img src="Xmas logo.png" alt="LearnRobot 로고" class="logo-image">
+                <span style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; letter-spacing: 1px; color: var(--text-main);">LEARN<span style="color: #facc15;">ROBOT</span></span>
+            </div>
+        </a>
+        <div class="auth-buttons">
+            <div style="display:flex; align-items:center; gap:12px; margin-right:15px; border-right: 1px solid #334155; padding-right: 20px;">
+                <div style="width:32px; height:32px; background: linear-gradient(45deg, #3b82f6, #8b5cf6); border-radius:50%;"></div>
+                <span style="font-weight:900; font-size:1.5rem; color:light green;">your robot name here</span>
+            </div>
+            <button class="btn btn-primary" onclick="openUploadModal()">+ Upload Robot</button>
         </div>
-    </a>
     </header>
 
     <div class="container">
@@ -276,10 +289,10 @@
             
             <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid #334155; text-align: left;">
                 
-                <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 5px; font-family: 'Chakra Petch', sans-serif; font-weight: 600; text-transform: uppercase;">Contact</p>
+                <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 5px; font-family: 'Chakra Petch', sans-serif; font-weight: 600; text-transform: uppercase;">Contact Support</p>
                 
                 <a href="mailto:learnrobot@learnrobot.com" 
-   style="color: yellow; /* 노란색/금색 고정 */
+   style="color: #facc15; /* 💡 기본색: 노란색/금색 고정 */
           text-decoration: none; 
           font-size: 0.85rem; 
           display: flex; 
@@ -287,7 +300,7 @@
           gap: 8px; 
           transition: 0.3s; 
           font-family: 'Chakra Petch', sans-serif;" 
-   onmouseover="this.style.color='#fff'" 
+   onmouseover="this.style.color='#fff'" /* 💡 호버 시: 흰색 */
    onmouseout="this.style.color='#facc15'"> learnrobot@learnrobot.com
 </a>
             </div>
@@ -355,159 +368,4 @@
         // Updated Data with IDs and Likes (비디오 데이터: 새 카테고리 적용)
         let videos = [
             { id: 1, title: "Atlas Parkour Test", category: "humanoid", uploader: "Boston Dynamics", likes: 1240, isLiked: false, videoUrl: "dQw4w9WgXcQ" }, 
-            { id: 2, title: "Assembly Line Speed", category: "automation", uploader: "Kuka Robotics", likes: 85, isLiked: false, videoUrl: "g1I7K590cW0" }, 
-            { id: 3, title: "Roomba AI Mapping", category: "retail", uploader: "iRobot", likes: 342, isLiked: false, videoUrl: "J-y3-75x44A" }, 
-            { id: 4, title: "Barista Bot V1", category: "retail", uploader: "Cafe X", likes: 890, isLiked: false, videoUrl: "5qap5aO4i9A" }, 
-            { id: 5, title: "Lidar Night Test", category: "farm", uploader: "Waymo", likes: 567, isLiked: false, videoUrl: "vQ823t7Dk6k" }, 
-            { id: 6, title: "Ameca Conversation", category: "humanoid", uploader: "Engineered Arts", likes: 2100, isLiked: false, videoUrl: "6aJ7k7_7c5A" },
-        ];
-
-        // Render Function
-        function renderVideos(filter) {
-            const container = document.getElementById('video-container');
-            container.innerHTML = ''; 
-            
-            videos.forEach(video => {
-                if (filter === 'all' || video.category === filter) {
-                    const card = document.createElement('div');
-                    card.className = 'video-card';
-                    
-                    const likeClass = video.isLiked ? 'liked' : '';
-                    const heartType = video.isLiked ? '❤' : '♡'; 
-
-                    card.innerHTML = `
-                        <div class="thumbnail" onclick="openVideoModal('${video.title}', '${video.uploader}', '${video.videoUrl}')">
-                            <div class="play-icon">▶</div>
-                        </div>
-                        <div class="card-info">
-                            <div class="video-title">${video.title}</div>
-                            <div class="uploader">
-                                ${video.uploader} <span class="verified-badge">✔</span>
-                            </div>
-                            <div class="card-footer">
-                                <span style="font-size:0.75rem; color:#64748b;">Uploaded 2h ago</span>
-                                <button class="like-btn ${likeClass}" onclick="toggleLike(${video.id})">
-                                    <span class="heart-icon">${heartType}</span> 
-                                    <span>${video.likes}</span>
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                }
-            });
-        }
-
-        // Filter Logic: 새 카테고리 제목 적용
-        function filterVideos(category) {
-            renderVideos(category);
-            const buttons = document.querySelectorAll('.category-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            
-            const titles = {
-                'all': 'Explore All Robotics',
-                'humanoid': 'Humanoid & Bipedal Systems',
-                'automation': 'Industrial Automation & Manufacturing',
-                'retail': 'Retail, Service & Domestic Robots',
-                'farm': 'Agriculture, Farm & Logistics',
-                'software': 'Software & AI Frameworks',
-                'components': 'Hardware, Sensors & Parts'
-            };
-            document.getElementById('page-title').innerText = titles[category];
-        }
-
-        // Like Logic (로직 단순화 적용됨)
-        function toggleLike(id) {
-            const video = videos.find(v => v.id === id);
-            if (video) {
-                if (video.isLiked) {
-                    video.likes--;
-                    video.isLiked = false;
-                } else {
-                    video.likes++;
-                    video.isLiked = true;
-                }
-                
-                const activeBtn = document.querySelector('.category-btn.active');
-                const currentCategory = activeBtn ? activeBtn.getAttribute('onclick').split("'")[1] : 'all';
-                renderVideos(currentCategory);
-            }
-        }
-
-        // --- UPLOAD MODAL LOGIC ---
-        function openUploadModal() { document.getElementById('upload-modal').style.display = 'flex'; }
-        function closeUploadModal() { document.getElementById('upload-modal').style.display = 'none'; }
-
-        function uploadVideo() {
-            const title = document.getElementById('new-title').value;
-            const category = document.getElementById('new-category').value;
-            const uploader = document.getElementById('new-uploader').value;
-
-            if (!title || !category) {
-                alert("Systems Check Failed: Please enter title and category.");
-                return;
-            }
-
-            const newVideo = {
-                id: Date.now(),
-                title: title,
-                category: category,
-                uploader: uploader,
-                likes: 0,
-                isLiked: false,
-                videoUrl: "dQw4w9WgXcQ" 
-            };
-
-            videos.unshift(newVideo);
-            renderVideos('all');
-            closeUploadModal();
-            document.getElementById('new-title').value = '';
-        }
-        
-        // --- 극장 모드 (Theater Mode) 로직 ---
-        function openVideoModal(title, uploader, videoId) {
-            const modal = document.getElementById('video-player-modal');
-            const iframe = document.getElementById('video-iframe');
-            
-            document.getElementById('player-title').innerHTML = `🎬 ${title} <span style="font-size: 0.8em; color: var(--accent);">by ${uploader}</span>`;
-            
-            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&mute=0`;
-            
-            modal.style.display = 'flex';
-        }
-
-        function closeVideoModal() {
-            const iframe = document.getElementById('video-iframe');
-            
-            iframe.src = "";
-            document.getElementById('video-player-modal').style.display = 'none';
-        }
-
-
-        // Initial Render
-        renderVideos('all');
-    </script>
-</body>
-
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            {
