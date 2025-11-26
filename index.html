@@ -11,7 +11,7 @@
         :root {
             --bg-dark: #0f172a;      /* Deep Space Blue */
             --bg-panel: #1e293b;     /* Lighter panel */
-            --accent: #3b82f6;       /* Electric Blue */
+            --accent: #3b82f6;       /* Electric Blue (다른 요소에 사용됨) */
             --accent-glow: #60a5fa;
             --text-main: #f1f5f9;
             --text-muted: #94a3b8;
@@ -22,10 +22,11 @@
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
 
         body { 
-            background-color: #f0f4f8; 
-            background-image: radial-gradient(circle at 10% 20%, #1e293b 0%, #0f172a 90%);
+            /* 💡 배경 색상 변수 사용 (배경 패턴 유지) */
+            background-color: var(--bg-dark); 
+            background-image: radial-gradient(circle at 10% 20%, var(--bg-panel) 0%, var(--bg-dark) 90%);
             color: var(--text-main); 
-            font-family: 'Roboto', sans-serif; /* 👈 Roboto 폰트 적용 */
+            font-family: 'Roboto', sans-serif;
             display: flex; flex-direction: column; height: 100vh; 
         }
 
@@ -41,6 +42,13 @@
             border-bottom: 1px solid #334155;
             z-index: 10;
         }
+        
+        /* 로고 링크 스타일 */
+        .logo-link {
+            text-decoration: none; 
+            color: inherit;        
+            cursor: pointer;      
+        }
 
         .logo { 
             font-family: 'Orbitron', sans-serif; 
@@ -52,15 +60,15 @@
             font-weight: 900; 
         }
         
-        /* New Logo Class: 로고 크기 60px로 확대 */
         .logo-image {
-            height: 60px; /* 로고 높이 확대 */
-            width: auto;  /* 비율 유지 */
+            height: 60px;
+            width: auto; 
             object-fit: contain;
             border-radius: 50%;
         }
-
-        .logo span { color: var(--accent); }
+        
+        /* 💡 로고 span에 적용했던 파란색 스타일은 HTML 인라인에서 노란색으로 직접 덮어씁니다. */
+        /* .logo span { color: var(--accent); } */ 
 
         .auth-buttons { display: flex; gap: 15px; align-items: center; }
         
@@ -102,25 +110,23 @@
         }
 
         .category-btn {
-    text-align: left;
-    background: transparent;
-    border: 1px solid transparent;
-    padding: 14px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    color: var(--text-main);
-    
-    /* ▼▼▼ 폰트 변경 부분 ▼▼▼ */
-    font-family: 'Chakra Petch', sans-serif; /* Scientific Gothic 스타일 적용 */
-    font-size: 1.1rem;                   /* 폰트가 얇으므로 크기를 약간 키움 */
-    font-weight: 600;                    /* 두께감을 줌 */
-    text-transform: uppercase;           /* 모든 글자를 대문자로 (더 로봇 느낌 남) */
-    letter-spacing: 1px;                 /* 자간을 넓혀 가독성 확보 */
-    /* ▲▲▲ 폰트 변경 부분 ▲▲▲ */
+            text-align: left;
+            background: transparent;
+            border: 1px solid transparent;
+            padding: 14px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-main);
+            
+            font-family: 'Chakra Petch', sans-serif; 
+            font-size: 1.1rem;                   
+            font-weight: 600;                    
+            text-transform: uppercase;           
+            letter-spacing: 1px;                 
 
-    display: flex; align-items: center; gap: 12px;
-    transition: all 0.2s;
-}
+            display: flex; align-items: center; gap: 12px;
+            transition: all 0.2s;
+        }
         
         .category-btn:hover { 
             background: rgba(255,255,255,0.05); 
@@ -227,7 +233,7 @@
             justify-content: center; align-items: center; z-index: 100;
         }
         .modal-content {
-            background: #1e293b; padding: 2.5rem; border-radius: 12px; width: 450px; 
+            background: var(--bg-panel); padding: 2.5rem; border-radius: 12px; width: 450px; 
             border: 1px solid #334155; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             color: var(--text-main);
         }
@@ -243,7 +249,7 @@
         
         .form-input, select { 
             width: 100%; padding: 12px; margin: 10px 0; 
-            background: #0f172a; border: 1px solid #334155; 
+            background: var(--bg-dark); border: 1px solid #334155; 
             border-radius: 6px; color: white; font-size: 0.95rem;
         }
         .form-input:focus { border-color: var(--accent); }
@@ -253,14 +259,16 @@
 <body>
 
     <header>
-        <div class="logo">
-            <img src="Xmas logo.png" alt="LearnRobot 로고" class="logo-image">
-            <span style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; letter-spacing: 1px; color: var(--text-main);">LEARN<span style="color: yellow;">ROBOT</span></span>
-        </div>
+        <a href="#" class="logo-link">
+            <div class="logo">
+                <img src="Xmas logo.png" alt="LearnRobot 로고" class="logo-image">
+                <span style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; letter-spacing: 1px; color: var(--text-main);">LEARN<span style="color: YELLOW;">ROBOT</span></span>
+            </div>
+        </a>
         <div class="auth-buttons">
             <div style="display:flex; align-items:center; gap:12px; margin-right:15px; border-right: 1px solid #334155; padding-right: 20px;">
                 <div style="width:32px; height:32px; background: linear-gradient(45deg, #3b82f6, #8b5cf6); border-radius:50%;"></div>
-                <span style="font-weight:900; font-size:1.5rem; color:light green;"> have a good day</span>
+                <span style="font-weight:900; font-size:1.5rem; color:light green;">your robot name here</span>
             </div>
             <button class="btn btn-primary" onclick="openUploadModal()">+ Upload Robot</button>
         </div>
@@ -281,10 +289,10 @@
             
             <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid #334155; text-align: left;">
                 
-                <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 5px; font-family: 'Chakra Petch', sans-serif; font-weight: 600; text-transform: uppercase;">Contact</p>
+                <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 5px; font-family: 'Chakra Petch', sans-serif; font-weight: 600; text-transform: uppercase;">Contact Support</p>
                 
                 <a href="mailto:learnrobot@learnrobot.com" 
-   style="color: yellow; /* 노란색/금색 고정 */
+   style="color: #facc15; /* 💡 기본색: 노란색/금색 고정 */
           text-decoration: none; 
           font-size: 0.85rem; 
           display: flex; 
@@ -292,7 +300,7 @@
           gap: 8px; 
           transition: 0.3s; 
           font-family: 'Chakra Petch', sans-serif;" 
-   onmouseover="this.style.color='#fff'" 
+   onmouseover="this.style.color='#fff'" /* 💡 호버 시: 흰색 */
    onmouseout="this.style.color='#facc15'"> learnrobot@learnrobot.com
 </a>
             </div>
@@ -496,22 +504,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
