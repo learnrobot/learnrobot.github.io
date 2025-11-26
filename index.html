@@ -7,42 +7,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Orbitron:wght@500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- FUTURE TECH CSS STYLES (DARK MODE - LESS BLUE) --- */
+        /* --- FUTURE TECH CSS STYLES --- */
         :root {
-            /* 💡 배경 관련 색상을 짙은 회색/검은색 계열로 변경하여 눈부심 방지 */
-            --bg-dark: #181a24;      /* Deep Charcoal Gray */
-            --bg-panel: #242733;     /* Darker panel */
-            --accent: #3b82f6;       /* Electric Blue (유지) */
+            --bg-dark: #0f172a;      /* Deep Space Blue */
+            --bg-panel: #1e293b;     /* Lighter panel */
+            --accent: #3b82f6;       /* Electric Blue */
             --accent-glow: #60a5fa;
-            --text-main: #f1f5f9;    /* Light text */
-            --text-muted: #a1a3b8;   /* Muted light gray */
-            --border-color: #3e445b; /* Soft dark border */
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
             --sidebar-width: 280px;
-            --card-glass: rgba(36, 39, 51, 0.7); /* Dark semi-transparent card */
+            --card-glass: rgba(30, 41, 59, 0.7);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
 
         body { 
-            /* 배경: 짙은 회색과 미세한 그리드 패턴의 조합 */
-            background-color: var(--bg-dark); 
-            background-image: radial-gradient(circle at 50% 10%, var(--bg-panel) 0%, var(--bg-dark) 80%);
+            background-color: #f0f4f8; 
+            background-image: radial-gradient(circle at 10% 20%, #1e293b 0%, #0f172a 90%);
             color: var(--text-main); 
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Roboto', sans-serif; /* 👈 Roboto 폰트 적용 */
             display: flex; flex-direction: column; height: 100vh; 
         }
 
         /* --- HEADER --- */
         header {
-            /* 투명도를 주어 배경 패턴이 은은하게 보이도록 합니다. */
-            background: rgba(24, 26, 36, 0.9);
-            backdrop-filter: blur(8px);
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
             height: 80px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 2.5rem;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #334155;
             z-index: 10;
         }
 
@@ -52,13 +48,14 @@
             letter-spacing: 1px;
             color: var(--text-main); 
             display: flex; align-items: center; gap: 10px; 
-            text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
             font-weight: 900; 
         }
         
+        /* New Logo Class: 로고 크기 60px로 확대 */
         .logo-image {
-            height: 60px;
-            width: auto;
+            height: 60px; /* 로고 높이 확대 */
+            width: auto;  /* 비율 유지 */
             object-fit: contain;
             border-radius: 50%;
         }
@@ -95,45 +92,47 @@
 
         /* --- SIDEBAR --- */
         aside {
-            /* 투명도를 주어 배경 패턴이 은은하게 보이도록 합니다. */
-            background: rgba(24, 26, 36, 0.6);
             width: var(--sidebar-width);
+            background: rgba(15, 23, 42, 0.5);
             padding: 2rem 1.5rem;
             display: flex;
             flex-direction: column;
             gap: 8px;
-            border-right: 1px solid var(--border-color);
+            border-right: 1px solid #334155;
         }
 
         .category-btn {
-            text-align: left;
-            background: transparent;
-            border: 1px solid transparent;
-            padding: 14px 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            color: var(--text-main);
-            
-            font-family: 'Chakra Petch', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: flex; align-items: center; gap: 12px;
-            transition: all 0.2s;
-        }
+    text-align: left;
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 14px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--text-main);
+    
+    /* ▼▼▼ 폰트 변경 부분 ▼▼▼ */
+    font-family: 'Chakra Petch', sans-serif; /* Scientific Gothic 스타일 적용 */
+    font-size: 1.1rem;                   /* 폰트가 얇으므로 크기를 약간 키움 */
+    font-weight: 600;                    /* 두께감을 줌 */
+    text-transform: uppercase;           /* 모든 글자를 대문자로 (더 로봇 느낌 남) */
+    letter-spacing: 1px;                 /* 자간을 넓혀 가독성 확보 */
+    /* ▲▲▲ 폰트 변경 부분 ▲▲▲ */
+
+    display: flex; align-items: center; gap: 12px;
+    transition: all 0.2s;
+}
         
         .category-btn:hover { 
-            background: rgba(255,255,255,0.08); 
+            background: rgba(255,255,255,0.05); 
             color: white; 
         }
         
         .category-btn.active { 
-            background: rgba(59, 130, 246, 0.15); 
-            border: 1px solid rgba(59, 130, 246, 0.4);
+            background: rgba(59, 130, 246, 0.1); 
+            border: 1px solid rgba(59, 130, 246, 0.3);
             color: var(--accent); 
-            font-weight: 700;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+            font-weight: 600;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
         }
 
         /* --- MAIN CONTENT --- */
@@ -157,25 +156,23 @@
         /* --- CARD DESIGN --- */
         .video-card {
             background: var(--card-glass);
-            border: 1px solid var(--border-color);
+            border: 1px solid #334155;
             border-radius: 12px;
             overflow: hidden;
             transition: all 0.3s ease;
             position: relative;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4); 
         }
 
         .video-card:hover { 
             transform: translateY(-8px); 
             border-color: var(--accent);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
         }
 
         .thumbnail {
             height: 180px;
-            /* 💡 짙은 패턴으로 변경 (다크 그레이 체커보드) */
-            background: var(--bg-panel); 
-            background-image: linear-gradient(45deg, #181a24 25%, #242733 25%, #242733 50%, #181a24 50%, #181a24 75%, #242733 75%, #242733 100%);
+            background: #2d3748; 
+            background-image: linear-gradient(45deg, #1e293b 25%, #2d3748 25%, #2d3748 50%, #1e293b 50%, #1e293b 75%, #2d3748 75%, #2d3748 100%);
             background-size: 20px 20px;
             position: relative;
             display: flex; align-items: center; justify-content: center;
@@ -194,7 +191,7 @@
         .video-card:hover .play-icon { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 15px var(--accent); }
 
         .card-info { padding: 1.2rem; }
-        .video-title { font-weight: 700; margin-bottom: 8px; font-size: 1.1rem; color: var(--text-main); }
+        .video-title { font-weight: 600; margin-bottom: 8px; font-size: 1.1rem; color: var(--text-main); }
         
         .uploader { 
             font-size: 0.85rem; color: var(--text-muted); 
@@ -205,7 +202,7 @@
 
         .card-footer {
             display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px solid rgba(255,255,255,0.08); 
+            border-top: 1px solid rgba(255,255,255,0.05);
             padding-top: 12px;
         }
 
@@ -230,8 +227,8 @@
             justify-content: center; align-items: center; z-index: 100;
         }
         .modal-content {
-            background: var(--bg-panel); padding: 2.5rem; border-radius: 12px; width: 450px; 
-            border: 1px solid var(--border-color); box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            background: #1e293b; padding: 2.5rem; border-radius: 12px; width: 450px; 
+            border: 1px solid #334155; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             color: var(--text-main);
         }
         
@@ -246,19 +243,10 @@
         
         .form-input, select { 
             width: 100%; padding: 12px; margin: 10px 0; 
-            background: var(--bg-dark); border: 1px solid var(--border-color); 
+            background: #0f172a; border: 1px solid #334155; 
             border-radius: 6px; color: white; font-size: 0.95rem;
         }
         .form-input:focus { border-color: var(--accent); }
-        
-        /* Contact Support Link Fix */
-        aside div p {
-            color: var(--text-muted) !important;
-        }
-        aside div a {
-            color: var(--text-main) !important;
-        }
-
 
     </style>
 </head>
@@ -270,9 +258,9 @@
             <span style="font-family: 'Orbitron', sans-serif; font-size: 1.8rem; letter-spacing: 1px; color: var(--text-main);">LEARN<span style="color: var(--accent);">ROBOT</span></span>
         </div>
         <div class="auth-buttons">
-            <div style="display:flex; align-items:center; gap:12px; margin-right:15px; border-right: 1px solid var(--border-color); padding-right: 20px;">
+            <div style="display:flex; align-items:center; gap:12px; margin-right:15px; border-right: 1px solid #334155; padding-right: 20px;">
                 <div style="width:32px; height:32px; background: linear-gradient(45deg, #3b82f6, #8b5cf6); border-radius:50%;"></div>
-                <span style="font-weight:900; font-size:1.5rem; color:var(--text-main);">your robot name here</span>
+                <span style="font-weight:900; font-size:1.5rem; color:light green;">your robot name here</span>
             </div>
             <button class="btn btn-primary" onclick="openUploadModal()">+ Upload Robot</button>
         </div>
@@ -287,4 +275,240 @@
             <button class="category-btn" onclick="filterVideos('Service')">Service</button>
             <button class="category-btn" onclick="filterVideos('farm')">Farm</button>
             <button class="category-btn" onclick="filterVideos('Logistics')">Logistics</button>
-            <button class="category-
+            <button class="category-btn" onclick="filterVideos('software')">Software</button>
+            <button class="category-btn" onclick="filterVideos('AI')">AI</button>
+            <button class="category-btn" onclick="filterVideos('components')">Components</button>
+            
+            <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid #334155; text-align: left;">
+                
+                <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 5px; font-family: 'Chakra Petch', sans-serif; font-weight: 600; text-transform: uppercase;">Contact Support</p>
+                
+                <a href="mailto:learnrobot@learnrobot.com" 
+   style="color: yellow; /* 노란색/금색 고정 */
+          text-decoration: none; 
+          font-size: 0.85rem; 
+          display: flex; 
+          align-items: center; 
+          gap: 8px; 
+          transition: 0.3s; 
+          font-family: 'Chakra Petch', sans-serif;" 
+   onmouseover="this.style.color='#fff'" 
+   onmouseout="this.style.color='#facc15'"> learnrobot@learnrobot.com
+</a>
+            </div>
+            </aside>
+
+        <main>
+            <h2 id="page-title">Let people learn your Robot</h2>
+            <div class="video-grid" id="video-container">
+                </div>
+        </main>
+    </div>
+
+    <div id="upload-modal" class="modal">
+        <div class="modal-content">
+            <h3>Initialize Upload</h3>
+            <p style="color:#94a3b8; font-size: 0.9rem; margin-bottom: 20px;">Share your technology with the world.</p>
+            
+            <input type="text" id="new-title" class="form-input" placeholder="Project Title (e.g., Atlas V2)">
+            <input type="text" id="new-uploader" class="form-input" value="Boston Dynamics" readonly style="opacity:0.6; cursor: not-allowed;">
+            
+            <select id="new-category" class="form-input">
+                <option value="" disabled selected>Select Classification...</option>
+                <option value="humanoid">Humanoid</option>
+                <option value="automation">Automation</option>
+                <option value="retail">Retail / Service</option>
+                <option value="farm">Farm / Logistics</option>
+                <option value="software">Software / AI</option>
+                <option value="components">Components</option>
+            </select>
+
+            <div style="border: 2px dashed #334155; padding: 30px; border-radius: 8px; color: #64748b; margin: 15px 0; text-align: center; cursor: pointer; transition: 0.2s;" onmouseover="this.style.borderColor='#3b82f6'" onmouseout="this.style.borderColor='#334155'">
+                📂 Drop Video File
+            </div>
+
+            <button class="btn btn-primary" style="width:100%; margin-top: 10px;" onclick="uploadVideo()">Launch Video</button>
+            <button class="btn btn-login" style="margin-top: 10px; width:100%" onclick="closeUploadModal()">Abort</button>
+        </div>
+    </div>
+    
+    <div id="video-player-modal" class="modal">
+        <div class="modal-content">
+            <div id="video-content" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;">
+                <iframe 
+                    id="video-iframe"
+                    width="100%" 
+                    height="100%" 
+                    src="" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen 
+                    style="position: absolute; top: 0; left: 0;"
+                ></iframe>
+            </div>
+            <div style="padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #334155;">
+                <h3 id="player-title" style="margin: 0; font-size: 1.2rem;"></h3>
+                <button class="btn btn-login" onclick="closeVideoModal()" style="color: #ef4444; border: 1px solid #ef4444; padding: 8px 15px;">닫기 (Close)</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        /* --- JAVASCRIPT LOGIC --- */
+
+        // Updated Data with IDs and Likes (비디오 데이터: 새 카테고리 적용)
+        let videos = [
+            { id: 1, title: "Atlas Parkour Test", category: "humanoid", uploader: "Boston Dynamics", likes: 1240, isLiked: false, videoUrl: "dQw4w9WgXcQ" }, 
+            { id: 2, title: "Assembly Line Speed", category: "automation", uploader: "Kuka Robotics", likes: 85, isLiked: false, videoUrl: "g1I7K590cW0" }, 
+            { id: 3, title: "Roomba AI Mapping", category: "retail", uploader: "iRobot", likes: 342, isLiked: false, videoUrl: "J-y3-75x44A" }, 
+            { id: 4, title: "Barista Bot V1", category: "retail", uploader: "Cafe X", likes: 890, isLiked: false, videoUrl: "5qap5aO4i9A" }, 
+            { id: 5, title: "Lidar Night Test", category: "farm", uploader: "Waymo", likes: 567, isLiked: false, videoUrl: "vQ823t7Dk6k" }, 
+            { id: 6, title: "Ameca Conversation", category: "humanoid", uploader: "Engineered Arts", likes: 2100, isLiked: false, videoUrl: "6aJ7k7_7c5A" },
+        ];
+
+        // Render Function
+        function renderVideos(filter) {
+            const container = document.getElementById('video-container');
+            container.innerHTML = ''; 
+            
+            videos.forEach(video => {
+                if (filter === 'all' || video.category === filter) {
+                    const card = document.createElement('div');
+                    card.className = 'video-card';
+                    
+                    const likeClass = video.isLiked ? 'liked' : '';
+                    const heartType = video.isLiked ? '❤' : '♡'; 
+
+                    card.innerHTML = `
+                        <div class="thumbnail" onclick="openVideoModal('${video.title}', '${video.uploader}', '${video.videoUrl}')">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="card-info">
+                            <div class="video-title">${video.title}</div>
+                            <div class="uploader">
+                                ${video.uploader} <span class="verified-badge">✔</span>
+                            </div>
+                            <div class="card-footer">
+                                <span style="font-size:0.75rem; color:#64748b;">Uploaded 2h ago</span>
+                                <button class="like-btn ${likeClass}" onclick="toggleLike(${video.id})">
+                                    <span class="heart-icon">${heartType}</span> 
+                                    <span>${video.likes}</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                }
+            });
+        }
+
+        // Filter Logic: 새 카테고리 제목 적용
+        function filterVideos(category) {
+            renderVideos(category);
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            const titles = {
+                'all': 'Explore All Robotics',
+                'humanoid': 'Humanoid & Bipedal Systems',
+                'automation': 'Industrial Automation & Manufacturing',
+                'retail': 'Retail, Service & Domestic Robots',
+                'farm': 'Agriculture, Farm & Logistics',
+                'software': 'Software & AI Frameworks',
+                'components': 'Hardware, Sensors & Parts'
+            };
+            document.getElementById('page-title').innerText = titles[category];
+        }
+
+        // Like Logic (로직 단순화 적용됨)
+        function toggleLike(id) {
+            const video = videos.find(v => v.id === id);
+            if (video) {
+                if (video.isLiked) {
+                    video.likes--;
+                    video.isLiked = false;
+                } else {
+                    video.likes++;
+                    video.isLiked = true;
+                }
+                
+                const activeBtn = document.querySelector('.category-btn.active');
+                const currentCategory = activeBtn ? activeBtn.getAttribute('onclick').split("'")[1] : 'all';
+                renderVideos(currentCategory);
+            }
+        }
+
+        // --- UPLOAD MODAL LOGIC ---
+        function openUploadModal() { document.getElementById('upload-modal').style.display = 'flex'; }
+        function closeUploadModal() { document.getElementById('upload-modal').style.display = 'none'; }
+
+        function uploadVideo() {
+            const title = document.getElementById('new-title').value;
+            const category = document.getElementById('new-category').value;
+            const uploader = document.getElementById('new-uploader').value;
+
+            if (!title || !category) {
+                alert("Systems Check Failed: Please enter title and category.");
+                return;
+            }
+
+            const newVideo = {
+                id: Date.now(),
+                title: title,
+                category: category,
+                uploader: uploader,
+                likes: 0,
+                isLiked: false,
+                videoUrl: "dQw4w9WgXcQ" 
+            };
+
+            videos.unshift(newVideo);
+            renderVideos('all');
+            closeUploadModal();
+            document.getElementById('new-title').value = '';
+        }
+        
+        // --- 극장 모드 (Theater Mode) 로직 ---
+        function openVideoModal(title, uploader, videoId) {
+            const modal = document.getElementById('video-player-modal');
+            const iframe = document.getElementById('video-iframe');
+            
+            document.getElementById('player-title').innerHTML = `🎬 ${title} <span style="font-size: 0.8em; color: var(--accent);">by ${uploader}</span>`;
+            
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&mute=0`;
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeVideoModal() {
+            const iframe = document.getElementById('video-iframe');
+            
+            iframe.src = "";
+            document.getElementById('video-player-modal').style.display = 'none';
+        }
+
+
+        // Initial Render
+        renderVideos('all');
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
