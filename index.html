@@ -338,10 +338,30 @@
             </div>
 
             <button class="btn btn-primary" style="width:100%; margin-top: 10px;" onclick="uploadVideo()">Launch Video</button>
-            <button class="btn btn-login" style="margin-top: 10px; width:100%" onclick="closeUploadModal()">Close</button>
+            <button class="btn btn-login" style="margin-top: 10px; width:100%" onclick="closeUploadModal()">Abort</button>
         </div>
     </div>
     
+    <div id="notice-modal" class="modal">
+        <div class="modal-content" style="width: 400px; text-align: center;">
+            <h3 style="color: #ef4444; font-size: 1.8rem; margin-bottom: 5px;">⚠️ 서비스 임시 중단 ⚠️</h3>
+            <p style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px;">
+                **LearnRobot이 더 나은 모습으로 돌아오기 위해 점검 중입니다.**<br>
+                정식 서비스 오픈까지 잠시만 기다려주세요.
+            </p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 15px;">
+                * 일부 기능은 테스트를 위해 제한됩니다.
+            </p>
+            
+            <p style="color: var(--accent-glow); font-size: 0.9rem; font-weight: 600; margin-top: 10px;">
+                (This notice will not appear again for 7 days.)
+            </p>
+            
+            <button class="btn btn-primary" style="width:100%; margin-top: 15px;" onclick="closeNoticeModal()">확인 (Confirm)</button>
+        </div>
+    </div>
+
+
     <div id="video-player-modal" class="modal">
         <div class="modal-content">
             <div id="video-content" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;">
@@ -453,6 +473,19 @@
         // --- UPLOAD MODAL LOGIC ---
         function openUploadModal() { document.getElementById('upload-modal').style.display = 'flex'; }
         function closeUploadModal() { document.getElementById('upload-modal').style.display = 'none'; }
+        
+        // 💡 새로 추가된 공지 팝업 닫기 함수 (닫을 때 localStorage에 저장)
+        function closeNoticeModal() {
+            document.getElementById('notice-modal').style.display = 'none';
+            
+            // 7일 후 만료 시간 설정
+            const expirationDate = new Date();
+            expirationDate.setDate(expirationDate.getDate() + 7); // 현재 날짜 + 7일
+            
+            // localStorage에 닫힘 플래그와 만료 시간을 저장
+            localStorage.setItem('noticeClosed', 'true');
+            localStorage.setItem('noticeClosedExpiry', expirationDate.getTime());
+        }
 
         function uploadVideo() {
             const title = document.getElementById('new-title').value;
@@ -502,22 +535,26 @@
 
         // Initial Render
         renderVideos('all');
+        
+        // 💡 공지 팝업 표시 로직 (localStorage 확인)
+        const noticeClosed = localStorage.getItem('noticeClosed');
+        const expiry = localStorage.getItem('noticeClosedExpiry');
+        const now = new Date().getTime();
+
+        // 닫은 기록이 없거나, 만료일이 지난 경우에만 팝업을 표시합니다.
+        if (noticeClosed !== 'true' || (expiry && now > expiry)) {
+            document.getElementById('notice-modal').style.display = 'flex';
+            
+            // 만약 만료가 지났다면, 이전 닫힘 플래그를 재설정합니다.
+            if (expiry && now > expiry) {
+                localStorage.removeItem('noticeClosed');
+                localStorage.removeItem('noticeClosedExpiry');
+            }
+        } else {
+            // 닫은 기록이 유효한 경우, 숨김 상태를 유지합니다.
+            document.getElementById('notice-modal').style.display = 'none';
+        }
     </script>
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
