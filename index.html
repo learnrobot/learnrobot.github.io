@@ -534,10 +534,25 @@
         
         // 공지 팝업 표시 로직 (무조건 표시)
         document.getElementById('notice-modal').style.display = 'flex';
+        // --- NOTICE MODAL LOGIC (확인) ---
+        function openNoticeModal() { 
+            document.getElementById('notice-modal').style.display = 'flex'; 
+        }
+        function closeNoticeModal() { 
+            document.getElementById('notice-modal').style.display = 'none'; 
+        }
+
+        // Initial Render
+        renderVideos('all');
+        openNoticeModal(); // 💡 페이지 로드 시 공지 팝업 자동 실행
+    </script>
+</body>
+</html>
     </script>
 </body>
 
 </html>
+
 
 
 
