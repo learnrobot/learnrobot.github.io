@@ -351,14 +351,16 @@
         <div class="modal-content" style="width: 400px; text-align: center;">
             
             <img src="Xmas logo2.png" alt="Xmas 로고" 
-                 style="width: 180px; 
-                height: 180px; 
-                border: none; 
-                margin: 0 auto 20px auto; 
-                display: block; 
-                border: 3px solid #ef4444;"
-                background-color: var(--bg-panel); 
-                     ">
+                 style="width: 180px;
+                        height: 180px;
+                        /* ✅ 원형을 만드는 필수 속성 */
+                        border-radius: 50%;
+                        margin: 0 auto 20px auto; 
+                        display: block; 
+                        /* ✅ background-color를 style 속성 안으로 이동 */
+                        background-color: var(--bg-panel); 
+                        border: 3px solid #ef4444;"
+                 >
             <h3 style="color: var(--accent); font-size: 1.8rem; margin-bottom: 5px;">Welcome to Learnrobot.com.</h3>
             <p style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px;">
                 We are preparing the official launch of the website.
@@ -558,6 +560,7 @@
 </body>
 
 </html>
+
 
 
 
