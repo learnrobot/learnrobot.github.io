@@ -11,10 +11,10 @@
         :root {
             --bg-dark: #0f172a;      /* Deep Space Blue */
             --bg-panel: #1e293b;     /* Lighter panel */
-            --accent: #FFFB03;       /* Electric Blue (다른 요소에 사용됨) */
-            --accent-glow: #C5E3C1;
-            --text-main: #C5E3C1;
-            --text-muted: #C5E3C1;
+            --accent: #3b82f6;       /* Electric Blue (다른 요소에 사용됨) */
+            --accent-glow: #60a5fa;
+            --text-main: #f1f5f9;
+            --text-muted: #F7F200;   /* F7F200 색상 유지 */
             --sidebar-width: 280px;
             --card-glass: rgba(30, 41, 59, 0.7);
         }
@@ -22,11 +22,11 @@
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
 
         body { 
-            /* 💡 배경 색상 변수 사용 (배경 패턴 유지) */
+            /* 💡 body는 Chakra Petch로 유지, 섹션에서 덮어씁니다. */
             background-color: var(--bg-dark); 
             background-image: radial-gradient(circle at 10% 20%, var(--bg-panel) 0%, var(--bg-dark) 90%);
             color: var(--text-main); 
-            font-family: 'Chakra Petch', sans-serif; /* ✅ 폰트 이름 오타 수정 */
+            font-family: 'Chakra Petch', sans-serif;
             display: flex; flex-direction: column; height: 100vh; 
         }
 
@@ -66,9 +66,6 @@
             object-fit: contain;
             border-radius: 50%;
         }
-        
-        /* 💡 로고 span에 적용했던 파란색 스타일은 HTML 인라인에서 노란색으로 직접 덮어씁니다. */
-        /* .logo span { color: var(--accent); } */ 
 
         .auth-buttons { display: flex; gap: 15px; align-items: center; }
         
@@ -86,9 +83,9 @@
         .btn-login:hover { color: var(--text-main); }
         
         .btn-primary { 
-            background: #2A7070; /* 원하는 단색으로 변경 */
+            background: linear-gradient(135deg, var(--accent), #2563eb); 
             color: white; 
-            box-shadow: 0 4px 15px rgba(255, 165, 0, 0.5); /* 그림자 색상도 변경 */
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
         }
         .btn-primary:hover { 
             transform: translateY(-2px); 
@@ -101,7 +98,7 @@
         /* --- SIDEBAR --- */
         aside {
             width: var(--sidebar-width);
-            background: rgba(15, 23, 42, 0.5);
+            background: #0A111E; /* 배경색 유지 */
             padding: 2rem 1.5rem;
             display: flex;
             flex-direction: column;
@@ -109,6 +106,7 @@
             border-right: 1px solid #334155;
         }
 
+        /* 사이드바 버튼 글꼴 변경 */
         .category-btn {
             text-align: left;
             background: transparent;
@@ -118,7 +116,7 @@
             cursor: pointer;
             color: var(--text-main);
             
-            font-family: 'Chakra Petch', sans-serif; 
+            font-family: 'Orbitron', sans-serif; /* 폰트 유지 */
             font-size: 1.1rem;                   
             font-weight: 600;                    
             text-transform: uppercase;           
@@ -141,6 +139,11 @@
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
         }
 
+        /* 사이드바 연락처 텍스트 글꼴 변경 */
+        .sidebar-contact-text {
+            font-family: 'Orbitron', sans-serif; /* 폰트 유지 */
+        }
+        
         /* --- MAIN CONTENT --- */
         main { flex: 1; padding: 3rem; overflow-y: auto; }
 
@@ -167,6 +170,7 @@
             overflow: hidden;
             transition: all 0.3s ease;
             position: relative;
+            font-family: 'Chakra Petch', sans-serif; /* 메인 콘텐츠 폰트 유지 */
         }
 
         .video-card:hover { 
@@ -236,7 +240,7 @@
             background: var(--bg-panel); padding: 2.5rem; border-radius: 12px; width: 450px; 
             border: 1px solid #334155; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             color: var(--text-main);
-            font-family: 'Chakra Petch', sans-serif; /* ✅ 팝업 글꼴 지정 */
+            font-family: 'Chakra Petch', sans-serif; /* 팝업 글꼴 유지 */
         }
         
         /* Specific Modal Styles for Video Player */
@@ -268,7 +272,7 @@
         </a>
         <div class="auth-buttons">
             <div style="display:flex; align-items:center; gap:12px; margin-right:15px; border-right: 1px solid #334155; padding-right: 20px;">
-                <div style="width:32px; height:32px; background: #00FF00; border-radius:50%;"></div>
+                <div style="width:32px; height:32px; background: linear-gradient(45deg, #3b82f6, #8b5cf6); border-radius:50%;"></div>
                 <span style="font-weight:900; font-size:1.5rem; color:light green;">your robot name here</span>
             </div>
             <button class="btn btn-primary" onclick="openUploadModal()">+ Upload Robot</button>
@@ -290,17 +294,16 @@
             
             <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid #334155; text-align: left;">
                 
-                <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 5px; font-family: 'Chakra Petch'; font-weight: 600; text-transform: uppercase;">Contact</p>
+                <p class="sidebar-contact-text" style="font-size: 0.8rem; color: #64748b; margin-bottom: 5px; font-weight: 600; text-transform: uppercase;">Contact</p>
                 
-                 <a href="mailto:learnrobot@learnrobot.com" 
+                 <a href="mailto:learnrobot@learnrobot.com" class="sidebar-contact-text"
    style="color: yellow; /* 💡 기본색: 노란색/금색 고정 */
           text-decoration: none; 
           font-size: 0.85rem; 
           display: flex; 
           align-items: center; 
           gap: 8px; 
-          transition: 0.3s; 
-          font-family: 'Chakra Petch', sans-serif;" 
+          transition: 0.3s;" 
    onmouseover="this.style.color='yellow'" 
    onmouseout="this.style.color='#facc15'"
    title=""> learnrobot@learnrobot.com
@@ -345,13 +348,10 @@
     
     <div id="notice-modal" class="modal">
         <div class="modal-content" style="width: 400px; text-align: center;">
-            <h3 style="color: var(--accent); font-size: 1.8rem; margin-bottom: 5px;">🤖 Welcome to Learnrobot.com. We are preparing the official launch of the website. </h3>
-            <p style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px;">
-                <br>
-            </p>
+            <h3 style="color: var(--accent); font-size: 1.8rem; margin-bottom: 5px;">🤖 Welcome to Learnrobot.com.</h3> <p style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px;">
+                We are preparing the official launch of the website. </p>
             <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 15px;">
-                *Site may has limited access to contents.
-            </p>
+                *Site may has limited access to contents. </p>
             
             <button class="btn btn-primary" style="width:100%; margin-top: 15px;" onclick="closeNoticeModal()">Continue to Site</button>
         </div>
@@ -530,17 +530,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
