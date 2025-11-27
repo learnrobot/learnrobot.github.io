@@ -310,4 +310,223 @@
 
         <main>
             <h2 id="page-title">Let people learn your Robot</h2>
-            <div class="video-grid" id="video
+            <div class="video-grid" id="video-container">
+                </div>
+        </main>
+    </div>
+
+    <div id="upload-modal" class="modal">
+        <div class="modal-content">
+            <h3>Initialize Upload</h3>
+            <p style="color:#94a3b8; font-size: 0.9rem; margin-bottom: 20px;">Share your technology with the world.</p>
+            
+            <input type="text" id="new-title" class="form-input" placeholder="Project Title (e.g., Atlas V2)">
+            <input type="text" id="new-uploader" class="form-input" value="Boston Dynamics" readonly style="opacity:0.6; cursor: not-allowed;">
+            
+            <select id="new-category" class="form-input">
+                <option value="" disabled selected>Select Classification...</option>
+                <option value="humanoid">Humanoid</option>
+                <option value="automation">Automation</option>
+                <option value="retail">Retail / Service</option>
+                <option value="farm">Farm / Logistics</option>
+                <option value="software">Software / AI</option>
+                <option value="components">Components</option>
+            </select>
+
+            <div style="border: 2px dashed #334155; padding: 30px; border-radius: 8px; color: #64748b; margin: 15px 0; text-align: center; cursor: pointer; transition: 0.2s;" onmouseover="this.style.borderColor='#3b82f6'" onmouseout="this.style.borderColor='#334155'">
+                📂 Drop Video File
+            </div>
+
+            <button class="btn btn-primary" style="width:100%; margin-top: 10px;" onclick="uploadVideo()">Launch Video</button>
+            <button class="btn btn-login" style="margin-top: 10px; width:100%" onclick="closeUploadModal()">Abort</button>
+        </div>
+    </div>
+    
+    <div id="notice-modal" class="modal">
+        <div class="modal-content" style="width: 400px; text-align: center;">
+            <h3 style="color: var(--accent); font-size: 1.8rem; margin-bottom: 5px;">🚀 Grand Launch System Check 🚀</h3>
+            <p style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px;">
+                **We are performing final system initialization for the official launch of LearnRobot.**<br>
+                We appreciate your patience as we prepare the ultimate robotics learning platform!
+            </p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 15px;">
+                * Site access is currently limited for internal testing purposes.
+            </p>
+            
+            <button class="btn btn-primary" style="width:100%; margin-top: 15px;" onclick="closeNoticeModal()">Continue to Site</button>
+        </div>
+    </div>
+
+
+    <div id="video-player-modal" class="modal">
+        <div class="modal-content">
+            <div id="video-content" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;">
+                <iframe 
+                    id="video-iframe"
+                    width="100%" 
+                    height="100%" 
+                    src="" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen 
+                    style="position: absolute; top: 0; left: 0;"
+                ></iframe>
+            </div>
+            <div style="padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #334155;">
+                <h3 id="player-title" style="margin: 0; font-size: 1.2rem;"></h3>
+                <button class="btn btn-login" onclick="closeVideoModal()" style="color: #ef4444; border: 1px solid #ef4444; padding: 8px 15px;"> Close </button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        /* --- JAVASCRIPT LOGIC --- */
+
+        // Updated Data with IDs and Likes (비디오 데이터: 새 카테고리 적용)
+        let videos = [
+            { id: 1, title: "Atlas Parkour Test", category: "humanoid", uploader: "Boston Dynamics", likes: 1240, isLiked: false, videoUrl: "dQw4w9WgXcQ" }, 
+            { id: 2, title: "Assembly Line Speed", category: "automation", uploader: "Kuka Robotics", likes: 85, isLiked: false, videoUrl: "g1I7K590cW0" }, 
+            { id: 3, title: "Roomba AI Mapping", category: "retail", uploader: "iRobot", likes: 342, isLiked: false, videoUrl: "J-y3-75x44A" }, 
+            { id: 4, title: "Barista Bot V1", category: "retail", uploader: "Cafe X", likes: 890, isLiked: false, videoUrl: "5qap5aO4i9A" }, 
+            { id: 5, title: "Lidar Night Test", category: "farm", uploader: "Waymo", likes: 567, isLiked: false, videoUrl: "vQ823t7Dk6k" }, 
+            { id: 6, title: "Ameca Conversation", category: "humanoid", uploader: "Engineered Arts", likes: 2100, isLiked: false, videoUrl: "6aJ7k7_7c5A" },
+        ];
+
+        // Render Function
+        function renderVideos(filter) {
+            const container = document.getElementById('video-container');
+            container.innerHTML = ''; 
+            
+            videos.forEach(video => {
+                if (filter === 'all' || video.category === filter) {
+                    const card = document.createElement('div');
+                    card.className = 'video-card';
+                    
+                    const likeClass = video.isLiked ? 'liked' : '';
+                    const heartType = video.isLiked ? '❤' : '♡'; 
+
+                    card.innerHTML = `
+                        <div class="thumbnail" onclick="openVideoModal('${video.title}', '${video.uploader}', '${video.videoUrl}')">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="card-info">
+                            <div class="video-title">${video.title}</div>
+                            <div class="uploader">
+                                ${video.uploader} <span class="verified-badge">✔</span>
+                            </div>
+                            <div class="card-footer">
+                                <span style="font-size:0.75rem; color:#64748b;">Uploaded 2h ago</span>
+                                <button class="like-btn ${likeClass}" onclick="toggleLike(${video.id})">
+                                    <span class="heart-icon">${heartType}</span> 
+                                    <span>${video.likes}</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                }
+            });
+        }
+
+        // Filter Logic: 새 카테고리 제목 적용
+        function filterVideos(category) {
+            renderVideos(category);
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            const titles = {
+                'all': 'Explore All Robotics',
+                'humanoid': 'Humanoid & Bipedal Systems',
+                'automation': 'Industrial Automation & Manufacturing',
+                'retail': 'Retail, Service & Domestic Robots',
+                'farm': 'Agriculture, Farm & Logistics',
+                'software': 'Software & AI Frameworks',
+                'components': 'Hardware, Sensors & Parts'
+            };
+            document.getElementById('page-title').innerText = titles[category];
+        }
+
+        // Like Logic (로직 단순화 적용됨)
+        function toggleLike(id) {
+            const video = videos.find(v => v.id === id);
+            if (video) {
+                if (video.isLiked) {
+                    video.likes--;
+                    video.isLiked = false;
+                } else {
+                    video.likes++;
+                    video.isLiked = true;
+                }
+                
+                const activeBtn = document.querySelector('.category-btn.active');
+                const currentCategory = activeBtn ? activeBtn.getAttribute('onclick').split("'")[1] : 'all';
+                renderVideos(currentCategory);
+            }
+        }
+
+        // --- UPLOAD MODAL LOGIC ---
+        function openUploadModal() { document.getElementById('upload-modal').style.display = 'flex'; }
+        function closeUploadModal() { document.getElementById('upload-modal').style.display = 'none'; }
+        
+        // ✅ 복구된 팝업 닫기 함수 (localStorage 로직 제거된 상태 유지)
+        function closeNoticeModal() {
+            document.getElementById('notice-modal').style.display = 'none';
+        }
+
+        function uploadVideo() {
+            const title = document.getElementById('new-title').value;
+            const category = document.getElementById('new-category').value;
+            const uploader = document.getElementById('new-uploader').value;
+
+            if (!title || !category) {
+                alert("Systems Check Failed: Please enter title and category.");
+                return;
+            }
+
+            const newVideo = {
+                id: Date.now(),
+                title: title,
+                category: category,
+                uploader: uploader,
+                likes: 0,
+                isLiked: false,
+                videoUrl: "dQw4w9WgXcQ" 
+            };
+
+            videos.unshift(newVideo);
+            renderVideos('all');
+            closeUploadModal();
+            document.getElementById('new-title').value = '';
+        }
+        
+        // --- 극장 모드 (Theater Mode) 로직 ---
+        function openVideoModal(title, uploader, videoId) {
+            const modal = document.getElementById('video-player-modal');
+            const iframe = document.getElementById('video-iframe');
+            
+            document.getElementById('player-title').innerHTML = `🎬 ${title} <span style="font-size: 0.8em; color: var(--accent);">by ${uploader}</span>`;
+            
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&mute=0`;
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeVideoModal() {
+            const iframe = document.getElementById('video-iframe');
+            
+            iframe.src = "";
+            document.getElementById('video-player-modal').style.display = 'none';
+        }
+
+
+        // Initial Render
+        renderVideos('all');
+        
+        // ✅ 복구된 공지 팝업 표시 로직 (무조건 표시하도록 변경)
+        document.getElementById('notice-modal').style.display = 'flex';
+    </script>
+</body>
+
+</html>
