@@ -26,7 +26,7 @@
             background-color: var(--bg-dark); 
             background-image: radial-gradient(circle at 10% 20%, var(--bg-panel) 0%, var(--bg-dark) 90%);
             color: var(--text-main); 
-            font-family: 'Chakra+Petch', sans-serif;
+            font-family: 'Chakra Petch', sans-serif; /* ✅ 폰트 이름 오타 수정 */
             display: flex; flex-direction: column; height: 100vh; 
         }
 
@@ -236,6 +236,7 @@
             background: var(--bg-panel); padding: 2.5rem; border-radius: 12px; width: 450px; 
             border: 1px solid #334155; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             color: var(--text-main);
+            font-family: 'Chakra Petch', sans-serif; /* ✅ 팝업 글꼴 지정 */
         }
         
         /* Specific Modal Styles for Video Player */
@@ -299,7 +300,7 @@
           align-items: center; 
           gap: 8px; 
           transition: 0.3s; 
-          font-family: 'Chakra+Petch', sans-serif;" 
+          font-family: 'Chakra Petch', sans-serif;" 
    onmouseover="this.style.color='yellow'" 
    onmouseout="this.style.color='#facc15'"
    title=""> learnrobot@learnrobot.com
@@ -344,10 +345,9 @@
     
     <div id="notice-modal" class="modal">
         <div class="modal-content" style="width: 400px; text-align: center;">
-            <h3 style="color: var(--accent); font-size: 1.8rem; margin-bottom: 5px;">🚀 Grand Launch System Check 🚀</h3>
+            <h3 style="color: var(--accent); font-size: 1.8rem; margin-bottom: 5px;">🤖 Grand Launch System Check 🤖</h3>
             <p style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px;">
-                **We are performing final system initialization for the official launch of LearnRobot.**<br>
-                We appreciate your patience as we prepare the ultimate robotics learning platform!
+                **We are preparing the official launch of the website.**<br>
             </p>
             <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 15px;">
                 * Site access is currently limited for internal testing purposes.
@@ -470,7 +470,7 @@
         function openUploadModal() { document.getElementById('upload-modal').style.display = 'flex'; }
         function closeUploadModal() { document.getElementById('upload-modal').style.display = 'none'; }
         
-        // ✅ 복구된 팝업 닫기 함수 (localStorage 로직 제거된 상태 유지)
+        // 팝업 닫기 함수
         function closeNoticeModal() {
             document.getElementById('notice-modal').style.display = 'none';
         }
@@ -524,7 +524,7 @@
         // Initial Render
         renderVideos('all');
         
-        // ✅ 복구된 공지 팝업 표시 로직 (무조건 표시하도록 변경)
+        // 공지 팝업 표시 로직 (무조건 표시)
         document.getElementById('notice-modal').style.display = 'flex';
     </script>
 </body>
