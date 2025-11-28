@@ -259,86 +259,11 @@
         }
         .form-input:focus { border-color: var(--accent); }
 
-        /* --- RESPONSIVE MOBILE STYLES --- */
-        .menu-toggle-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-main);
-            font-size: 2rem;
-            cursor: pointer;
-            z-index: 20;
-            padding: 10px;
-            display: none; /* 데스크톱 기본 숨김 */
-        }
-
-        @media (max-width: 1024px) {
-            /* 💡 스크롤 문제 해결: body가 전체 스크롤을 담당하도록 변경 */
-            body {
-                height: auto;
-                min-height: 100vh;
-                overflow-x: hidden; /* 가로 스크롤 방지 */
-            }
-            .container {
-                display: block; /* 사이드바와 메인 콘텐츠를 수직으로 배치 */
-                overflow: visible; /* 메인 콘텐츠가 늘어나는 것을 허용 */
-            }
-            main {
-                padding: 1.5rem; /* 모바일 패딩 축소 */
-                width: 100%;
-                overflow-y: visible; /* body가 스크롤을 담당하므로 해제 */
-            }
-            
-            /* 사이드바 기본 위치 조정 (화면 밖으로 숨김) */
-            aside {
-                position: fixed;
-                height: 100%;
-                top: 0;
-                left: calc(var(--sidebar-width) * -1); /* 화면 밖으로 이동 */
-                z-index: 50;
-                transition: left 0.3s ease;
-                box-shadow: 5px 0 15px rgba(0,0,0,0.5);
-                overflow-y: auto; /* 사이드바 내용 스크롤 허용 */
-            }
-            
-            /* 💡 사이드바가 열렸을 때 */
-            aside.active {
-                left: 0;
-            }
-
-            /* 토글 버튼 표시 */
-            .menu-toggle-btn {
-                display: block;
-            }
-
-            /* 헤더 패딩 및 정렬 조정 */
-            header {
-                padding: 0 1.5rem;
-                justify-content: flex-start; /* 토글 버튼이 앞에 오도록 정렬 */
-                gap: 15px;
-            }
-            
-            /* 비디오 그리드 조정 (2열) */
-            .video-grid {
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-                gap: 1.5rem;
-            }
-            
-            /* 모달 크기 조정 */
-            .modal-content {
-                width: 90vw !important;
-                max-width: 90vw !important;
-            }
-            #video-player-modal .modal-content {
-                width: 95vw;
-            }
-        }
     </style>
 </head>
 <body>
 
     <header>
-        <button id="menu-toggle" class="menu-toggle-btn" onclick="toggleSidebar()">☰</button>
-        
         <a href="#" class="logo-link" title="">
     <div class="logo">
                 <img src="logo.png" alt="LearnRobot 로고" class="logo-image">
@@ -477,9 +402,9 @@
 
 
     <script>
-             /* --- JAVASCRIPT LOGIC (하나로 통합 및 정리) --- */
+        /* --- JAVASCRIPT LOGIC --- */
 
-        // Updated Data with IDs and Likes (비디오 데이터)
+        // Updated Data with IDs and Likes (비디오 데이터: 새 카테고리 적용)
         let videos = [
             { id: 1, title: "Atlas Parkour Test", category: "humanoid", uploader: "Boston Dynamics", likes: 1240, isLiked: false, videoUrl: "dQw4w9WgXcQ" }, 
             { id: 2, title: "Assembly Line Speed", category: "automation", uploader: "Kuka Robotics", likes: 85, isLiked: false, videoUrl: "g1I7K590cW0" }, 
@@ -489,7 +414,7 @@
             { id: 6, title: "Ameca Conversation", category: "humanoid", uploader: "Engineered Arts", likes: 2100, isLiked: false, videoUrl: "6aJ7k7_7c5A" },
         ];
 
-        // --- 1. RENDER & FILTER LOGIC ---
+        // Render Function
         function renderVideos(filter) {
             const container = document.getElementById('video-container');
             container.innerHTML = ''; 
@@ -525,6 +450,7 @@
             });
         }
 
+        // Filter Logic: 새 카테고리 제목 적용
         function filterVideos(category) {
             renderVideos(category);
             const buttons = document.querySelectorAll('.category-btn');
@@ -538,20 +464,12 @@
                 'retail': 'Retail, Service & Domestic Robots',
                 'farm': 'Agriculture, Farm & Logistics',
                 'software': 'Software & AI Frameworks',
-                'components': 'Hardware, Sensors & Parts',
-                'Logistics': 'Agriculture, Farm & Logistics', // 추가된 카테고리도 처리
-                'AI': 'Software & AI Frameworks',
-                'Service': 'Retail, Service & Domestic Robots'
+                'components': 'Hardware, Sensors & Parts'
             };
-            document.getElementById('page-title').innerText = titles[category] || 'Explore Robotics';
-            
-            // 💡 메뉴 필터링 시 사이드바 닫기 (모바일에서 UX 개선)
-            const sidebar = document.querySelector('aside');
-            if (window.innerWidth <= 1024) {
-                 sidebar.classList.remove('active');
-            }
+            document.getElementById('page-title').innerText = titles[category];
         }
 
+        // Like Logic (로직 단순화 적용됨)
         function toggleLike(id) {
             const video = videos.find(v => v.id === id);
             if (video) {
@@ -569,11 +487,15 @@
             }
         }
 
-        // --- 2. MODAL LOGIC (Upload, Notice, Video Player) ---
-
+        // --- UPLOAD MODAL LOGIC ---
         function openUploadModal() { document.getElementById('upload-modal').style.display = 'flex'; }
         function closeUploadModal() { document.getElementById('upload-modal').style.display = 'none'; }
         
+        // 팝업 닫기 함수
+        function closeNoticeModal() {
+            document.getElementById('notice-modal').style.display = 'none';
+        }
+
         function uploadVideo() {
             const title = document.getElementById('new-title').value;
             const category = document.getElementById('new-category').value;
@@ -600,6 +522,7 @@
             document.getElementById('new-title').value = '';
         }
         
+        // --- 극장 모드 (Theater Mode) 로직 ---
         function openVideoModal(title, uploader, videoId) {
             const modal = document.getElementById('video-player-modal');
             const iframe = document.getElementById('video-iframe');
@@ -618,29 +541,54 @@
             document.getElementById('video-player-modal').style.display = 'none';
         }
 
-        function openNoticeModal() { document.getElementById('notice-modal').style.display = 'flex'; }
-        function closeNoticeModal() { document.getElementById('notice-modal').style.display = 'none'; }
 
-        // --- 3. MOBILE SIDEBAR TOGGLE LOGIC ---
-        function toggleSidebar() {
-            const sidebar = document.querySelector('aside');
-            sidebar.classList.toggle('active');
-            
-            // 💡 사이드바 닫을 때 '☰' 아이콘을 'X'로 변경하는 로직 (선택 사항)
-            const toggleBtn = document.getElementById('menu-toggle');
-            if (sidebar.classList.contains('active')) {
-                toggleBtn.innerText = '✕'; 
-            } else {
-                toggleBtn.innerText = '☰';
-            }
+        // Initial Render
+        renderVideos('all');
+        
+        // 공지 팝업 표시 로직 (무조건 표시)
+        document.getElementById('notice-modal').style.display = 'flex';
+        // --- NOTICE MODAL LOGIC (확인) ---
+        function openNoticeModal() { 
+            document.getElementById('notice-modal').style.display = 'flex'; 
         }
-        
-        // --- 4. INITIALIZATION ---
-        
-        // 페이지 로드 시 최초 실행
-        window.onload = function() {
-            renderVideos('all');
-            openNoticeModal();
-        };
+        function closeNoticeModal() { 
+            document.getElementById('notice-modal').style.display = 'none'; 
+        }
 
+        // Initial Render
+        renderVideos('all');
+        openNoticeModal(); // 💡 페이지 로드 시 공지 팝업 자동 실행
     </script>
+</body>
+</html>
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
