@@ -22,12 +22,12 @@
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
 
         body { 
-            /* 💡 [FIX] 모바일 스크롤 처리를 위해 height: 100vh를 해제합니다. */
+            /* 💡 body는 Chakra Petch로 유지, 섹션에서 덮어씁니다. */
             background-color: var(--bg-dark); 
             background-image: radial-gradient(circle at 10% 20%, var(--bg-panel) 0%, var(--bg-dark) 90%);
             color: var(--text-main); 
             font-family: 'Chakra Petch', sans-serif;
-            display: flex; flex-direction: column; 
+            display: flex; flex-direction: column; height: 100vh; 
         }
 
         /* --- HEADER --- */
@@ -259,88 +259,13 @@
         }
         .form-input:focus { border-color: var(--accent); }
 
-        /* --- RESPONSIVE MOBILE STYLES --- */
-        .menu-toggle-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-main);
-            font-size: 2rem;
-            cursor: pointer;
-            z-index: 20;
-            padding: 10px;
-            display: none; /* 데스크톱 기본 숨김 */
-        }
-
-        @media (max-width: 1024px) {
-            /* 💡 [FIX] 스크롤 문제 해결 및 레이아웃 조정 */
-            body {
-                height: auto;
-                min-height: 100vh;
-                overflow-x: hidden; 
-            }
-            .container {
-                display: block; 
-                overflow: visible; 
-            }
-            main {
-                padding: 1.5rem; 
-                width: 100%;
-                overflow-y: visible; 
-            }
-            
-            /* 사이드바 기본 위치 조정 (화면 밖으로 숨김) */
-            aside {
-                position: fixed;
-                height: 100%;
-                top: 0;
-                left: calc(var(--sidebar-width) * -1); /* 화면 밖으로 이동 */
-                z-index: 50;
-                transition: left 0.3s ease;
-                box-shadow: 5px 0 15px rgba(0,0,0,0.5);
-                overflow-y: auto; 
-            }
-            
-            /* 💡 [FIX] 사이드바가 열렸을 때 위치 */
-            aside.active {
-                left: 0;
-            }
-
-            /* 토글 버튼 표시 */
-            .menu-toggle-btn {
-                display: block;
-            }
-
-            /* 헤더 패딩 및 정렬 조정 */
-            header {
-                padding: 0 1.5rem;
-                justify-content: flex-start; 
-                gap: 15px;
-            }
-            
-            /* 비디오 그리드 조정 (2열) */
-            .video-grid {
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-                gap: 1.5rem;
-            }
-            
-            /* 모달 크기 조정 */
-            .modal-content {
-                width: 90vw !important;
-                max-width: 90vw !important;
-            }
-            #video-player-modal .modal-content {
-                width: 95vw;
-            }
-        }
     </style>
 </head>
 <body>
 
     <header>
-        <button id="menu-toggle" class="menu-toggle-btn" onclick="toggleSidebar()">☰</button>
-        
         <a href="#" class="logo-link" title="">
-            <div class="logo">
+    <div class="logo">
                 <img src="logo.png" alt="LearnRobot 로고" class="logo-image">
                 <span style="font-family: 'Chakra Petch'; font-size: 1.8rem; letter-spacing: 1px; color: var(--text-main);">LEARN<span style="color: YELLOW;">ROBOT</span></span>
             </div>
@@ -358,4 +283,312 @@
         <aside>
             <button class="category-btn active" onclick="filterVideos('all')">All Robots</button>
             <button class="category-btn" onclick="filterVideos('humanoid')">Humanoid</button>
-            <button class="category-btn" onclick="filterVideos('automation')
+            <button class="category-btn" onclick="filterVideos('automation')">Automation</button>
+            <button class="category-btn" onclick="filterVideos('retail')">Retail</button>
+            <button class="category-btn" onclick="filterVideos('Service')">Service</button>
+            <button class="category-btn" onclick="filterVideos('farm')">Farm</button>
+            <button class="category-btn" onclick="filterVideos('Logistics')">Logistics</button>
+            <button class="category-btn" onclick="filterVideos('software')">Software</button>
+            <button class="category-btn" onclick="filterVideos('AI')">AI</button>
+            <button class="category-btn" onclick="filterVideos('components')">Components</button>
+            
+            <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid #334155; text-align: left;">
+                
+                <p class="sidebar-contact-text" style="font-size: 0.8rem; color: #64748b; margin-bottom: 5px; font-weight: 600; text-transform: uppercase;">Contact</p>
+                
+                 <a href="mailto:learnrobot@learnrobot.com" 
+   style="color: #FFFB03; /* 💡 색상을 밝은 청록색으로 변경 (시인성 UP) */
+          text-decoration: none; 
+          font-size: 1.0rem; /* 💡 크기를 1.0rem으로 키움 */
+          display: flex; 
+          align-items: center; 
+          gap: 8px; 
+          transition: 0.3s; 
+          font-family: 'roboto', sans-serif;" /* 💡 Orbitron 폰트로 변경 */
+   onmouseover="this.style.color='#00FFFF'" 
+   onmouseout="this.style.color='#00FFFF'" /* 호버 색상도 동일하게 유지 */
+   title=""> learnrobot@learnrobot.com
+   </a>
+   
+             </div>
+            </aside>
+
+        <main>
+            <h2 id="page-title">Let people learn your Robot</h2>
+            <div class="video-grid" id="video-container">
+                </div>
+        </main>
+    </div>
+
+    <div id="upload-modal" class="modal">
+        <div class="modal-content">
+            <h3>Initialize Upload</h3>
+            <p style="color:#94a3b8; font-size: 0.9rem; margin-bottom: 20px;">Share your technology with the world.</p>
+            
+            <input type="text" id="new-title" class="form-input" placeholder="Project Title (e.g., Atlas V2)">
+            <input type="text" id="new-uploader" class="form-input" value="Boston Dynamics" readonly style="opacity:0.6; cursor: not-allowed;">
+            
+            <select id="new-category" class="form-input">
+                <option value="" disabled selected>Select Classification...</option>
+                <option value="humanoid">Humanoid</option>
+                <option value="automation">Automation</option>
+                <option value="retail">Retail / Service</option>
+                <option value="farm">Farm / Logistics</option>
+                <option value="software">Software / AI</option>
+                <option value="components">Components</option>
+            </select>
+
+            <div style="border: 2px dashed #334155; padding: 30px; border-radius: 8px; color: #64748b; margin: 15px 0; text-align: center; cursor: pointer; transition: 0.2s;" onmouseover="this.style.borderColor='#3b82f6'" onmouseout="this.style.borderColor='#334155'">
+                📂 Drop Video File
+            </div>
+
+            <button class="btn btn-primary" style="width:100%; margin-top: 10px;" onclick="uploadVideo()">Launch Video</button>
+            <button class="btn btn-login" style="margin-top: 10px; width:100%" onclick="closeUploadModal()">Abort</button>
+        </div>
+    </div>
+    
+    <div id="notice-modal" class="modal">
+    <div class="modal-content" style="width: 400px; text-align: center;">
+        
+        <div style="width: 180px; 
+                    height: 180px; 
+                    border-radius: 50%; 
+                    margin: 0 auto 20px auto; 
+                    overflow: hidden; /* 원형으로 확실히 자름 */
+                    background-color: var(--bg-panel); /* 배경색 일치 */
+                    border: none;">
+                    
+            <img src="Xmas logo2.png" alt="Xmas 로고" 
+                 style="width: 100%; 
+                        height: 100%; 
+                        display: block; 
+                        object-fit: cover;"> 
+        </div>
+        
+        <h3 style="color: var(--accent); font-size: 1.8rem; margin-bottom: 5px;">Welcome to Learnrobot.com.</h3>
+        
+        <p style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px;">
+            We are preparing the official launch of the website.
+        </p>
+        
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 15px;">
+            *Site may has limited access to contents.
+        </p>
+        
+        <button class="btn btn-primary" style="width:100%; margin-top: 15px;" onclick="closeNoticeModal()">Continue to Site</button>
+    </div>
+</div>
+
+    <div id="video-player-modal" class="modal">
+        <div class="modal-content">
+            <div id="video-content" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;">
+                <iframe 
+                    id="video-iframe"
+                    width="100%" 
+                    height="100%" 
+                    src="" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen 
+                    style="position: absolute; top: 0; left: 0;"
+                ></iframe>
+            </div>
+            <div style="padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #334155;">
+                <h3 id="player-title" style="margin: 0; font-size: 1.2rem;"></h3>
+                <button class="btn btn-login" onclick="closeVideoModal()" style="color: #ef4444; border: 1px solid #ef4444; padding: 8px 15px;"> Close </button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        /* --- JAVASCRIPT LOGIC --- */
+
+        // Updated Data with IDs and Likes (비디오 데이터: 새 카테고리 적용)
+        let videos = [
+            { id: 1, title: "Atlas Parkour Test", category: "humanoid", uploader: "Boston Dynamics", likes: 1240, isLiked: false, videoUrl: "dQw4w9WgXcQ" }, 
+            { id: 2, title: "Assembly Line Speed", category: "automation", uploader: "Kuka Robotics", likes: 85, isLiked: false, videoUrl: "g1I7K590cW0" }, 
+            { id: 3, title: "Roomba AI Mapping", category: "retail", uploader: "iRobot", likes: 342, isLiked: false, videoUrl: "J-y3-75x44A" }, 
+            { id: 4, title: "Barista Bot V1", category: "retail", uploader: "Cafe X", likes: 890, isLiked: false, videoUrl: "5qap5aO4i9A" }, 
+            { id: 5, title: "Lidar Night Test", category: "farm", uploader: "Waymo", likes: 567, isLiked: false, videoUrl: "vQ823t7Dk6k" }, 
+            { id: 6, title: "Ameca Conversation", category: "humanoid", uploader: "Engineered Arts", likes: 2100, isLiked: false, videoUrl: "6aJ7k7_7c5A" },
+        ];
+
+        // Render Function
+        function renderVideos(filter) {
+            const container = document.getElementById('video-container');
+            container.innerHTML = ''; 
+            
+            videos.forEach(video => {
+                if (filter === 'all' || video.category === filter) {
+                    const card = document.createElement('div');
+                    card.className = 'video-card';
+                    
+                    const likeClass = video.isLiked ? 'liked' : '';
+                    const heartType = video.isLiked ? '❤' : '♡'; 
+
+                    card.innerHTML = `
+                        <div class="thumbnail" onclick="openVideoModal('${video.title}', '${video.uploader}', '${video.videoUrl}')">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="card-info">
+                            <div class="video-title">${video.title}</div>
+                            <div class="uploader">
+                                ${video.uploader} <span class="verified-badge">✔</span>
+                            </div>
+                            <div class="card-footer">
+                                <span style="font-size:0.75rem; color:#64748b;">Uploaded 2h ago</span>
+                                <button class="like-btn ${likeClass}" onclick="toggleLike(${video.id})">
+                                    <span class="heart-icon">${heartType}</span> 
+                                    <span>${video.likes}</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                }
+            });
+        }
+
+        // Filter Logic: 새 카테고리 제목 적용
+        function filterVideos(category) {
+            renderVideos(category);
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            const titles = {
+                'all': 'Explore All Robotics',
+                'humanoid': 'Humanoid & Bipedal Systems',
+                'automation': 'Industrial Automation & Manufacturing',
+                'retail': 'Retail, Service & Domestic Robots',
+                'farm': 'Agriculture, Farm & Logistics',
+                'software': 'Software & AI Frameworks',
+                'components': 'Hardware, Sensors & Parts'
+            };
+            document.getElementById('page-title').innerText = titles[category];
+        }
+
+        // Like Logic (로직 단순화 적용됨)
+        function toggleLike(id) {
+            const video = videos.find(v => v.id === id);
+            if (video) {
+                if (video.isLiked) {
+                    video.likes--;
+                    video.isLiked = false;
+                } else {
+                    video.likes++;
+                    video.isLiked = true;
+                }
+                
+                const activeBtn = document.querySelector('.category-btn.active');
+                const currentCategory = activeBtn ? activeBtn.getAttribute('onclick').split("'")[1] : 'all';
+                renderVideos(currentCategory);
+            }
+        }
+
+        // --- UPLOAD MODAL LOGIC ---
+        function openUploadModal() { document.getElementById('upload-modal').style.display = 'flex'; }
+        function closeUploadModal() { document.getElementById('upload-modal').style.display = 'none'; }
+        
+        // 팝업 닫기 함수
+        function closeNoticeModal() {
+            document.getElementById('notice-modal').style.display = 'none';
+        }
+
+        function uploadVideo() {
+            const title = document.getElementById('new-title').value;
+            const category = document.getElementById('new-category').value;
+            const uploader = document.getElementById('new-uploader').value;
+
+            if (!title || !category) {
+                alert("Systems Check Failed: Please enter title and category.");
+                return;
+            }
+
+            const newVideo = {
+                id: Date.now(),
+                title: title,
+                category: category,
+                uploader: uploader,
+                likes: 0,
+                isLiked: false,
+                videoUrl: "dQw4w9WgXcQ" 
+            };
+
+            videos.unshift(newVideo);
+            renderVideos('all');
+            closeUploadModal();
+            document.getElementById('new-title').value = '';
+        }
+        
+        // --- 극장 모드 (Theater Mode) 로직 ---
+        function openVideoModal(title, uploader, videoId) {
+            const modal = document.getElementById('video-player-modal');
+            const iframe = document.getElementById('video-iframe');
+            
+            document.getElementById('player-title').innerHTML = `🎬 ${title} <span style="font-size: 0.8em; color: var(--accent);">by ${uploader}</span>`;
+            
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&mute=0`;
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeVideoModal() {
+            const iframe = document.getElementById('video-iframe');
+            
+            iframe.src = "";
+            document.getElementById('video-player-modal').style.display = 'none';
+        }
+
+
+        // Initial Render
+        renderVideos('all');
+        
+        // 공지 팝업 표시 로직 (무조건 표시)
+        document.getElementById('notice-modal').style.display = 'flex';
+        // --- NOTICE MODAL LOGIC (확인) ---
+        function openNoticeModal() { 
+            document.getElementById('notice-modal').style.display = 'flex'; 
+        }
+        function closeNoticeModal() { 
+            document.getElementById('notice-modal').style.display = 'none'; 
+        }
+
+        // Initial Render
+        renderVideos('all');
+        openNoticeModal(); // 💡 페이지 로드 시 공지 팝업 자동 실행
+    </script>
+</body>
+</html>
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
