@@ -258,82 +258,12 @@
             border-radius: 6px; color: white; font-size: 0.95rem;
         }
         .form-input:focus { border-color: var(--accent); }
-/* ... (기존 CSS 스타일) ... */
 
-        /* --- RESPONSIVE MOBILE STYLES --- */
-        .menu-toggle-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-main);
-            font-size: 2rem;
-            cursor: pointer;
-            z-index: 20;
-            padding: 10px;
-            display: none; /* 데스크톱 기본 숨김 */
-        }
-
-        @media (max-width: 1024px) {
-            /* 1024px 이하에서 적용되는 모바일 레이아웃 */
-
-            /* 사이드바 기본 위치 조정 (화면 밖으로 숨김) */
-            aside {
-                position: fixed;
-                height: 100%;
-                top: 0;
-                left: calc(var(--sidebar-width) * -1); /* 화면 밖으로 이동 */
-                z-index: 50;
-                transition: left 0.3s ease;
-                box-shadow: 5px 0 15px rgba(0,0,0,0.5);
-            }
-            
-            /* 사이드바가 열렸을 때 */
-            aside.active {
-                left: 0;
-            }
-
-            /* 토글 버튼 표시 */
-            .menu-toggle-btn {
-                display: block;
-            }
-
-            /* 메인 레이아웃 조정 */
-            .container {
-                display: block;
-            }
-            main {
-                padding: 1.5rem; /* 모바일 패딩 축소 */
-                width: 100%;
-            }
-
-            /* 헤더 패딩 및 정렬 조정 */
-            header {
-                padding: 0 1.5rem;
-                justify-content: flex-start; /* 토글 버튼이 앞에 오도록 정렬 */
-                gap: 15px;
-            }
-            
-            /* 비디오 그리드 조정 (2열) */
-            .video-grid {
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-                gap: 1.5rem;
-            }
-            
-            /* 모달 크기 조정 */
-            .modal-content {
-                width: 90vw !important;
-                max-width: 90vw !important;
-            }
-            #video-player-modal .modal-content {
-                width: 95vw;
-            }
-        }
     </style>
 </head>
 <body>
 
     <header>
-        <button id="menu-toggle" class="menu-toggle-btn" onclick="toggleSidebar()">☰</button>
-        
         <a href="#" class="logo-link" title="">
     <div class="logo">
                 <img src="logo.png" alt="LearnRobot 로고" class="logo-image">
@@ -341,7 +271,6 @@
             </div>
         </a>
         <div class="auth-buttons">
-        ```
             <div style="display:flex; align-items:center; gap:12px; margin-right:15px; border-right: 1px solid #334155; padding-right: 20px;">
                 <div style="width:32px; height:32px; background: linear-gradient(45deg, #3b82f6, #8b5cf6); border-radius:50%;"></div>
                 <span style="font-weight:900; font-size:1.5rem; color:light green;">your robot name here</span>
@@ -606,17 +535,12 @@
         }
 
         function closeVideoModal() {
-        const iframe = document.getElementById('video-iframe');
+            const iframe = document.getElementById('video-iframe');
             
             iframe.src = "";
             document.getElementById('video-player-modal').style.display = 'none';
         }
 
-        // --- [NEW] MOBILE SIDEBAR TOGGLE LOGIC ---
-        function toggleSidebar() {
-            const sidebar = document.querySelector('aside');
-            sidebar.classList.toggle('active');
-        }
 
         // Initial Render
         renderVideos('all');
@@ -641,7 +565,6 @@
 </body>
 
 </html>
-
 
 
 
