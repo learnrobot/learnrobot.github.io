@@ -477,8 +477,170 @@
 
 
     <script>
-        /* --- JAVASCRIPT LOGIC --- */
+             /* --- JAVASCRIPT LOGIC (하나로 통합 및 정리) --- */
 
-        // Updated Data with IDs and Likes (비디오 데이터: 새 카테고리 적용)
+        // Updated Data with IDs and Likes (비디오 데이터)
         let videos = [
-            { id: 1, title: "Atlas Parkour Test", category: "humanoid", uploader: "
+            { id: 1, title: "Atlas Parkour Test", category: "humanoid", uploader: "Boston Dynamics", likes: 1240, isLiked: false, videoUrl: "dQw4w9WgXcQ" }, 
+            { id: 2, title: "Assembly Line Speed", category: "automation", uploader: "Kuka Robotics", likes: 85, isLiked: false, videoUrl: "g1I7K590cW0" }, 
+            { id: 3, title: "Roomba AI Mapping", category: "retail", uploader: "iRobot", likes: 342, isLiked: false, videoUrl: "J-y3-75x44A" }, 
+            { id: 4, title: "Barista Bot V1", category: "retail", uploader: "Cafe X", likes: 890, isLiked: false, videoUrl: "5qap5aO4i9A" }, 
+            { id: 5, title: "Lidar Night Test", category: "farm", uploader: "Waymo", likes: 567, isLiked: false, videoUrl: "vQ823t7Dk6k" }, 
+            { id: 6, title: "Ameca Conversation", category: "humanoid", uploader: "Engineered Arts", likes: 2100, isLiked: false, videoUrl: "6aJ7k7_7c5A" },
+        ];
+
+        // --- 1. RENDER & FILTER LOGIC ---
+        function renderVideos(filter) {
+            const container = document.getElementById('video-container');
+            container.innerHTML = ''; 
+            
+            videos.forEach(video => {
+                if (filter === 'all' || video.category === filter) {
+                    const card = document.createElement('div');
+                    card.className = 'video-card';
+                    
+                    const likeClass = video.isLiked ? 'liked' : '';
+                    const heartType = video.isLiked ? '❤' : '♡'; 
+
+                    card.innerHTML = `
+                        <div class="thumbnail" onclick="openVideoModal('${video.title}', '${video.uploader}', '${video.videoUrl}')">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="card-info">
+                            <div class="video-title">${video.title}</div>
+                            <div class="uploader">
+                                ${video.uploader} <span class="verified-badge">✔</span>
+                            </div>
+                            <div class="card-footer">
+                                <span style="font-size:0.75rem; color:#64748b;">Uploaded 2h ago</span>
+                                <button class="like-btn ${likeClass}" onclick="toggleLike(${video.id})">
+                                    <span class="heart-icon">${heartType}</span> 
+                                    <span>${video.likes}</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                }
+            });
+        }
+
+        function filterVideos(category) {
+            renderVideos(category);
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            const titles = {
+                'all': 'Explore All Robotics',
+                'humanoid': 'Humanoid & Bipedal Systems',
+                'automation': 'Industrial Automation & Manufacturing',
+                'retail': 'Retail, Service & Domestic Robots',
+                'farm': 'Agriculture, Farm & Logistics',
+                'software': 'Software & AI Frameworks',
+                'components': 'Hardware, Sensors & Parts',
+                'Logistics': 'Agriculture, Farm & Logistics', // 추가된 카테고리도 처리
+                'AI': 'Software & AI Frameworks',
+                'Service': 'Retail, Service & Domestic Robots'
+            };
+            document.getElementById('page-title').innerText = titles[category] || 'Explore Robotics';
+            
+            // 💡 메뉴 필터링 시 사이드바 닫기 (모바일에서 UX 개선)
+            const sidebar = document.querySelector('aside');
+            if (window.innerWidth <= 1024) {
+                 sidebar.classList.remove('active');
+            }
+        }
+
+        function toggleLike(id) {
+            const video = videos.find(v => v.id === id);
+            if (video) {
+                if (video.isLiked) {
+                    video.likes--;
+                    video.isLiked = false;
+                } else {
+                    video.likes++;
+                    video.isLiked = true;
+                }
+                
+                const activeBtn = document.querySelector('.category-btn.active');
+                const currentCategory = activeBtn ? activeBtn.getAttribute('onclick').split("'")[1] : 'all';
+                renderVideos(currentCategory);
+            }
+        }
+
+        // --- 2. MODAL LOGIC (Upload, Notice, Video Player) ---
+
+        function openUploadModal() { document.getElementById('upload-modal').style.display = 'flex'; }
+        function closeUploadModal() { document.getElementById('upload-modal').style.display = 'none'; }
+        
+        function uploadVideo() {
+            const title = document.getElementById('new-title').value;
+            const category = document.getElementById('new-category').value;
+            const uploader = document.getElementById('new-uploader').value;
+
+            if (!title || !category) {
+                alert("Systems Check Failed: Please enter title and category.");
+                return;
+            }
+
+            const newVideo = {
+                id: Date.now(),
+                title: title,
+                category: category,
+                uploader: uploader,
+                likes: 0,
+                isLiked: false,
+                videoUrl: "dQw4w9WgXcQ" 
+            };
+
+            videos.unshift(newVideo);
+            renderVideos('all');
+            closeUploadModal();
+            document.getElementById('new-title').value = '';
+        }
+        
+        function openVideoModal(title, uploader, videoId) {
+            const modal = document.getElementById('video-player-modal');
+            const iframe = document.getElementById('video-iframe');
+            
+            document.getElementById('player-title').innerHTML = `🎬 ${title} <span style="font-size: 0.8em; color: var(--accent);">by ${uploader}</span>`;
+            
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&mute=0`;
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeVideoModal() {
+            const iframe = document.getElementById('video-iframe');
+            
+            iframe.src = "";
+            document.getElementById('video-player-modal').style.display = 'none';
+        }
+
+        function openNoticeModal() { document.getElementById('notice-modal').style.display = 'flex'; }
+        function closeNoticeModal() { document.getElementById('notice-modal').style.display = 'none'; }
+
+        // --- 3. MOBILE SIDEBAR TOGGLE LOGIC ---
+        function toggleSidebar() {
+            const sidebar = document.querySelector('aside');
+            sidebar.classList.toggle('active');
+            
+            // 💡 사이드바 닫을 때 '☰' 아이콘을 'X'로 변경하는 로직 (선택 사항)
+            const toggleBtn = document.getElementById('menu-toggle');
+            if (sidebar.classList.contains('active')) {
+                toggleBtn.innerText = '✕'; 
+            } else {
+                toggleBtn.innerText = '☰';
+            }
+        }
+        
+        // --- 4. INITIALIZATION ---
+        
+        // 페이지 로드 시 최초 실행
+        window.onload = function() {
+            renderVideos('all');
+            openNoticeModal();
+        };
+
+    </script>
