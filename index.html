@@ -11,10 +11,10 @@
         :root {
             --bg-dark: #0f172a;      /* Deep Space Blue */
             --bg-panel: #1e293b;     /* Lighter panel */
-            --accent: #3b82f6;       /* Electric Blue (다른 요소에 사용됨) */
+            --accent: #3b82f6;       /* Electric Blue */
             --accent-glow: #60a5fa;
             --text-main: #f1f5f9;
-            --text-muted: #F7F200;   /* F7F200 색상 유지 */
+            --text-muted: #F7F200;   /* 노란색 */
             --sidebar-width: 280px;
             --card-glass: rgba(30, 41, 59, 0.7);
         }
@@ -22,7 +22,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
 
         body { 
-            /* 💡 body는 Chakra Petch로 유지, 섹션에서 덮어씁니다. */
             background-color: var(--bg-dark); 
             background-image: radial-gradient(circle at 10% 20%, var(--bg-panel) 0%, var(--bg-dark) 90%);
             color: var(--text-main); 
@@ -43,13 +42,7 @@
             z-index: 10;
         }
         
-        /* 로고 링크 스타일 */
-        .logo-link {
-            text-decoration: none; 
-            color: inherit;        
-            cursor: pointer;      
-        }
-
+        .logo-link { text-decoration: none; color: inherit; cursor: pointer; }
         .logo { 
             font-family: 'Chakra Petch', sans-serif; 
             font-size: 1.8rem; 
@@ -68,7 +61,6 @@
         }
 
         .auth-buttons { display: flex; gap: 15px; align-items: center; }
-        
         .btn { 
             padding: 10px 24px; 
             border-radius: 6px; 
@@ -78,10 +70,8 @@
             font-size: 0.9rem;
             transition: all 0.3s ease;
         }
-        
         .btn-login { background: transparent; color: var(--text-muted); }
         .btn-login:hover { color: var(--text-main); }
-        
         .btn-primary { 
             background: linear-gradient(135deg, var(--accent), #2563eb); 
             color: white; 
@@ -98,7 +88,7 @@
         /* --- SIDEBAR --- */
         aside {
             width: var(--sidebar-width);
-            background: #0A111E; /* 배경색 유지 */
+            background: #0A111E; 
             padding: 2rem 1.5rem;
             display: flex;
             flex-direction: column;
@@ -106,7 +96,6 @@
             border-right: 1px solid #334155;
         }
 
-        /* 사이드바 버튼 글꼴 변경 */
         .category-btn {
             text-align: left;
             background: transparent;
@@ -116,7 +105,7 @@
             cursor: pointer;
             color: var(--text-main);
             
-            font-family: 'Orbitron', sans-serif; /* 폰트 유지 */
+            font-family: 'Orbitron', sans-serif; 
             font-size: 1.1rem;                   
             font-weight: 600;                    
             text-transform: uppercase;           
@@ -128,7 +117,7 @@
         
         .category-btn:hover { 
             background: rgba(255,255,255,0.05); 
-            color: #C5E3C1; /*노랑*/
+            color: #C5E3C1; 
         }
         
         .category-btn.active { 
@@ -139,117 +128,99 @@
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
         }
 
-        /* 사이드바 연락처 텍스트 글꼴 변경 */
-        .sidebar-contact-text {
-            font-family: 'Orbitron', sans-serif; /* 폰트 유지 */
-        }
+        .sidebar-contact-text { font-family: 'Orbitron', sans-serif; }
         
-        /* --- MAIN CONTENT --- */
+        /* --- MAIN CONTENT (link-grid) --- */
         main { flex: 1; padding: 3rem; overflow-y: auto; }
 
-        h2 { 
-            font-family: 'Orbitron', sans-serif; 
-            margin-bottom: 2rem; 
-            font-size: 2rem; 
-            color: var(--text-main);
-            border-left: 4px solid var(--accent);
-            padding-left: 15px;
-        }
-
-        .video-grid {
+        /* link-grid 크기 조정 (유지) */
+        .link-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+            gap: 1.5rem; 
         }
 
-        /* --- CARD DESIGN --- */
-        .video-card {
+        /* --- CARD DESIGN for LINKS (최소화된 디자인) --- */
+        .link-card {
             background: var(--card-glass);
             border: 1px solid #334155;
-            border-radius: 12px;
-            overflow: hidden;
+            border-radius: 8px; /* 모서리 둥글기 약간 줄임 */
+            /* overflow: hidden; 삭제 */
             transition: all 0.3s ease;
             position: relative;
-            font-family: 'Chakra Petch', sans-serif; /* 메인 콘텐츠 폰트 유지 */
-        }
-
-        .video-card:hover { 
-            transform: translateY(-8px); 
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
-        }
-
-        .thumbnail {
-            height: 180px;
-            background: #2d3748; 
-            background-image: linear-gradient(45deg, #1e293b 25%, #2d3748 25%, #2d3748 50%, #1e293b 50%, #1e293b 75%, #2d3748 75%, #2d3748 100%);
-            background-size: 20px 20px;
-            position: relative;
-            display: flex; align-items: center; justify-content: center;
+            font-family: 'Chakra Petch', sans-serif;
             cursor: pointer; 
+            text-decoration: none;
+            color: inherit;
+            min-height: 100px; /* 최소 높이 설정 */
         }
-        
-        .play-icon {
-            width: 50px; height: 50px;
-            background: rgba(0,0,0,0.6);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; color: white;
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: 0.3s;
-        }
-        .video-card:hover .play-icon { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 15px var(--accent); }
 
-        .card-info { padding: 1.2rem; }
-        .video-title { font-weight: 600; margin-bottom: 8px; font-size: 1.1rem; color: var(--text-main); }
-        
-        .uploader { 
-            font-size: 0.85rem; color: #C5E3C1 ; 
-            display: flex; align-items: center; gap: 6px; 
-            margin-bottom: 12px;
+        .link-card:hover { 
+            transform: translateY(-2px); 
+            border-color: var(--text-muted); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); 
         }
-        .verified-badge { color: var(--accent); font-size: 0.8rem; }
+
+        /* .link-icon 스타일은 삭제됩니다. */
+        
+        .card-info { padding: 0.8rem 1rem; } /* 패딩 대폭 축소 */
+        .link-title { 
+            font-weight: 700; 
+            margin-bottom: 4px; 
+            font-size: 1.1rem; 
+            color: var(--text-main);
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis; 
+        }
+        
+        .source { 
+            font-size: 0.85rem; 
+            color: #94a3b8; /* 소스 색상을 옅게 변경 */
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            margin-bottom: 5px; 
+        }
 
         .card-footer {
-            display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding-top: 12px;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            /* border-top은 JS에서 점선으로 적용함 */
+            padding-top: 0; 
+            margin-top: 10px;
+        }
+        
+        .link-url {
+            font-size: 0.8rem;
+            color: var(--accent-glow); /* URL을 강조 색상으로 변경 */
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 80%;
         }
 
-        .like-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid transparent;
-            border-radius: 20px;
-            padding: 6px 14px;
-            cursor: pointer;
-            display: flex; align-items: center; gap: 8px;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            transition: 0.2s;
-        }
-        .like-btn:hover { background: rgba(255,255,255,0.1); color: white; }
-        .like-btn.liked { background: rgba(239, 68, 68, 0.15); color: #ef4444; border-color: rgba(239, 68, 68, 0.3); }
 
         /* --- MODAL (Dark Theme) --- */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); backdrop-filter: blur(5px);
-            justify-content: center; align-items: center; z-index: 100;
+            justify-content: center; align-items: center; 
+            z-index: 100;
         }
+        
+        /* 공지 팝업을 항상 최상위로 */
+        #notice-modal { z-index: 110; }
+        #upload-modal { z-index: 105; }
+        
         .modal-content {
             background: var(--bg-panel); padding: 2.5rem; border-radius: 12px; width: 450px; 
             border: 1px solid #334155; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             color: var(--text-main);
-            font-family: 'Chakra Petch', sans-serif; /* 팝업 글꼴 유지 */
+            font-family: 'Chakra Petch', sans-serif; 
         }
         
-        /* Specific Modal Styles for Video Player */
-        #video-player-modal .modal-content {
-            padding: 0;
-            width: 80vw;
-            max-width: 1000px;
-        }
-
         .modal h3 { font-family: 'Orbitron', sans-serif; margin-bottom: 10px; color: var(--text-main); }
         
         .form-input, select { 
@@ -265,7 +236,7 @@
 
     <header>
         <a href="#" class="logo-link" title="">
-    <div class="logo">
+            <div class="logo">
                 <img src="logo.png" alt="LearnRobot 로고" class="logo-image">
                 <span style="font-family: 'Chakra Petch'; font-size: 1.8rem; letter-spacing: 1px; color: var(--text-main);">LEARN<span style="color: YELLOW;">ROBOT</span></span>
             </div>
@@ -275,328 +246,248 @@
                 <div style="width:32px; height:32px; background: linear-gradient(45deg, #3b82f6, #8b5cf6); border-radius:50%;"></div>
                 <span style="font-weight:900; font-size:1.5rem; color:light green;">Learn robot before they learn us</span>
             </div>
-            <button class="btn btn-primary" onclick="openUploadModal()">+ Upload Robot</button>
+            <button class="btn btn-primary" onclick="openUploadModal()">+ Submit Link</button>
         </div>
     </header>
 
     <div class="container">
         <aside>
-            <button class="category-btn active" onclick="filterVideos('all')">All Robots</button>
-            <button class="category-btn" onclick="filterVideos('humanoid')">Humanoid</button>
-            <button class="category-btn" onclick="filterVideos('automation')">Automation</button>
-            <button class="category-btn" onclick="filterVideos('retail')">Retail</button>
-            <button class="category-btn" onclick="filterVideos('Service')">Service</button>
-            <button class="category-btn" onclick="filterVideos('farm')">Farm</button>
-            <button class="category-btn" onclick="filterVideos('Logistics')">Logistics</button>
-            <button class="category-btn" onclick="filterVideos('software')">Software</button>
-            <button class="category-btn" onclick="filterVideos('AI')">AI</button>
-            <button class="category-btn" onclick="filterVideos('components')">Components</button>
+            <button class="category-btn active" onclick="filterLinks('humanoid')">Humanoid</button> 
+            <button class="category-btn" onclick="filterLinks('automation')">Automation</button>
+            <button class="category-btn" onclick="filterLinks('retail')">Retail</button>
+            <button class="category-btn" onclick="filterLinks('Service')">Service</button>
+            <button class="category-btn" onclick="filterLinks('farm')">Farm</button>
+            <button class="category-btn" onclick="filterLinks('Logistics')">Logistics</button>
+            <button class="category-btn" onclick="filterLinks('software')">Software</button>
+            <button class="category-btn" onclick="filterLinks('AI')">AI</button>
+            <button class="category-btn" onclick="filterLinks('components')">Components</button>
             
             <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid #334155; text-align: left;">
                 
                 <p class="sidebar-contact-text" style="font-size: 0.8rem; color: #64748b; margin-bottom: 5px; font-weight: 600; text-transform: uppercase;">Contact</p>
                 
                  <a href="mailto:learnrobot@learnrobot.com" 
-   style="color: #FFFB03; /* 💡 색상을 밝은 청록색으로 변경 (시인성 UP) */
-          text-decoration: none; 
-          font-size: 1.0rem; /* 💡 크기를 1.0rem으로 키움 */
-          display: flex; 
-          align-items: center; 
-          gap: 8px; 
-          transition: 0.3s; 
-          font-family: 'roboto', sans-serif;" /* 💡 Orbitron 폰트로 변경 */
-   onmouseover="this.style.color='#00FFFF'" 
-   onmouseout="this.style.color='#00FFFF'" /* 호버 색상도 동일하게 유지 */
-   title=""> learnrobot@learnrobot.com
-   </a>
+                    style="color: #FFFB03; 
+                           text-decoration: none; 
+                           font-size: 1.0rem; 
+                           display: flex; 
+                           align-items: center; 
+                           gap: 8px; 
+                           transition: 0.3s; 
+                           font-family: 'roboto', sans-serif;" 
+                    onmouseover="this.style.color='#00FFFF'" 
+                    onmouseout="this.style.color='#FFFB03'" 
+                    title=""> learnrobot@learnrobot.com
+                 </a>
    
              </div>
             </aside>
 
         <main>
-            <h2 id="page-title">Let people learn your Robot</h2>
-            <div class="video-grid" id="video-container">
+            <div class="link-grid" id="link-container">
                 </div>
         </main>
     </div>
 
     <div id="upload-modal" class="modal">
         <div class="modal-content">
-            <h3>Initialize Upload</h3>
-            <p style="color:#94a3b8; font-size: 0.9rem; margin-bottom: 20px;">Share your technology with the world.</p>
+            <h3>Submit New Link</h3>
+            <p style="color:#94a3b8; font-size: 0.9rem; margin-bottom: 20px;">Share a valuable resource link with the community.</p>
             
-            <input type="text" id="new-title" class="form-input" placeholder="Project Title (e.g., Atlas V2)">
-            <input type="text" id="new-uploader" class="form-input" value="Boston Dynamics" readonly style="opacity:0.6; cursor: not-allowed;">
+            <input type="text" id="new-title" class="form-input" placeholder="Link Title (e.g., Tesla Optimus Spec Sheet)">
+            <input type="text" id="new-linkurl" class="form-input" placeholder="Target URL (e.g., https://example.com/optimus)">
+            <input type="text" id="new-source" class="form-input" value="Community Contributed" readonly style="opacity:0.6; cursor: not-allowed;">
             
             <select id="new-category" class="form-input">
                 <option value="" disabled selected>Select Classification...</option>
                 <option value="humanoid">Humanoid</option>
                 <option value="automation">Automation</option>
-                <option value="retail">Retail / Service</option>
-                <option value="farm">Farm / Logistics</option>
-                <option value="software">Software / AI</option>
+                <option value="retail">Retail</option>
+                <option value="Service">Service</option>
+                <option value="farm">Farm</option>
+                <option value="Logistics">Logistics</option>
+                <option value="software">Software</option>
+                <option value="AI">AI</option>
                 <option value="components">Components</option>
             </select>
 
-            <div style="border: 2px dashed #334155; padding: 30px; border-radius: 8px; color: #64748b; margin: 15px 0; text-align: center; cursor: pointer; transition: 0.2s;" onmouseover="this.style.borderColor='#3b82f6'" onmouseout="this.style.borderColor='#334155'">
-                📂 Drop Video File
-            </div>
-
-            <button class="btn btn-primary" style="width:100%; margin-top: 10px;" onclick="uploadVideo()">Launch Video</button>
+            <button class="btn btn-primary" style="width:100%; margin-top: 20px;" onclick="submitLink()">Submit Link</button>
             <button class="btn btn-login" style="margin-top: 10px; width:100%" onclick="closeUploadModal()">Abort</button>
         </div>
     </div>
     
     <div id="notice-modal" class="modal">
-    <div class="modal-content" style="width: 400px; text-align: center;">
-        
-        <div style="width: 180px; 
-                    height: 180px; 
-                    border-radius: 50%; 
-                    margin: 0 auto 20px auto; 
-                    overflow: hidden; /* 원형으로 확실히 자름 */
-                    background-color: var(--bg-panel); /* 배경색 일치 */
-                    border: none;">
-                    
-            <img src="Xmas logo2.png" alt="Xmas 로고" 
-                 style="width: 100%; 
-                        height: 100%; 
-                        display: block; 
-                        object-fit: cover;"> 
-        </div>
-        
-        <h3 style="color: var(--accent); font-size: 1.8rem; margin-bottom: 5px;">Welcome to Learnrobot.com</h3>
-        <br>
-        <p style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px;">
-            We are preparing <br> the official launch of the website.
-        </p>
-        
-        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 15px;">
-            *Access to some content on the site<br> may be limited.
-        </p>
-        
-        <button class="btn btn-primary" style="width:100%; margin-top: 15px;" onclick="closeNoticeModal()">Continue to the site</button>
-    </div>
-</div>
-
-    <div id="video-player-modal" class="modal">
-        <div class="modal-content">
-            <div id="video-content" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;">
-                <iframe 
-                    id="video-iframe"
-                    width="100%" 
-                    height="100%" 
-                    src="" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen 
-                    style="position: absolute; top: 0; left: 0;"
-                ></iframe>
+        <div class="modal-content" style="width: 400px; text-align: center;">
+            
+            <div style="width: 180px; 
+                        height: 180px; 
+                        border-radius: 50%; 
+                        margin: 0 auto 20px auto; 
+                        overflow: hidden; 
+                        background: transparent;
+                        border: none !important; /* 모든 종류의 테두리 강제 제거 */
+                        outline: none !important; /* 혹시 모를 포커스 윤곽선 제거 */">
+                
+                <img src="Xmas logo2.png" alt="크리스마스 로고" 
+                     style="width: 100%; 
+                            height: 100%; 
+                            display: block; 
+                            object-fit: cover;">
             </div>
-            <div style="padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #334155;">
-                <h3 id="player-title" style="margin: 0; font-size: 1.2rem;"></h3>
-                <button class="btn btn-login" onclick="closeVideoModal()" style="color: #ef4444; border: 1px solid #ef4444; padding: 8px 15px;"> Close </button>
-            </div>
+            
+            <h3 style="color: var(--accent); font-size: 1.8rem; margin-bottom: 5px;">Welcome to Learnrobot.com</h3>
+            <br>
+            <p style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px;">
+                We are preparing <br> the official launch of the website.
+            </p>
+            
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 15px;">
+                *Access to some content on the site<br> may be limited.
+            </p>
+            
+            <button class="btn btn-primary" style="width:100%; margin-top: 15px;" onclick="closeNoticeModal()">Continue to the site</button>
         </div>
     </div>
-
-
+    
     <script>
-        /* --- JAVASCRIPT LOGIC --- */
-
-        // Updated Data with IDs and Likes (비디오 데이터: 새 카테고리 적용)
-        let videos = [
-            { id: 1, title: "Atlas Parkour Test", category: "humanoid", uploader: "Boston Dynamics", likes: 1240, isLiked: false, videoUrl: "dQw4w9WgXcQ" }, 
-            { id: 2, title: "Assembly Line Speed", category: "automation", uploader: "Kuka Robotics", likes: 85, isLiked: false, videoUrl: "g1I7K590cW0" }, 
-            { id: 3, title: "Roomba AI Mapping", category: "retail", uploader: "iRobot", likes: 342, isLiked: false, videoUrl: "J-y3-75x44A" }, 
-            { id: 4, title: "Barista Bot V1", category: "retail", uploader: "Cafe X", likes: 890, isLiked: false, videoUrl: "5qap5aO4i9A" }, 
-            { id: 5, title: "Lidar Night Test", category: "farm", uploader: "Waymo", likes: 567, isLiked: false, videoUrl: "vQ823t7Dk6k" }, 
-            { id: 6, title: "Ameca Conversation", category: "humanoid", uploader: "Engineered Arts", likes: 2100, isLiked: false, videoUrl: "6aJ7k7_7c5A" },
+        /* --- JAVASCRIPT LOGIC (Links) --- */
+        
+        let links = [
+            // Humanoid (휴머노이드)
+            { id: 101, title: "Figure AI", category: "humanoid", source: "Figure", hits: 3200, url: "https://www.figure.ai/" }, 
+            { id: 102, title: "Unitree Robotics", category: "humanoid", source: "Unitree", hits: 1800, url: "https://www.unitree.com/" }, 
+            { id: 103, title: "Agility Robotics", category: "humanoid", source: "Agility", hits: 2500, url: "https://agilityrobotics.com/" }, 
+            { id: 1, title: "Boston Dynamics (Atlas)", category: "humanoid", source: "Boston Dynamics", hits: 1240, url: "https://www.bostondynamics.com/" }, 
+            { id: 6, title: "Engineered Arts (Ameca)", category: "humanoid", source: "Engineered Arts", hits: 2100, url: "https://www.engineeredarts.co.uk/robot/ameca/" },
+            
+            // Automation (산업 자동화)
+            { id: 201, title: "FANUC Robotics", category: "automation", source: "FANUC", hits: 4500, url: "https://www.fanuc.co.jp/en/robot/" }, 
+            { id: 202, title: "ABB Robotics", category: "automation", source: "ABB", hits: 3800, url: "https://new.abb.com/products/robotics" }, 
+            { id: 2, title: "KUKA Industrial Robots", category: "automation", source: "KUKA", hits: 85, url: "https://www.kuka.com/" }, 
+            { id: 204, title: "YASKAWA Robotics", category: "automation", source: "YASKAWA", hits: 2900, url: "https://www.yaskawa.co.jp/en/products/robotics" },
+            
+            // Retail (소매/소비자)
+            { id: 3, title: "iRobot Official Site (Roomba)", category: "retail", source: "iRobot", hits: 342, url: "https://www.irobot.com/" }, 
+            { id: 302, title: "Sphero Education", category: "retail", source: "Sphero", hits: 550, url: "https://sphero.com/" }, 
+            { id: 303, title: "Anki Cozmo (Legacy)", category: "retail", source: "Anki", hits: 150, url: "https://www.digitaldreamlabs.com/pages/cozmo-product-page" }, 
+            
+            // Service (서비스 로봇)
+            { id: 401, title: "SoftBank Robotics", category: "Service", source: "SoftBank", hits: 1900, url: "https://www.softbankrobotics.com/" }, 
+            { id: 402, title: "Bear Robotics (Serving)", category: "Service", source: "Bear Robotics", hits: 1400, url: "https://www.bearrobotics.com/" }, 
+            { id: 4, title: "Aethon Autonomous Mobile Robots", category: "Service", source: "Aethon", hits: 890, url: "https://www.aethon.com/" }, 
+            
+            // Farm (농업/드론)
+            { id: 501, title: "DJI Agricultural Drones", category: "farm", source: "DJI", hits: 3100, url: "https://www.dji.com/kr/agriculture" }, 
+            { id: 502, title: "Blue River Technology (John Deere)", category: "farm", source: "Blue River", hits: 1100, url: "https://www.bluerivertechnology.com/" }, 
+            { id: 5, title: "Waymo Self-Driving Tech", category: "farm", source: "Waymo", hits: 567, url: "https://waymo.com/" }, 
+            
+            // Logistics (물류/창고)
+            { id: 601, title: "Amazon Robotics", category: "Logistics", source: "Amazon", hits: 4000, url: "https://www.amazonrobotics.com/" }, 
+            { id: 602, title: "Locus Robotics", category: "Logistics", source: "Locus", hits: 1500, url: "https://www.locusrobotics.com/" }, 
+            { id: 603, title: "Zebra Technologies (Fetch Robotics)", category: "Logistics", source: "Zebra", hits: 950, url: "https://www.zebra.com/us/en/solutions/industrial/robotics.html" }, 
+            
+            // Software (로봇 SW/OS)
+            { id: 701, title: "ROS (Robot Operating System)", category: "software", source: "Open Source", hits: 6000, url: "https://www.ros.org/" }, 
+            { id: 702, title: "NVIDIA Isaac Sim", category: "software", source: "NVIDIA", hits: 3500, url: "https://developer.nvidia.com/isaac-sim" }, 
+            
+            // AI (인공지능)
+            { id: 801, title: "DeepMind Robotics", category: "AI", source: "Google DeepMind", hits: 5100, url: "https://deepmind.google/technologies/robotics/" }, 
+            { id: 802, title: "OpenAI Robotics", category: "AI", source: "OpenAI", hits: 4200, url: "https://openai.com/research/robotics" }, 
+            
+            // Components (부품/센서)
+            { id: 901, title: "Lidar by Velodyne", category: "components", source: "Velodyne", hits: 2800, url: "https://velodynelidar.com/" }, 
+            { id: 902, title: "Robot Grippers by Robotiq", category: "components", source: "Robotiq", hits: 1600, url: "https://robotiq.com/" },
         ];
 
-        // Render Function
-        function renderVideos(filter) {
-            const container = document.getElementById('video-container');
-            container.innerHTML = ''; 
-            
-            videos.forEach(video => {
-                if (filter === 'all' || video.category === filter) {
-                    const card = document.createElement('div');
-                    card.className = 'video-card';
-                    
-                    const likeClass = video.isLiked ? 'liked' : '';
-                    const heartType = video.isLiked ? '❤' : '♡'; 
 
-                    card.innerHTML = `
-                        <div class="thumbnail" onclick="openVideoModal('${video.title}', '${video.uploader}', '${video.videoUrl}')">
-                            <div class="play-icon">▶</div>
+        function renderLinks(filter) {
+            const container = document.getElementById('link-container');
+            container.innerHTML = ''; 
+            container.className = 'link-grid'; 
+            
+            const filteredLinks = links.filter(link => filter === 'all' || link.category.toLowerCase() === filter.toLowerCase());
+
+            if (filteredLinks.length === 0) {
+                 container.innerHTML = `<p style="color:#64748b; font-size:1.2rem; text-align:center;">No links found in the selected category: ${filter}.</p>`;
+                 return;
+            }
+
+            filteredLinks.forEach(link => {
+                const card = document.createElement('a');
+                card.className = 'link-card';
+                card.href = link.url;
+                card.target = "_blank"; 
+                card.title = link.title;
+
+                // ⚠️ 카드 구조 변경: link-icon 제거, 간결화된 정보만 표시
+                card.innerHTML = `
+                    <div class="card-info">
+                        <div class="link-title">${link.title}</div>
+                        <div class="source">
+                            <span style="color:#64748b;">Source:</span> ${link.source}
                         </div>
-                        <div class="card-info">
-                            <div class="video-title">${video.title}</div>
-                            <div class="uploader">
-                                ${video.uploader} <span class="verified-badge">✔</span>
-                            </div>
-                            <div class="card-footer">
-                                <span style="font-size:0.75rem; color:#64748b;">Uploaded 2h ago</span>
-                                <button class="like-btn ${likeClass}" onclick="toggleLike(${video.id})">
-                                    <span class="heart-icon">${heartType}</span> 
-                                    <span>${video.likes}</span>
-                                </button>
-                            </div>
+                        <div class="card-footer" style="border-top: 1px dashed #334155; padding-top: 5px;">
+                            <span class="link-url">🌐 ${link.url.replace(/^https?:\/\//, '').split('/')[0]}</span>
+                            <span style="font-size:0.8rem; color:#64748b;">Views: ${link.hits}</span>
                         </div>
-                    `;
-                    container.appendChild(card);
-                }
+                    </div>
+                `;
+                container.appendChild(card);
             });
         }
 
-        // Filter Logic: 새 카테고리 제목 적용
-        function filterVideos(category) {
-            renderVideos(category);
+        function filterLinks(category) {
+            renderLinks(category);
             const buttons = document.querySelectorAll('.category-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
-            event.currentTarget.classList.add('active');
             
-            const titles = {
-                'all': 'Explore All Robotics',
-                'humanoid': 'Humanoid & Bipedal Systems',
-                'automation': 'Industrial Automation & Manufacturing',
-                'retail': 'Retail, Service & Domestic Robots',
-                'farm': 'Agriculture, Farm & Logistics',
-                'software': 'Software & AI Frameworks',
-                'components': 'Hardware, Sensors & Parts'
-            };
-            document.getElementById('page-title').innerText = titles[category];
-        }
-
-        // Like Logic (로직 단순화 적용됨)
-        function toggleLike(id) {
-            const video = videos.find(v => v.id === id);
-            if (video) {
-                if (video.isLiked) {
-                    video.likes--;
-                    video.isLiked = false;
-                } else {
-                    video.likes++;
-                    video.isLiked = true;
-                }
-                
-                const activeBtn = document.querySelector('.category-btn.active');
-                const currentCategory = activeBtn ? activeBtn.getAttribute('onclick').split("'")[1] : 'all';
-                renderVideos(currentCategory);
+            const targetButton = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(`'${category}'`));
+            if (targetButton) {
+                targetButton.classList.add('active');
             }
         }
 
-        // --- UPLOAD MODAL LOGIC ---
         function openUploadModal() { document.getElementById('upload-modal').style.display = 'flex'; }
         function closeUploadModal() { document.getElementById('upload-modal').style.display = 'none'; }
         
-        // 팝업 닫기 함수
-        function closeNoticeModal() {
-            document.getElementById('notice-modal').style.display = 'none';
-        }
-
-        function uploadVideo() {
+        function submitLink() {
             const title = document.getElementById('new-title').value;
+            const url = document.getElementById('new-linkurl').value;
             const category = document.getElementById('new-category').value;
-            const uploader = document.getElementById('new-uploader').value;
 
-            if (!title || !category) {
-                alert("Systems Check Failed: Please enter title and category.");
+            if (!title || !url || !category) {
+                alert("Systems Check Failed: Please enter title, URL, and select a category.");
                 return;
             }
-
-            const newVideo = {
+            
+            const newLink = {
                 id: Date.now(),
                 title: title,
                 category: category,
-                uploader: uploader,
-                likes: 0,
-                isLiked: false,
-                videoUrl: "dQw4w9WgXcQ" 
+                source: "Community Contributed",
+                hits: 0,
+                url: url
             };
-
-            videos.unshift(newVideo);
-            renderVideos('all');
+            links.unshift(newLink);
+            
+            filterLinks(category); 
             closeUploadModal();
             document.getElementById('new-title').value = '';
+            document.getElementById('new-linkurl').value = '';
+            document.getElementById('new-category').selectedIndex = 0;
         }
         
-        // --- 극장 모드 (Theater Mode) 로직 ---
-        function openVideoModal(title, uploader, videoId) {
-            const modal = document.getElementById('video-player-modal');
-            const iframe = document.getElementById('video-iframe');
-            
-            document.getElementById('player-title').innerHTML = `🎬 ${title} <span style="font-size: 0.8em; color: var(--accent);">by ${uploader}</span>`;
-            
-            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&mute=0`;
-            
-            modal.style.display = 'flex';
-        }
-
-        function closeVideoModal() {
-            const iframe = document.getElementById('video-iframe');
-            
-            iframe.src = "";
-            document.getElementById('video-player-modal').style.display = 'none';
-        }
-
-
-        // Initial Render
-        renderVideos('all');
-        
-        // 공지 팝업 표시 로직 (무조건 표시)
-        document.getElementById('notice-modal').style.display = 'flex';
-        // --- NOTICE MODAL LOGIC (확인) ---
         function openNoticeModal() { 
             document.getElementById('notice-modal').style.display = 'flex'; 
         }
         function closeNoticeModal() { 
             document.getElementById('notice-modal').style.display = 'none'; 
+            // 팝업을 닫을 때 기본 카테고리 'Humanoid'를 로드
+            filterLinks('humanoid'); 
         }
 
-        // Initial Render
-        renderVideos('all');
-        openNoticeModal(); // 💡 페이지 로드 시 공지 팝업 자동 실행
+        // Initial Execution 
+        openNoticeModal(); 
     </script>
 </body>
 </html>
-    </script>
-</body>
-
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
