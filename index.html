@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Let's learnrobot.com</title>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Orbitron:wght@500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Chakra Petch:wght@500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
         /* --- FUTURE TECH CSS STYLES --- */
@@ -92,7 +92,7 @@
             padding: 2rem 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 2px;
             border-right: 1px solid #334155;
         }
 
@@ -105,9 +105,9 @@
             cursor: pointer;
             color: var(--text-main);
             
-            font-family: 'Orbitron', sans-serif; 
+            font-family: 'Chakra Petch', sans-serif; 
             font-size: 1.1rem;                   
-            font-weight: 600;                    
+            font-weight: 900;                    
             text-transform: uppercase;           
             letter-spacing: 1px;                 
 
@@ -128,13 +128,12 @@
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
         }
 
-        /* 🌟 추가된 CATEGORY 제목 스타일 */
-   /* 🌟 CATEGORY 제목 스타일 (푸른색 적용) */
+        /* CATEGORY 제목 스타일 (푸른색 적용) */
         .sidebar-category-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            color: var(--accent); /* 푸른색으로 변경됨: #3b82f6 */
-            font-weight: 700;
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.1rem;
+            color: var(--accent); /* 푸른색 */
+            font-weight: 1000;
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 10px;
@@ -142,19 +141,95 @@
             border-bottom: 1px solid rgba(51, 65, 85, 0.5);
         }
 
-        .sidebar-contact-text { font-family: 'Orbitron', sans-serif; }
+        .sidebar-contact-text { font-family: 'Chakra Petch', sans-serif; }
         
         /* --- MAIN CONTENT (link-grid) --- */
         main { flex: 1; padding: 3rem; overflow-y: auto; }
 
-        /* link-grid 크기 조정 (유지) */
+        /* link-grid 크기 조정 */
         .link-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
             gap: 1.5rem; 
         }
 
-        /* --- CARD DESIGN for LINKS (최소화된 디자인) --- */
+        /* --- HOME PAGE STYLES (대문 디자인) --- */
+        .home-showcase {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%; /* main 영역을 꽉 채움 */
+            padding: 0;
+        }
+
+        .home-hero {
+            text-align: center;
+            max-width: 800px;
+            padding: 50px;
+            /* background: var(--card-glass); */ /* 배경 투명하게 (더 깔끔하게) */
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.1);
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .home-title {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 3.0rem;
+            font-weight: 900;
+            color: var(--text-main);
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+
+        .home-subtitle {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.5rem;
+            color: var(--text-muted); /* 노란색 */
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        .home-stats-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .stat-card {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 15px 25px;
+            border-radius: 8px;
+            border: 1px solid var(--accent);
+            min-width: 150px;
+        }
+
+        .stat-card h3 {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-glow);
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin: 0;
+        }
+
+        .home-cta {
+            font-size: 1.2rem;
+            padding: 12px 30px;
+        }
+
+        /* --- CARD DESIGN for LINKS (유지) --- */
         .link-card {
             background: var(--card-glass);
             border: 1px solid #334155;
@@ -199,8 +274,7 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            border-top: 1px dashed #334155; /* 기존 점선 유지 */
-            padding-top: 5px; 
+            padding-top: 0; 
             margin-top: 10px;
         }
         
@@ -222,7 +296,6 @@
             z-index: 100;
         }
         
-        /* 공지 팝업을 항상 최상위로 */
         #notice-modal { z-index: 110; }
         #upload-modal { z-index: 105; }
         
@@ -233,7 +306,7 @@
             font-family: 'Chakra Petch', sans-serif; 
         }
         
-        .modal h3 { font-family: 'Orbitron', sans-serif; margin-bottom: 10px; color: var(--text-main); }
+        .modal h3 { font-family: 'Chakra Petch', sans-serif; margin-bottom: 10px; color: var(--text-main); }
         
         .form-input, select { 
             width: 100%; padding: 12px; margin: 10px 0; 
@@ -247,7 +320,7 @@
 <body>
 
     <header>
-        <a href="#" class="logo-link" title="">
+        <a href="#" class="logo-link" title="" onclick="renderHome()">
             <div class="logo">
                 <img src="logo.png" alt="LearnRobot 로고" class="logo-image">
                 <span style="font-family: 'Chakra Petch'; font-size: 1.8rem; letter-spacing: 1px; color: var(--text-main);">LEARN<span style="color: YELLOW;">ROBOT</span></span>
@@ -298,7 +371,7 @@
             </aside>
 
         <main>
-            <div class="link-grid" id="link-container">
+            <div id="link-container">
                 </div>
         </main>
     </div>
@@ -339,8 +412,8 @@
                         margin: 0 auto 20px auto; 
                         overflow: hidden; 
                         background: transparent;
-                        border: none !important; /* 모든 종류의 테두리 강제 제거 */
-                        outline: none !important; /* 혹시 모를 포커스 윤곽선 제거 */">
+                        border: none !important; 
+                        outline: none !important;">
                 
                 <img src="Xmas logo2.png" alt="크리스마스 로고" 
                      style="width: 100%; 
@@ -414,9 +487,34 @@
         ];
 
 
+        // 🌟 새로운 Home 페이지 렌더링 함수
+        function renderHome() {
+            const container = document.getElementById('link-container');
+            container.innerHTML = ''; 
+            // Home 레이아웃을 위해 클래스 변경
+            container.className = 'home-showcase'; 
+
+            container.innerHTML = `
+                <div class="home-hero">
+                    <h1 class="home-title">Let People Learn your Robot</h1>
+                    <p class="home-subtitle">and bridge the gap between humanity and machinery.</p>
+                    <div class="home-stats-grid">
+                        <div class="stat-card"><h3>100+</h3><p>Curated Links</p></div>
+                        <div class="stat-card"><h3>9</h3><p>Categories</p></div>
+                        <div class="stat-card"><h3>Live</h3><p>Update Status</p></div>
+                    </div>
+                    
+            `;
+            
+            // 모든 카테고리 버튼 비활성화
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+        }
+        
         function renderLinks(filter) {
             const container = document.getElementById('link-container');
             container.innerHTML = ''; 
+            // 링크 그리드 레이아웃을 위해 클래스 변경
             container.className = 'link-grid'; 
             
             const filteredLinks = links.filter(link => filter === 'all' || link.category.toLowerCase() === filter.toLowerCase());
@@ -433,7 +531,6 @@
                 card.target = "_blank"; 
                 card.title = link.title;
 
-                // ⚠️ 카드 구조: 간결화된 정보만 표시. border-top을 footer에 적용.
                 card.innerHTML = `
                     <div class="card-info">
                         <div class="link-title">${link.title}</div>
@@ -494,10 +591,11 @@
         function openNoticeModal() { 
             document.getElementById('notice-modal').style.display = 'flex'; 
         }
+        
+        // 팝업을 닫을 때 Home 페이지를 렌더링하도록 수정
         function closeNoticeModal() { 
             document.getElementById('notice-modal').style.display = 'none'; 
-            // 팝업을 닫을 때 기본 카테고리 'Humanoid'를 로드
-            filterLinks('humanoid'); 
+            renderHome(); // Home 페이지 렌더링
         }
 
         // Initial Execution 
