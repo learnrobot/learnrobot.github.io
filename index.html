@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Let's learnrobot.com</title>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Chakra Petch:wght@500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Orbitron:wght@500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
         /* --- FUTURE TECH CSS STYLES --- */
@@ -49,7 +49,7 @@
             letter-spacing: 1px;
             color: var(--text-main); 
             display: flex; align-items: center; gap: 10px; 
-            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
             font-weight: 900; 
         }
         
@@ -92,7 +92,7 @@
             padding: 2rem 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 4px; 
             border-right: 1px solid #334155;
         }
 
@@ -105,9 +105,9 @@
             cursor: pointer;
             color: var(--text-main);
             
-            font-family: 'Chakra Petch', sans-serif; 
+            font-family: 'Orbitron', sans-serif; 
             font-size: 1.1rem;                   
-            font-weight: 900;                    
+            font-weight: 900;                   
             text-transform: uppercase;           
             letter-spacing: 1px;                 
 
@@ -124,24 +124,24 @@
             background: rgba(59, 130, 246, 0.1); 
             border: 1px solid rgba(59, 130, 246, 0.3);
             color: #FFFB03; 
-            font-weight: 600;
+            font-weight: 900; 
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
         }
 
         /* CATEGORY 제목 스타일 (푸른색 적용) */
         .sidebar-category-title {
-            font-family: 'Chakra Petch', sans-serif;
-            font-size: 1.1rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem; 
             color: var(--accent); /* 푸른색 */
-            font-weight: 1000;
+            font-weight: 900; 
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 10px;
+            margin-bottom: 5px; 
             padding-bottom: 5px;
             border-bottom: 1px solid rgba(51, 65, 85, 0.5);
         }
 
-        .sidebar-contact-text { font-family: 'Chakra Petch', sans-serif; }
+        .sidebar-contact-text { font-family: 'Orbitron', sans-serif; }
         
         /* --- MAIN CONTENT (link-grid) --- */
         main { flex: 1; padding: 3rem; overflow-y: auto; }
@@ -166,7 +166,6 @@
             text-align: center;
             max-width: 800px;
             padding: 50px;
-            /* background: var(--card-glass); */ /* 배경 투명하게 (더 깔끔하게) */
             border-radius: 10px;
             box-shadow: 0 0 30px rgba(59, 130, 246, 0.1);
             animation: fadeIn 1s ease-out;
@@ -178,8 +177,8 @@
         }
 
         .home-title {
-            font-family: 'Chakra Petch', sans-serif;
-            font-size: 3.0rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem; 
             font-weight: 900;
             color: var(--text-main);
             text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
@@ -211,7 +210,7 @@
         }
 
         .stat-card h3 {
-            font-family: 'Chakra Petch', sans-serif;
+            font-family: 'Orbitron', sans-serif;
             font-size: 2rem;
             color: var(--accent-glow);
             margin-bottom: 5px;
@@ -306,7 +305,7 @@
             font-family: 'Chakra Petch', sans-serif; 
         }
         
-        .modal h3 { font-family: 'Chakra Petch', sans-serif; margin-bottom: 10px; color: var(--text-main); }
+        .modal h3 { font-family: 'Orbitron', sans-serif; margin-bottom: 10px; color: var(--text-main); }
         
         .form-input, select { 
             width: 100%; padding: 12px; margin: 10px 0; 
@@ -341,8 +340,10 @@
 
             <button class="category-btn active" onclick="filterLinks('humanoid')">Humanoid</button> 
             <button class="category-btn" onclick="filterLinks('automation')">Automation</button>
-            <button class="category-btn" onclick="filterLinks('retail')">Retail</button>
             <button class="category-btn" onclick="filterLinks('Service')">Service</button>
+            
+            <button class="category-btn" onclick="filterLinks('home')">Home</button>
+            
             <button class="category-btn" onclick="filterLinks('farm')">Farm</button>
             <button class="category-btn" onclick="filterLinks('Logistics')">Logistics</button>
             <button class="category-btn" onclick="filterLinks('software')">Software</button>
@@ -389,9 +390,8 @@
                 <option value="" disabled selected>Select Classification...</option>
                 <option value="humanoid">Humanoid</option>
                 <option value="automation">Automation</option>
-                <option value="retail">Retail</option>
                 <option value="Service">Service</option>
-                <option value="farm">Farm</option>
+                <option value="home">Home</option> <option value="farm">Farm</option>
                 <option value="Logistics">Logistics</option>
                 <option value="software">Software</option>
                 <option value="AI">AI</option>
@@ -446,23 +446,36 @@
             { id: 103, title: "Agility Robotics", category: "humanoid", source: "Agility", hits: 2500, url: "https://agilityrobotics.com/" }, 
             { id: 1, title: "Boston Dynamics (Atlas)", category: "humanoid", source: "Boston Dynamics", hits: 1240, url: "https://www.bostondynamics.com/" }, 
             { id: 6, title: "Engineered Arts (Ameca)", category: "humanoid", source: "Engineered Arts", hits: 2100, url: "https://www.engineeredarts.co.uk/robot/ameca/" },
+            { id: 104, title: "XPENG Robotics (IRON)", category: "humanoid", source: "XPENG", hits: 2800, url: "https://www.xpeng.com/robotics" }, // 신규 추가: 샤오펑 로봇
             
             // Automation (산업 자동화)
             { id: 201, title: "FANUC Robotics", category: "automation", source: "FANUC", hits: 4500, url: "https://www.fanuc.co.jp/en/robot/" }, 
             { id: 202, title: "ABB Robotics", category: "automation", source: "ABB", hits: 3800, url: "https://new.abb.com/products/robotics" }, 
             { id: 2, title: "KUKA Industrial Robots", category: "automation", source: "KUKA", hits: 85, url: "https://www.kuka.com/" }, 
             { id: 204, title: "YASKAWA Robotics", category: "automation", source: "YASKAWA", hits: 2900, url: "https://www.yaskawa.co.jp/en/products/robotics" },
-            
-            // Retail (소매/소비자)
-            { id: 3, title: "iRobot Official Site (Roomba)", category: "retail", source: "iRobot", hits: 342, url: "https://www.irobot.com/" }, 
-            { id: 302, title: "Sphero Education", category: "retail", source: "Sphero", hits: 550, url: "https://sphero.com/" }, 
-            { id: 303, title: "Anki Cozmo (Legacy)", category: "retail", source: "Anki", hits: 150, url: "https://www.digitaldreamlabs.com/pages/cozmo-product-page" }, 
+            { id: 205, title: "SIASUN Robotics (Industrial)", category: "automation", source: "SIASUN", hits: 1900, url: "https://www.siasun.com/" }, 
+            { id: 206, title: "Estun Automation (Industrial)", category: "automation", source: "Estun", hits: 1500, url: "https://www.estun.com/" },
+
+            // Home (가정용 로봇) - 🌟 링크 데이터 유지
+            { id: 1001, title: "iRobot Roomba (Vacuum/Mop)", category: "home", source: "iRobot", hits: 342, url: "https://www.irobot.com/" }, 
+            { id: 1002, title: "Amazon Astro (Home Monitoring)", category: "home", source: "Amazon", hits: 550, url: "https://www.amazon.com/l/10006275011" }, 
+            { id: 1003, title: "Sony Aibo (AI Robot Pet)", category: "home", source: "Sony", hits: 250, url: "https://us.aibo.com/" }, 
             
             // Service (서비스 로봇)
             { id: 401, title: "SoftBank Robotics", category: "Service", source: "SoftBank", hits: 1900, url: "https://www.softbankrobotics.com/" }, 
             { id: 402, title: "Bear Robotics (Serving)", category: "Service", source: "Bear Robotics", hits: 1400, url: "https://www.bearrobotics.com/" }, 
             { id: 4, title: "Aethon Autonomous Mobile Robots", category: "Service", source: "Aethon", hits: 890, url: "https://www.aethon.com/" }, 
-            
+            // --- Newly Added Service Robot Companies (Serving/Delivery Focus) ---
+           { id: 404, title: "KEENON Robotics (Serving, Delivery)", category: "Service", source: "KEENON", hits: 0, url: "https://www.keenon.com/" }, 
+           { id: 405, title: "LG CLOi ServeBot (Serving, Guide)", category: "Service", source: "LG Electronics", hits: 0, url: "https://www.lg.com/global/business/robot/servebot" }, 
+           { id: 406, title: "KT AI Robot (Serving, Delivery)", category: "Service", source: "KT", hits: 0, url: "https://ktrobotech.com/" }, 
+           { id: 407, title: "Woowa Brothers (Baemin Dilly Delivery Robot)", category: "Service", source: "Woowa Brothers", hits: 0, url: "https://robot.baemin.com/" }, 
+           { id: 408, title: "Robotis (Delivery Robot 'Gaemi')", category: "Service", source: "Robotis", hits: 0, url: "https://www.robotis.com/sub/business_012.php" }, 
+           { id: 409, title: "Neubility (Neubie Delivery Robot)", category: "Service", source: "Neubility", hits: 0, url: "https://www.neubility.co.kr/ir" }, 
+           { id: 410, title: "XYZ (Barista, Delivery Robot Storagy)", category: "Service", source: "XYZ", hits: 0, url: "https://xyzcorp.io/" }, 
+           { id: 411, title: "EOS Korea (Serving Robot)", category: "Service", source: "EOS Korea", hits: 0, url: "https://eoskorea.kr/category/%EC%84%9C%EB%B9%99%EB%A1%9C%EB%B4%87/23" },
+           { id: 403, title: "Pudu Robotics (Serving Robots)", category: "Service", source: "Pudu", hits: 2200, url: "https://www.pudurobotics.com/" },
+
             // Farm (농업/드론)
             { id: 501, title: "DJI Agricultural Drones", category: "farm", source: "DJI", hits: 3100, url: "https://www.dji.com/kr/agriculture" }, 
             { id: 502, title: "Blue River Technology (John Deere)", category: "farm", source: "Blue River", hits: 1100, url: "https://www.bluerivertechnology.com/" }, 
@@ -487,7 +500,7 @@
         ];
 
 
-        // 🌟 새로운 Home 페이지 렌더링 함수
+        // 🌟 Home 페이지 렌더링 함수
         function renderHome() {
             const container = document.getElementById('link-container');
             container.innerHTML = ''; 
@@ -496,17 +509,18 @@
 
             container.innerHTML = `
                 <div class="home-hero">
-                    <h1 class="home-title">Let People Learn your Robot</h1>
-                    <p class="home-subtitle">and bridge the gap between humanity and machinery.</p>
+                    <h1 class="home-title">GLOBAL ROBOTICS INSIGHT</h1>
+                    <p class="home-subtitle">Future is Automated. Learn, Connect, and Build with Learnrobot.</p>
                     <div class="home-stats-grid">
                         <div class="stat-card"><h3>100+</h3><p>Curated Links</p></div>
                         <div class="stat-card"><h3>9</h3><p>Categories</p></div>
                         <div class="stat-card"><h3>Live</h3><p>Update Status</p></div>
                     </div>
-                    
+                    <button class="btn btn-primary home-cta" onclick="filterLinks('humanoid')">Explore Humanoid Robotics →</button>
+                </div>
             `;
             
-            // 모든 카테고리 버튼 비활성화
+            // 모든 카테고리 버튼 비활성화 (로고 클릭 시 대문으로 돌아갈 때 사용)
             const buttons = document.querySelectorAll('.category-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
         }
@@ -552,9 +566,16 @@
             const buttons = document.querySelectorAll('.category-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             
+            // HOME(대문) 버튼이 삭제되었으므로, 카테고리 버튼만 활성화 처리
             const targetButton = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(`'${category}'`));
             if (targetButton) {
                 targetButton.classList.add('active');
+            }
+            
+            // Humanoid로 렌더링 후, Humanoid 버튼이 자동으로 활성화될 수 있도록 추가 조정
+            if(category.toLowerCase() === 'humanoid') {
+                const humanoidButton = Array.from(buttons).find(btn => btn.textContent.trim() === 'Humanoid');
+                if (humanoidButton) humanoidButton.classList.add('active');
             }
         }
 
@@ -592,10 +613,10 @@
             document.getElementById('notice-modal').style.display = 'flex'; 
         }
         
-        // 팝업을 닫을 때 Home 페이지를 렌더링하도록 수정
+        // 팝업을 닫을 때 Humanoid 카테고리를 렌더링하도록 수정 (기본값)
         function closeNoticeModal() { 
             document.getElementById('notice-modal').style.display = 'none'; 
-            renderHome(); // Home 페이지 렌더링
+            filterLinks('humanoid'); // Humanoid 카테고리 렌더링
         }
 
         // Initial Execution 
