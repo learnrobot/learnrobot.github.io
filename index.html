@@ -618,9 +618,13 @@
             document.getElementById('notice-modal').style.display = 'none'; 
             filterLinks('humanoid'); // Humanoid 카테고리 렌더링
         }
-
+  // 팝업을 닫을 때 Home 페이지를 렌더링하도록 수정
+        function closeNoticeModal() { 
+            document.getElementById('notice-modal').style.display = 'none'; 
+            renderHome(); // Home 페이지 렌더링
         // Initial Execution 
         openNoticeModal(); 
     </script>
 </body>
 </html>
+
