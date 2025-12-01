@@ -100,34 +100,41 @@
     }
 
 /* --- SIDEBAR (Category List Scroll Fix) --- */
-/* --- SIDEBAR (Category List Scroll Fix) --- */
 .sidebar-category-list { 
-    flex-grow: 1; 
-    overflow-y: auto; 
+    flex-grow: 1; /* 연락처 영역을 하단으로 밀어냄 */
+    overflow-y: auto; /* 스크롤 활성화 */
     padding-right: 5px; 
     display: flex;
     flex-direction: column;
     gap: 4px; 
     margin-bottom: 10px;
-    min-height: 0; 
+    min-height: 0; /* Flexbox 축소 보장 */
     
-    /* 🌟 스크롤바 색상 변경을 위한 CSS 추가 🌟 */
-    scrollbar-width: thin; /* Firefox */
-    scrollbar-color: #334155 #1e293b; /* Firefox (thumb track) */
+    /* 1단계에서 추가한 Firefox 스크롤바 속성도 여기에 포함될 수 있습니다. */
+    scrollbar-width: thin;
+    scrollbar-color: #334155 #1e293b;
 }
 
-/* 🌟 웹킷(Chrome, Safari)용 스크롤바 스타일 추가 🌟 */
+/* --- 스크롤바 커스터마이징 CSS --- */
+
+/* 1. 웹킷(Chrome, Safari) 기반 브라우저 */
 .sidebar-category-list::-webkit-scrollbar {
-    width: 5px; /* 스크롤바 폭을 얇게 조정 */
+    width: 6px; /* 스크롤바 폭 조정 */
 }
 
 .sidebar-category-list::-webkit-scrollbar-track {
-    background: #1e293b; /* 배경색과 동일한 색상 사용 (--bg-panel) */
+    background: #1e293b; /* 트랙 (스크롤바 배경) 색상을 사이드바 배경색과 동일하게 */
 }
 
 .sidebar-category-list::-webkit-scrollbar-thumb {
-    background-color: #334155; /* 엄지(스크롤되는 부분) 색상: 배경보다 약간 어둡게 */
-    border-radius: 4px; /* 모서리를 둥글게 */
+    background-color: #334155; /* 엄지 (스크롤되는 막대) 색상: 배경보다 약간 어두운 색상 */
+    border-radius: 4px; 
+}
+
+/* 2. 파이어폭스(Firefox)용 (선택적) */
+.sidebar-category-list { 
+    scrollbar-width: thin;
+    scrollbar-color: #334155 #1e293b; /* thumb track */
 }
 
 /* 아래는 기존 aside 스타일 (height: 100%로 이미 수정되어 있어 괜찮습니다) */
@@ -786,6 +793,7 @@ aside {
     </script>
 </body>
 </html>
+
 
 
 
