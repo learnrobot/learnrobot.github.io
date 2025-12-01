@@ -96,18 +96,6 @@
             flex-direction: column;
             gap: 4px; 
             border-right: 1px solid #334155;
-            height: 100vh; /* 🌟 100vh 추가 */
-        }
-        
-        /* 🌟 새로 추가된 CSS: 카테고리 목록 스크롤을 위한 스타일 */
-        .sidebar-category-list { 
-            flex-grow: 1; /* 남은 공간을 모두 차지 */
-            overflow-y: auto; /* 내용이 넘치면 스크롤 */
-            padding-right: 5px; /* 스크롤바 공간 확보 */
-            display: flex; /* 내부 요소(버튼)를 세로로 정렬 */
-            flex-direction: column;
-            gap: 4px; 
-            margin-bottom: 10px; /* 아래 연락처와의 간격 */
         }
 
         .category-btn {
@@ -442,24 +430,23 @@
     <div class="container">
         <aside>
             <p class="sidebar-category-title">Category</p> 
+
+            <button class="category-btn active" onclick="filterLinks('humanoid')">Humanoid</button> 
+            <button class="category-btn" onclick="filterLinks('automation')">Automation</button>
+            <button class="category-btn" onclick="filterLinks('Service')">Service</button>
             
-            <div class="sidebar-category-list"> 
-                <button class="category-btn active" onclick="filterLinks('humanoid')">Humanoid</button> 
-                <button class="category-btn" onclick="filterLinks('automation')">Automation</button>
-                <button class="category-btn" onclick="filterLinks('Service')">Service</button>
-                
-                <button class="category-btn" onclick="filterLinks('home')">Home</button>
-                
-                <button class="category-btn" onclick="filterLinks('farm')">Farm</button>
-                <button class="category-btn" onclick="filterLinks('Logistics')">Logistics</button>
-                <button class="category-btn" onclick="filterLinks('software')">Software</button>
-                <button class="category-btn" onclick="filterLinks('AI')">AI</button>
-                <button class="category-btn" onclick="filterLinks('academia')">Academia</button> </div>
-                <button class="category-btn" onclick="filterLinks('components')">Components</button>
-                <button class="category-btn" onclick="filterLinks('organization')">Organization</button>
-                <button class="category-btn" onclick="filterLinks('events')">Events</button>
-                
-                <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid #334155; text-align: left;">
+            <button class="category-btn" onclick="filterLinks('home')">Home</button>
+            
+            <button class="category-btn" onclick="filterLinks('farm')">Farm</button>
+            <button class="category-btn" onclick="filterLinks('Logistics')">Logistics</button>
+            <button class="category-btn" onclick="filterLinks('software')">Software</button>
+            <button class="category-btn" onclick="filterLinks('AI')">AI</button>
+            <button class="category-btn" onclick="filterLinks('academia')">Academia</button>
+            <button class="category-btn" onclick="filterLinks('components')">Components</button>
+            <button class="category-btn" onclick="filterLinks('organization')">Organization</button>
+            <button class="category-btn" onclick="filterLinks('events')">Events</button>
+            
+            <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid #334155; text-align: left;">
                 
                 <p class="sidebar-contact-text" style="font-size: 0.8rem; color: #64748b; margin-bottom: 5px; font-weight: 600; text-transform: uppercase;">Contact</p>
                 
@@ -505,7 +492,7 @@
                 <option value="software">Software</option>
                 <option value="AI">AI</option>
                 <option value="components">Components</option>
-                <option value="events">Events</option> <option value="organization">Organization</option> <option value="academia">Academia</option> </select>
+            </select>
 
             <button class="btn btn-primary" style="width:100%; margin-top: 20px;" onclick="submitLink()">Submit Link</button>
             <button class="btn btn-login" style="margin-top: 10px; width:100%" onclick="closeUploadModal()">Abort</button>
@@ -555,7 +542,7 @@
             { id: 103, title: "Agility Robotics", category: "humanoid", source: "Agility", hits: 2500, url: "https://agilityrobotics.com/" }, 
             { id: 1, title: "Boston Dynamics (Atlas)", category: "humanoid", source: "Boston Dynamics", hits: 1240, url: "https://www.bostondynamics.com/" }, 
             { id: 6, title: "Engineered Arts (Ameca)", category: "humanoid", source: "Engineered Arts", hits: 2100, url: "https://www.engineeredarts.co.uk/robot/ameca/" },
-            { id: 104, title: "XPENG Robotics (IRON)", category: "humanoid", source: "XPENG", hits: 2800, url: "https://www.xpeng.com/robotics" }, 
+            { id: 104, title: "XPENG Robotics (IRON)", category: "humanoid", source: "XPENG", hits: 2800, url: "https://www.xpeng.com/robotics" }, // 신규 추가: 샤오펑 로봇
             
             // Automation (산업 자동화)
             { id: 201, title: "FANUC Robotics", category: "automation", source: "FANUC", hits: 4500, url: "https://www.fanuc.co.jp/en/robot/" }, 
@@ -606,35 +593,30 @@
             { id: 804, title: "Meta AI (Llama)", category: "AI", source: "Meta", hits: 5200, url: "https://ai.meta.com/" },
             { id: 805, title: "Hugging Face (Models Hub)", category: "AI", source: "Hugging Face", hits: 7100, url: "https://huggingface.co/" },
             
-            // Components (부품) 🌟 항목 대폭 보강됨
-            { id: 901, title: "Harmonic Drive Systems (HDS)", category: "components", source: "Japan/Global", hits: 9500, url: "https://www.harmonicdrive.net/" },
-            { id: 902, title: "Maxon Group (Maxon Motor)", category: "components", source: "Switzerland/Global", hits: 8800, url: "https://www.maxongroup.com/" },
-            { id: 903, title: "Nabtesco (RV Reducers)", category: "components", source: "Japan/Global", hits: 8200, url: "https://www.nabtescomotioncontrol.com/" },
-            { id: 904, title: "SICK AG (Sensor Intelligence)", category: "components", source: "Germany/Global", hits: 7500, url: "https://www.sick.com/" },
-            { id: 905, title: "Pololu Robotics & Electronics", category: "components", source: "US", hits: 6300, url: "https://www.pololu.com/" },
-            { id: 906, title: "SPG Co., Ltd. (감속기, 모터)", category: "components", source: "Korea", hits: 5500, url: "http://www.spg.co.kr/" },
-            { id: 907, title: "SBB Tech (정밀 감속기)", category: "components", source: "Korea", hits: 5100, url: "https://sbbtech.com/" },
+            // Academia (로봇 연구소, 대학) 🌟 신규 추가
+            { id: 30001, title: "MIT CSAIL (Computer Science & AI Lab)", category: "academia", source: "MIT", hits: 9100, url: "https://www.csail.mit.edu/" }, 
+            { id: 30002, title: "Stanford AI Lab (SAIL)", category: "academia", source: "Stanford", hits: 8800, url: "https://ai.stanford.edu/" }, 
+            { id: 30003, title: "ETH Zurich Robotics", category: "academia", source: "ETH Zurich", hits: 7500, url: "https://www.ethz.ch/en/research/focus/robotics.html" },
+            { id: 30004, title: "KAIST Robotics Program", category: "academia", source: "KAIST", hits: 6900, url: "https://robotics.kaist.ac.kr/" }, 
+            { id: 30005, title: "UC Berkeley Artificial Intelligence Research", category: "academia", source: "UC Berkeley", hits: 6200, url: "https://bair.berkeley.edu/" },
             
-            // Events (로봇 관련 주요 연간 이벤트)
+            // Components (부품/센서)
+            { id: 901, title: "Lidar by Velodyne", category: "components", source: "Velodyne", hits: 2800, url: "https://velodynelidar.com/" }, 
+            { id: 902, title: "Robot Grippers by Robotiq", category: "components", source: "Robotiq", hits: 1600, url: "https://robotiq.com/" },
+            
+            // Events (로봇 관련 주요 연간 이벤트) 🌟 신규 추가
             { id: 10001, title: "ICRA (IEEE Int. Conference on Robotics and Automation)", category: "events", source: "IEEE", hits: 7500, url: "https://www.icra2025.org/" }, 
             { id: 10002, title: "IROS (Int. Conference on Intelligent Robots and Systems)", category: "events", source: "IEEE/RSJ", hits: 6800, url: "https://www.iros2025.org/" }, 
             { id: 10003, title: "RoboCup (Int. Robotics Competition)", category: "events", source: "RoboCup", hits: 5500, url: "https://www.robocup.org/" },
             { id: 10004, title: "Automatica (Trade Fair, Munich)", category: "events", source: "Messe München", hits: 4100, url: "https://automatica-munich.com/" }, 
             { id: 10005, title: "ROSCon (ROS Developers Conference)", category: "events", source: "Open Source", hits: 3900, url: "https://roscon.ros.org/" }, 
 
-            // Organization (국제적 로봇 기관)
+            // Organization (국제적 로봇 기관) 🌟 신규 추가
             { id: 20001, title: "IFR (International Federation of Robotics)", category: "organization", source: "IFR", hits: 8200, url: "https://ifr.org/" }, 
             { id: 20002, title: "IEEE RAS (Robotics and Automation Society)", category: "organization", source: "IEEE", hits: 7900, url: "https://www.ieee-ras.org/" }, 
             { id: 20003, title: "Robotics Institute (Carnegie Mellon)", category: "organization", source: "CMU", hits: 6500, url: "https://www.ri.cmu.edu/" }, 
             { id: 20004, title: "ISO TC 299 (Robotics Standardization)", category: "organization", source: "ISO", hits: 4800, url: "https://committee.iso.org/home/tc299" },
-            
-            // Academia (로봇 연구소, 대학) 🌟 신규 추가됨
-            { id: 30001, title: "MIT CSAIL (Computer Science & AI Lab)", category: "academia", source: "MIT", hits: 9100, url: "https://www.csail.mit.edu/" }, 
-            { id: 30002, title: "Stanford AI Lab (SAIL)", category: "academia", source: "Stanford", hits: 8800, url: "https://ai.stanford.edu/" }, 
-            { id: 30003, title: "ETH Zurich Robotics", category: "academia", source: "ETH Zurich", hits: 7500, url: "https://www.ethz.ch/en/research/focus/robotics.html" },
-            { id: 30004, title: "KAIST Robotics Program", category: "academia", source: "KAIST", hits: 6900, url: "https://robotics.kaist.ac.kr/" }, 
-            { id: 30005, title: "UC Berkeley Artificial Intelligence Research", category: "academia", source: "UC Berkeley", hits: 6200, url: "https://bair.berkeley.edu/" },
-        ]; // <-- 기존 배열 끝
+        ]; // <-- 기존 배열 끝 (맨 마지막에 붙여넣으세요)
       
 
 
@@ -761,4 +743,24 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
