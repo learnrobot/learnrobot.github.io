@@ -89,13 +89,21 @@
 
         /* --- SIDEBAR --- */
         aside {
-            width: var(--sidebar-width);
-            background: #0A111E; 
-            padding: 2rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 4px; 
-            border-right: 1px solid #334155;
+           position: fixed;
+           top: 0;
+           left: 0;
+           width: var(--sidebar-width);
+             /* height: 100vh; 이 속성이 있는지 확인하고 없다면 추가 */
+           height: 100vh; 
+           padding: 25px 20px;
+           background-color: var(--bg-panel);
+           color: var(--text-main);
+           display: flex;
+           flex-direction: column;
+        /* overflow 속성을 추가하여 내용이 넘칠 때 스크롤바가 생기도록 합니다 */
+           overflow-y: auto; /* 🌟 이 줄을 추가합니다. */
+           z-index: 100;
+    }
         }
 
         .category-btn {
@@ -743,6 +751,7 @@
     </script>
 </body>
 </html>
+
 
 
 
