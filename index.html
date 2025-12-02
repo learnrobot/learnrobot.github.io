@@ -168,8 +168,10 @@ aside {
         }
         
         .category-btn:hover { 
-            background: rgba(255,255,255,0.05); 
-            color: #C5E3C1; 
+            background: transparent; 
+            
+            /* 👇 텍스트 색상을 기본 텍스트 색상인 var(--text-main)로 유지 */
+            color: #FFFB03
         }
         
         .category-btn.active { 
@@ -177,7 +179,7 @@ aside {
             border: 1px solid rgba(59, 130, 246, 0.3);
             color: #FFFB03; 
             font-weight: 900; 
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+            
         }
 
         /* CATEGORY 제목 스타일 (푸른색 적용) */
