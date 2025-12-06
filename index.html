@@ -96,21 +96,21 @@
         flex-direction: column;
         gap: 4px; 
         border-right: 1px solid #334155;
-        height: 100%; /* 🌟 수정됨: 100vh -> 100% */
+        height: 100%; 
     }
 
 /* --- SIDEBAR (Category List Scroll Fix) --- */
 .sidebar-category-list { 
-    flex-grow: 1; /* 연락처 영역을 하단으로 밀어냄 */
-    overflow-y: auto; /* 스크롤 활성화 */
+    flex-grow: 1; 
+    overflow-y: auto; 
     padding-right: 5px; 
     display: flex;
     flex-direction: column;
     gap: 4px; 
     margin-bottom: 10px;
-    min-height: 0; /* Flexbox 축소 보장 */
+    min-height: 0; 
     
-    /* 1단계에서 추가한 Firefox 스크롤바 속성도 여기에 포함될 수 있습니다. */
+    /* 1. 웹킷(Chrome, Safari) 기반 브라우저 */
     scrollbar-width: thin;
     scrollbar-color: #334155 #1e293b;
 }
@@ -119,22 +119,22 @@
 
 /* 1. 웹킷(Chrome, Safari) 기반 브라우저 */
 .sidebar-category-list::-webkit-scrollbar {
-    width: 6px; /* 스크롤바 폭 조정 */
+    width: 6px; 
 }
 
 .sidebar-category-list::-webkit-scrollbar-track {
-    background: #1e293b; /* 트랙 (스크롤바 배경) 색상을 사이드바 배경색과 동일하게 */
+    background: #1e293b; 
 }
 
 .sidebar-category-list::-webkit-scrollbar-thumb {
-    background-color: #334155; /* 엄지 (스크롤되는 막대) 색상: 배경보다 약간 어두운 색상 */
+    background-color: #334155; 
     border-radius: 4px; 
 }
 
 /* 2. 파이어폭스(Firefox)용 (선택적) */
 .sidebar-category-list { 
     scrollbar-width: thin;
-    scrollbar-color: #334155 #1e293b; /* thumb track */
+    scrollbar-color: #334155 #1e293b; 
 }
 
 /* 아래는 기존 aside 스타일 (height: 100%로 이미 수정되어 있어 괜찮습니다) */
@@ -212,7 +212,7 @@ aside {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%; /* main 영역을 꽉 채움 */
+            height: 100%; 
             padding: 0;
         }
 
@@ -282,7 +282,7 @@ aside {
             padding: 12px 30px;
         }
 
-        /* --- CARD DESIGN for LINKS (유지) --- */
+        /* --- CARD DESIGN for LINKS --- */
         .link-card {
             background: var(--card-glass);
             border: 1px solid #334155;
@@ -302,6 +302,47 @@ aside {
             box-shadow: 0 5px 15px rgba(0,0,0,0.5); 
         }
 
+        /* 🚨 추가: 가장 많은 HITs를 가진 카드를 위한 스타일 (Humanoid 전용) */
+        .link-card.large {
+            grid-column: span 2; 
+            min-height: 140px; /* URL 포함에 맞게 높이 조정 */
+            border-color: var(--accent-glow);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.7); 
+        }
+        
+        .link-card.large .link-title {
+            font-size: 1.8rem; 
+            color: var(--text-muted); 
+            white-space: normal; 
+            overflow: visible;
+        }
+
+        /* 🚨 수정: 카드 하단 URL 영역 스타일 */
+        .card-footer {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding-top: 5px; 
+            margin-top: 10px;
+            border-top: 1px dashed #334155; /* 구분선 */
+        }
+        
+        /* 🚨 수정: 링크 주소 스타일 */
+        .link-url {
+            font-size: 0.85rem; 
+            color: var(--accent-glow); 
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 100%; 
+        }
+
+        /* 🚨 Large 카드 내부 URL 글꼴도 키움 */
+        .link-card.large .link-url {
+            font-size: 1.0rem; 
+            white-space: normal; 
+            text-overflow: clip; 
+        }
         
         .card-info { padding: 0.8rem 1rem; } 
         .link-title { 
@@ -309,38 +350,11 @@ aside {
             margin-bottom: 4px; 
             font-size: 1.1rem; 
             color: var(--text-main);
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis; 
+            white-space: normal; /* 텍스트 줄 바꿈 허용 (전체 표시) */
+            overflow: visible;
+            text-overflow: clip; 
         }
         
-        .source { 
-            font-size: 0.85rem; 
-            color: #94a3b8; 
-            display: flex; 
-            align-items: center; 
-            gap: 6px; 
-            margin-bottom: 5px; 
-        }
-
-        .card-footer {
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            padding-top: 0; 
-            margin-top: 10px;
-        }
-        
-        .link-url {
-            font-size: 0.8rem;
-            color: var(--accent-glow); 
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            max-width: 80%;
-        }
-
-
         /* --- MODAL (Dark Theme) --- */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -370,7 +384,7 @@ aside {
 /* --- SNS Icons Styles (로고만) --- */
 .sns-icons {
     display: flex;
-    gap: 15px; /* 아이콘 사이 간격 */
+    gap: 15px; 
     align-items: center;
 }
 
@@ -379,7 +393,7 @@ aside {
     text-decoration: none;
     transition: transform 0.2s, color 0.2s;
     display: block;
-    font-size: 2.1em; /* 🌟 크기 확대! 1.8em -> 2.5em */
+    font-size: 2.1em; 
 }
 
 .sns-icons a:hover {
@@ -432,26 +446,20 @@ aside {
     font-size: 20px;
     text-align: center;
     color: var(--text-main);
-    background-color: #000; /* X 로고의 검은색 배경 */
+    background-color: #000; 
     border-radius: 5px;
 }
 .icon-x::before {
-    content: 'X'; /* 유니코드 X 문자 */
+    content: 'X'; 
 }
 
 /* 🚨 최종 시도: 우측 상단 잔여 파란색 원/점 강제 숨기기 */
-
-/* 1. 이전 'submit-link'의 잔여 요소 모두 숨김 */
 .submit-link,              
 .submit-link::before,
 .submit-link::after {
     display: none !important;
 }
 
-
-
-   
-}
 </style>
     
 </head>
@@ -508,7 +516,7 @@ aside {
             style="color: #FFFB03; 
                    text-decoration: none; 
                    font-size: 1.0rem; 
-                   display: block; /* display: flex 대신 block을 사용하여 단순화 */
+                   display: block; 
                    transition: 0.3s; 
                    font-family: 'roboto', sans-serif;" 
             onmouseover="this.style.color='#00FFFF'" 
@@ -596,19 +604,16 @@ aside {
             { id: 1, title: "Boston Dynamics (Atlas)", category: "humanoid", source: "Boston Dynamics", hits: 1240, url: "https://www.bostondynamics.com/" }, 
             { id: 6, title: "Engineered Arts (Ameca)", category: "humanoid", source: "Engineered Arts", hits: 2100, url: "https://www.engineeredarts.co.uk/robot/ameca/" },
             { id: 104, title: "XPENG Robotics (IRON)", category: "humanoid", source: "XPENG", hits: 2800, url: "https://www.xpeng.com" }, 
-            // 🇨🇳 NEW: 휴머노이드 (유비테크)
-            { id: 105, title: "UBTech Robotics (优必选)", category: "humanoid", source: "UBTech", hits: 7500, url: "https://www.ubtrobot.com/cn/" }, 
+            { id: 105, title: "UBTech Robotics", category: "humanoid", source: "UBTech", hits: 7500, url: "https://www.ubtrobot.com/cn/" }, 
             
             // Automation (산업 자동화)
             { id: 201, title: "FANUC Robotics", category: "automation", source: "FANUC", hits: 4500, url: "https://www.fanuc.co.jp/en/robot/" }, 
             { id: 202, title: "ABB Robotics", category: "automation", source: "ABB", hits: 3800, url: "https://new.abb.com/products/robotics" }, 
             { id: 2, title: "KUKA Industrial Robots", category: "automation", source: "KUKA", hits: 85, url: "https://www.kuka.com/" }, 
             { id: 204, title: "YASKAWA Robotics", category: "automation", source: "YASKAWA", hits: 2900, url: "https://www.yaskawa.co.jp/en/products/robotics" },
-            // 🇨🇳 CHINA (Industrial) - 신송, 에스툰은 기존 항목을 유지
-            { id: 205, title: "SIASUN Robotics (新松)", category: "automation", source: "SIASUN", hits: 1900, url: "http://www.siasun.com/" }, 
-            { id: 206, title: "Estun Automation (埃斯顿)", category: "automation", source: "Estun", hits: 1500, url: "https://www.estun.com/" },
-            // 🇨🇳 NEW: 협동 로봇 (두봇)
-            { id: 207, title: "DOBOT (越疆机器人 - Collaborative)", category: "automation", source: "DOBOT", hits: 5200, url: "https://www.dobot-robot.com/" },
+            { id: 205, title: "SIASUN Robotics", category: "automation", source: "SIASUN", hits: 1900, url: "http://www.siasun.com/" }, 
+            { id: 206, title: "Estun Automation", category: "automation", source: "Estun", hits: 1500, url: "https://www.estun.com/" },
+            { id: 207, title: "DOBOT (Collaborative Robot)", category: "automation", source: "DOBOT", hits: 5200, url: "https://www.dobot-robot.com/" },
             
              // Service (서비스 로봇)
             { id: 401, title: "SoftBank Robotics", category: "Service", source: "SoftBank", hits: 1900, url: "https://www.softbankrobotics.com/" }, 
@@ -622,19 +627,19 @@ aside {
             { id: 408, title: "Robotis (Delivery Robot 'Gaemi')", category: "Service", source: "Robotis", hits: 0, url: "https://www.robotis.com/sub/business_012.php" }, 
             { id: 409, title: "Neubility (Neubie Delivery Robot)", category: "Service", source: "Neubility", hits: 0, url: "https://www.neubility.co.kr/ir" }, 
             { id: 410, title: "XYZ (Barista, Delivery Robot Storagy)", category: "Service", source: "XYZ", hits: 0, url: "https://xyzcorp.io/" }, 
-            { id: 411, title: "EOS Korea (Serving Robot)", category: "Service", source: "EOS Korea", hits: 0, url: "https://eoskorea.kr/category/%EC%84%9C%EB%B9%99%EB%A1%9C%EB%B4%87/23" },
+            { id: 411, title: "EOS Korea (Serving Robot)", category: "Service", source: "EOS Korea", hits: 0, url: "https://eoskorea.kr/category/%EC%9D%B4%EC%98%A4%EC%8A%A4-%EC%84%9C%EB%B9%99%EB%A1%9C%EB%B4%87/43/" }, 
             { id: 412, title: "DJI Robotics (RoboMaster)", category: "Service", source: "DJI", hits: 4800, url: "https://www.dji.com/kr/robots" },
             
             // Medical (의료/수술 로봇)
             { id: 3001, title: "Intuitive Surgical (Da Vinci)", category: "medical", source: "Intuitive Surgical", hits: 9500, url: "https://www.intuitive.com/" }, 
-            { id: 3002, title: "Stryker (Mako System)", category: "medical", source: "Stryker", hits: 8100, url: "https://www.stryker.com/us/en/medical-surgical/mako.html" },
+            { id: 3002, title: "Stryker (Mako Surgical Robot)", category: "medical", source: "Stryker", hits: 8100, url: "https://www.stryker.com/us/en/joint-replacement/systems/Mako_SmartRobotics_Overview.html" },
             { id: 3003, title: "Medtronic (Surgical Robotics)", category: "medical", source: "Medtronic", hits: 7800, url: "https://www.medtronic.com/us-en/c/surgical-robotics.html" },
             { id: 3004, title: "CMR Surgical (Versius)", category: "medical", source: "CMR Surgical", hits: 5500, url: "https://cmrsurgical.com/" },
             { id: 3005, title: "Siemens Healthineers (Corindus)", category: "medical", source: "Siemens", hits: 5100, url: "https://www.siemens-healthineers.com/en-us/surgical-robotics" },
-            { id: 3006, title: "Curexo (ROBODOC, CUVIS)", category: "medical", source: "Curexo", hits: 4800, url: "http://www.curexo.com/" }, // '큐렉소' -> 'Curexo'
-            { id: 3007, title: "Koh Young Technology (Brain Surgery Robot)", category: "medical", source: "Koh Young Technology", hits: 3900, url: "https://www.kohyoung.com/" }, // '고영테크놀러지' -> 'Koh Young Technology'
-            { id: 3008, title: "MedinTeq (Endoscopy Robot)", category: "medical", source: "MedinTeq", hits: 3500, url: "https://medintech.co.kr/" }, // '메디인테크' -> 'MedinTeq'
-            { id: 3009, title: "L&ROBOTICS (Cardiovascular Robot)", category: "medical", source: "L&ROBOTICS", hits: 2900, url: "http://www.lnrobotics.com/" }, // '엘엔로보틱스' -> 'L&ROBOTICS'
+            { id: 3006, title: "Curexo (ROBODOC, CUVIS)", category: "medical", source: "Curexo", hits: 4800, url: "http://www.curexo.com/" }, 
+            { id: 3007, title: "Koh Young Technology (Brain Surgery Robot)", category: "medical", source: "Koh Young Technology", hits: 3900, url: "https://www.kohyoung.com/" }, 
+            { id: 3008, title: "MedinTeq (Endoscopy Robot)", category: "medical", source: "MedinTeq", hits: 3500, url: "https://medintech.co.kr/" }, 
+            { id: 3009, title: "L&ROBOTICS (Cardiovascular Robot)", category: "medical", source: "L&ROBOTICS", hits: 2900, url: "http://www.lnrobotics.com/" }, 
             
              // Farm (농업/드론)
             { id: 501, title: "DJI Agricultural Drones", category: "farm", source: "DJI", hits: 3100, url: "https://www.dji.com/kr/agriculture" }, 
@@ -680,16 +685,16 @@ aside {
             { id: 30004, title: "KAIST Robotics Program", category: "academia", source: "KAIST", hits: 6900, url: "https://robotics.kaist.ac.kr/" }, 
             { id: 30005, title: "UC Berkeley Artificial Intelligence Research", category: "academia", source: "UC Berkeley", hits: 6200, url: "https://bair.berkeley.edu/" },
             
-            // Events (로봇 관련 주요 연간 이벤트) 🌟 영문으로 변경 완료
+            // Events (로봇 관련 주요 연간 이벤트) 
             { id: 10001, title: "ROBOT WORLD (Int'l Robot Industry Show)", category: "events", source: "KINTEX/KIRIA", hits: 6500, url: "https://www.robotworld.or.kr/" }, 
-            { id: 10002, title: "iREX (International Robot Exhibition)", category: "events", source: "JARA/NEDO", hits: 5900, url: "https://www.irex.or.jp/en/" },
+            { id: 10002, title: "iREX (International Robot Exhibition)", category: "events", source: "JARA/NEDO", hits: 5900, url: "https://irex.nikkan.co.jp" },
             { id: 10003, title: "automatica Munich", category: "events", source: "Messe München", hits: 5100, url: "https://automatica-munich.com/" }, 
-            { id: 10004, title: "IEEE RAS (Robotics and Automation Society)", category: "events", source: "IEEE", hits: 4500, url: "https://www.ieee-ras.org/" }, 
+            { id: 10004, title: "IEEE RAS (Robotics and Automation Society)", category: "events", source: "IEEE", hits: 4500, url: "https://2025.ieee-icra.org/" }, 
             { id: 10005, title: "AI EXPO KOREA (Int'l AI Exhibition)", category: "events", source: "AI EXPO", hits: 4100, url: "https://www.aiexpo.co.kr/" },
             
             // Organization (국제적 로봇 기관) 
             { id: 20001, title: "IFR (International Federation of Robotics)", category: "organization", source: "IFR", hits: 8200, url: "https://ifr.org/" }, 
-            { id: 20002, title: "IEEE RAS (Robotics and Automation Society)", category: "organization", source: "IEEE", hits: 7900, url: "https://www.ieee-ras.org/" }, 
+            { id: 20002, title: "IEEE RAS (Robotics and Automation Society)", category: "organization", source: "IEEE", hits: 7900, url: "https://2025.ieee-icra.org/" }, 
             { id: 20003, title: "Robotics Institute (Carnegie Mellon)", category: "organization", source: "CMU", hits: 6500, url: "https://www.ri.cmu.edu/" }, 
             { id: 20004, title: "ISO TC 299 (Robotics Standardization)", category: "organization", source: "ISO", hits: 4800, url: "https://committee.iso.org/home/tc299" },
         ];
@@ -733,22 +738,38 @@ aside {
                  return;
             }
 
+            // 1. 최고 조회수 링크 ID 찾기 (Humanoid 카테고리에만 적용)
+            let maxHitsId = null;
+            if (filter.toLowerCase() === 'humanoid') {
+                let maxHits = -1;
+                filteredLinks.forEach(link => {
+                    if (link.hits > maxHits) {
+                        maxHits = link.hits;
+                        maxHitsId = link.id;
+                    }
+                });
+            }
+
+
             filteredLinks.forEach(link => {
+                const isLarge = link.id === maxHitsId; // 최고 조회수 항목인지 확인
+
                 const card = document.createElement('a');
-                card.className = 'link-card';
+                // 최고 조회수일 경우 'large' 클래스를 추가
+                card.className = isLarge ? 'link-card large' : 'link-card';
                 card.href = link.url;
                 card.target = "_blank"; 
                 card.title = link.title;
+                
+                // URL에서 프로토콜(http/https)을 제거하고 도메인만 표시하는 함수
+                const displayUrl = link.url.replace(/^https?:\/\//, '').split('/')[0];
+
 
                 card.innerHTML = `
                     <div class="card-info">
                         <div class="link-title">${link.title}</div>
-                        <div class="source">
-                            <span style="color:#64748b;">Source:</span> ${link.source}
-                        </div>
-                        <div class="card-footer" style="border-top: 1px dashed #334155; padding-top: 5px;">
-                            <span class="link-url">🌐 ${link.url.replace(/^https?:\/\//, '').split('/')[0]}</span>
-                            <span style="font-size:0.8rem; color:#64748b;">Views: ${link.hits}</span>
+                        <div class="card-footer">
+                            <span class="link-url">🌐 ${displayUrl}</span>
                         </div>
                     </div>
                 `;
@@ -818,37 +839,3 @@ aside {
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
