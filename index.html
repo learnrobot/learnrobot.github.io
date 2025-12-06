@@ -736,25 +736,14 @@ aside {
                  return;
             }
 
-            // 1. 최고 조회수 링크 ID 찾기 (Humanoid 카테고리에만 적용)
-            let maxHitsId = null;
-            if (filter.toLowerCase() === 'humanoid') {
-                let maxHits = -1;
-                filteredLinks.forEach(link => {
-                    if (link.hits > maxHits) {
-                        maxHits = link.hits;
-                        maxHitsId = link.id;
-                    }
-                });
-            }
-
+         
 
             filteredLinks.forEach(link => {
-                const isLarge = link.id === maxHitsId; // 최고 조회수 항목인지 확인
+              // const isLarge = link.id === maxHitsId; // 최고 조회수 항목인지 확인 (제거)
 
                 const card = document.createElement('a');
-                // 최고 조회수일 경우 'large' 클래스를 추가
-                card.className = isLarge ? 'link-card large' : 'link-card';
+                // card.className = isLarge ? 'link-card large' : 'link-card'; // (원래 코드 제거)
+                card.className = 'link-card'; // 👈 항상 일반 클래스만 사용하도록 수정
                 card.href = link.url;
                 card.target = "_blank"; 
                 card.title = link.title;
@@ -837,6 +826,7 @@ aside {
     </script>
 </body>
 </html>
+
 
 
 
