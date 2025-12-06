@@ -489,15 +489,16 @@ aside {
         <button class="category-btn" onclick="filterLinks('automation')">Automation</button>
         <button class="category-btn" onclick="filterLinks('Service')">Service</button>
         <button class="category-btn" onclick="filterLinks('medical')">Medical</button>
-        <button class="category-btn" onclick="filterLinks('home')">Home</button>
         <button class="category-btn" onclick="filterLinks('farm')">Farm</button>
         <button class="category-btn" onclick="filterLinks('Logistics')">Logistics</button>
-        <button class="category-btn" onclick="filterLinks('software')">Software</button>
+        <button class="category-btn" onclick="filterLinks('home')">Home</button>        
         <button class="category-btn" onclick="filterLinks('AI')">AI</button>
-        <button class="category-btn" onclick="filterLinks('academia')">Academia</button>
+        <button class="category-btn" onclick="filterLinks('software')">Software</button>
         <button class="category-btn" onclick="filterLinks('components')">Components</button>
+        <button class="category-btn" onclick="filterLinks('academia')">Academia</button>
+        <button class="category-btn" onclick="filterLinks('events')">Events</button>        
         <button class="category-btn" onclick="filterLinks('organization')">Organization</button>
-        <button class="category-btn" onclick="filterLinks('events')">Events</button>
+        
         
     </div> <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid #334155; text-align: left;">
         
@@ -587,54 +588,55 @@ aside {
     <script>
         /* --- JAVASCRIPT LOGIC (Links) --- */
         
-        let links = [
+       let links = [
             // Humanoid (휴머노이드)
             { id: 101, title: "Figure AI", category: "humanoid", source: "Figure", hits: 3200, url: "https://www.figure.ai/" }, 
             { id: 102, title: "Unitree Robotics", category: "humanoid", source: "Unitree", hits: 1800, url: "https://www.unitree.com/" }, 
             { id: 103, title: "Agility Robotics", category: "humanoid", source: "Agility", hits: 2500, url: "https://agilityrobotics.com/" }, 
             { id: 1, title: "Boston Dynamics (Atlas)", category: "humanoid", source: "Boston Dynamics", hits: 1240, url: "https://www.bostondynamics.com/" }, 
             { id: 6, title: "Engineered Arts (Ameca)", category: "humanoid", source: "Engineered Arts", hits: 2100, url: "https://www.engineeredarts.co.uk/robot/ameca/" },
-            { id: 104, title: "XPENG Robotics (IRON)", category: "humanoid", source: "XPENG", hits: 2800, url: "https://www.xpeng.com/robotics" }, // 신규 추가: 샤오펑 로봇
+            { id: 104, title: "XPENG Robotics (IRON)", category: "humanoid", source: "XPENG", hits: 2800, url: "https://www.xpeng.com" }, 
+            // 🇨🇳 NEW: 휴머노이드 (유비테크)
+            { id: 105, title: "UBTech Robotics (优必选)", category: "humanoid", source: "UBTech", hits: 7500, url: "https://www.ubtrobot.com/cn/" }, 
             
             // Automation (산업 자동화)
             { id: 201, title: "FANUC Robotics", category: "automation", source: "FANUC", hits: 4500, url: "https://www.fanuc.co.jp/en/robot/" }, 
             { id: 202, title: "ABB Robotics", category: "automation", source: "ABB", hits: 3800, url: "https://new.abb.com/products/robotics" }, 
             { id: 2, title: "KUKA Industrial Robots", category: "automation", source: "KUKA", hits: 85, url: "https://www.kuka.com/" }, 
             { id: 204, title: "YASKAWA Robotics", category: "automation", source: "YASKAWA", hits: 2900, url: "https://www.yaskawa.co.jp/en/products/robotics" },
-            { id: 205, title: "SIASUN Robotics (Industrial)", category: "automation", source: "SIASUN", hits: 1900, url: "https://www.siasun.com/" }, 
-            { id: 206, title: "Estun Automation (Industrial)", category: "automation", source: "Estun", hits: 1500, url: "https://www.estun.com/" },
-
-            // Home (가정용 로봇) - 🌟 링크 데이터 유지
-            { id: 1001, title: "iRobot Roomba (Vacuum/Mop)", category: "home", source: "iRobot", hits: 342, url: "https://www.irobot.com/" }, 
-            { id: 1002, title: "Amazon Astro (Home Monitoring)", category: "home", source: "Amazon", hits: 550, url: "https://www.amazon.com/l/10006275011" }, 
-            { id: 1003, title: "Sony Aibo (AI Robot Pet)", category: "home", source: "Sony", hits: 250, url: "https://us.aibo.com/" }, 
+            // 🇨🇳 CHINA (Industrial) - 신송, 에스툰은 기존 항목을 유지
+            { id: 205, title: "SIASUN Robotics (新松)", category: "automation", source: "SIASUN", hits: 1900, url: "http://www.siasun.com/" }, 
+            { id: 206, title: "Estun Automation (埃斯顿)", category: "automation", source: "Estun", hits: 1500, url: "https://www.estun.com/" },
+            // 🇨🇳 NEW: 협동 로봇 (두봇)
+            { id: 207, title: "DOBOT (越疆机器人 - Collaborative)", category: "automation", source: "DOBOT", hits: 5200, url: "https://www.dobot-robot.com/" },
             
-            // Service (서비스 로봇)
+             // Service (서비스 로봇)
             { id: 401, title: "SoftBank Robotics", category: "Service", source: "SoftBank", hits: 1900, url: "https://www.softbankrobotics.com/" }, 
             { id: 402, title: "Bear Robotics (Serving)", category: "Service", source: "Bear Robotics", hits: 1400, url: "https://www.bearrobotics.com/" }, 
             { id: 4, title: "Aethon Autonomous Mobile Robots", category: "Service", source: "Aethon", hits: 890, url: "https://www.aethon.com/" }, 
-            // --- Newly Added Service Robot Companies (Serving/Delivery Focus) ---
-           { id: 404, title: "KEENON Robotics (Serving, Delivery)", category: "Service", source: "KEENON", hits: 0, url: "https://www.keenon.com/" }, 
-           { id: 405, title: "LG CLOi ServeBot (Serving, Guide)", category: "Service", source: "LG Electronics", hits: 0, url: "https://www.lg.com/global/business/robot/servebot" }, 
-           { id: 406, title: "KT AI Robot (Serving, Delivery)", category: "Service", source: "KT", hits: 0, url: "https://ktrobotech.com/" }, 
-           { id: 407, title: "Woowa Brothers (Baemin Dilly Delivery Robot)", category: "Service", source: "Woowa Brothers", hits: 0, url: "https://robot.baemin.com/" }, 
-           { id: 408, title: "Robotis (Delivery Robot 'Gaemi')", category: "Service", source: "Robotis", hits: 0, url: "https://www.robotis.com/sub/business_012.php" }, 
-           { id: 409, title: "Neubility (Neubie Delivery Robot)", category: "Service", source: "Neubility", hits: 0, url: "https://www.neubility.co.kr/ir" }, 
-           { id: 410, title: "XYZ (Barista, Delivery Robot Storagy)", category: "Service", source: "XYZ", hits: 0, url: "https://xyzcorp.io/" }, 
-           { id: 411, title: "EOS Korea (Serving Robot)", category: "Service", source: "EOS Korea", hits: 0, url: "https://eoskorea.kr/category/%EC%84%9C%EB%B9%99%EB%A1%9C%EB%B4%87/23" },
-           { id: 403, title: "Pudu Robotics (Serving Robots)", category: "Service", source: "Pudu", hits: 2200, url: "https://www.pudurobotics.com/" },
-
-            // Medical (의료/수술 로봇) - 🌟 신규 추가
+            { id: 403, title: "Pudu Robotics (Serving Robots)", category: "Service", source: "Pudu", hits: 2200, url: "https://www.pudurobotics.com/" },
+            { id: 404, title: "KEENON Robotics (Serving, Delivery)", category: "Service", source: "KEENON", hits: 0, url: "https://www.keenon.com/" }, 
+            { id: 405, title: "LG CLOi ServeBot (Serving, Guide)", category: "Service", source: "LG Electronics", hits: 0, url: "https://www.lg.com/global/business/robot/servebot" }, 
+            { id: 406, title: "KT AI Robot (Serving, Delivery)", category: "Service", source: "KT", hits: 0, url: "https://ktrobotech.com/" }, 
+            { id: 407, title: "Woowa Brothers (Baemin Dilly Delivery Robot)", category: "Service", source: "Woowa Brothers", hits: 0, url: "https://robot.baemin.com/" }, 
+            { id: 408, title: "Robotis (Delivery Robot 'Gaemi')", category: "Service", source: "Robotis", hits: 0, url: "https://www.robotis.com/sub/business_012.php" }, 
+            { id: 409, title: "Neubility (Neubie Delivery Robot)", category: "Service", source: "Neubility", hits: 0, url: "https://www.neubility.co.kr/ir" }, 
+            { id: 410, title: "XYZ (Barista, Delivery Robot Storagy)", category: "Service", source: "XYZ", hits: 0, url: "https://xyzcorp.io/" }, 
+            { id: 411, title: "EOS Korea (Serving Robot)", category: "Service", source: "EOS Korea", hits: 0, url: "https://eoskorea.kr/category/%EC%84%9C%EB%B9%99%EB%A1%9C%EB%B4%87/23" },
+            { id: 412, title: "DJI Robotics (RoboMaster)", category: "Service", source: "DJI", hits: 4800, url: "https://www.dji.com/kr/robots" },
+            
+            // Medical (의료/수술 로봇)
             { id: 3001, title: "Intuitive Surgical (Da Vinci)", category: "medical", source: "Intuitive Surgical", hits: 9500, url: "https://www.intuitive.com/" }, 
             { id: 3002, title: "Stryker (Mako System)", category: "medical", source: "Stryker", hits: 8100, url: "https://www.stryker.com/us/en/medical-surgical/mako.html" },
             { id: 3003, title: "Medtronic (Surgical Robotics)", category: "medical", source: "Medtronic", hits: 7800, url: "https://www.medtronic.com/us-en/c/surgical-robotics.html" },
             { id: 3004, title: "CMR Surgical (Versius)", category: "medical", source: "CMR Surgical", hits: 5500, url: "https://cmrsurgical.com/" },
             { id: 3005, title: "Siemens Healthineers (Corindus)", category: "medical", source: "Siemens", hits: 5100, url: "https://www.siemens-healthineers.com/en-us/surgical-robotics" },
-            { id: 3006, title: "Curexo (ROBODOC, CUVIS)", category: "medical", source: "큐렉소", hits: 4800, url: "http://www.curexo.com/" },
-            { id: 3007, title: "Goyoung Technology (Brain Surgery Robot)", category: "medical", source: "고영테크놀러지", hits: 3900, url: "https://www.kohyoung.com/" },
-            { id: 3008, title: "MedinTeq (Endoscopy Robot)", category: "medical", source: "메디인테크", hits: 3500, url: "https://medintech.co.kr/" },
-            { id: 3009, title: "L&ROBOTICS (Cardiovascular Robot)", category: "medical", source: "엘엔로보틱스", hits: 2900, url: "http://www.lnrobotics.com/" },
-            // Farm (농업/드론)
+            { id: 3006, title: "Curexo (ROBODOC, CUVIS)", category: "medical", source: "Curexo", hits: 4800, url: "http://www.curexo.com/" }, // '큐렉소' -> 'Curexo'
+            { id: 3007, title: "Koh Young Technology (Brain Surgery Robot)", category: "medical", source: "Koh Young Technology", hits: 3900, url: "https://www.kohyoung.com/" }, // '고영테크놀러지' -> 'Koh Young Technology'
+            { id: 3008, title: "MedinTeq (Endoscopy Robot)", category: "medical", source: "MedinTeq", hits: 3500, url: "https://medintech.co.kr/" }, // '메디인테크' -> 'MedinTeq'
+            { id: 3009, title: "L&ROBOTICS (Cardiovascular Robot)", category: "medical", source: "L&ROBOTICS", hits: 2900, url: "http://www.lnrobotics.com/" }, // '엘엔로보틱스' -> 'L&ROBOTICS'
+            
+             // Farm (농업/드론)
             { id: 501, title: "DJI Agricultural Drones", category: "farm", source: "DJI", hits: 3100, url: "https://www.dji.com/kr/agriculture" }, 
             { id: 502, title: "Blue River Technology (John Deere)", category: "farm", source: "Blue River", hits: 1100, url: "https://www.bluerivertechnology.com/" }, 
             { id: 5, title: "Waymo Self-Driving Tech", category: "farm", source: "Waymo", hits: 567, url: "https://waymo.com/" }, 
@@ -642,11 +644,12 @@ aside {
             // Logistics (물류/창고)
             { id: 601, title: "Amazon Robotics", category: "Logistics", source: "Amazon", hits: 4000, url: "https://www.amazonrobotics.com/" }, 
             { id: 602, title: "Locus Robotics", category: "Logistics", source: "Locus", hits: 1500, url: "https://www.locusrobotics.com/" }, 
-            { id: 603, title: "Zebra Technologies (Fetch Robotics)", category: "Logistics", source: "Zebra", hits: 950, url: "https://https://www.zebra.com/us/en.html" }, 
-            
-            // Software (로봇 SW/OS)
-            { id: 701, title: "ROS (Robot Operating System)", category: "software", source: "Open Source", hits: 6000, url: "https://www.ros.org/" }, 
-            { id: 702, title: "NVIDIA Isaac Sim", category: "software", source: "NVIDIA", hits: 3500, url: "https://developer.nvidia.com/isaac-sim" }, 
+            { id: 603, title: "Zebra Technologies (Fetch Robotics)", category: "Logistics", source: "Zebra", hits: 950, url: "https://www.zebra.com/us/en.html" }, 
+           
+            // Home (가정용 로봇) 
+            { id: 1001, title: "iRobot Roomba (Vacuum/Mop)", category: "home", source: "iRobot", hits: 342, url: "https://www.irobot.com/" }, 
+            { id: 1002, title: "Amazon Astro (Home Monitoring)", category: "home", source: "Amazon", hits: 550, url: "https://www.amazon.com/l/10006275011" }, 
+            { id: 1003, title: "Sony Aibo (AI Robot Pet)", category: "home", source: "Sony", hits: 250, url: "https://us.aibo.com/" }, 
             
             // AI (인공지능)
             { id: 801, title: "OpenAI (ChatGPT)", category: "AI", source: "OpenAI", hits: 9800, url: "https://openai.com/" }, 
@@ -656,12 +659,9 @@ aside {
             { id: 805, title: "Hugging Face (Models Hub)", category: "AI", source: "Hugging Face", hits: 7100, url: "https://huggingface.co/" },
             { id: 806, title: "Gemini (Google DeepMind)",category: "AI", source: "Google DeepMind", hits: 480, url: "https://gemini.google.com/"},
             
-            // Academia (로봇 연구소, 대학) 🌟 신규 추가
-            { id: 30001, title: "MIT CSAIL (Computer Science & AI Lab)", category: "academia", source: "MIT", hits: 9100, url: "https://www.csail.mit.edu/" }, 
-            { id: 30002, title: "Stanford AI Lab (SAIL)", category: "academia", source: "Stanford", hits: 8800, url: "https://ai.stanford.edu/" }, 
-            { id: 30003, title: "ETH Zurich Robotics", category: "academia", source: "ETH Zurich", hits: 7500, url: "https://www.ethz.ch/en/research/focus/robotics.html" },
-            { id: 30004, title: "KAIST Robotics Program", category: "academia", source: "KAIST", hits: 6900, url: "https://robotics.kaist.ac.kr/" }, 
-            { id: 30005, title: "UC Berkeley Artificial Intelligence Research", category: "academia", source: "UC Berkeley", hits: 6200, url: "https://bair.berkeley.edu/" },
+            // Software (로봇 SW/OS)
+            { id: 701, title: "ROS (Robot Operating System)", category: "software", source: "Open Source", hits: 6000, url: "https://www.ros.org/" }, 
+            { id: 702, title: "NVIDIA Isaac Sim", category: "software", source: "NVIDIA", hits: 3500, url: "https://developer.nvidia.com/isaac-sim" }, 
             
             // Components (부품/센서)
             { id: 901, title: "Lidar by Velodyne", category: "components", source: "Velodyne", hits: 2800, url: "https://velodynelidar.com/" }, 
@@ -672,20 +672,27 @@ aside {
             { id: 906, title: "Festo (Pneumatic & Electric Automation)", category: "components", source: "Festo", hits: 1700, url: "https://www.festo.com/" },
             { id: 907, title: "Universal Robots+ (Grippers & Tools)", category: "components", source: "Universal Robots", hits: 1400, url: "https://www.universal-robots.com/plus/" },
             { id: 908, title: "TE Connectivity (Connectors & Sensors)", category: "components", source: "TE Connectivity", hits: 1200, url: "https://www.te.com/" },
+             
+            // Academia (로봇 연구소, 대학) 
+            { id: 30001, title: "MIT CSAIL (Computer Science & AI Lab)", category: "academia", source: "MIT", hits: 9100, url: "https://www.csail.mit.edu/" }, 
+            { id: 30002, title: "Stanford AI Lab (SAIL)", category: "academia", source: "Stanford", hits: 8800, url: "https://ai.stanford.edu/" }, 
+            { id: 30003, title: "ETH Zurich Robotics", category: "academia", source: "ETH Zurich", hits: 7500, url: "https://www.ethz.ch/en/research/focus/robotics.html" },
+            { id: 30004, title: "KAIST Robotics Program", category: "academia", source: "KAIST", hits: 6900, url: "https://robotics.kaist.ac.kr/" }, 
+            { id: 30005, title: "UC Berkeley Artificial Intelligence Research", category: "academia", source: "UC Berkeley", hits: 6200, url: "https://bair.berkeley.edu/" },
             
-            // Events (로봇 관련 주요 연간 이벤트) 🌟 신규 추가
-            { id: 10001, title: "ICRA (IEEE Int. Conference on Robotics and Automation)", category: "events", source: "IEEE", hits: 7500, url: "https://www.icra2025.org/" }, 
-            { id: 10002, title: "IROS (Int. Conference on Intelligent Robots and Systems)", category: "events", source: "IEEE/RSJ", hits: 6800, url: "https://www.iros2025.org/" }, 
-            { id: 10003, title: "RoboCup (Int. Robotics Competition)", category: "events", source: "RoboCup", hits: 5500, url: "https://www.robocup.org/" },
-            { id: 10004, title: "Automatica (Trade Fair, Munich)", category: "events", source: "Messe München", hits: 4100, url: "https://automatica-munich.com/" }, 
-            { id: 10005, title: "ROSCon (ROS Developers Conference)", category: "events", source: "Open Source", hits: 3900, url: "https://roscon.ros.org/" }, 
-
-            // Organization (국제적 로봇 기관) 🌟 신규 추가
+            // Events (로봇 관련 주요 연간 이벤트) 🌟 영문으로 변경 완료
+            { id: 10001, title: "ROBOT WORLD (Int'l Robot Industry Show)", category: "events", source: "KINTEX/KIRIA", hits: 6500, url: "https://www.robotworld.or.kr/" }, 
+            { id: 10002, title: "iREX (International Robot Exhibition)", category: "events", source: "JARA/NEDO", hits: 5900, url: "https://www.irex.or.jp/en/" },
+            { id: 10003, title: "automatica Munich", category: "events", source: "Messe München", hits: 5100, url: "https://automatica-munich.com/" }, 
+            { id: 10004, title: "IEEE RAS (Robotics and Automation Society)", category: "events", source: "IEEE", hits: 4500, url: "https://www.ieee-ras.org/" }, 
+            { id: 10005, title: "AI EXPO KOREA (Int'l AI Exhibition)", category: "events", source: "AI EXPO", hits: 4100, url: "https://www.aiexpo.co.kr/" },
+            
+            // Organization (국제적 로봇 기관) 
             { id: 20001, title: "IFR (International Federation of Robotics)", category: "organization", source: "IFR", hits: 8200, url: "https://ifr.org/" }, 
             { id: 20002, title: "IEEE RAS (Robotics and Automation Society)", category: "organization", source: "IEEE", hits: 7900, url: "https://www.ieee-ras.org/" }, 
             { id: 20003, title: "Robotics Institute (Carnegie Mellon)", category: "organization", source: "CMU", hits: 6500, url: "https://www.ri.cmu.edu/" }, 
             { id: 20004, title: "ISO TC 299 (Robotics Standardization)", category: "organization", source: "ISO", hits: 4800, url: "https://committee.iso.org/home/tc299" },
-        ]; // <-- 기존 배열 끝 (맨 마지막에 붙여넣으세요)
+        ];
       
 
 
