@@ -425,7 +425,7 @@
             </div>
             <h3 style="color: var(--accent); font-size: 1.8rem; margin-bottom: 5px;">Welcome to Learnrobot.com</h3>
             <p style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px;">We are preparing <br> the official launch of the website.</p>
-            <button class="btn btn-primary" style="width:100%; margin-top: 15px;" onclick="closeNoticeModal()">Continue to the site</button>
+            <button class="btn btn-primary" style="width:100%; margin-top: 15px;" onclick="closeNoticeModal()">Enter to close</button>
         </div>
     </div>
     
@@ -614,11 +614,28 @@
 
         function openUploadModal() { document.getElementById('upload-modal').style.display = 'flex'; }
         function closeUploadModal() { document.getElementById('upload-modal').style.display = 'none'; }
-        function openNoticeModal() { document.getElementById('notice-modal').style.display = 'flex'; }
         
+        // 🚀 [추가된 함수] 엔터 키 이벤트를 처리하는 함수
+        function handleNoticeModalEnterKey(event) {
+            // 엔터 키 (키 코드 13 또는 key 'Enter')인지 확인
+            if (event.key === 'Enter' || event.keyCode === 13) {
+                closeNoticeModal();
+            }
+        }
+
+        // 🚀 [수정된 함수] 팝업 열 때 Enter 키 이벤트 리스너 등록
+        function openNoticeModal() { 
+            document.getElementById('notice-modal').style.display = 'flex'; 
+            // 팝업이 열릴 때, 문서 전체에 키보드 이벤트 리스너 등록
+            document.addEventListener('keydown', handleNoticeModalEnterKey);
+        }
+        
+        // 🚀 [수정된 함수] 팝업 닫을 때 Enter 키 이벤트 리스너 제거 포함
         function closeNoticeModal() { 
             document.getElementById('notice-modal').style.display = 'none'; 
             renderHome(); 
+            // 팝업이 닫힐 때, 이벤트 리스너 제거 (불필요한 동작 방지)
+            document.removeEventListener('keydown', handleNoticeModalEnterKey);
         }
         
         // 신규 링크 제출 기능 (코드 유지)
@@ -649,6 +666,10 @@
         }
 
 
+        // 🚀 [핵심 수정] 1. 페이지 로드 시 메인 화면(이미지) 콘텐츠를 무조건 먼저 생성합니다.
+        renderHome();
+        
+        // 🚀 [핵심 수정] 2. 그 위에 공지 팝업을 띄웁니다. (Enter 키 기능 활성화)
         openNoticeModal(); 
     </script>
 </body>
