@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Let's learnrobot.com</title>
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Orbitron:wght@500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA===" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
         /* --- CSS STYLES --- */
@@ -86,6 +86,67 @@
             background: linear-gradient(135deg, var(--accent), #DDDD00); 
             color: var(--bg-dark); 
         }
+
+        /* ---------------------------------------------------- */
+        /* 🚀 [재삽입/수정] Unitree 광고 배너 영역 스타일 (네온 효과 적용) */
+        /* ---------------------------------------------------- */
+        
+        /* 헤더 중앙 광고 컨테이너 스타일 */
+        .header-ad-container {
+            flex-grow: 1; 
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+        }
+
+        /* 광고 배너 링크 (<a> 태그) 스타일 - 🌟 네온 효과 추가 🌟 */
+        .ad-banner {
+            text-decoration: none; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%; 
+            max-width: 100%; 
+            padding: 5px 15px; /* 패딩 추가 */
+            background-color: rgba(255, 251, 3, 0.05); /* 약간의 배경색 */
+            border: 1px solid rgba(255, 251, 3, 0.5); /* 테두리 */
+            border-radius: 8px; /* 둥근 모서리 */
+            /* 💥 핵심: 형광(네온사인) 효과 */
+            box-shadow: 0 0 10px rgba(255, 251, 3, 0.6), 
+                        0 0 20px rgba(255, 251, 3, 0.3), 
+                        inset 0 0 5px rgba(255, 251, 3, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease; 
+            gap: 10px;
+        }
+
+        .ad-banner:hover {
+            opacity: 1; 
+            transform: scale(1.02); /* 호버 효과 강화 */
+            box-shadow: 0 0 15px var(--accent), 0 0 30px rgba(255, 251, 3, 0.5), inset 0 0 10px var(--accent);
+        }
+        
+        /* 광고 이미지 스타일 */
+        .ad-image {
+            max-height: 70px; 
+            width: auto;
+            display: block;
+            border-radius: 4px; 
+            object-fit: contain;
+        }
+        
+        /* 회사명 텍스트 스타일 - 🌟 네온 효과 강화 🌟 */
+        .ad-company-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent); 
+            letter-spacing: 1px;
+            /* 💥 핵심: 텍스트 형광 효과 강화 */
+            text-shadow: 0 0 7px var(--accent), 0 0 15px var(--accent);
+        }
+        
+        /* ---------------------------------------------------- */
 
         /* --- LAYOUT --- */
         .container { display: flex; flex: 1; overflow: hidden; background-color: var(--bg-panel); } 
@@ -205,7 +266,7 @@
             /* 💥 핵심 수정: 배경 이미지로 처리하고 contain으로 글자 잘림 방지 */
             background-repeat: no-repeat;
             background-position: center center;
-            background-size: contain; 
+            background-size: cover; 
         }
 
         /* Link Grid (카테고리 클릭 시) */
@@ -302,6 +363,26 @@
             .menu-toggle { display: block; order: 3; margin-left: auto; } 
             .sns-icons { display: none; } 
             
+            /* 🚀 [추가/수정] 모바일에서는 광고 컨테이너 크기 제한 및 텍스트 숨김 */
+            .header-ad-container { 
+                display: flex; 
+                flex-grow: 0;  
+                max-width: 150px; 
+                justify-content: center;
+                align-items: center;
+                margin-left: auto; /* 로고와 햄버거 버튼 사이에 배치 */
+                margin-right: 10px;
+            } 
+            
+            .ad-banner {
+                padding: 5px; /* 모바일에서 패딩 줄임 */
+                gap: 5px;
+            }
+            
+            .ad-company-name {
+                display: none; /* 모바일에서 회사명 텍스트 숨김 */
+            }
+            
             .container { flex-direction: column; }
             main { width: 100%; } 
             .link-grid { grid-template-columns: 1fr; gap: 1rem; }
@@ -342,6 +423,13 @@
                 <span style="font-family: 'Chakra Petch'; font-size: 1.8rem; letter-spacing: 1px; color: var(--text-main);">LEARN<span style="color: #FFFB03;">ROBOT</span></span>
             </div>
         </a>
+        
+        <div class="header-ad-container">
+            <a href="https://bostondynamics.com/products/spot/" target="_blank" class="ad-banner">
+                <span class="ad-company-name">Boston Dynamics</span>
+                <img src="1_boston_dynamics_spot.png" alt="Boston Dynamics 광고배너" class="ad-image">
+            </a>
+        </div>
         
         <button class="menu-toggle" onclick="toggleSidebar()">
             <i class="fas fa-bars"></i>
@@ -587,7 +675,7 @@
             mainContent.style.alignItems = 'flex-start';
             
             container.innerHTML = `
-                <h2 class="link-grid-title" style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-muted); margin-bottom: 1.5rem; border-bottom: 1px solid #444; padding-bottom: 10px;">${category.toUpperCase()} LINKS</h2>
+                <h2 class="link-grid-title" style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-muted); margin-bottom: 1.5rem; border-bottom: 1px solid #444; padding-bottom: 10px;">${category.toUpperCase()}</h2>
                 <div id="category-link-grid" class="link-grid"></div>
             `;
             
