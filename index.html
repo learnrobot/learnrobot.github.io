@@ -202,7 +202,8 @@
         .hero-image-wrapper img {
             width: 100%;
             height: 100%;
-            object-fit: cover; 
+            /* 💥 수정: contain으로 변경하여 모바일에서 이미지가 잘리지 않게 함 */
+            object-fit: contain; 
             object-position: center; 
             display: block;
         }
@@ -555,12 +556,12 @@
             const mainContent = document.querySelector('main');
             const container = document.getElementById('link-container');
             
-            // 모바일에서 홈 화면으로 돌아왔을 때, 헤더 아래 공간에 맞도록 스타일 조정
             mainContent.style.padding = '0'; 
             mainContent.style.justifyContent = 'center';
             mainContent.style.alignItems = 'center';
 
             container.innerHTML = '';
+            // 중앙 이미지: front_image3.png (여백 없이 꽉 채움)
             container.innerHTML = `
                 <div class="hero-image-wrapper">
                     <img src="front_image3.png" alt="Learn Robot Hero Image">
@@ -578,7 +579,6 @@
             const mainContent = document.querySelector('main');
             const container = document.getElementById('link-container');
             
-            // 링크 페이지는 패딩을 넣어 콘텐츠가 보이도록 합니다.
             mainContent.style.padding = '3rem'; 
             mainContent.style.justifyContent = 'flex-start';
             mainContent.style.alignItems = 'flex-start';
