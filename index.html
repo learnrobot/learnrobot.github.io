@@ -26,8 +26,8 @@
             color: var(--text-main); 
             font-family: 'Chakra Petch', sans-serif;
             display: flex; flex-direction: column; height: 100vh; 
-            overflow-x: hidden; /* 🚀 잔상 제거 (수정됨) */
-            overflow-y: auto;   /* 🚀 수직 스크롤은 필요 시 허용 (수정됨) */
+            overflow-x: hidden; 
+            overflow-y: auto;   
         }
 
         /* --- HEADER --- */
@@ -88,7 +88,7 @@
         }
 
         /* ---------------------------------------------------- */
-        /* 🚀 [재삽입/수정] Unitree 광고 배너 영역 스타일 (네온 효과 적용) */
+        /* Unitree 광고 배너 영역 스타일 (네온 효과 적용) */
         /* ---------------------------------------------------- */
         
         /* 헤더 중앙 광고 컨테이너 스타일 */
@@ -107,11 +107,10 @@
             justify-content: center;
             height: 100%; 
             max-width: 100%; 
-            padding: 5px 15px; /* 패딩 추가 */
-            background-color: rgba(255, 251, 3, 0.05); /* 약간의 배경색 */
-            border: 1px solid rgba(255, 251, 3, 0.5); /* 테두리 */
-            border-radius: 8px; /* 둥근 모서리 */
-            /* 💥 핵심: 형광(네온사인) 효과 */
+            padding: 5px 15px; 
+            background-color: rgba(255, 251, 3, 0.05); 
+            border: 1px solid rgba(255, 251, 3, 0.5); 
+            border-radius: 8px; 
             box-shadow: 0 0 10px rgba(255, 251, 3, 0.6), 
                         0 0 20px rgba(255, 251, 3, 0.3), 
                         inset 0 0 5px rgba(255, 251, 3, 0.4);
@@ -122,7 +121,7 @@
 
         .ad-banner:hover {
             opacity: 1; 
-            transform: scale(1.02); /* 호버 효과 강화 */
+            transform: scale(1.02); 
             box-shadow: 0 0 15px var(--accent), 0 0 30px rgba(255, 251, 3, 0.5), inset 0 0 10px var(--accent);
         }
         
@@ -142,7 +141,6 @@
             font-weight: 700;
             color: var(--accent); 
             letter-spacing: 1px;
-            /* 💥 핵심: 텍스트 형광 효과 강화 */
             text-shadow: 0 0 7px var(--accent), 0 0 15px var(--accent);
         }
         
@@ -256,14 +254,14 @@
         /* Hero Image Full Fill Style - Background Image로 변경 */
         .hero-image-wrapper {
             width: 100%;
-            height: calc(100vh - 80px); /* 💥 수정: 데스크톱 헤더(80px) 높이를 뺀 값으로 설정 */
+            height: calc(100vh - 80px); /* 데스크톱 헤더(80px) 높이를 뺀 값으로 설정 */
             position: relative;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
             
-            /* 💥 핵심 수정: 배경 이미지로 처리하고 contain으로 글자 잘림 방지 */
+            /* 배경 이미지 설정 */
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover; 
@@ -363,24 +361,24 @@
             .menu-toggle { display: block; order: 3; margin-left: auto; } 
             .sns-icons { display: none; } 
             
-            /* 🚀 [추가/수정] 모바일에서는 광고 컨테이너 크기 제한 및 텍스트 숨김 */
+            /* 모바일에서 광고 컨테이너 크기 제한 및 텍스트 숨김 */
             .header-ad-container { 
                 display: flex; 
                 flex-grow: 0;  
                 max-width: 150px; 
                 justify-content: center;
                 align-items: center;
-                margin-left: auto; /* 로고와 햄버거 버튼 사이에 배치 */
+                margin-left: auto; 
                 margin-right: 10px;
             } 
             
             .ad-banner {
-                padding: 5px; /* 모바일에서 패딩 줄임 */
+                padding: 5px; 
                 gap: 5px;
             }
             
             .ad-company-name {
-                display: none; /* 모바일에서 회사명 텍스트 숨김 */
+                display: none; 
             }
             
             .container { flex-direction: column; }
@@ -410,7 +408,7 @@
                 display: block;
             }
             
-            /* 💥 추가: 모바일 헤더 높이(60px)에 맞춰 이미지 영역 높이 조정 */
+            /* 모바일 헤더 높이(60px)에 맞춰 이미지 영역 높이 조정 */
             .hero-image-wrapper {
                 height: calc(100vh - 60px); 
             }
@@ -656,7 +654,7 @@
             mainContent.style.alignItems = 'center';
 
             container.innerHTML = '';
-            // 💥 수정: 배경 이미지로 처리하여 모바일에서 텍스트 잘림 방지
+            // 배경 이미지로 처리하여 모바일에서 텍스트 잘림 방지
             container.innerHTML = `
                 <div class="hero-image-wrapper" style="background-image: url('robot_hand.png');">
                 </div>
@@ -685,10 +683,19 @@
             
             renderSpecificLinks(category, 'category-link-grid');
             
+            // 🚀 [수정된 로직 시작] 모든 카테고리 버튼에서 'active' 클래스 제거
             const buttons = document.querySelectorAll('.category-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // 🚀 [수정된 로직] 현재 클릭된 카테고리에 해당하는 버튼에만 'active' 클래스 추가
+            // 버튼의 onclick 속성 내에서 정확한 카테고리 문자열을 포함하는 버튼을 찾습니다.
             const targetButton = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(`'${category}'`));
-            if (targetButton) targetButton.classList.add('active');
+            
+            if (targetButton) { 
+                targetButton.classList.add('active'); 
+            }
+            // 🚀 [수정된 로직 끝]
+
             
             closeSidebar(); 
         }
@@ -707,30 +714,27 @@
         function openUploadModal() { document.getElementById('upload-modal').style.display = 'flex'; }
         function closeUploadModal() { document.getElementById('upload-modal').style.display = 'none'; }
         
-        // 🚀 [추가된 함수] 엔터 키 이벤트를 처리하는 함수
+        // 엔터 키 이벤트를 처리하는 함수
         function handleNoticeModalEnterKey(event) {
-            // 엔터 키 (키 코드 13 또는 key 'Enter')인지 확인
             if (event.key === 'Enter' || event.keyCode === 13) {
                 closeNoticeModal();
             }
         }
 
-        // 🚀 [수정된 함수] 팝업 열 때 Enter 키 이벤트 리스너 등록
+        // 팝업 열 때 Enter 키 이벤트 리스너 등록
         function openNoticeModal() { 
             document.getElementById('notice-modal').style.display = 'flex'; 
-            // 팝업이 열릴 때, 문서 전체에 키보드 이벤트 리스너 등록
             document.addEventListener('keydown', handleNoticeModalEnterKey);
         }
         
-        // 🚀 [수정된 함수] 팝업 닫을 때 Enter 키 이벤트 리스너 제거 포함
+        // 팝업 닫을 때 Enter 키 이벤트 리스너 제거 포함
         function closeNoticeModal() { 
             document.getElementById('notice-modal').style.display = 'none'; 
             renderHome(); 
-            // 팝업이 닫힐 때, 이벤트 리스너 제거 (불필요한 동작 방지)
             document.removeEventListener('keydown', handleNoticeModalEnterKey);
         }
         
-        // 신규 링크 제출 기능 (코드 유지)
+        // 신규 링크 제출 기능 
         function submitLink() {
             const title = document.getElementById('new-title').value;
             const url = document.getElementById('new-linkurl').value;
@@ -758,10 +762,10 @@
         }
 
 
-        // 🚀 [핵심 수정] 1. 페이지 로드 시 메인 화면(이미지) 콘텐츠를 무조건 먼저 생성합니다.
+        // 페이지 로드 시 메인 화면(이미지) 콘텐츠를 무조건 먼저 생성합니다.
         renderHome();
         
-        // 🚀 [핵심 수정] 2. 그 위에 공지 팝업을 띄웁니다. (Enter 키 기능 활성화)
+        // 그 위에 공지 팝업을 띄웁니다.
         openNoticeModal(); 
     </script>
 </body>
