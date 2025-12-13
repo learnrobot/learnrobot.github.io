@@ -13,7 +13,7 @@
             --bg-dark: #1E1E1E;      
             --bg-panel: #282828;     
             --accent: #FFFB03;       
-            --text-main: #f1f5f9;    
+            --text-main: #d4d4d4;    /* 부드러운 회색 텍스트 유지 */
             --text-muted: #FFFB03;   
             --sidebar-width: 280px;
             --card-glass: rgba(40, 40, 40, 0.9); 
@@ -26,8 +26,8 @@
             color: var(--text-main); 
             font-family: 'Chakra Petch', sans-serif;
             display: flex; flex-direction: column; height: 100vh; 
-            overflow-x: hidden; /* 🚀 잔상 제거 (수정됨) */
-            overflow-y: auto;   /* 🚀 수직 스크롤은 필요 시 허용 (수정됨) */
+            overflow-x: hidden; 
+            overflow-y: auto;   
         }
 
         /* --- HEADER --- */
@@ -86,6 +86,50 @@
             background: linear-gradient(135deg, var(--accent), #DDDD00); 
             color: var(--bg-dark); 
         }
+
+        /* ---------------------------------------------------- */
+        /* 🚀 광고 배너 영역 스타일 (Header 내부 이미지/링크용) */
+        /* ---------------------------------------------------- */
+        
+        /* 헤더 오른쪽 광고 컨테이너 스타일 */
+        .header-ad-container {
+            flex-grow: 1; 
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+        }
+
+        /* 광고 배너 링크 (<a> 태그) 스타일 */
+        .ad-banner {
+            text-decoration: none; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%; 
+            max-width: 100%; 
+            padding: 0; 
+            background-color: transparent; 
+            border: none; 
+            box-shadow: none;
+            cursor: pointer;
+            transition: opacity 0.2s; 
+        }
+
+        .ad-banner:hover {
+            opacity: 0.9; 
+        }
+        
+        /* 광고 이미지 스타일 */
+        .ad-image {
+            max-height: 70px; /* 헤더 높이(80px)에 맞춰 최대 높이 설정 */
+            width: auto;
+            display: block;
+            border-radius: 4px; 
+            object-fit: contain;
+        }
+        
+        /* ---------------------------------------------------- */
+
 
         /* --- LAYOUT --- */
         .container { display: flex; flex: 1; overflow: hidden; background-color: var(--bg-panel); } 
@@ -202,7 +246,6 @@
             justify-content: center;
             align-items: center;
             
-            /* 💥 핵심 수정: 배경 이미지로 처리하고 contain으로 글자 잘림 방지 */
             background-repeat: no-repeat;
             background-position: center center;
             background-size: contain; 
@@ -302,6 +345,9 @@
             .menu-toggle { display: block; order: 3; margin-left: auto; } 
             .sns-icons { display: none; } 
             
+            /* 모바일에서는 헤더 내부 광고를 숨김 */
+            .header-ad-container { display: none; } 
+            
             .container { flex-direction: column; }
             main { width: 100%; } 
             .link-grid { grid-template-columns: 1fr; gap: 1rem; }
@@ -342,6 +388,12 @@
                 <span style="font-family: 'Chakra Petch'; font-size: 1.8rem; letter-spacing: 1px; color: var(--text-main);">LEARN<span style="color: #FFFB03;">ROBOT</span></span>
             </div>
         </a>
+        
+        <div class="header-ad-container">
+            <a href="https://www.unitree.com/" target="_blank" class="ad-banner" title="Click to learn the robot">
+                <img src="unitree.png" alt="IFR 광고 배너" class="ad-image">
+            </a>
+            </div>
         
         <button class="menu-toggle" onclick="toggleSidebar()">
             <i class="fas fa-bars"></i>
@@ -564,7 +616,7 @@
             mainContent.style.alignItems = 'center';
 
             container.innerHTML = '';
-            // 💥 수정: 배경 이미지로 처리하여 모바일에서 텍스트 잘림 방지
+            // 배경 이미지로 처리하여 모바일에서 텍스트 잘림 방지
             container.innerHTML = `
                 <div class="hero-image-wrapper" style="background-image: url('front_image3.png');">
                 </div>
@@ -615,7 +667,7 @@
         function openUploadModal() { document.getElementById('upload-modal').style.display = 'flex'; }
         function closeUploadModal() { document.getElementById('upload-modal').style.display = 'none'; }
         
-        // 🚀 [추가된 함수] 엔터 키 이벤트를 처리하는 함수
+        // Enter 키 이벤트를 처리하는 함수
         function handleNoticeModalEnterKey(event) {
             // 엔터 키 (키 코드 13 또는 key 'Enter')인지 확인
             if (event.key === 'Enter' || event.keyCode === 13) {
@@ -623,14 +675,14 @@
             }
         }
 
-        // 🚀 [수정된 함수] 팝업 열 때 Enter 키 이벤트 리스너 등록
+        // 팝업 열 때 Enter 키 이벤트 리스너 등록
         function openNoticeModal() { 
             document.getElementById('notice-modal').style.display = 'flex'; 
             // 팝업이 열릴 때, 문서 전체에 키보드 이벤트 리스너 등록
             document.addEventListener('keydown', handleNoticeModalEnterKey);
         }
         
-        // 🚀 [수정된 함수] 팝업 닫을 때 Enter 키 이벤트 리스너 제거 포함
+        // 팝업 닫을 때 Enter 키 이벤트 리스너 제거 포함
         function closeNoticeModal() { 
             document.getElementById('notice-modal').style.display = 'none'; 
             renderHome(); 
@@ -666,10 +718,10 @@
         }
 
 
-        // 🚀 [핵심 수정] 1. 페이지 로드 시 메인 화면(이미지) 콘텐츠를 무조건 먼저 생성합니다.
+        // 1. 페이지 로드 시 메인 화면(이미지) 콘텐츠를 무조건 먼저 생성합니다.
         renderHome();
         
-        // 🚀 [핵심 수정] 2. 그 위에 공지 팝업을 띄웁니다. (Enter 키 기능 활성화)
+        // 2. 그 위에 공지 팝업을 띄웁니다.
         openNoticeModal(); 
     </script>
 </body>
