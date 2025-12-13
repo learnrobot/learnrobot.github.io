@@ -29,6 +29,11 @@
             overflow: hidden; 
         }
 
+        /* 🚀 햄버거 메뉴 열렸을 때 본문 스크롤 고정 */
+        body.sidebar-open {
+            overflow: hidden; 
+        }
+
         /* --- HEADER --- */
         header {
             background: rgba(30, 30, 30, 0.95); 
@@ -60,9 +65,8 @@
             border-radius: 50%; 
         }
         
-        /* 🚀 새로 추가된 햄버거 메뉴 버튼 스타일 */
         .menu-toggle {
-            display: none; /* 기본적으로 숨김 (PC에서는 필요 없음) */
+            display: none; 
             background: transparent;
             border: none;
             color: var(--accent);
@@ -72,13 +76,28 @@
         }
 
         .auth-buttons { display: flex; gap: 15px; align-items: center; }
+        .btn { 
+            padding: 10px 24px; 
+            border-radius: 6px; 
+            border: none; 
+            cursor: pointer; 
+            font-weight: 600; 
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
         .btn-primary { 
             background: linear-gradient(135deg, var(--accent), #DDDD00); 
             color: var(--bg-dark); 
         }
 
         /* --- LAYOUT --- */
-        .container { display: flex; flex: 1; overflow: hidden; background-color: var(--bg-panel); } 
+        .container { 
+            display: flex; 
+            flex: 1; 
+            overflow: hidden; 
+            background-color: var(--bg-panel); 
+            position: relative; /* 모바일 오버레이를 위한 기준점 */
+        } 
 
         /* --- SIDEBAR --- */
        aside {
@@ -91,12 +110,12 @@
         border-right: 1px solid #444; 
         height: 100%; 
         z-index: 5;
-        transition: transform 0.3s ease-out; /* 모바일 슬라이드 효과 */
+        transition: transform 0.3s ease-out; 
+        flex-shrink: 0;
     }
-
-    /* 🚀 사이드바 닫기 버튼 (모바일 전용) */
+    
     .sidebar-close {
-        display: none; /* PC에서는 숨김 */
+        display: none; 
         color: var(--text-main);
         font-size: 1.5rem;
         cursor: pointer;
@@ -119,6 +138,28 @@
         min-height: 0; 
     }
 
+    /* Scrollbar Styling (데스크톱) */
+    .sidebar-category-list::-webkit-scrollbar { width: 6px; }
+    .sidebar-category-list::-webkit-scrollbar-track { background: #282828; }
+    .sidebar-category-list::-webkit-scrollbar-thumb { background-color: #444; border-radius: 4px; }
+
+    .category-btn {
+        text-align: left; background: transparent; border: 1px solid transparent; padding: 14px 18px; border-radius: 8px; cursor: pointer; color: #A0A0A0; font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 900; text-transform: capitalize; letter-spacing: 1px; display: flex; align-items: center; gap: 12px; transition: all 0.2s;
+    }
+    
+    .category-btn:hover { color: var(--text-muted); }
+    
+    .category-btn.active { 
+        background: rgba(255, 255, 0, 0.1); 
+        border: 1px solid rgba(255, 255, 0, 0.3); 
+        color: var(--text-muted); 
+        font-weight: 900; 
+    }
+
+    .sidebar-category-title {
+        font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-muted); font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; padding-bottom: 5px; border-bottom: 1px solid rgba(68, 68, 68, 0.5); 
+    }
+
     /* --- MAIN CONTENT --- */
     main { 
         flex: 1; 
@@ -129,8 +170,16 @@
         justify-content: center; 
         align-items: center; 
         position: relative;
+        z-index: 1; /* 오버레이보다 낮게 설정 */
     }
 
+    #link-container {
+        width: 100%;
+        height: 100%; 
+        display: flex;
+        flex-direction: column;
+    }
+    
     /* Hero Image Full Fill Style */
     .hero-image-wrapper {
         width: 100%;
@@ -148,7 +197,7 @@
         display: block;
     }
 
-    /* Link Grid (카테고리 클릭 시) */
+    /* Link Grid */
     .link-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
@@ -156,67 +205,102 @@
         width: 100%; 
     }
 
-    /* --- MODAL --- */
-    .modal {
-        display: none; position: fixed; z-index: 100; left: 0; top: 0;
-        width: 100%; height: 100%; overflow: auto; 
-        background-color: rgba(0,0,0,0.85);
-        justify-content: center; align-items: center; 
+    .link-card {
+        background: var(--card-glass); 
+        border: 1px solid #444; 
+        border-radius: 8px; 
+        transition: all 0.3s ease;
+        position: relative;
+        font-family: 'Chakra Petch', sans-serif;
+        cursor: pointer; 
+        text-decoration: none;
+        color: inherit;
+        min-height: 100px; 
     }
-        
+
+    /* 🚀 링크 방문 후 색상 변경 방지 (일관성 유지) */
+    .link-card:link, .link-card:visited {
+        color: inherit; /* 링크 방문 여부와 관계없이 동일한 색상 유지 */
+    }
+    
+    .link-card:hover { 
+        transform: translateY(-2px); 
+        border-color: var(--text-muted); 
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5); 
+    }
+    
+    .card-footer {
+        display: flex; justify-content: space-between; align-items: center;
+        padding-top: 5px; margin-top: 10px; border-top: 1px dashed #444; 
+    }
+    
+    .link-url {
+        font-size: 0.85rem; color: var(--accent); 
+        overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 100%; 
+    }
+
+    .card-info { padding: 0.8rem 1rem; } 
+    .link-title { 
+        font-weight: 700; margin-bottom: 4px; font-size: 1.1rem; color: var(--text-main);
+    }
+
+    /* 🚀 모바일 오버레이 (사이드바 열렸을 때 뒷 배경을 어둡게 막음) */
+    #sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 8000; /* 사이드바 (9000)보다 낮고 본문 (1)보다 높게 */
+        transition: opacity 0.3s;
+    }
+    
+    /* --- MODAL --- (생략) */
+
+
     /* 모바일 반응형 스타일 (768px 이하) */
     @media (max-width: 768px) {
         header { 
             height: 60px; 
             padding: 0 1rem;
-            justify-content: flex-start; /* 로고와 버튼을 왼쪽으로 */
+            justify-content: flex-start; 
             gap: 10px;
         }
         .logo { font-size: 1.5rem; flex-grow: 1; }
         .logo-image { height: 40px; }
         
-        /* 🚀 햄버거 메뉴 버튼 보이기 */
-        .menu-toggle { display: block; order: 3; margin-left: auto; } /* 오른쪽 끝에 배치 */
-        .sns-icons { display: none; } /* 모바일에서는 SNS 아이콘 숨김 */
+        .menu-toggle { display: block; order: 3; margin-left: auto; } 
+        .sns-icons { display: none; } 
         
         .container { flex-direction: column; }
         main { width: 100%; } 
         .link-grid { grid-template-columns: 1fr; gap: 1rem; }
         
-        /* 🚀 사이드바 모바일 스타일 (숨기기) */
+        /* 사이드바 모바일 스타일 (숨기기) */
         aside { 
             position: fixed;
             top: 0;
             left: 0;
             height: 100%;
-            transform: translateX(-100%); /* 기본적으로 화면 왼쪽 밖으로 숨김 */
-            width: 80%; /* 모바일에서 너비 조정 */
+            transform: translateX(-100%); 
+            width: 80%; 
             max-width: 320px;
             box-shadow: 2px 0 10px rgba(0,0,0,0.5);
-            z-index: 9000; /* 모달 아래, 헤더 위에 */
+            z-index: 9000; 
         }
         
-        /* 🚀 사이드바 열린 상태 */
+        /* 사이드바 열린 상태 */
         aside.active {
             transform: translateX(0);
         }
 
-        /* 🚀 닫기 버튼 보이기 */
         .sidebar-close {
             display: block;
         }
 
     }
-
-    /* 나머지 CSS는 이전과 동일합니다. (생략) */
-    .btn { padding: 10px 24px; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; }
-    .sns-icons { display: flex; gap: 15px; align-items: center; }
-    .sns-icons a { color: #A0A0A0; text-decoration: none; transition: transform 0.2s, color 0.2s; display: block; font-size: 2.1em; }
-    .sidebar-category-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-muted); font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; padding-bottom: 5px; border-bottom: 1px solid rgba(68, 68, 68, 0.5); }
-    .category-btn { text-align: left; background: transparent; border: 1px solid transparent; padding: 14px 18px; border-radius: 8px; cursor: pointer; color: #A0A0A0; font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 900; text-transform: capitalize; letter-spacing: 1px; display: flex; align-items: center; gap: 12px; transition: all 0.2s; }
-    .category-btn:hover { color: var(--text-muted); }
-    .category-btn.active { background: rgba(255, 255, 0, 0.1); border: 1px solid rgba(255, 255, 0, 0.3); color: var(--text-muted); font-weight: 900; }
-
     </style>
     
 </head>
@@ -245,6 +329,8 @@
     </header>
 
     <div class="container">
+        <div id="sidebar-overlay" onclick="closeSidebar()"></div>
+        
         <aside id="sidebar">
             <button class="sidebar-close" onclick="closeSidebar()">
                 <i class="fas fa-times"></i>
@@ -270,7 +356,7 @@
                 <p class="sidebar-contact-text" style="font-size: 0.8rem; color: #64748b; margin-bottom: 5px; font-weight: 600; text-transform: uppercase;">Contact</p>
                  <a href="mailto:learnrobot@learnrobot.com" 
                     style="color: var(--accent); text-decoration: none; font-size: 1.0rem; display: block; transition: 0.3s; font-family: 'roboto', sans-serif;" 
-                    onmouseover="this.style.color='var(--accent-glow)'" 
+                    onmouseover="this.style.color='var(--accent)'" 
                     onmouseout="this.style.color='var(--accent)'"> learnrobot@learnrobot.com
                  </a>
              </div>
@@ -301,7 +387,7 @@
                 <option value="components">Components</option>
             </select>
             <button class="btn btn-primary" style="width:100%; margin-top: 20px;" onclick="submitLink()">Submit Link</button>
-            <button class="btn btn-login" style="margin-top: 10px; width:100%" onclick="closeUploadModal()">Not now</button>
+            <button class="btn" style="margin-top: 10px; width:100%" onclick="closeUploadModal()">Not now</button>
         </div>
     </div>
     
@@ -458,7 +544,7 @@
             const buttons = document.querySelectorAll('.category-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             
-            closeSidebar(); // 홈 화면으로 돌아갈 때 사이드바 닫기
+            closeSidebar(); 
         }
         
         
@@ -482,17 +568,40 @@
             const targetButton = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(`'${category}'`));
             if (targetButton) targetButton.classList.add('active');
             
-            closeSidebar(); // 카테고리 선택 후 사이드바 닫기
+            closeSidebar(); 
         }
         
         // 🚀 사이드바 토글 함수 (모바일 메뉴)
         function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const body = document.body;
+            
+            sidebar.classList.toggle('active');
+            body.classList.toggle('sidebar-open'); // body 스크롤 잠금/해제
+            
+            if (sidebar.classList.contains('active')) {
+                overlay.style.display = 'block';
+                // 오버레이가 나타날 때 투명도 효과를 위해 setTimeout 사용
+                setTimeout(() => overlay.style.opacity = '1', 10); 
+            } else {
+                overlay.style.opacity = '0';
+                // 투명도 효과 후 오버레이 숨기기
+                setTimeout(() => overlay.style.display = 'none', 300);
+            }
         }
         
         // 🚀 사이드바 닫기 함수
         function closeSidebar() {
-            document.getElementById('sidebar').classList.remove('active');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const body = document.body;
+            
+            sidebar.classList.remove('active');
+            body.classList.remove('sidebar-open'); // body 스크롤 잠금 해제
+            
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.style.display = 'none', 300);
         }
 
 
