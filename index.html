@@ -428,14 +428,14 @@
     
     <script>
         /* --- JAVASCRIPT LOGIC --- */
+/* --- JAVASCRIPT LOGIC --- */
         let links = [
             { id: 101, title: "Figure AI", category: "humanoid", source: "Figure", url: "https://www.figure.ai/" }, 
             { id: 102, title: "Unitree Robotics", category: "humanoid", source: "Unitree", url: "https://www.unitree.com/" }, 
             { id: 103, title: "Agility Robotics", category: "humanoid", source: "Agility", url: "https://agilityrobotics.com/" }, 
             { id: 1, title: "Boston Dynamics (Atlas)", category: "humanoid", source: "Boston Dynamics", url: "https://www.bostondynamics.com/" }, 
             { id: 6, title: "Engineered Arts (Ameca)", category: "humanoid", source: "Engineered Arts", url: "https://www.engineeredarts.co.uk/robot/ameca/" },
-            { id: 104, title: "XPENG Robotics (IRON)", category: "humanoid", source: "XPENG", url: "https://www.xpeng.com" }, 
-            { id: 105, title: "UBTech Robotics", category: "humanoid", source: "UBTech", url: "https://www.ubtrobot.com/cn/" }, 
+            { id: 105, title: "UBTech Robotics", category: "humanoid", source: "UBTech", url: "https://www.ubtrobot.com/" }, // 💥 수정 완료: 글로벌/영어 페이지로 변경
             // Automation
             { id: 201, title: "FANUC Robotics", category: "automation", source: "FANUC", url: "https://www.fanuc.co.jp/en/robot/" }, 
             { id: 202, title: "ABB Robotics", category: "automation", source: "ABB", url: "https://new.abb.com/products/robotics" }, 
@@ -447,7 +447,7 @@
              // Service
             { id: 401, title: "SoftBank Robotics", category: "service", source: "SoftBank", url: "https://www.softbankrobotics.com/" }, 
             { id: 402, title: "Bear Robotics (Serving)", category: "service", source: "Bear Robotics", url: "https://www.bearrobotics.com/" }, 
-            { id: 4, title: "Aethon Autonomous Mobile Robots", category: "service", source: "Aethon", url: "https://www.aethon.com/" }, 
+            // 💥 Aethon (ID 4) 삭제
             { id: 403, title: "Pudu Robotics (Serving Robots)", category: "service", source: "Pudu", url: "https://www.pudurobotics.com/" },
             { id: 404, title: "KEENON Robotics (Serving, Delivery)", category: "service", source: "KEENON", url: "https://www.keenon.com/" }, 
             { id: 405, title: "LG CLOi ServeBot (Serving, Guide)", category: "service", source: "LG Electronics", url: "https://www.lg.com/global/business/robot/servebot" }, 
@@ -455,7 +455,6 @@
             { id: 407, title: "Woowa Brothers (Baemin Dilly Delivery Robot)", category: "service", source: "Woowa Brothers", url: "https://robot.baemin.com/" }, 
             { id: 408, title: "Robotis (Delivery Robot 'Gaemi')", category: "service", source: "Robotis", url: "https://www.robotis.com/sub/business_012.php" }, 
             { id: 409, title: "Neubility (Neubie Delivery Robot)", category: "service", source: "Neubility", url: "https://www.neubility.co.kr/ir" }, 
-            { id: 5, title: "Waymo Self-Driving Tech", category: "farm", "source": "Waymo", url: "https://waymo.com/" }, 
             { id: 410, title: "XYZ (Barista, Delivery Robot Storagy)", category: "service", source: "XYZ", url: "https://xyzcorp.io/" }, 
             { id: 411, title: "EOS Korea (Serving Robot)", category: "service", source: "EOS Korea", url: "https://eoskorea.kr/category/%EC%9D%B4%EC%98%A4%EC%8A%A4-%EC%84%9C%EB%B9%99%EB%A1%9C%EB%B4%87/43/" }, 
             { id: 412, title: "DJI Robotics (RoboMaster)", category: "service", source: "DJI", url: "https://www.dji.com/kr/robots" },
@@ -464,12 +463,13 @@
             { id: 3002, title: "Stryker (Mako Surgical Robot)", category: "medical", source: "Stryker", url: "https://www.stryker.com/us/en/joint-replacement/systems/Mako_SmartRobotics_Overview.html" },
             { id: 3003, title: "Medtronic (Surgical Robotics)", category: "medical", source: "Medtronic", url: "https://www.medtronic.com/us-en/c/surgical-robotics.html" },
             { id: 3004, title: "CMR Surgical (Versius)", category: "medical", "source": "CMR Surgical", url: "https://cmrsurgical.com/" },
-            { id: 3005, title: "Siemens Healthineers (Corindus)", category: "medical", "source": "Siemens", url: "https://www.siemens-healthineers.com/endovascular-robotics" },
+            { id: 3005, title: "Siemens Healthineers (Endovascular Robotics)", category: "medical", "source": "Siemens", url: "https://www.siemens-healthineers.com/endovascular-robotics" }, 
             { id: 3006, title: "Curexo (ROBODOC, CUVIS)", category: "medical", "source": "Curexo", url: "http://www.curexo.com/" }, 
             { id: 3007, title: "Koh Young Technology (Brain Surgery Robot)", category: "medical", "source": "Koh Young Technology", url: "https://www.kohyoung.com/" }, 
             { id: 3008, title: "MedinTeq (Endoscopy Robot)", category: "medical", "source": "MedinTeq", url: "https://medintech.co.kr/" }, 
             { id: 3009, title: "L&ROBOTICS (Cardiovascular Robot)", category: "medical", "source": "L&ROBOTICS", url: "http://www.lnrobotics.com/" }, 
              // Farm
+            // 💥 Waymo (ID 5) 삭제
             { id: 501, title: "DJI Agricultural Drones", category: "farm", "source": "DJI", url: "https://www.dji.com/kr/agriculture" }, 
             { id: 502, title: "Blue River Technology (John Deere)", category: "farm", "source": "Blue River", url: "https://www.bluerivertechnology.com/" }, 
             
@@ -511,11 +511,11 @@
             { id: 10001, title: "ROBOT WORLD (Int'l Robot Industry Show)", category: "events", "source": "KINTEX/KIRIA", url: "https://www.robotworld.or.kr/" }, 
             { id: 10002, title: "iREX (International Robot Exhibition)", category: "events", "source": "JARA/NEDO", url: "https://irex.nikkan.co.jp" },
             { id: 10003, title: "automatica Munich", category: "events", "source": "Messe München", url: "https://automatica-munich.com/" }, 
-            { id: 10004, title: "IEEE RAS (Robotics and Automation Society)", category: "events", "source": "IEEE", url: "https://2025.ieee-icra.org/" }, 
+            { id: 10004, title: "IEEE RAS (ICRA/IROS)", category: "events", "source": "IEEE", url: "https://www.ieee-ras.org/conferences" }, // 💥 수정 완료: 영구 컨퍼런스 페이지로 변경
             { id: 10005, title: "AI EXPO KOREA (Int'l AI Exhibition)", category: "events", "source": "AI EXPO", url: "https://www.aiexpo.co.kr/" },
             // Organization 
             { id: 20001, title: "IFR (International Federation of Robotics)", category: "organization", "source": "IFR", url: "https://ifr.org/" }, 
-            { id: 20002, title: "IEEE RAS (Robotics and Automation Society)", category: "organization", "source": "IEEE", url: "https://2025.ieee-icra.org/" }, 
+            { id: 20002, title: "IEEE RAS (Robotics and Automation Society)", category: "organization", "source": "IEEE", url: "https://www.ieee-ras.org/" }, // 💥 수정 완료: 조직 공식 홈페이지로 변경
             { id: 20004, title: "ISO TC 299 (Robotics Standardization)", category: "organization", "source": "ISO", url: "https://committee.iso.org/home/tc299" },
         ];
       
