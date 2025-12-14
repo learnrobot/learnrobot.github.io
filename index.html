@@ -289,8 +289,8 @@
 
         /* 홈 상태: 중앙 정렬 오버라이드 */
         main.home-state {
-            justify-content: center; 
-            align-items: center; 
+            justify-content: flex-start; /* 중앙에서 왼쪽 위로 변경 */
+            align-items: flex-start;     /* 중앙에서 왼쪽 위로 변경 */
         }
         
         #link-container {
@@ -310,15 +310,9 @@
 
         /* 홈 화면 웰컴 박스 */
         .home-content {
-            text-align: center; 
-            background: rgba(30, 30, 30, 0.7); 
-            padding: 40px; 
-            border-radius: 12px; 
-            max-width: 600px; 
-            border: 1px solid rgba(255, 255, 0, 0.3); 
-            backdrop-filter: blur(8px);       /* 흐릿한 유리 효과 */
-            -webkit-backdrop-filter: blur(8px);
-            margin: auto; /* main.home-state가 flex-direction: column 일 때 수평 중앙 정렬 */
+            text-align: left; /* 중앙에서 왼쪽으로 텍스트 정렬 변경 */
+            max-width: 300px; 
+            margin: 0; /* auto 제거하여 수평 중앙 정렬 해제 */
         }
         
         /* Link Grid (카테고리 클릭 시) */
@@ -641,7 +635,7 @@
             { id: 5, title: "Waymo Self-Driving Tech", category: "farm", "source": "Waymo", url: "https://waymo.com/" }, 
             { id: 410, title: "XYZ (Barista, Delivery Robot Storagy)", category: "service", source: "XYZ", url: "https://xyzcorp.io/" }, 
             { id: 411, title: "EOS Korea (Serving Robot)", category: "service", source: "EOS Korea", url: "https://eoskorea.kr/category/%EC%9D%B4%EC%98%A4%EC%8A%A4-%EC%84%9C%EB%B9%99%EB%A1%9C%EB%B4%87/43/" }, 
-            { id: 412, title: "DJI Robotics (RoboMaster)", category: "service", source: "DJI", url: "https://www.dji.com/kr/robots" },
+            
             // Medical
             { id: 3001, title: "Intuitive Surgical (Da Vinci)", category: "medical", source: "Intuitive Surgical", url: "https://www.intuitive.com/" }, 
             { id: 3002, title: "Stryker (Mako Surgical Robot)", category: "medical", source: "Stryker", url: "https://www.stryker.com/us/en/joint-replacement/systems/Mako_SmartRobotics_Overview.html" },
@@ -696,6 +690,7 @@
             { id: 10003, title: "automatica Munich", category: "events", source: "Messe München", url: "https://automatica-munich.com/" }, 
             { id: 10004, title: "IEEE RAS (Robotics and Automation Society)", category: "events", source: "IEEE", url: "https://2025.ieee-icra.org/" }, 
             { id: 10005, title: "AI EXPO KOREA (Int'l AI Exhibition)", category: "events", source: "AI EXPO", url: "https://www.aiexpo.co.kr/" },
+            { id: 10006, title: "DJI Robotics (RoboMaster)", category: "events", source: "DJI", url: "https://www.robomaster.com/en-US" },
             // Organization 
             { id: 20001, title: "IFR (International Federation of Robotics)", category: "organization", source: "IFR", url: "https://ifr.org/" }, 
             { id: 20002, title: "IEEE RAS (Robotics and Automation Society)", category: "organization", source: "IEEE", url: "https://2025.ieee-icra.org/" }, 
