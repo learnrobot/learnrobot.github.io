@@ -39,7 +39,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 0 2.5rem;
-            border-bottom: 1px solid #444; 
+            border-bottom: none; 
             z-index: 10;
         }
         
@@ -147,17 +147,29 @@
         /* ---------------------------------------------------- */
 
         /* --- LAYOUT --- */
-        .container { display: flex; flex: 1; overflow: hidden; background-color: var(--bg-panel); } 
+        .container { 
+            display: flex; 
+            flex: 1; 
+            overflow: hidden; 
+            /* 배경 이미지와 오버레이를 container에 적용 */
+            background-image: linear-gradient(rgba(30, 30, 30, 0.8), rgba(30, 30, 30, 0.8)), url('robot_hand.png'); 
+            background-color: transparent; 
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover; 
+            background-attachment: fixed;
+        } 
 
         /* --- SIDEBAR --- */
        aside {
         width: var(--sidebar-width);
-        background: var(--bg-dark); 
+        /* 사이드바 배경을 반투명하게 하여 배경 이미지 비치게 함 */
+        background: rgba(30, 30, 30, 0.9); 
         padding: 2rem 1.5rem;
         display: flex;
         flex-direction: column;
         gap: 4px; 
-        border-right: 1px solid #444; 
+        border-right: none; 
         height: 100%; 
         z-index: 5;
         transition: transform 0.3s ease-out; 
@@ -188,11 +200,25 @@
         min-height: 0; 
     }
 
-    /* Scrollbar Styling */
+    /* 🚀 핵심 수정: 스크롤바 스타일링 (Webkit 브라우저용) */
     .sidebar-category-list::-webkit-scrollbar { width: 6px; }
-    .sidebar-category-list::-webkit-scrollbar-track { background: #282828; }
-    .sidebar-category-list::-webkit-scrollbar-thumb { background-color: #444; border-radius: 4px; }
+    .sidebar-category-list::-webkit-scrollbar-track { 
+        background: rgba(40, 40, 40, 0.5); /* 트랙 배경은 유지 (스크롤 가능 영역) */
+    }
+    
+    /* 1. 기본 상태: 엄지(thumb)를 투명하게 숨김 */
+    .sidebar-category-list::-webkit-scrollbar-thumb { 
+        background-color: transparent; 
+        border-radius: 4px; 
+        transition: background-color 0.3s ease; /* 부드러운 전환 효과 추가 */
+    }
+    
+    /* 2. 호버 상태: 마우스를 올렸을 때만 엄지(thumb)를 표시 */
+    .sidebar-category-list:hover::-webkit-scrollbar-thumb { 
+        background-color: #444; /* 마우스 오버 시 색상 표시 */
+    }
 
+    /* 나머지 CSS 코드 유지 */
         .category-btn {
             text-align: left;
             background: transparent;
@@ -228,8 +254,16 @@
             letter-spacing: 2px;
             margin-bottom: 5px; 
             padding-bottom: 5px;
-            border-bottom: 1px solid rgba(68, 68, 68, 0.5); 
+            border-bottom: none; 
         }
+        
+        .sidebar-contact-text-wrapper {
+            margin-top: auto; 
+            padding-top: 20px; 
+            border-top: none; 
+            text-align: left;
+        }
+
 
         /* --- MAIN CONTENT --- */ 
        main { 
@@ -237,11 +271,12 @@
             padding: 0; 
             overflow-y: auto; 
             overflow-x: hidden; 
-            background-color: var(--bg-panel); 
+            background-color: transparent; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             position: relative;
+            background-image: none; 
         }
         
         #link-container {
@@ -251,22 +286,6 @@
             flex-direction: column;
         }
         
-        /* Hero Image Full Fill Style - Background Image로 변경 */
-        .hero-image-wrapper {
-            width: 100%;
-            height: calc(100vh - 80px); /* 데스크톱 헤더(80px) 높이를 뺀 값으로 설정 */
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            
-            /* 배경 이미지 설정 */
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover; 
-        }
-
         /* Link Grid (카테고리 클릭 시) */
         .link-grid {
             display: grid;
@@ -296,7 +315,8 @@
         
         .card-footer {
             display: flex; justify-content: space-between; align-items: center;
-            padding-top: 5px; margin-top: 10px; border-top: 1px dashed #444; 
+            padding-top: 5px; margin-top: 10px; 
+            border-top: none; 
         }
         
         .link-url {
@@ -407,11 +427,6 @@
             .sidebar-close {
                 display: block;
             }
-            
-            /* 모바일 헤더 높이(60px)에 맞춰 이미지 영역 높이 조정 */
-            .hero-image-wrapper {
-                height: calc(100vh - 60px); 
-            }
         }
     </style>
     
@@ -469,7 +484,7 @@
                 <button class="category-btn" onclick="filterLinks('events')">Events</button>        
                 <button class="category-btn" onclick="filterLinks('organization')">Organization</button>
             </div> 
-            <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid #444; text-align: left;">
+            <div class="sidebar-contact-text-wrapper">
                 <p class="sidebar-contact-text" style="font-size: 0.8rem; color: #64748b; margin-bottom: 5px; font-weight: 600; text-transform: uppercase;">Contact</p>
                  <a href="mailto:learnrobot@learnrobot.com" 
                     style="color: #2C9999; text-decoration: none; font-size: 1.0rem; display: block; transition: 0.3s; font-family: 'roboto', sans-serif;" 
@@ -648,16 +663,14 @@
             const mainContent = document.querySelector('main');
             const container = document.getElementById('link-container');
             
-            // 모바일에서 홈 화면으로 돌아왔을 때, 헤더 아래 공간에 맞도록 스타일 조정
-            mainContent.style.padding = '0'; 
-            mainContent.style.justifyContent = 'center';
-            mainContent.style.alignItems = 'center';
+            // 홈 화면 스타일 조정
+            mainContent.style.padding = '5rem 3rem'; 
+            mainContent.style.justifyContent = 'flex-start';
+            mainContent.style.alignItems = 'flex-start';
 
-            container.innerHTML = '';
-            // 배경 이미지로 처리하여 모바일에서 텍스트 잘림 방지
             container.innerHTML = `
-                <div class="hero-image-wrapper" style="background-image: url('robot_hand.png');">
-                </div>
+                <h1 style="font-family: 'Orbitron', sans-serif; font-size: 2.5rem; color: var(--text-muted); text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);">WELCOME TO LEARNROBOT.COM</h1>
+                <p style="font-size: 1.2rem; color: #A0A0A0; margin-top: 10px;">Select a category from the sidebar to explore links.</p>
             `;
             
             const buttons = document.querySelectorAll('.category-btn');
@@ -683,18 +696,14 @@
             
             renderSpecificLinks(category, 'category-link-grid');
             
-            // 🚀 [수정된 로직 시작] 모든 카테고리 버튼에서 'active' 클래스 제거
             const buttons = document.querySelectorAll('.category-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             
-            // 🚀 [수정된 로직] 현재 클릭된 카테고리에 해당하는 버튼에만 'active' 클래스 추가
-            // 버튼의 onclick 속성 내에서 정확한 카테고리 문자열을 포함하는 버튼을 찾습니다.
             const targetButton = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(`'${category}'`));
             
             if (targetButton) { 
                 targetButton.classList.add('active'); 
             }
-            // 🚀 [수정된 로직 끝]
 
             
             closeSidebar(); 
