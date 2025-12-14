@@ -733,17 +733,18 @@
         }
         
        
-        function renderHome() {
+      function renderHome() {
             const mainContent = document.querySelector('main');
             const container = document.getElementById('link-container');
             
             // 홈 상태 클래스 추가 (CSS로 중앙 정렬과 패딩 관리)
-            mainContent.classList.add('home-state');
-            container.classList.add('home-state');
+            mainContent.classList.remove('home-state'); // 홈 콘텐츠 네모 제거로 인한 이전 수정 반영
+            container.classList.remove('home-state');  // 홈 콘텐츠 네모 제거로 인한 이전 수정 반영
             
             container.innerHTML = `
-                <div class="home-content"> <h1 style="font-family: 'Orbitron', sans-serif; font-size: 2.5rem; color: var(--text-muted); text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);">WELCOME TO LEARNROBOT.COM</h1>
-                    <p style="font-size: 1.2rem; color: #A0A0A0; margin-top: 10px;">Select a category from the sidebar to explore links.</p>
+                <div class="home-content"> 
+                    <h1 style="font-family: 'Chakra Petch', sans-serif; font-size: 1.5rem; color: var(--text-muted); text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);">WELCOME TO<br>LEARNROBOT.COM</h1> 
+                    <p style="font-size: 1.0rem; color: #A0A0A0; margin-top: 10px;">Select a category from the sidebar to explore links.</p>
                 </div>
             `;
             
