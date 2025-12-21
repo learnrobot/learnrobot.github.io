@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.2/css/flag-icons.min.css" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Let's learnrobot.com</title>
@@ -8,6 +9,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA===" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
+/* 국기 아이콘 크기 조절 */
+.fi {
+    font-size: 1.2rem !important; /* 원하는 크기로 조절 (기본보다 약 20% 커짐) */
+    border-radius: 2px;          /* 모서리를 약간 둥글게 */
+    vertical-align: middle;      /* 텍스트와 높이 맞춤 */
+    line-height: 1;
+}
         /* --- CSS STYLES --- */
         :root {
             --bg-dark: #1E1E1E;      
@@ -447,149 +455,155 @@
     
     <script>
         /* --- JAVASCRIPT LOGIC --- */
-        let links = [
-            // Humanoid
-            { id: 101, title: "Figure AI", category: "humanoid", source: "Figure", url: "https://www.figure.ai/" }, 
-            { id: 102, title: "Unitree Robotics", category: "humanoid", source: "Unitree", url: "https://www.unitree.com/" }, 
-            { id: 103, title: "Agility Robotics", category: "humanoid", source: "Agility", url: "https://agilityrobotics.com/" }, 
-            { id: 1, title: "Boston Dynamics (Atlas)", category: "humanoid", source: "Boston Dynamics", url: "https://www.bostondynamics.com/" }, 
-            { id: 6, title: "Engineered Arts (Ameca)", category: "humanoid", source: "Engineered Arts", url: "https://www.engineeredarts.co.uk/robot/ameca/" },
-            { id: 104, title: "XPENG Robotics (IRON)", category: "humanoid", source: "XPENG", url: "https://www.xpeng.com" }, 
-            { id: 106, title: "Tesla Optimus (AI & Robotics)", category: "humanoid", source: "Tesla", url: "https://www.tesla.com/AI" },
-            { id: 103, title: "Xiaomi CyberOne", category: "humanoid", source: "Xiaomi", url: "https://www.mi.com/global/" }, 
-            { id: 105, title: "UBTECH (Walker S)", category: "humanoid", source: "UBTECH", url: "https://www.ubtrobot.com/en/" }, 
-            { id: 106, title: "GAC (GoMate)", category: "humanoid", source: "GAC", url: "https://www.gac.com.cn/" }, 
-      
-            // Automation
-            { id: 201, title: "FANUC Robotics", category: "automation", source: "FANUC", url: "https://www.fanuc.co.jp/en/robot/" }, 
-            { id: 202, title: "ABB Robotics", category: "automation", source: "ABB", url: "https://new.abb.com/products/robotics" }, 
-            { id: 2, title: "KUKA Industrial Robots", category: "automation", source: "KUKA", url: "https://www.kuka.com/" }, 
-            { id: 204, title: "YASKAWA Robotics", category: "automation", source: "YASKAWA", url: "https://www.yaskawa.co.jp/en/products/robotics" },
-            { id: 205, title: "SIASUN Robotics", category: "automation", source: "SIASUN", url: "http://www.siasun.com/" }, 
-            { id: 206, title: "Estun Automation", category: "automation", source: "Estun", url: "https://www.estun.com/" },
-            
-            // Service
-            { id: 401, title: "SoftBank Robotics", category: "service", source: "SoftBank", url: "https://www.softbankrobotics.com/" }, 
-            { id: 402, title: "Bear Robotics (Serving)", category: "service", source: "Bear Robotics", url: "https://www.bearrobotics.com/" }, 
-            { id: 4, title: "Aethon Autonomous Mobile Robots", category: "service", source: "Aethon", url: "https://www.aethon.com/" }, 
-            { id: 403, title: "Pudu Robotics (Serving Robots)", category: "service", source: "Pudu", url: "https://www.pudurobotics.com/" },
-            { id: 404, title: "KEENON Robotics (Serving, Delivery)", category: "service", source: "KEENON", url: "https://www.keenon.com/" }, 
-            { id: 405, title: "LG CLOi ServeBot (Serving, Guide)", category: "service", source: "LG Electronics", url: "https://www.lg.com/global/business/robot/servebot" }, 
-            { id: 406, title: "KT AI Robot (Serving, Delivery)", category: "service", source: "KT", url: "https://ktrobotech.com/" }, 
-            { id: 407, title: "Woowa Brothers (Baemin Dilly Delivery Robot)", category: "service", source: "Woowa Brothers", url: "https://robot.baemin.com/" }, 
-            { id: 408, title: "Robotis (Delivery Robot 'Gaemi')", category: "service", source: "Robotis", url: "https://www.robotis.com/sub/business_012.php" }, 
-            { id: 409, title: "Neubility (Neubie Delivery Robot)", category: "service", source: "Neubility", url: "https://www.neubility.co.kr/ir" }, 
-            { id: 410, title: "XYZ (Barista, Delivery Robot Storagy)", category: "service", source: "XYZ", url: "https://xyzcorp.io/" }, 
-            { id: 411, title: "EOS Korea (Serving Robot)", category: "service", source: "EOS Korea", url: "https://eoskorea.kr/category/%EC%9D%B4%EC%98%A4%EC%8A%A4-%EC%84%9C%EB%B9%99%EB%A1%9C%EB%B4%87/43/" }, 
-            
-            // Medical
-            { id: 3001, title: "Intuitive Surgical (Da Vinci)", category: "medical", source: "Intuitive Surgical", url: "https://www.intuitive.com/" }, 
-            { id: 3002, title: "Stryker (Mako Surgical Robot)", category: "medical", source: "Stryker", url: "https://www.stryker.com/us/en/joint-replacement/systems/Mako_SmartRobotics_Overview.html" },
-            { id: 3003, title: "Medtronic (Surgical Robotics)", category: "medical", source: "Medtronic", url: "https://www.medtronic.com/us-en/c/surgical-robotics.html" },
-            { id: 3004, title: "CMR Surgical (Versius)", category: "medical", "source": "CMR Surgical", url: "https://cmrsurgical.com/" },
-            { id: 3005, title: "Siemens Healthineers (Corindus)", category: "medical", "source": "Siemens", url: "https://www.siemens-healthineers.com/endovascular-robotics" },
-            { id: 3006, title: "Curexo (ROBODOC, CUVIS)", category: "medical", "source": "Curexo", url: "http://www.curexo.com/" }, 
-            { id: 3007, title: "Koh Young Technology (Brain Surgery Robot)", category: "medical", "source": "Koh Young Technology", url: "https://www.kohyoung.com/" }, 
-            { id: 3008, title: "MedinTeq (Endoscopy Robot)", category: "medical", "source": "MedinTeq", url: "https://medintech.co.kr/" }, 
-            { id: 3009, title: "L&ROBOTICS (Cardiovascular Robot)", category: "medical", "source": "L&ROBOTICS", url: "http://www.lnrobotics.com/" }, 
-             
-            // Farm
-            { id: 5, title: "Waymo Self-Driving Tech", category: "farm", "source": "Waymo", url: "https://waymo.com/" },
-            { id: 501, title: "DJI Agricultural Drones", category: "farm", "source": "DJI", url: "https://www.dji.com/kr/agriculture" }, 
-            { id: 502, title: "Blue River Technology (John Deere)", category: "farm", "source": "Blue River", url: "https://www.bluerivertechnology.com/" }, 
-            
-            // Logistics
-            { id: 601, title: "Amazon Robotics", category: "logistics", "source": "Amazon", url: "https://www.amazonrobotics.com/" }, 
-            { id: 602, title: "Locus Robotics", category: "logistics", "source": "Locus", url: "https://www.locusrobotics.com/" }, 
-            { id: 603, title: "Zebra Technologies (Fetch Robotics)", category: "logistics", "source": "Zebra", url: "https://www.zebra.com/us/en.html" }, 
-            
-            // Home 
-            { id: 1001, title: "iRobot Roomba (Vacuum/Mop)", category: "home", "source": "iRobot", url: "https://www.irobot.com/" }, 
-            { id: 1002, title: "Amazon Astro (Home Monitoring)", category: "home", "source": "Amazon", url: "https://www.amazon.com/l/10006275011" }, 
-            { id: 1003, title: " Sony Aibo (AI Robot Pet)", category: "home", "source": "Sony", url: "https://us.aibo.com/" }, 
-            
-            // AI
-            { id: 801, title: "OpenAI (ChatGPT)", category: "ai", source: "OpenAI", url: "https://openai.com/" }, 
-            { id: 802, title: "Google DeepMind", category: "ai", source: "Google", url: "https://deepmind.google/" }, 
-            { id: 803, title: "Anthropic (Claude)", category: "ai", source: "Anthropic", url: "https://www.anthropic.com/" }, 
-            { id: 804, title: "Meta AI (Llama)", category: "ai", source: "Meta", url: "https://ai.meta.com/" },
-            { id: 805, title: "Hugging Face (Models Hub)", category: "ai", source: "Hugging Face", url: "https://huggingface.co/" },
-            { id: 806, title: "Gemini (Google DeepMind)",category: "ai", source: "Google DeepMind", url: "https://gemini.google.com/"},
-            
-            // Software
-            { id: 701, title: "ROS (Robot Operating System)", category: "software", source: "Open Source", url: "https://www.ros.org/" }, 
-            { id: 702, title: "NVIDIA Isaac Sim", category: "software", source: "NVIDIA", url: "https://developer.nvidia.com/isaac-sim" }, 
-            
-            // Components
-            { id: 901, title: "Lidar by Velodyne", category: "components", source: "Velodyne", url: "https://velodynelidar.com/" }, 
-            { id: 902, title: "Robot Grippers by Robotiq", category: "components", source: "Robotiq", url: "https://robotiq.com/" },
-            { id: 903, title: "maxon (High-Precision Motors & Gears)", category: "components", source: "maxon", url: "https://www.maxongroup.com/" },
-            { id: 904, title: "Harmonic Drive (High-Precision Gearboxes)", category: "components", source: "Harmonic Drive", url: "https://www.harmonicdrive.net/" },
-            { id: 905, title: "Cognex (Machine Vision Systems)", category: "components", source: "Cognex", url: "https://www.cognex.com/" },
-            { id: 906, title: "Festo (Pneumatic & Electric Automation)", category: "components", source: "Festo", url: "https://www.festo.com/" },
-            { id: 907, title: "Universal Robots+ (Grippers & Tools)", category: "components", source: "Universal Robots", url: "https://www.universal-robots.com/plus/" },
-            { id: 908, title: "TE Connectivity (Connectors & Sensors)", category: "components", source: "TE Connectivity", url: "https://www.te.com/" },
-            { id: 910, title: "Harmonic Drive - Precision Reducers", category: "components", source: "Global Leader", url: "https://www.harmonicdrive.net/" },
-            { id: 911, title: "Nabtesco - RV Reducers", category: "components", source: "Global Leader", url: "https://www.nabtesco.com/" },
-            { id: 912, title: "ROBOTIS - Dynamixel Actuators", category: "components", source: "Korea Specialty", url: "https://www.robotis.com/" },
-            { id: 913, title: "SBB Tech - Harmonic Reducers", category: "components", source: "Korea Specialty", url: "http://www.sbb.co.kr/" },
-            { id: 914, title: "Maxon Motor - High Precision Drives", category: "components", source: "Global Specialty", url: "https://www.maxongroup.com/" }, 
-            { id: 915, title: "SPG - Precision Gears", category: "components", source: "Korea Specialty", url: "http://www.spg.co.kr/" },
-            { id: 950, title: "Velodyne Lidar", category: "components", source: "LiDAR Sensors", url: "https://velodynelidar.com/" },
-            { id: 951, title: "Ouster", category: "components", source: "Digital LiDAR", url: "https://ouster.com/" },
-            { id: 952, title: "LG Energy Solution", category: "components", source: "Robot Batteries", url: "https://www.lgensol.com/" },
-            { id: 953, title: "SOS Lab", category: "components", source: "Solid-state LiDAR", url: "https://soslab.ai/" },
-            { id: 954, title: "Hesai Technology", category: "components", source: "LiDAR Solutions", url: "https://www.hesaitech.com/" },
+    let links = [
+    // Humanoid
+    { id: 101, title: "Figure AI", category: "humanoid", source: "Figure", url: "https://www.figure.ai/", country: "us" }, 
+    { id: 102, title: "Unitree Robotics", category: "humanoid", source: "Unitree", url: "https://www.unitree.com/", country: "cn" }, 
+    { id: 103, title: "Agility Robotics", category: "humanoid", source: "Agility", url: "https://agilityrobotics.com/", country: "us" }, 
+    { id: 1, title: "Boston Dynamics (Atlas)", category: "humanoid", source: "Boston Dynamics", url: "https://www.bostondynamics.com/", country: "us" }, 
+    { id: 6, title: "Engineered Arts (Ameca)", category: "humanoid", source: "Engineered Arts", url: "https://www.engineeredarts.co.uk/robot/ameca/", country: "gb" },
+    { id: 104, title: "XPENG Robotics (IRON)", category: "humanoid", source: "XPENG", url: "https://www.xpeng.com", country: "cn" }, 
+    { id: 106, title: "Tesla Optimus (AI & Robotics)", category: "humanoid", source: "Tesla", url: "https://www.tesla.com/AI", country: "us" },
+    { id: 103, title: "Xiaomi CyberOne", category: "humanoid", source: "Xiaomi", url: "https://www.mi.com/global/", country: "cn" }, 
+    { id: 105, title: "UBTECH (Walker S)", category: "humanoid", source: "UBTECH", url: "https://www.ubtrobot.com/en/", country: "cn" }, 
+    { id: 106, title: "GAC (GoMate)", category: "humanoid", source: "GAC", url: "https://www.gac.com.cn/", country: "cn" }, 
 
-            // Academia 
-            { id: 30001, title: "MIT CSAIL (Computer Science & AI Lab)", category: "academia", source: "MIT", url: "https://www.csail.mit.edu/" }, 
-            { id: 30002, title: "Stanford AI Lab (SAIL)", category: "academia", source: "Stanford", url: "https://ai.stanford.edu/" }, 
-            { id: 30003, title: "ETH Zurich Robotics", category: "academia", source: "ETH Zurich", url: "https://www.ethz.ch/en/research/focus/robotics.html" },
-            { id: 30004, title: "KAIST Robotics Program", category: "academia", source: "KAIST", url: "https://robotics.kaist.ac.kr/" }, 
-            { id: 30005, title: "UC Berkeley Artificial Intelligence Research", category: "academia", source: "UC Berkeley", url: "https://bair.berkeley.edu/" },
-            { id: 20003, title: "Robotics Institute (Carnegie Mellon)", category: "academia", source: "CMU", url: "https://www.ri.cmu.edu/" },
+    // Automation
+    { id: 201, title: "FANUC Robotics", category: "automation", source: "FANUC", url: "https://www.fanuc.co.jp/en/robot/", country: "jp" }, 
+    { id: 202, title: "ABB Robotics", category: "automation", source: "ABB", url: "https://new.abb.com/products/robotics", country: "ch" }, 
+    { id: 2, title: "KUKA Industrial Robots", category: "automation", source: "KUKA", url: "https://www.kuka.com/", country: "de" }, 
+    { id: 204, title: "YASKAWA Robotics", category: "automation", source: "YASKAWA", url: "https://www.yaskawa.co.jp/en/products/robotics", country: "jp" },
+    { id: 205, title: "SIASUN Robotics", category: "automation", source: "SIASUN", url: "http://www.siasun.com/", country: "cn" }, 
+    { id: 206, title: "Estun Automation", category: "automation", source: "Estun", url: "https://www.estun.com/", country: "cn" },
+    
+    // Service
+    { id: 401, title: "SoftBank Robotics", category: "service", source: "SoftBank", url: "https://www.softbankrobotics.com/", country: "jp" }, 
+    { id: 402, title: "Bear Robotics (Serving)", category: "service", source: "Bear Robotics", url: "https://www.bearrobotics.com/", country: "us" }, 
+    { id: 4, title: "Aethon Autonomous Mobile Robots", category: "service", source: "Aethon", url: "https://www.aethon.com/", country: "us" }, 
+    { id: 403, title: "Pudu Robotics (Serving Robots)", category: "service", source: "Pudu", url: "https://www.pudurobotics.com/", country: "cn" },
+    { id: 404, title: "KEENON Robotics (Serving, Delivery)", category: "service", source: "KEENON", url: "https://www.keenon.com/", country: "cn" }, 
+    { id: 405, title: "LG CLOi ServeBot (Serving, Guide)", category: "service", source: "LG Electronics", url: "https://www.lg.com/global/business/robot/servebot", country: "kr" }, 
+    { id: 406, title: "KT AI Robot (Serving, Delivery)", category: "service", source: "KT", url: "https://ktrobotech.com/", country: "kr" }, 
+    { id: 407, title: "Woowa Brothers (Baemin Dilly)", category: "service", source: "Woowa Brothers", url: "https://robot.baemin.com/", country: "kr" }, 
+    { id: 408, title: "Robotis (Delivery Robot 'Gaemi')", category: "service", source: "Robotis", url: "https://www.robotis.com/sub/business_012.php", country: "kr" }, 
+    { id: 409, title: "Neubility (Neubie Delivery Robot)", category: "service", source: "Neubility", url: "https://www.neubility.co.kr/ir", country: "kr" }, 
+    { id: 410, title: "XYZ (Barista, Delivery)", category: "service", source: "XYZ", url: "https://xyzcorp.io/", country: "kr" }, 
+    { id: 411, title: "EOS Korea (Serving Robot)", category: "service", source: "EOS Korea", url: "https://eoskorea.kr/category/%EC%9D%B4%EC%98%A4%EC%8A%A4-%EC%84%9C%EB%B9%99%EB%A1%9C%EB%B4%87/43/", country: "kr" }, 
+    
+    // Medical
+    { id: 3001, title: "Intuitive Surgical (Da Vinci)", category: "medical", source: "Intuitive Surgical", url: "https://www.intuitive.com/", country: "us" }, 
+    { id: 3002, title: "Stryker (Mako Surgical Robot)", category: "medical", source: "Stryker", url: "https://www.stryker.com/us/en/joint-replacement/systems/Mako_SmartRobotics_Overview.html", country: "us" },
+    { id: 3003, title: "Medtronic (Surgical Robotics)", category: "medical", source: "Medtronic", url: "https://www.medtronic.com/us-en/c/surgical-robotics.html", country: "ie" },
+    { id: 3004, title: "CMR Surgical (Versius)", category: "medical", source: "CMR Surgical", url: "https://cmrsurgical.com/", country: "gb" },
+    { id: 3005, title: "Siemens Healthineers (Corindus)", category: "medical", source: "Siemens", url: "https://www.siemens-healthineers.com/endovascular-robotics", country: "de" },
+    { id: 3006, title: "Curexo (ROBODOC, CUVIS)", category: "medical", source: "Curexo", url: "http://www.curexo.com/", country: "kr" }, 
+    { id: 3007, title: "Koh Young Technology", category: "medical", source: "Koh Young Technology", url: "https://www.kohyoung.com/", country: "kr" }, 
+    { id: 3008, title: "MedinTeq (Endoscopy Robot)", category: "medical", source: "MedinTeq", url: "https://medintech.co.kr/", country: "kr" }, 
+    { id: 3009, title: "L&ROBOTICS (Cardiovascular)", category: "medical", source: "L&ROBOTICS", url: "http://www.lnrobotics.com/", country: "kr" }, 
+     
+    // Farm
+    { id: 5, title: "Waymo Self-Driving Tech", category: "farm", source: "Waymo", url: "https://waymo.com/", country: "us" },
+    { id: 501, title: "DJI Agricultural Drones", category: "farm", source: "DJI", url: "https://www.dji.com/kr/agriculture", country: "cn" }, 
+    { id: 502, title: "Blue River Technology", category: "farm", source: "Blue River", url: "https://www.bluerivertechnology.com/", country: "us" }, 
+    
+    // Logistics
+    { id: 601, title: "Amazon Robotics", category: "logistics", source: "Amazon", url: "https://www.amazonrobotics.com/", country: "us" }, 
+    { id: 602, title: "Locus Robotics", category: "logistics", source: "Locus", url: "https://www.locusrobotics.com/", country: "us" }, 
+    { id: 603, title: "Zebra Technologies", category: "logistics", source: "Zebra", url: "https://www.zebra.com/us/en.html", country: "us" }, 
+    
+    // Home 
+    { id: 1001, title: "iRobot Roomba (Vacuum/Mop)", category: "home", source: "iRobot", url: "https://www.irobot.com/", country: "us" }, 
+    { id: 1002, title: "Amazon Astro (Home)", category: "home", source: "Amazon", url: "https://www.amazon.com/l/10006275011", country: "us" }, 
+    { id: 1003, title: " Sony Aibo (AI Robot Pet)", category: "home", source: "Sony", url: "https://us.aibo.com/", country: "jp" }, 
+    
+    // AI
+    { id: 801, title: "OpenAI (ChatGPT)", category: "ai", source: "OpenAI", url: "https://openai.com/", country: "us" }, 
+    { id: 802, title: "Google DeepMind", category: "ai", source: "Google", url: "https://deepmind.google/", country: "gb" }, 
+    { id: 803, title: "Anthropic (Claude)", category: "ai", source: "Anthropic", url: "https://www.anthropic.com/", country: "us" }, 
+    { id: 804, title: "Meta AI (Llama)", category: "ai", source: "Meta", url: "https://ai.meta.com/", country: "us" },
+    { id: 805, title: "Hugging Face (Models Hub)", category: "ai", source: "Hugging Face", url: "https://huggingface.co/", country: "us" },
+    { id: 806, title: "Gemini (Google DeepMind)", category: "ai", source: "Google DeepMind", url: "https://gemini.google.com/", country: "us" },
+    
+    // Software
+    { id: 701, title: "ROS (Robot Operating System)", category: "software", source: "Open Source", url: "https://www.ros.org/", country: "us" }, 
+    { id: 702, title: "NVIDIA Isaac Sim", category: "software", source: "NVIDIA", url: "https://developer.nvidia.com/isaac-sim", country: "us" }, 
+    
+    // Components
+    { id: 901, title: "Lidar by Velodyne", category: "components", source: "Velodyne", url: "https://velodynelidar.com/", country: "us" }, 
+    { id: 902, title: "Robot Grippers by Robotiq", category: "components", source: "Robotiq", url: "https://robotiq.com/", country: "ca" },
+    { id: 903, title: "maxon (Precision Motors)", category: "components", source: "maxon", url: "https://www.maxongroup.com/", country: "ch" },
+    { id: 904, title: "Harmonic Drive", category: "components", source: "Harmonic Drive", url: "https://www.harmonicdrive.net/", country: "us" },
+    { id: 905, title: "Cognex (Machine Vision)", category: "components", source: "Cognex", url: "https://www.cognex.com/", country: "us" },
+    { id: 906, title: "Festo (Automation)", category: "components", source: "Festo", url: "https://www.festo.com/", country: "de" },
+    { id: 907, title: "Universal Robots+ (Tools)", category: "components", source: "Universal Robots", url: "https://www.universal-robots.com/plus/", country: "dk" },
+    { id: 908, title: "TE Connectivity (Sensors)", category: "components", source: "TE Connectivity", url: "https://www.te.com/", country: "ch" },
+    { id: 910, title: "Harmonic Drive - Precision", category: "components", source: "Global Leader", url: "https://www.harmonicdrive.net/", country: "jp" },
+    { id: 911, title: "Nabtesco - RV Reducers", category: "components", source: "Global Leader", url: "https://www.nabtesco.com/", country: "jp" },
+    { id: 912, title: "ROBOTIS - Dynamixel", category: "components", source: "Korea Specialty", url: "https://www.robotis.com/", country: "kr" },
+    { id: 913, title: "SBB Tech - Harmonic Reducers", category: "components", source: "Korea Specialty", url: "http://www.sbb.co.kr/", country: "kr" },
+    { id: 914, title: "Maxon Motor - Precision Drives", category: "components", source: "Global Specialty", url: "https://www.maxongroup.com/", country: "ch" }, 
+    { id: 915, title: "SPG - Precision Gears", category: "components", source: "Korea Specialty", url: "http://www.spg.co.kr/", country: "kr" },
+    { id: 950, title: "Velodyne Lidar", category: "components", source: "LiDAR Sensors", url: "https://velodynelidar.com/", country: "us" },
+    { id: 951, title: "Ouster", category: "components", source: "Digital LiDAR", url: "https://www.ouster.com/", country: "us" },
+    { id: 952, title: "LG Energy Solution", category: "components", source: "Robot Batteries", url: "https://www.lgensol.com/", country: "kr" },
+    { id: 953, title: "SOS Lab", category: "components", source: "Solid-state LiDAR", url: "https://www.soslab.co/en/", country: "kr" },
+    { id: 954, title: "Hesai Technology", category: "components", source: "LiDAR Solutions", url: "https://www.hesaitech.com/", country: "cn" },
 
-            // Events
-            { id: 10001, title: "ROBOT WORLD (Int'l Robot Industry Show)", category: "events", source: "KINTEX/KIRIA", url: "https://www.robotworld.or.kr/" }, 
-            { id: 10002, title: "iREX (International Robot Exhibition)", category: "events", source: "JARA/NEDO", url: "https://irex.nikkan.co.jp" },
-            { id: 10003, title: "automatica Munich", category: "events", source: "Messe München", url: "https://automatica-munich.com/" }, 
-            { id: 10004, title: "IEEE RAS (Robotics and Automation Society)", category: "events", source: "IEEE", url: "https://2025.ieee-icra.org/" }, 
-            { id: 10005, title: "AI EXPO KOREA (Int'l AI Exhibition)", category: "events", source: "AI EXPO", url: "https://www.aiexpo.co.kr/" },
-            { id: 10006, title: "DJI Robotics (RoboMaster)", category: "events", source: "DJI", url: "https://www.robomaster.com/en-US" },
+    // Academia 
+    { id: 30001, title: "MIT CSAIL", category: "academia", source: "MIT", url: "https://www.csail.mit.edu/", country: "us" }, 
+    { id: 30002, title: "Stanford AI Lab (SAIL)", category: "academia", source: "Stanford", url: "https://ai.stanford.edu/", country: "us" }, 
+    { id: 30003, title: "ETH Zurich Robotics", category: "academia", source: "ETH Zurich", url: "https://www.ethz.ch/en/research/focus/robotics.html", country: "ch" },
+    { id: 30004, title: "KAIST Robotics Program", category: "academia", source: "KAIST", url: "https://robotics.kaist.ac.kr/", country: "kr" }, 
+    { id: 30005, title: "UC Berkeley AI Research", category: "academia", source: "UC Berkeley", url: "https://bair.berkeley.edu/", country: "us" },
+    { id: 20003, title: "Robotics Institute (CMU)", category: "academia", source: "CMU", url: "https://www.ri.cmu.edu/", country: "us" },
 
-            // Organization 
-            { id: 20001, title: "IFR (International Federation of Robotics)", category: "organization", source: "IFR", url: "https://ifr.org/" }, 
-            { id: 20003, title: "Silicon Valley Robotics", category: "organization", source: "SVR", url: "https://www.svrobo.org/" },
-            { id: 20002, title: "IEEE RAS (Robotics and Automation Society)", category: "organization", source: "IEEE", url: "https://2025.ieee-icra.org/" }, 
-            { id: 20004, title: "ISO TC 299 (Robotics Standardization)", category: "organization", source: "ISO", url: "https://committee.iso.org/home/tc299" },
-        ];
+    // Events
+    { id: 10001, title: "ROBOT WORLD", category: "events", source: "KINTEX/KIRIA", url: "https://www.robotworld.or.kr/", country: "kr" }, 
+    { id: 10002, title: "iREX (Int'l Robot Exhibition)", category: "events", source: "JARA/NEDO", url: "https://irex.nikkan.co.jp", country: "jp" },
+    { id: 10003, title: "automatica Munich", category: "events", source: "Messe München", url: "https://automatica-munich.com/", country: "de" }, 
+    { id: 10004, title: "IEEE RAS (ICRA 2025)", category: "events", source: "IEEE", url: "https://2025.ieee-icra.org/", country: "us" }, 
+    { id: 10005, title: "AI EXPO KOREA", category: "events", source: "AI EXPO", url: "https://www.aiexpo.co.kr/", country: "kr" },
+    { id: 10006, title: "DJI Robotics (RoboMaster)", category: "events", source: "DJI", url: "https://www.robomaster.com/en-US", country: "cn" },
+
+    // Organization 
+    { id: 20001, title: "IFR", category: "organization", source: "IFR", url: "https://ifr.org/", country: "de" }, 
+    { id: 20003, title: "Silicon Valley Robotics", category: "organization", source: "SVR", url: "https://www.svrobo.org/", country: "us" },
+    { id: 20002, title: "IEEE RAS", category: "organization", source: "IEEE", url: "https://2025.ieee-icra.org/", country: "us" }, 
+    { id: 20004, title: "ISO TC 299 (Robotics)", category: "organization", source: "ISO", url: "https://committee.iso.org/home/tc299", country: "ch" },
+];
       
         function renderSpecificLinks(filter, targetId) {
-            const container = (typeof targetId === 'string') ? document.getElementById(targetId) : targetId; 
-            if (!container) return; 
-            container.innerHTML = '';
-            const filteredLinks = links.filter(link => link.category.toLowerCase() === filter.toLowerCase());
-            if (filteredLinks.length === 0) {
-                 container.innerHTML = `<p style="color:#64748b; font-size:1.2rem; text-align:center;">No links found.</p>`;
-                 return;
-            }
-            filteredLinks.forEach(link => {
-                const card = document.createElement('a');
-                card.className = 'link-card'; 
-                card.href = link.url;
-                card.target = "_blank"; 
-                card.title = link.title;
-                const displayUrl = link.url.replace(/^https?:\/\//, '').split('/')[0];
-                card.innerHTML = `
-                    <div class="card-info">
-                        <div class="link-title">${link.title}</div>
-                        <p style="font-size: 0.9rem; color: #A0A0A0; margin-top: 2px;">${link.source}</p> 
-                        <div class="card-footer"><span class="link-url">🌐 ${displayUrl}</span></div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
+    const container = (typeof targetId === 'string') ? document.getElementById(targetId) : targetId; 
+    if (!container) return; 
+    container.innerHTML = '';
+    
+    const filteredLinks = links.filter(link => link.category.toLowerCase() === filter.toLowerCase());
+    
+    filteredLinks.forEach(link => {
+        const card = document.createElement('a');
+        card.className = 'link-card'; 
+        card.href = link.url;
+        card.target = "_blank"; 
+        
+        const displayUrl = link.url.replace(/^https?:\/\//, '').split('/')[0];
+        
+        // 국기 클래스 생성 (데이터에 country가 없으면 기본으로 'un' 혹은 비워둠)
+        const flagClass = link.country ? `fi fi-${link.country}` : 'fas fa-globe';
+
+        card.innerHTML = `
+            <div class="card-info">
+                <div class="link-title">${link.title}</div>
+                <p style="font-size: 0.9rem; color: #A0A0A0; margin-top: 2px;">${link.source}</p> 
+                <div class="card-footer">
+                    <span class="link-url">
+                        <span class="${flagClass}" style="margin-right: 8px;"></span> ${displayUrl}
+                    </span>
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
         
        function renderHome() {
             const mainContent = document.querySelector('main');
