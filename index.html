@@ -41,7 +41,6 @@
             padding: 0 2.5rem;
             border-bottom: none; 
             z-index: 10;
-            /* 요소 간 최소 간격 확보 */
             gap: 20px; 
         }
         
@@ -63,7 +62,6 @@
             border-radius: 50%; 
         }
         
-        /* 햄버거 메뉴 버튼 스타일 */
         .menu-toggle {
             display: none; 
             background: transparent;
@@ -89,22 +87,14 @@
             color: var(--bg-dark); 
         }
 
-        /* ---------------------------------------------------- */
-        /* Unitree 광고 배너 영역 스타일 (네온 효과 적용) */
-        /* ---------------------------------------------------- */
-        
-        /* 헤더 중앙 광고 컨테이너 스타일 */
         .header-ad-container {
             flex-grow: 1; 
             display: flex;
             justify-content: center; 
             align-items: center;
-            /* 🚀 수정 반영: max-width 제거 (데스크톱에서 공간을 최대한 확보) */
-            /* max-width: 400px; */ 
             min-width: 200px; 
         }
 
-        /* 광고 배너 링크 (<a> 태그) 스타일 - 🌟 네온 효과 추가 🌟 */
         .ad-banner {
             text-decoration: none; 
             display: flex;
@@ -116,11 +106,9 @@
             background-color: rgba(40, 40, 40, 0.5); 
             border: 2px solid #2C9999; 
             border-radius: 8px; 
-            
             cursor: pointer;
             transition: all 0.3s ease; 
             gap: 10px;
-            /* 텍스트가 넘칠 때 줄여서 보여주는 설정 */
             min-width: 0; 
         }
 
@@ -130,7 +118,6 @@
             box-shadow: 0 0 15px #2C9999, 0 0 30px #2C9999, inset 0 0 10px #2C9999;
         }
         
-        /* 광고 이미지 스타일 */
         .ad-image {
             max-height: 70px; 
             width: auto;
@@ -139,24 +126,17 @@
             object-fit: contain;
         }
         
-        /* 회사명 텍스트 스타일 - 🌟 네온 효과 강화 🌟 */
         .ad-company-name {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem; /* 데스크톱에서 조금 더 크게 표시 */
+            font-size: 1.5rem;
             font-weight: 700;
             color: #2C9999; 
             letter-spacing: 1px;
-    
-            
-            /* 🚀 웹 환경에서 텍스트 전체 표시 */
             white-space: nowrap; 
-            overflow: visible; /* 텍스트가 컨테이너를 넘어갈 경우 숨기지 않음 */
-            text-overflow: clip; /* 말줄임표 사용 안 함 */
+            overflow: visible; 
+            text-overflow: clip;
         }
-        
-        /* ---------------------------------------------------- */
 
-        /* --- LAYOUT --- */
         .container { 
             display: flex; 
             flex: 1; 
@@ -169,10 +149,8 @@
             background-attachment: fixed;
         } 
 
-        /* --- SIDEBAR --- */
        aside {
         width: var(--sidebar-width);
-        /* 배경을 불투명한 다크 패널로 설정 */
         background: var(--bg-dark); 
         background-color: var(--bg-dark); 
         padding: 2rem 1.5rem;
@@ -185,7 +163,6 @@
         transition: transform 0.3s ease-out; 
     }
 
-    /* 사이드바 닫기 버튼 (모바일 전용) */
     .sidebar-close {
         display: none; 
         color: var(--text-main);
@@ -210,14 +187,9 @@
         min-height: 0; 
     }
 
-    /* 스크롤바 스타일링 (호버 시에만 보임) */
     .sidebar-category-list::-webkit-scrollbar { width: 6px; }
-    .sidebar-category-list::-webkit-scrollbar-track { 
-        background: rgba(40, 40, 40, 0.5); 
-    }
-    .sidebar-category-list:hover::-webkit-scrollbar-thumb { 
-        background-color: #444; 
-    }
+    .sidebar-category-list::-webkit-scrollbar-track { background: rgba(40, 40, 40, 0.5); }
+    .sidebar-category-list:hover::-webkit-scrollbar-thumb { background-color: #444; }
 
         .category-btn {
             text-align: left;
@@ -237,7 +209,6 @@
         }
         
         .category-btn:hover { color: var(--text-muted); }
-        
         .category-btn.active { 
             background: rgba(255, 255, 0, 0.1); 
             border: 1px solid rgba(255, 255, 0, 0.3); 
@@ -254,74 +225,50 @@
             letter-spacing: 2px;
             margin-bottom: 5px; 
             padding-bottom: 5px;
-            border-bottom: none; 
         }
         
         .sidebar-contact-text-wrapper {
             margin-top: auto; 
             padding-top: 20px; 
-            border-top: none; 
             text-align: left;
         }
 
-
-        /* --- MAIN CONTENT --- */ 
        main { 
             flex: 1; 
             overflow-y: auto; 
             overflow-x: hidden; 
-            /* 메인 영역은 선명한 배경 이미지를 직접 설정 */
             background-image: url('robot_hand.png'); 
             background-color: transparent; 
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover; 
             background-attachment: fixed; 
-            
-            /* 링크 목록 기본 상태: Top/Left 정렬 */
             display: flex; 
             justify-content: flex-start; 
             align-items: flex-start; 
             position: relative;
         }
 
-        /* 홈 상태: 중앙 정렬 오버라이드 */
-        main.home-state {
-            justify-content: flex-start; /* 중앙에서 왼쪽 위로 변경 */
-            align-items: flex-start;     /* 중앙에서 왼쪽 위로 변경 */
-        }
-        
         #link-container {
             width: 100%;
             height: 100%; 
             display: flex;
             flex-direction: column;
-            /* 기본 링크 목록 패딩 */
             padding: 3rem; 
             background-color: transparent; 
         }
 
-        /* 홈 상태 컨테이너 패딩 오버라이드 (중앙 정렬을 위해 padding을 넉넉하게 설정) */
-        #link-container.home-state {
-            padding: 5rem 3rem; 
-        }
-
-        /* 홈 화면 웰컴 박스 */
         .home-content {
-            text-align: left; /* 중앙에서 왼쪽으로 텍스트 정렬 변경 */
+            text-align: left; 
             max-width: 300px; 
-            margin: 0; /* auto 제거하여 수평 중앙 정렬 해제 */
+            margin: 0; 
         }
         
-        /* Link Grid (카테고리 클릭 시) */
-        /* 🚀 외부 네모 제거 상태 유지 */
         .link-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
             gap: 1.5rem; 
             width: 100%; 
-            
-            /* 외부 네모를 제거하기 위해 배경 및 패딩 스타일 제거 */
         }
 
         .link-card {
@@ -346,7 +293,6 @@
         .card-footer {
             display: flex; justify-content: space-between; align-items: center;
             padding-top: 5px; margin-top: 10px; 
-            border-top: none; 
         }
         
         .link-url {
@@ -355,7 +301,6 @@
         }
 
         .card-info { padding: 0.8rem 1rem; } 
-        /* 🚀 링크 제목이 넘칠 때 말줄임표 처리 (데스크톱/모바일 공통) */
         .link-title { 
             font-weight: 700; margin-bottom: 4px; font-size: 1.1rem; color: var(--text-main);
             white-space: nowrap; 
@@ -363,7 +308,6 @@
             text-overflow: ellipsis;
         }
         
-        /* --- MODAL --- */
         .modal {
             display: none; position: fixed; z-index: 100; left: 0; top: 0;
             width: 100%; height: 100%; overflow: auto; 
@@ -400,103 +344,27 @@
         }
         .sns-icons a:hover { transform: scale(1.1); opacity: 0.8; }
         
-        /* 모바일 반응형 스타일 (768px 이하) */
         @media (max-width: 768px) {
-            header { 
-                height: 60px; 
-                padding: 0 1rem;
-                justify-content: flex-start; 
-                gap: 10px;
-            }
-            .logo { 
-                font-size: 1.4rem; 
-                /* 모바일에서 로고가 더 넓은 공간을 차지하도록 조정 */
-                flex-grow: 2; 
-            }
+            header { height: 60px; padding: 0 1rem; justify-content: flex-start; gap: 10px; }
+            .logo { font-size: 1.4rem; flex-grow: 2; }
             .logo-image { height: 40px; }
-            
-            /* 햄버거 메뉴 버튼 보이기 */
             .menu-toggle { display: block; order: 3; margin-left: auto; } 
             .sns-icons { display: none; } 
-            
-            /* 모바일에서 광고 컨테이너 크기 제한 */
-            .header-ad-container { 
-                display: flex; 
-                flex-grow: 0.5; 
-                max-width: 120px; 
-                justify-content: center;
-                align-items: center;
-                margin-left: auto; 
-                margin-right: 10px;
-            } 
-            
-            .ad-banner {
-                padding: 3px; 
-                gap: 5px;
-                width: 100%; 
-            }
-            
-            .ad-image {
-                max-height: 40px; 
-            }
-            
-            /* 🚀 모바일에서 광고 회사명 텍스트 숨김 */
-            .ad-company-name {
-                display: none; 
-            }
-            
+            .header-ad-container { display: flex; flex-grow: 0.5; max-width: 120px; justify-content: center; align-items: center; margin-left: auto; margin-right: 10px; } 
+            .ad-banner { padding: 3px; gap: 5px; width: 100%; }
+            .ad-image { max-height: 40px; }
+            .ad-company-name { display: none; }
             .container { flex-direction: column; }
             main { width: 100%; } 
-            .link-grid { 
-                grid-template-columns: 1fr; 
-                gap: 1rem; 
-            }
-            
-            /* 메인 콘텐츠 패딩 조정 */
-            #link-container {
-                padding: 1.5rem; 
-            }
-            #link-container.home-state {
-                padding: 4rem 1.5rem; /* 홈 화면 패딩 조정 */
-            }
-            .home-content {
-                padding: 20px; /* 홈 웰컴 박스 패딩 축소 */
-            }
-
-            /* 사이드바 버튼 글꼴 크기 조정 */
-            .category-btn {
-                font-size: 1.1rem; 
-                padding: 12px 15px; 
-            }
-            .sidebar-category-title {
-                font-size: 1.3rem;
-            }
-            
-            /* 사이드바 모바일 스타일 */
-            aside { 
-                position: fixed;
-                top: 0;
-                left: 0;
-                height: 100%;
-                transform: translateX(-100%); 
-                width: 80%; 
-                max-width: 320px;
-                box-shadow: 2px 0 10px rgba(0,0,0,0.5);
-                z-index: 9000; 
-            }
-            
-            /* 사이드바 열린 상태 */
-            aside.active {
-                transform: translateX(0);
-            }
-
-            /* 닫기 버튼 보이기 */
-            .sidebar-close {
-                display: block;
-            }
+            .link-grid { grid-template-columns: 1fr; gap: 1rem; }
+            #link-container { padding: 1.5rem; }
+            .category-btn { font-size: 1.1rem; padding: 12px 15px; }
+            .sidebar-category-title { font-size: 1.3rem; }
+            aside { position: fixed; top: 0; left: 0; height: 100%; transform: translateX(-100%); width: 80%; max-width: 320px; box-shadow: 2px 0 10px rgba(0,0,0,0.5); z-index: 9000; }
+            aside.active { transform: translateX(0); }
+            .sidebar-close { display: block; }
         }
     </style>
-    
 </head>
 <body>
 
@@ -562,34 +430,10 @@
         </aside>
 
         <main>
-            <div id="link-container">
-                </div>
+            <div id="link-container"></div>
         </main>
     </div>
 
-    <div id="upload-modal" class="modal">
-        <div class="modal-content">
-            <h3 style="font-family: 'Orbitron'; color: var(--accent);">Submit New Link</h3>
-            <input type="text" id="new-title" class="form-input" placeholder="Link Title">
-            <input type="url" id="new-linkurl" class="form-input" placeholder="Target URL">
-            <input type="text" id="new-source" class="form-input" value="Community Contributed" readonly>
-            <select id="new-category" class="form-input">
-                <option value="" disabled selected>Select Category...</option>
-                <option value="humanoid">Humanoid</option>
-                <option value="automation">Automation</option>
-                <option value="service">Service</option>
-                <option value="medical">Medical</option>
-                <option value="home">Home</option> <option value="farm">Farm</option>
-                <option value="logistics">Logistics</option>
-                <option value="software">Software</option>
-                <option value="ai">AI</option>
-                <option value="components">Components</option>
-            </select>
-            <button class="btn btn-primary" style="width:100%; margin-top: 20px;" onclick="openUploadModal()">Submit Link</button>
-            <button class="btn btn-login" style="margin-top: 10px; width:100%" onclick="closeUploadModal()">Not now</button>
-        </div>
-    </div>
-    
     <div id="notice-modal" class="modal">
         <div class="modal-content" style="width: 400px; max-width: 90%; text-align: center;">
             <div style="width: 180px; height: 180px; border-radius: 50%; margin: 0 auto 20px auto; overflow: hidden; background: transparent;">
@@ -604,7 +448,7 @@
     <script>
         /* --- JAVASCRIPT LOGIC --- */
         let links = [
-            //Humanoid
+            // Humanoid
             { id: 101, title: "Figure AI", category: "humanoid", source: "Figure", url: "https://www.figure.ai/" }, 
             { id: 102, title: "Unitree Robotics", category: "humanoid", source: "Unitree", url: "https://www.unitree.com/" }, 
             { id: 103, title: "Agility Robotics", category: "humanoid", source: "Agility", url: "https://agilityrobotics.com/" }, 
@@ -612,7 +456,7 @@
             { id: 6, title: "Engineered Arts (Ameca)", category: "humanoid", source: "Engineered Arts", url: "https://www.engineeredarts.co.uk/robot/ameca/" },
             { id: 104, title: "XPENG Robotics (IRON)", category: "humanoid", source: "XPENG", url: "https://www.xpeng.com" }, 
             { id: 106, title: "Tesla Optimus (AI & Robotics)", category: "humanoid", source: "Tesla", url: "https://www.tesla.com/AI" },
-            { id: 103, title: "Xiaomi CyberOne", category: "humanoid", source: "Xiaomi", url: "https://www.mi.com/global/" }, // 불안정한 로봇 URL 대신 글로벌 메인으로 변경
+            { id: 103, title: "Xiaomi CyberOne", category: "humanoid", source: "Xiaomi", url: "https://www.mi.com/global/" }, 
             { id: 105, title: "UBTECH (Walker S)", category: "humanoid", source: "UBTECH", url: "https://www.ubtrobot.com/en/" }, 
             { id: 106, title: "GAC (GoMate)", category: "humanoid", source: "GAC", url: "https://www.gac.com.cn/" }, 
       
@@ -623,8 +467,8 @@
             { id: 204, title: "YASKAWA Robotics", category: "automation", source: "YASKAWA", url: "https://www.yaskawa.co.jp/en/products/robotics" },
             { id: 205, title: "SIASUN Robotics", category: "automation", source: "SIASUN", url: "http://www.siasun.com/" }, 
             { id: 206, title: "Estun Automation", category: "automation", source: "Estun", url: "https://www.estun.com/" },
-            { id: 207, title: "DOBOT (Collaborative Robot)", category: "automation", source: "DOBOT", url: "https://www.dobot-robot.com/" },
-             // Service
+            
+            // Service
             { id: 401, title: "SoftBank Robotics", category: "service", source: "SoftBank", url: "https://www.softbankrobotics.com/" }, 
             { id: 402, title: "Bear Robotics (Serving)", category: "service", source: "Bear Robotics", url: "https://www.bearrobotics.com/" }, 
             { id: 4, title: "Aethon Autonomous Mobile Robots", category: "service", source: "Aethon", url: "https://www.aethon.com/" }, 
@@ -635,7 +479,6 @@
             { id: 407, title: "Woowa Brothers (Baemin Dilly Delivery Robot)", category: "service", source: "Woowa Brothers", url: "https://robot.baemin.com/" }, 
             { id: 408, title: "Robotis (Delivery Robot 'Gaemi')", category: "service", source: "Robotis", url: "https://www.robotis.com/sub/business_012.php" }, 
             { id: 409, title: "Neubility (Neubie Delivery Robot)", category: "service", source: "Neubility", url: "https://www.neubility.co.kr/ir" }, 
-            { id: 5, title: "Waymo Self-Driving Tech", category: "farm", "source": "Waymo", url: "https://waymo.com/" }, 
             { id: 410, title: "XYZ (Barista, Delivery Robot Storagy)", category: "service", source: "XYZ", url: "https://xyzcorp.io/" }, 
             { id: 411, title: "EOS Korea (Serving Robot)", category: "service", source: "EOS Korea", url: "https://eoskorea.kr/category/%EC%9D%B4%EC%98%A4%EC%8A%A4-%EC%84%9C%EB%B9%99%EB%A1%9C%EB%B4%87/43/" }, 
             
@@ -649,7 +492,9 @@
             { id: 3007, title: "Koh Young Technology (Brain Surgery Robot)", category: "medical", "source": "Koh Young Technology", url: "https://www.kohyoung.com/" }, 
             { id: 3008, title: "MedinTeq (Endoscopy Robot)", category: "medical", "source": "MedinTeq", url: "https://medintech.co.kr/" }, 
             { id: 3009, title: "L&ROBOTICS (Cardiovascular Robot)", category: "medical", "source": "L&ROBOTICS", url: "http://www.lnrobotics.com/" }, 
-             // Farm
+             
+            // Farm
+            { id: 5, title: "Waymo Self-Driving Tech", category: "farm", "source": "Waymo", url: "https://waymo.com/" },
             { id: 501, title: "DJI Agricultural Drones", category: "farm", "source": "DJI", url: "https://www.dji.com/kr/agriculture" }, 
             { id: 502, title: "Blue River Technology (John Deere)", category: "farm", "source": "Blue River", url: "https://www.bluerivertechnology.com/" }, 
             
@@ -657,10 +502,12 @@
             { id: 601, title: "Amazon Robotics", category: "logistics", "source": "Amazon", url: "https://www.amazonrobotics.com/" }, 
             { id: 602, title: "Locus Robotics", category: "logistics", "source": "Locus", url: "https://www.locusrobotics.com/" }, 
             { id: 603, title: "Zebra Technologies (Fetch Robotics)", category: "logistics", "source": "Zebra", url: "https://www.zebra.com/us/en.html" }, 
+            
             // Home 
             { id: 1001, title: "iRobot Roomba (Vacuum/Mop)", category: "home", "source": "iRobot", url: "https://www.irobot.com/" }, 
             { id: 1002, title: "Amazon Astro (Home Monitoring)", category: "home", "source": "Amazon", url: "https://www.amazon.com/l/10006275011" }, 
-            { id: 1003, title: "Sony Aibo (AI Robot Pet)", category: "home", "source": "Sony", url: "https://us.aibo.com/" }, 
+            { id: 1003, title: " Sony Aibo (AI Robot Pet)", category: "home", "source": "Sony", url: "https://us.aibo.com/" }, 
+            
             // AI
             { id: 801, title: "OpenAI (ChatGPT)", category: "ai", source: "OpenAI", url: "https://openai.com/" }, 
             { id: 802, title: "Google DeepMind", category: "ai", source: "Google", url: "https://deepmind.google/" }, 
@@ -668,9 +515,11 @@
             { id: 804, title: "Meta AI (Llama)", category: "ai", source: "Meta", url: "https://ai.meta.com/" },
             { id: 805, title: "Hugging Face (Models Hub)", category: "ai", source: "Hugging Face", url: "https://huggingface.co/" },
             { id: 806, title: "Gemini (Google DeepMind)",category: "ai", source: "Google DeepMind", url: "https://gemini.google.com/"},
+            
             // Software
             { id: 701, title: "ROS (Robot Operating System)", category: "software", source: "Open Source", url: "https://www.ros.org/" }, 
             { id: 702, title: "NVIDIA Isaac Sim", category: "software", source: "NVIDIA", url: "https://developer.nvidia.com/isaac-sim" }, 
+            
             // Components
             { id: 901, title: "Lidar by Velodyne", category: "components", source: "Velodyne", url: "https://velodynelidar.com/" }, 
             { id: 902, title: "Robot Grippers by Robotiq", category: "components", source: "Robotiq", url: "https://robotiq.com/" },
@@ -680,6 +529,18 @@
             { id: 906, title: "Festo (Pneumatic & Electric Automation)", category: "components", source: "Festo", url: "https://www.festo.com/" },
             { id: 907, title: "Universal Robots+ (Grippers & Tools)", category: "components", source: "Universal Robots", url: "https://www.universal-robots.com/plus/" },
             { id: 908, title: "TE Connectivity (Connectors & Sensors)", category: "components", source: "TE Connectivity", url: "https://www.te.com/" },
+            { id: 910, title: "Harmonic Drive - Precision Reducers", category: "components", source: "Global Leader", url: "https://www.harmonicdrive.net/" },
+            { id: 911, title: "Nabtesco - RV Reducers", category: "components", source: "Global Leader", url: "https://www.nabtesco.com/" },
+            { id: 912, title: "ROBOTIS - Dynamixel Actuators", category: "components", source: "Korea Specialty", url: "https://www.robotis.com/" },
+            { id: 913, title: "SBB Tech - Harmonic Reducers", category: "components", source: "Korea Specialty", url: "http://www.sbb.co.kr/" },
+            { id: 914, title: "Maxon Motor - High Precision Drives", category: "components", source: "Global Specialty", url: "https://www.maxongroup.com/" }, 
+            { id: 915, title: "SPG - Precision Gears", category: "components", source: "Korea Specialty", url: "http://www.spg.co.kr/" },
+            { id: 950, title: "Velodyne Lidar", category: "components", source: "LiDAR Sensors", url: "https://velodynelidar.com/" },
+            { id: 951, title: "Ouster", category: "components", source: "Digital LiDAR", url: "https://ouster.com/" },
+            { id: 952, title: "LG Energy Solution", category: "components", source: "Robot Batteries", url: "https://www.lgensol.com/" },
+            { id: 953, title: "SOS Lab", category: "components", source: "Solid-state LiDAR", url: "https://soslab.ai/" },
+            { id: 954, title: "Hesai Technology", category: "components", source: "LiDAR Solutions", url: "https://www.hesaitech.com/" },
+
             // Academia 
             { id: 30001, title: "MIT CSAIL (Computer Science & AI Lab)", category: "academia", source: "MIT", url: "https://www.csail.mit.edu/" }, 
             { id: 30002, title: "Stanford AI Lab (SAIL)", category: "academia", source: "Stanford", url: "https://ai.stanford.edu/" }, 
@@ -687,6 +548,7 @@
             { id: 30004, title: "KAIST Robotics Program", category: "academia", source: "KAIST", url: "https://robotics.kaist.ac.kr/" }, 
             { id: 30005, title: "UC Berkeley Artificial Intelligence Research", category: "academia", source: "UC Berkeley", url: "https://bair.berkeley.edu/" },
             { id: 20003, title: "Robotics Institute (Carnegie Mellon)", category: "academia", source: "CMU", url: "https://www.ri.cmu.edu/" },
+
             // Events
             { id: 10001, title: "ROBOT WORLD (Int'l Robot Industry Show)", category: "events", source: "KINTEX/KIRIA", url: "https://www.robotworld.or.kr/" }, 
             { id: 10002, title: "iREX (International Robot Exhibition)", category: "events", source: "JARA/NEDO", url: "https://irex.nikkan.co.jp" },
@@ -694,6 +556,7 @@
             { id: 10004, title: "IEEE RAS (Robotics and Automation Society)", category: "events", source: "IEEE", url: "https://2025.ieee-icra.org/" }, 
             { id: 10005, title: "AI EXPO KOREA (Int'l AI Exhibition)", category: "events", source: "AI EXPO", url: "https://www.aiexpo.co.kr/" },
             { id: 10006, title: "DJI Robotics (RoboMaster)", category: "events", source: "DJI", url: "https://www.robomaster.com/en-US" },
+
             // Organization 
             { id: 20001, title: "IFR (International Federation of Robotics)", category: "organization", source: "IFR", url: "https://ifr.org/" }, 
             { id: 20003, title: "Silicon Valley Robotics", category: "organization", source: "SVR", url: "https://www.svrobo.org/" },
@@ -702,21 +565,14 @@
         ];
       
         function renderSpecificLinks(filter, targetId) {
-            // 🚀 수정된 부분: targetId가 DOM 요소 객체이면 바로 사용하고, 문자열이면 ID로 찾습니다.
-            const container = (typeof targetId === 'string') 
-                ? document.getElementById(targetId) 
-                : targetId; 
-
+            const container = (typeof targetId === 'string') ? document.getElementById(targetId) : targetId; 
             if (!container) return; 
             container.innerHTML = '';
-
             const filteredLinks = links.filter(link => link.category.toLowerCase() === filter.toLowerCase());
-
             if (filteredLinks.length === 0) {
                  container.innerHTML = `<p style="color:#64748b; font-size:1.2rem; text-align:center;">No links found.</p>`;
                  return;
             }
-
             filteredLinks.forEach(link => {
                 const card = document.createElement('a');
                 card.className = 'link-card'; 
@@ -724,7 +580,6 @@
                 card.target = "_blank"; 
                 card.title = link.title;
                 const displayUrl = link.url.replace(/^https?:\/\//, '').split('/')[0];
-
                 card.innerHTML = `
                     <div class="card-info">
                         <div class="link-title">${link.title}</div>
@@ -736,126 +591,54 @@
             });
         }
         
-       
-      function renderHome() {
+       function renderHome() {
             const mainContent = document.querySelector('main');
             const container = document.getElementById('link-container');
-            
-            // 홈 상태 클래스 추가 (CSS로 중앙 정렬과 패딩 관리)
-            mainContent.classList.remove('home-state'); // 홈 콘텐츠 네모 제거로 인한 이전 수정 반영
-            container.classList.remove('home-state');  // 홈 콘텐츠 네모 제거로 인한 이전 수정 반영
-            
+            mainContent.classList.remove('home-state'); 
+            container.classList.remove('home-state');  
             container.innerHTML = `
                 <div class="home-content"> 
                     <h1 style="font-family: 'Chakra Petch', sans-serif; font-size: 1.5rem; color: var(--text-muted); text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);">WELCOME TO<br>LEARNROBOT.COM</h1> 
                     <p style="font-size: 1.0rem; color: #A0A0A0; margin-top: 10px;">Select a category from the sidebar to explore links.</p>
                 </div>
             `;
-            
             const buttons = document.querySelectorAll('.category-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
-            
             closeSidebar(); 
         }
-        
         
         function filterLinks(category) {
             const mainContent = document.querySelector('main');
             const container = document.getElementById('link-container');
-            
-            // 홈 상태 클래스 제거 (CSS로 좌측 정렬과 링크 목록 패딩 관리)
             mainContent.classList.remove('home-state');
             container.classList.remove('home-state');
-            
-            // 외부 네모 스타일을 제거했으므로, 그리드 컨테이너만 포함
             container.innerHTML = `
                 <h2 class="category-title" style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-muted); margin-bottom: 1.5rem; border-bottom: 1px solid #444; padding-bottom: 10px;">${category.toUpperCase()}</h2>
                 <div id="category-link-grid" class="link-grid"></div>
             `;
-            
-            // 🚀 수정된 부분: 새로 생성된 요소를 즉시 가져와서 전달합니다.
             const targetGridElement = document.getElementById('category-link-grid');
             renderSpecificLinks(category, targetGridElement);
-            
             const buttons = document.querySelectorAll('.category-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
-            
             const targetButton = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(`'${category}'`));
-            
-            if (targetButton) { 
-                targetButton.classList.add('active'); 
-            }
-
-            
+            if (targetButton) { targetButton.classList.add('active'); }
             closeSidebar(); 
         }
         
-        // 사이드바 토글 함수 (모바일 메뉴)
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
-        }
-        
-        // 사이드바 닫기 함수
-        function closeSidebar() {
-            document.getElementById('sidebar').classList.remove('active');
-        }
-
-
-        function openUploadModal() { document.getElementById('upload-modal').style.display = 'flex'; }
-        function closeUploadModal() { document.getElementById('upload-modal').style.display = 'none'; }
-        
-        // 엔터 키 이벤트를 처리하는 함수
-        function handleNoticeModalEnterKey(event) {
-            if (event.key === 'Enter' || event.keyCode === 13) {
-                closeNoticeModal();
-            }
-        }
-
-        // 팝업 열 때 Enter 키 이벤트 리스너 등록
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
+        function closeSidebar() { document.getElementById('sidebar').classList.remove('active'); }
         function openNoticeModal() { 
             document.getElementById('notice-modal').style.display = 'flex'; 
             document.addEventListener('keydown', handleNoticeModalEnterKey);
         }
-        
-        // 팝업 닫을 때 Enter 키 이벤트 리스너 제거 포함
         function closeNoticeModal() { 
             document.getElementById('notice-modal').style.display = 'none'; 
             renderHome(); 
             document.removeEventListener('keydown', handleNoticeModalEnterKey);
         }
-        
-        // 신규 링크 제출 기능 
-        function submitLink() {
-            const title = document.getElementById('new-title').value;
-            const url = document.getElementById('new-linkurl').value;
-            const category = document.getElementById('new-category').value;
+        function handleNoticeModalEnterKey(event) { if (event.key === 'Enter' || event.keyCode === 13) { closeNoticeModal(); } }
 
-            if (!title || !url || !category) {
-                alert("Systems Check Failed: Please enter title, URL, and select a category.");
-                return;
-            }
-            
-            const newLink = {
-                id: Date.now(),
-                title: title,
-                category: category,
-                source: "Community Contributed",
-                url: url
-            };
-            links.unshift(newLink);
-            
-            filterLinks(category); 
-            closeUploadModal();
-            document.getElementById('new-title').value = '';
-            document.getElementById('new-linkurl').value = '';
-            document.getElementById('new-category').selectedIndex = 0;
-        }
-
-
-        // 페이지 로드 시 메인 화면(이미지) 콘텐츠를 무조건 먼저 생성합니다.
         renderHome();
-        
-        // 그 위에 공지 팝업을 띄웁니다.
         openNoticeModal(); 
     </script>
 </body>
