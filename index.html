@@ -489,6 +489,12 @@
     { id: 409, title: "Neubility (Neubie Delivery Robot)", category: "service", source: "Neubility", url: "https://www.neubility.co.kr/ir", country: "kr" }, 
     { id: 410, title: "XYZ (Barista, Delivery)", category: "service", source: "XYZ", url: "https://xyzcorp.io/", country: "kr" }, 
     { id: 411, title: "EOS Korea (Serving Robot)", category: "service", source: "EOS Korea", url: "https://eoskorea.kr/category/%EC%9D%B4%EC%98%A4%EC%8A%A4-%EC%84%9C%EB%B9%99%EB%A1%9C%EB%B4%87/43/", country: "kr" }, 
+    { id: 412, title: "Segway Robotics (Delivery & Mobility)", category: "service", source: "Segway-Ninebot", url: "https://robotics.segway.com/", country: "cn" },
+    { id: 413, title: "Gausium (Autonomous Cleaning Robots)", category: "service", source: "Gausium", url: "https://www.gausium.com/", country: "cn" },
+    { id: 414, title: "Excelland (Hotel & Delivery Robots)", category: "service", source: "Excelland", url: "https://www.excelland.com/en/", country: "cn" },
+    { id: 415, title: "YOGO Robot (Multi-robot Dispatch)", category: "service", source: "YOGO Robot", url: "https://www.yogorobot.com/", country: "cn" },
+    { id: 416, title: "Candela (Delivery & Sanitation)", category: "service", source: "Candela", url: "https://www.candelarobot.com/en/", country: "cn" },
+    { id: 417, title: "Reeman Robotics (Platform & Service)", category: "service", source: "Reeman", url: "https://www.reemanrobot.com/", country: "cn" },
     
     // Medical
     { id: 3001, title: "Intuitive Surgical (Da Vinci)", category: "medical", source: "Intuitive Surgical", url: "https://www.intuitive.com/", country: "us" }, 
@@ -512,8 +518,8 @@
     { id: 603, title: "Zebra Technologies", category: "logistics", source: "Zebra", url: "https://www.zebra.com/us/en.html", country: "us" }, 
     
     // Home 
-    { id: 1001, title: "iRobot Roomba (Vacuum/Mop)", category: "home", source: "iRobot", url: "https://www.irobot.com/", country: "us" }, 
-    { id: 1002, title: "Amazon Astro (Home)", category: "home", source: "Amazon", url: "https://www.aboutamazon.com/news/devices/meet-astro-a-home-robot-unlike-any-other", country: "us" }, 
+    { id: 1001, title: "Amazon Astro (Home)", category: "home", source: "Amazon", url: "https://www.aboutamazon.com/news/devices/meet-astro-a-home-robot-unlike-any-other", country: "us" }, 
+    { id: 1002, title: "iRobot Roomba (Vacuum/Mop)", category: "home", source: "iRobot", url: "https://www.irobot.com/", country: "us" }, 
     { id: 1003, title: " Sony Aibo (AI Robot Pet)", category: "home", source: "Sony", url: "https://us.aibo.com/", country: "jp" }, 
     
     // AI
@@ -621,24 +627,69 @@
             closeSidebar(); 
         }
         
-        function filterLinks(category) {
-            const mainContent = document.querySelector('main');
-            const container = document.getElementById('link-container');
-            mainContent.classList.remove('home-state');
-            container.classList.remove('home-state');
-            container.innerHTML = `
-                <h2 class="category-title" style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-muted); margin-bottom: 1.5rem; border-bottom: 1px solid #444; padding-bottom: 10px;">${category.toUpperCase()}</h2>
-                <div id="category-link-grid" class="link-grid"></div>
-            `;
-            const targetGridElement = document.getElementById('category-link-grid');
-            renderSpecificLinks(category, targetGridElement);
-            const buttons = document.querySelectorAll('.category-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            const targetButton = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(`'${category}'`));
-            if (targetButton) { targetButton.classList.add('active'); }
-            closeSidebar(); 
-        }
+ function filterLinks(category) {
+    const mainContent = document.querySelector('main');
+    const container = document.getElementById('link-container');
+    mainContent.classList.remove('home-state');
+    container.classList.remove('home-state');
+    
+    container.innerHTML = `
+        <h2 class="category-title" style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-muted); margin-bottom: 1.5rem; border-bottom: 1px solid #444; padding-bottom: 10px;">${category.toUpperCase()}</h2>
+        <div id="category-link-grid" class="link-grid"></div>
+    `;
+    
+    const targetGridElement = document.getElementById('category-link-grid');
+    
+    // 1. 카테고리 필터링
+    let filteredLinks = links.filter(link => link.category.toLowerCase() === category.toLowerCase());
+    
+    // 2. 회사 이름(title) 기준 ABC 순서 정렬 (반드시 수행)
+    filteredLinks.sort((a, b) => {
+        const titleA = a.title.trim().toUpperCase();
+        const titleB = b.title.trim().toUpperCase();
+        if (titleA < titleB) return -1;
+        if (titleA > titleB) return 1;
+        return 0;
+    });
+
+    // 3. 정렬된 리스트 전달
+    renderSpecificLinksSorted(filteredLinks, targetGridElement);
+
+    const buttons = document.querySelectorAll('.category-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    const targetButton = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(`'${category}'`));
+    if (targetButton) { targetButton.classList.add('active'); }
+    closeSidebar(); 
+}
+
+// renderSpecificLinks 함수를 정렬된 데이터를 직접 받도록 조금 변경한 버전입니다.
+function renderSpecificLinksSorted(dataList, container) {
+    if (!container) return; 
+    container.innerHTML = '';
+    
+    dataList.forEach(link => {
+        const card = document.createElement('a');
+        card.className = 'link-card'; 
+        card.href = link.url;
+        card.target = "_blank"; 
         
+        const displayUrl = link.url.replace(/^https?:\/\//, '').split('/')[0];
+        const flagClass = link.country ? `fi fi-${link.country}` : 'fas fa-globe';
+
+        card.innerHTML = `
+            <div class="card-info">
+                <div class="link-title">${link.title}</div>
+                <p style="font-size: 0.9rem; color: #A0A0A0; margin-top: 2px;">${link.source}</p> 
+                <div class="card-footer">
+                    <span class="link-url" style="display: flex; align-items: center;">
+                        <span class="${flagClass}" style="margin-right: 8px;"></span> ${displayUrl}
+                    </span>
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
         function closeSidebar() { document.getElementById('sidebar').classList.remove('active'); }
         function openNoticeModal() { 
