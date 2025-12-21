@@ -352,26 +352,70 @@
         }
         .sns-icons a:hover { transform: scale(1.1); opacity: 0.8; }
         
-        @media (max-width: 768px) {
-            header { height: 60px; padding: 0 1rem; justify-content: flex-start; gap: 10px; }
-            .logo { font-size: 1.4rem; flex-grow: 2; }
-            .logo-image { height: 40px; }
-            .menu-toggle { display: block; order: 3; margin-left: auto; } 
-            .sns-icons { display: none; } 
-            .header-ad-container { display: flex; flex-grow: 0.5; max-width: 120px; justify-content: center; align-items: center; margin-left: auto; margin-right: 10px; } 
-            .ad-banner { padding: 3px; gap: 5px; width: 100%; }
-            .ad-image { max-height: 40px; }
-            .ad-company-name { display: none; }
-            .container { flex-direction: column; }
-            main { width: 100%; } 
-            .link-grid { grid-template-columns: 1fr; gap: 1rem; }
-            #link-container { padding: 1.5rem; }
-            .category-btn { font-size: 1.1rem; padding: 12px 15px; }
-            .sidebar-category-title { font-size: 1.3rem; }
-            aside { position: fixed; top: 0; left: 0; height: 100%; transform: translateX(-100%); width: 80%; max-width: 320px; box-shadow: 2px 0 10px rgba(0,0,0,0.5); z-index: 9000; }
-            aside.active { transform: translateX(0); }
-            .sidebar-close { display: block; }
-        }
+        /* --- 모바일 반응형 최종 수정 코드 --- */
+@media (max-width: 768px) {
+    /* 1. 헤더 요소들이 겹치지 않게 정렬 */
+    header { 
+        height: auto; 
+        min-height: 70px; 
+        padding: 5px 10px; 
+        display: flex; 
+        align-items: center; 
+        justify-content: space-between; 
+        gap: 5px; 
+    }
+
+    /* 2. 로고 크기를 더 줄여서 공간 확보 */
+    .logo { 
+        font-size: 1.1rem !important; 
+        flex-shrink: 1; /* 공간이 부족하면 로고 크기 축소 */
+    }
+    
+    .logo span {
+        font-size: 1.1rem !important; /* LEARNROBOT 글자 크기 강제 조정 */
+    }
+
+    .logo-image { 
+        height: 35px; /* 이미지 크기 축소 */
+    }
+
+    /* 3. 광고 배너가 로고를 가리지 않도록 설정 */
+    .header-ad-container { 
+        display: flex; 
+        flex: 1; 
+        justify-content: center; 
+        max-width: 140px; /* 모바일에서 광고 최대 너비 제한 */
+        margin: 0 5px;
+    }
+    
+    .ad-banner { 
+        padding: 2px 5px; 
+        border-width: 1px;
+    }
+    
+    .ad-image { 
+        max-height: 35px; /* 광고 이미지 크기 축소 */
+    }
+
+    /* 4. 메뉴 버튼 위치 고정 */
+    .menu-toggle { 
+        display: block; 
+        font-size: 1.5rem;
+        padding: 5px;
+        order: 3; /* 가장 오른쪽에 배치 */
+    }
+
+    /* 5. 나머지 겹침 방지 설정 */
+    .container { flex-direction: column; }
+    main { width: 100%; }
+    aside { 
+        position: fixed; 
+        top: 0; 
+        left: 0; 
+        width: 85%; 
+        z-index: 10000; /* 메뉴가 모든 요소 위로 오게 함 */
+    }
+}
     </style>
 </head>
 <body>
