@@ -310,12 +310,21 @@
         }
 
         .card-info { padding: 0.8rem 1rem; } 
-        .link-title { 
-            font-weight: 700; margin-bottom: 4px; font-size: 1.1rem; color: var(--text-main);
-            white-space: nowrap; 
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+       /* --- CSS 수정 부분 --- */
+
+.link-title { 
+    font-weight: 700; 
+    margin-bottom: 8px; /* 아래쪽 여백 약간 추가 */
+    font-size: 1.1rem; 
+    color: var(--text-main);
+    /* 말줄임표 제거 및 줄바꿈 허용 */
+    white-space: normal;      /* 기본 줄바꿈 허용 */
+    word-break: keep-all;    /* 한글/영어 단어 단위 줄바꿈 */
+    display: block;          /* 블록 요소로 변경 */
+    line-height: 1.3;        /* 가독성을 위한 줄간격 */
+}
+
+/* 기존에 .link-title에 있던 overflow, text-overflow 속성은 삭제되었습니다. */
         
         .modal {
             display: none; position: fixed; z-index: 100; left: 0; top: 0;
@@ -530,6 +539,16 @@
     { id: 601, title: "Amazon Robotics", category: "logistics", source: "Amazon", url: "https://www.amazonrobotics.com/", country: "us" }, 
     { id: 602, title: "Locus Robotics", category: "logistics", source: "Locus", url: "https://www.locusrobotics.com/", country: "us" }, 
     { id: 603, title: "Zebra Technologies", category: "logistics", source: "Zebra", url: "https://www.zebra.com/us/en.html", country: "us" }, 
+    { id: 620, title: "Toyota (Autopilot Forklifts)", category: "logistics", source: "Toyota Industries", url: "https://www.toyota-forklifts.eu/solutions/automated-solutions/", country: "jp" },
+    { id: 621, title: "Linde (Automated Forklifts)", category: "logistics", source: "KION Group", url: "https://www.linde-mh.com/en/Solutions/Automation/", country: "de" },
+    { id: 622, title: "VisionNav (Driverless Forklift)", category: "logistics", source: "VisionNav", url: "https://www.visionnav.com/", country: "cn" },
+    { id: 623, title: "Vecna (Autonomous Pallet Handling)", category: "logistics", source: "Vecna Robotics", url: "https://www.vecnarobotics.com/", country: "us" },
+    { id: 624, title: "Jungheinrich (Automated Warehouse)", category: "logistics", source: "Jungheinrich", url: "https://www.jungheinrich.com/en/solutions/automation", country: "de" },
+    { id: 625, title: "HD Hyundai Construction Equipment", category: "logistics", source: "Hyundai Forklift", url: "https://www.hyundai-ce.com/", country: "kr" },
+    { id: 626, title: "Mobyus (Autonomous Fork Lift)", category: "logistics", source: "Mobyus NVC", url: "http://www.mobyus.com/afl", country: "kr" },
+    { id: 627, title: "Balyo (Robotic Forklift Kits)", category: "logistics", source: "Balyo", url: "https://www.balyo.com/", country: "fr" },
+    { id: 628, title: "Hyster-Yale (Robotics)", category: "logistics", source: "Hyster-Yale Materials Handling", url: "https://www.hyster-yale.com/", country: "us" },
+    { id: 629, title: "Mitsubishi Logisnext", category: "logistics", source: "Material Handling", url: "https://www.logisnext.com/en/", country: "jp" },
     
     // Home 
     { id: 1001, title: "Amazon Astro (Home)", category: "home", source: "Amazon", url: "https://www.aboutamazon.com/news/devices/meet-astro-a-home-robot-unlike-any-other", country: "us" }, 
@@ -550,12 +569,19 @@
     { id: 802, title: "Google DeepMind", category: "ai", source: "Google", url: "https://deepmind.google/", country: "gb" }, 
     { id: 803, title: "Anthropic (Claude)", category: "ai", source: "Anthropic", url: "https://www.anthropic.com/", country: "us" }, 
     { id: 804, title: "Meta AI (Llama)", category: "ai", source: "Meta", url: "https://ai.meta.com/", country: "us" },
-    { id: 805, title: "Hugging Face (Models Hub)", category: "ai", source: "Hugging Face", url: "https://huggingface.co/", country: "us" },
+    { id: 805, title: "Hugging Face (AI Model's Hub)", category: "ai", source: "Hugging Face", url: "https://huggingface.co/", country: "us" },
     { id: 806, title: "Gemini (Google DeepMind)", category: "ai", source: "Google DeepMind", url: "https://gemini.google.com/", country: "us" },
     
     // Software
     { id: 701, title: "ROS (Robot Operating System)", category: "software", source: "Open Source", url: "https://www.ros.org/", country: "us" }, 
     { id: 702, title: "NVIDIA Isaac Sim", category: "software", source: "NVIDIA", url: "https://developer.nvidia.com/isaac-sim", country: "us" }, 
+    { id: 703, title: "MATLAB & Simulink", category: "software", source: "MathWorks", url: "https://www.mathworks.com/solutions/robotics.html", country: "us" },
+    { id: 704, title: "Gazebo Simulator", category: "software", source: "Open Source Robotics", url: "https://gazebosim.org/", country: "us" },
+    { id: 705, title: "Intrinsic (Alphabet)", category: "software", source: "Google Subsidiary", url: "https://www.intrinsic.ai/", country: "us" },
+    { id: 706, title: "Brain Corp (BrainOS)", category: "software", source: "Autonomous AI", url: "https://www.braincorp.com/", country: "us" },
+    { id: 707, title: "Clobot (Robot Control)", category: "software", source: "Korea S/W Leader", url: "https://www.clobot.co.kr/", country: "kr" },
+    { id: 708, title: "RobotStudio", category: "software", source: "ABB Robotics", url: "https://new.abb.com/products/robotics/robotstudio", country: "ch" },
+    { id: 709, title: "SolidWorks (Robot Design)", category: "software", source: "Dassault Systèmes", url: "https://www.solidworks.com/", country: "fr" },
     
     // Components
     { id: 901, title: "Lidar by Velodyne", category: "components", source: "Velodyne", url: "https://velodynelidar.com/", country: "us" }, 
@@ -686,6 +712,8 @@
 }
 
 // renderSpecificLinks 함수를 정렬된 데이터를 직접 받도록 조금 변경한 버전입니다.
+/* --- JavaScript 수정 부분 (renderSpecificLinksSorted 함수 내) --- */
+
 function renderSpecificLinksSorted(dataList, container) {
     if (!container) return; 
     container.innerHTML = '';
@@ -699,10 +727,11 @@ function renderSpecificLinksSorted(dataList, container) {
         const displayUrl = link.url.replace(/^https?:\/\//, '').split('/')[0];
         const flagClass = link.country ? `fi fi-${link.country}` : 'fas fa-globe';
 
+        // 1. ${link.source} 부분을 삭제했습니다.
+        // 2. 제목이 길어도 전체가 나오도록 구조를 유지합니다.
         card.innerHTML = `
             <div class="card-info">
                 <div class="link-title">${link.title}</div>
-                <p style="font-size: 0.9rem; color: #A0A0A0; margin-top: 2px;">${link.source}</p> 
                 <div class="card-footer">
                     <span class="link-url" style="display: flex; align-items: center;">
                         <span class="${flagClass}" style="margin-right: 8px;"></span> ${displayUrl}
