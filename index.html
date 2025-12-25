@@ -470,14 +470,15 @@
     let links = [
     // Humanoid
     { id: 1, title: "Boston Dynamics (Atlas)", category: "humanoid", source: "Boston Dynamics", url: "https://www.bostondynamics.com/", country: "us" }, 
-    { id: 6, title: "Engineered Arts (Ameca)", category: "humanoid", source: "Engineered Arts", url: "https://www.engineeredarts.co.uk/robot/ameca/", country: "gb" },
+    { id: 6, title: "Engineered Arts", category: "humanoid", source: "Engineered Arts", url: "https://www.engineeredarts.co.uk/", country: "gb" },
     { id: 104, title: "XPENG Robotics (IRON)", category: "humanoid", source: "XPENG", url: "https://www.xpeng.com", country: "cn" }, 
-    { id: 106, title: "Tesla Optimus (AI & Robotics)", category: "humanoid", source: "Tesla", url: "https://www.tesla.com/AI", country: "us" },
+    { id: 106, title: "Tesla Optimus (AI & Robotics)", category: "humanoid", source: "Tesla", url: "https://www.tesla.com/en_in/we-robot", country: "us" },
     { id: 106, title: "GAC (GoMate)", category: "humanoid", source: "GAC", url: "https://www.gac.com.cn/", country: "cn" }, 
+    { id: 106, title: "Fourier GR-1 (General Purpose)", category: "humanoid", source: "Fourier Robotics", url: "https://www.fftai.com/products-gr1", country: "cn" },
     { id: 1012, title: "Figure AI", category: "humanoid", source: "Figure", url: "https://www.figure.ai/", country: "us" },
     { id: 1013, title: "Apptronik (Apollo)", category: "humanoid", source: "Apptronik", url: "https://apptronik.com/", country: "us" },
     { id: 1014, title: "Agility Robotics (Digit)", category: "humanoid", source: "Agility Robotics", url: "https://www.agilityrobotics.com/", country: "us" },
-    { id: 1015, title: "1X Technologies (Neo/Eve)", category: "humanoid", source: "1X", url: "https://www.1x.tech/", country: "no" },
+    { id: 1015, title: "1X Technologies (Neo/Eve)", category: "humanoid", source: "1X", url: "https://www.1x.tech/neo/", country: "no" },
     { id: 1017, title: "Rainbow Robotics (HUBO)", category: "humanoid", source: "Rainbow", url: "http://www.rainbow-robotics.com/", country: "kr" },
     { id: 1018, title: "Unitree Robotics (H1/G1)", category: "humanoid", source: "Unitree", url: "https://www.unitree.com/h1", country: "cn" },
     { id: 1019, title: "UBTECH (Walker S)", category: "humanoid", source: "UBTECH", url: "https://www.ubtrobot.com/", country: "cn" },
@@ -783,11 +784,12 @@ function renderSpecificLinksSorted(dataList, container) {
         card.href = link.url;
         card.target = "_blank"; 
         
+        // [필수] 리퍼러 정보를 삭제하여 주소창 입력과 동일한 효과를 냅니다.
+        card.rel = "noreferrer noopener"; 
+
         const displayUrl = link.url.replace(/^https?:\/\//, '').split('/')[0];
         const flagClass = link.country ? `fi fi-${link.country}` : 'fas fa-globe';
 
-        // 1. ${link.source} 부분을 삭제했습니다.
-        // 2. 제목이 길어도 전체가 나오도록 구조를 유지합니다.
         card.innerHTML = `
             <div class="card-info">
                 <div class="link-title">${link.title}</div>
