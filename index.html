@@ -11,20 +11,23 @@
 
     <style>
 function updateCategoryCounts() {
-    // 모든 카테고리 버튼을 가져옵니다.
+    // 1. 전체 링크 수 표시 로직 추가
+    const totalCount = links.length;
+    const categoryTitle = document.querySelector('.sidebar-category-title');
+    if (categoryTitle) {
+        categoryTitle.innerHTML = `Category <span style="font-size: 0.85em; opacity: 0.7; margin-left: 5px;">(${totalCount})</span>`;
+    }
+
+    // 2. 개별 카테고리 버튼 숫자 업데이트 (기존 로직)
     const buttons = document.querySelectorAll('.category-btn');
-    
     buttons.forEach(btn => {
-        // onclick 속성에서 카테고리 이름(예: 'humanoid')을 추출합니다.
-        const categoryMatch = btn.getAttribute('onclick').match(/'([^']+)'/);
-        if (categoryMatch) {
-            const categoryName = categoryMatch[1];
-            // 해당 카테고리에 속한 링크 개수를 셉니다.
+        const onclickAttr = btn.getAttribute('onclick');
+        if (onclickAttr) {
+            const categoryName = onclickAttr.match(/'([^']+)'/)[1];
             const count = links.filter(link => link.category.toLowerCase() === categoryName.toLowerCase()).length;
             
-            // 기존 텍스트(예: Humanoid)를 유지하면서 숫자만 (n) 형태로 덧붙입니다.
-            const originalText = btn.textContent.split('(')[0].trim();
-            btn.innerHTML = `${originalText} <span style="font-size: 0.9rem; opacity: 0.7; margin-left: 5px;">(${count})</span>`;
+            const originalText = btn.innerText.split('(')[0].trim();
+            btn.innerHTML = `${originalText} <span style="font-size: 0.85em; opacity: 0.6; margin-left: 5px;">(${count})</span>`;
         }
     });
 }
@@ -780,19 +783,26 @@ function updateCategoryCounts() {
     { id: 50301, title: "Project Lead The Way (PLTW)", category: "stem", source: "STEM Curriculum", url: "https://www.pltw.org/", country: "us" },
     { id: 50302, title: "STEM.org (Credentialing)", category: "stem", source: "Research Org", url: "https://stem.org/", country: "us" },
 ];
-      function updateCategoryCounts() {
+     function updateCategoryCounts() {
+    // 1. 전체 링크 수 표시 (CATEGORY 옆 숫자)
+    const totalCount = links.length;
+    const categoryTitle = document.querySelector('.sidebar-category-title');
+    if (categoryTitle) {
+        // [중요] 'Category' 바로 뒤에 공백 없이 <span>을 붙여서 작성합니다.
+        categoryTitle.innerHTML = `Category<span style="font-size: 0.6em; opacity: 0.9; margin-left: 4px;">(${totalCount})</span>`;
+    }
+
+    // 2. 개별 카테고리 버튼 숫자 업데이트
     const buttons = document.querySelectorAll('.category-btn');
     buttons.forEach(btn => {
-        // 버튼의 onclick 속성에서 카테고리명 추출
         const onclickAttr = btn.getAttribute('onclick');
         if (onclickAttr) {
             const categoryName = onclickAttr.match(/'([^']+)'/)[1];
-            // 해당 카테고리의 링크 개수 계산
             const count = links.filter(link => link.category.toLowerCase() === categoryName.toLowerCase()).length;
             
-            // 기존 텍스트 옆에 숫자 추가
             const originalText = btn.innerText.split('(')[0].trim();
-            btn.innerHTML = `${originalText} <span style="font-size: 0.85em; opacity: 0.6; margin-left: 0px;">(${count})</span>`;
+            // [중요] 텍스트와 <span> 사이의 공백을 제거하고 margin-left로 미세 조절합니다.
+            btn.innerHTML = `${originalText}<span style="font-size: 0.85em; opacity: 0.6; margin-left: 6px;">(${count})</span>`;
         }
     });
 }
