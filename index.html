@@ -437,6 +437,7 @@
                 <button class="category-btn" onclick="filterLinks('academia')">Academia</button>
                 <button class="category-btn" onclick="filterLinks('events')">Events</button>        
                 <button class="category-btn" onclick="filterLinks('organization')">Organization</button>
+                <button class="category-btn" onclick="filterLinks('stem')">Educational</button>
             </div> 
             <div class="sidebar-contact-text-wrapper">
                 <p class="sidebar-contact-text" style="font-size: 0.8rem; color: #64748b; margin-bottom: 5px; font-weight: 600; text-transform: uppercase;">Contact</p>
@@ -468,16 +469,25 @@
         /* --- JAVASCRIPT LOGIC --- */
     let links = [
     // Humanoid
-    { id: 101, title: "Figure AI", category: "humanoid", source: "Figure", url: "https://www.figure.ai/", country: "us" }, 
-    { id: 102, title: "Unitree Robotics", category: "humanoid", source: "Unitree", url: "https://www.unitree.com/", country: "cn" }, 
-    { id: 103, title: "Agility Robotics", category: "humanoid", source: "Agility", url: "https://agilityrobotics.com/", country: "us" }, 
     { id: 1, title: "Boston Dynamics (Atlas)", category: "humanoid", source: "Boston Dynamics", url: "https://www.bostondynamics.com/", country: "us" }, 
     { id: 6, title: "Engineered Arts (Ameca)", category: "humanoid", source: "Engineered Arts", url: "https://www.engineeredarts.co.uk/robot/ameca/", country: "gb" },
     { id: 104, title: "XPENG Robotics (IRON)", category: "humanoid", source: "XPENG", url: "https://www.xpeng.com", country: "cn" }, 
     { id: 106, title: "Tesla Optimus (AI & Robotics)", category: "humanoid", source: "Tesla", url: "https://www.tesla.com/AI", country: "us" },
-    { id: 103, title: "Xiaomi CyberOne", category: "humanoid", source: "Xiaomi", url: "https://www.mi.com/cyberone", country: "cn" }, 
-    { id: 105, title: "UBTECH (Walker S)", category: "humanoid", source: "UBTECH", url: "https://www.ubtrobot.com/en/", country: "cn" }, 
     { id: 106, title: "GAC (GoMate)", category: "humanoid", source: "GAC", url: "https://www.gac.com.cn/", country: "cn" }, 
+    { id: 1012, title: "Figure AI", category: "humanoid", source: "Figure", url: "https://www.figure.ai/", country: "us" },
+    { id: 1013, title: "Apptronik (Apollo)", category: "humanoid", source: "Apptronik", url: "https://apptronik.com/", country: "us" },
+    { id: 1014, title: "Agility Robotics (Digit)", category: "humanoid", source: "Agility Robotics", url: "https://www.agilityrobotics.com/", country: "us" },
+    { id: 1015, title: "1X Technologies (Neo/Eve)", category: "humanoid", source: "1X", url: "https://www.1x.tech/", country: "no" },
+    { id: 1017, title: "Rainbow Robotics (HUBO)", category: "humanoid", source: "Rainbow", url: "http://www.rainbow-robotics.com/", country: "kr" },
+    { id: 1018, title: "Unitree Robotics (H1/G1)", category: "humanoid", source: "Unitree", url: "https://www.unitree.com/h1", country: "cn" },
+    { id: 1019, title: "UBTECH (Walker S)", category: "humanoid", source: "UBTECH", url: "https://www.ubtrobot.com/", country: "cn" },
+    { id: 1020, title: "Xiaomi CyberOne", category: "humanoid", source: "Xiaomi", url: "https://www.mi.com/global/discover/article?id=2755", country: "cn" },
+    { id: 1021, title: "KAIST Hubo Lab", category: "humanoid", source: "Academic", url: "https://hubolab.kaist.ac.kr/", country: "kr" },
+    { id: 1023, title: "PAL Robotics (TALOS)", category: "humanoid", source: "PAL Robotics", url: "https://pal-robotics.com/robots/talos/", country: "es" },
+    { id: 1024, title: "Engineered Arts (Ameca)", category: "humanoid", source: "Engineered Arts", url: "https://www.engineeredarts.org.uk/", country: "gb" },
+    { id: 1025, title: "Sanctuary AI (Phoenix)", category: "humanoid", source: "Sanctuary AI", url: "https://www.sanctuary.ai/", country: "ca" },
+    { id: 1026, title: "Meka Robotics (Google DeepMind)", category: "humanoid", source: "Research", url: "https://deepmind.google/discover/blog/", country: "us" },
+    { id: 1027, title: "IIT (iCub)", category: "humanoid", source: "Research", url: "https://icub.iit.it/", country: "it" },
 
     // Automation
     { id: 201, title: "FANUC Robotics", category: "automation", source: "FANUC", url: "https://www.fanuc.co.jp/en/robot/", country: "jp" }, 
@@ -658,6 +668,22 @@
     { id: 20010, title: "TAIROA (Taiwan Robot Association)", category: "organization", sub: "Automation & Intelligence", url: "https://www.tairoa.org.tw/", country: "tw" },
     { id: 20011, title: "CRIA (China Robot Industry Alliance)", category: "organization", sub: "China Strategic Alliance", url: "http://cria.mei.net.cn/", country: "cn" }, 
     { id: 20012, title: "MassRobotics", category: "organization", sub: "Robotics Innovation Hub", url: "https://www.massrobotics.org/", country: "us" },
+
+    //Educational
+    { id: 50001, title: "UNESCO STEM Education", category: "stem", source: "UNESCO", url: "https://www.unesco.org/en/stem", country: "un" },
+    { id: 50002, title: "ISTE (EdTech Standards)", category: "stem", source: "ISTE", url: "https://www.iste.org/", country: "us" },
+    { id: 50101, title: "FIRST Robotics (K-12)", category: "stem", source: "FIRST", url: "https://www.firstinspires.org/", country: "us" },
+    { id: 50102, title: "Code.org (Computer Science)", category: "stem", source: "Code.org", url: "https://code.org/", country: "us" },
+    { id: 50103, title: "Khan Academy (STEM Courses)", category: "stem", source: "Khan Academy", url: "https://www.khanacademy.org/", country: "us" },
+    { id: 50104, title: "Girls Who Code", category: "stem", source: "Non-profit", url: "https://girlswhocode.com/", country: "us" },
+    { id: 50105, title: "Scratch Foundation", category: "stem", source: "MIT Media Lab", url: "https://scratch.mit.edu/", country: "us" },
+    { id: 50106, title: "MIND Research Institute", category: "stem", source: "ST Math", url: "https://www.mindresearch.org/", country: "us" },
+    { id: 50201, title: "NASA STEM Engagement", category: "stem", source: "NASA", url: "https://www.nasa.gov/learning-resources/", country: "us" },
+    { id: 50202, title: "NSF STEM Education (EDU)", category: "stem", source: "National Science Foundation", url: "https://new.nsf.gov/edu", country: "us" },
+    { id: 50203, title: "Smithsonian Science Center", category: "stem", source: "Smithsonian", url: "https://ssec.si.edu/", country: "us" },
+    { id: 50204, title: "DoD STEM (Defense Dept)", category: "stem", source: "U.S. Dept of Defense", url: "https://www.dodstem.us/", country: "us" },
+    { id: 50301, title: "Project Lead The Way (PLTW)", category: "stem", source: "STEM Curriculum", url: "https://www.pltw.org/", country: "us" },
+    { id: 50302, title: "STEM.org (Credentialing)", category: "stem", source: "Research Org", url: "https://stem.org/", country: "us" },
 ];
       
         function renderSpecificLinks(filter, targetId) {
