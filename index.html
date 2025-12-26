@@ -874,12 +874,21 @@ function updateCategoryCounts() {
             const container = document.getElementById('link-container');
             mainContent.classList.remove('home-state'); 
             container.classList.remove('home-state');  
+            
             container.innerHTML = `
                 <div class="home-content"> 
-                    <h1 style="font-family: 'Chakra Petch', sans-serif; font-size: 2.0rem; color: var(--text-muted); text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);">The one-stop destination <br>for robots, components, and advanced technology.</h1> 
-                    <p style="font-size: 1.5rem; color: #FFFFFF; margin-top: 10px;">contact us at learnrobot@learnrobot.com <br>to add your robot</p>
+                    <h1 style="font-family: 'Chakra Petch', sans-serif; font-size: 2.0rem; color: var(--text-muted); text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);">
+                        The one-stop destination <br>for robots, components, and advanced technology.
+                    </h1> 
+                </div>
+
+                <div style="position: absolute; bottom: 50px; left: 0; width: 100%; text-align: center;">
+                    <p style="font-size: 1.5rem; color: #2C9999; margin: 0;">
+                        contact us at learnrobot@learnrobot.com to add your robot
+                    </p>
                 </div>
             `;
+            
             const buttons = document.querySelectorAll('.category-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             closeSidebar(); 
