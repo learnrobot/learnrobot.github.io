@@ -922,36 +922,42 @@
         container.appendChild(card);
     });
 }
-        
-       function renderHome() {
-            const mainContent = document.querySelector('main');
-            const container = document.getElementById('link-container');
-            mainContent.classList.remove('home-state'); 
-            container.classList.remove('home-state');  
-            
-            container.innerHTML = `
-                <div class="home-content"> 
-                    <h1 style="font-family: 'Chakra Petch', sans-serif; font-size: 2.0rem; color: var(--text-muted); text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);">
-                        The one-stop destination <br>for robots, components, and advanced technology.
-                    </h1> 
-                </div>
+        function renderHome() {
+    const mainContent = document.querySelector('main');
+    const container = document.getElementById('link-container');
+    mainContent.classList.remove('home-state'); 
+    container.classList.remove('home-state');  
+    
+    container.innerHTML = `
+        <div class="home-content"> 
+            <h1 style="font-family: 'Chakra Petch', sans-serif; font-size: 2.0rem; color: var(--text-muted); text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);">
+                The one-stop destination <br>for robots, components, and advanced technology.
+            </h1> 
+        </div>
 
-                <div style="position: absolute; bottom: 50px; left: 0; width: 100%; text-align: center;">
-                    <p style="font-size: 1.5rem; color: #2C9999; margin: 0;">
-                        contact us at learnrobot@learnrobot.com to add your technologies
-                    </p>
-                </div>
-            `;
-            
-            const buttons = document.querySelectorAll('.category-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            
-            // 홈으로 돌아올 때 검색창 비우기
-            const searchInput = document.getElementById('searchInput');
-            if(searchInput) searchInput.value = '';
-            
-            closeSidebar(); 
-        }
+        <div style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); width: auto; min-width: 600px;">
+            <div style="background: rgba(20, 20, 20, 0.5); 
+                        backdrop-filter: blur(8px); 
+                        padding: 10px 30px; 
+                        border-radius: 12px; /* 👈 여기에 4px이 정확히 적용되어야 합니다 */
+                        border: 1px solid rgba(44, 153, 153, 0.4);
+                        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+                        text-align: center;">
+                <p style="font-size: 1.2rem; color: #2C9999; margin: 0; font-family: 'Chakra Petch', sans-serif; letter-spacing: 1px;">
+                    Contact us at <span style="color: #FFFB03; text-shadow: 0 0 5px rgba(255, 251, 3, 0.5);">learnrobot@learnrobot.com</span> to add your technologies
+                </p>
+            </div>
+        </div>
+    `;
+    
+    const buttons = document.querySelectorAll('.category-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    const searchInput = document.getElementById('searchInput');
+    if(searchInput) searchInput.value = '';
+    
+    closeSidebar(); 
+}    
         
  function filterLinks(category) {
     const mainContent = document.querySelector('main');
@@ -1096,12 +1102,28 @@ function searchLinks() {
     }
 
     // 3. 검색 결과 컨테이너 세팅
-    container.innerHTML = `
-        <h2 class="category-title" style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-muted); margin-bottom: 1.5rem; border-bottom: 1px solid #444; padding-bottom: 10px;">
-            SEARCH: "${input.value}"
-        </h2>
-        <div id="search-results-grid" class="link-grid"></div>
-    `;
+  // renderHome() 함수 내부 수정
+container.innerHTML = `
+    <div class="home-content"> 
+        <h1 style="font-family: 'Chakra Petch', sans-serif; font-size: 2.0rem; color: var(--text-muted); text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);">
+            The one-stop destination <br>for robots, components, and advanced technology.
+        </h1> 
+    </div>
+
+    <div style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); width: auto; min-width: 600px;">
+        <div style="background: rgba(20, 20, 20, 0.7); 
+                    backdrop-filter: blur(8px); 
+                    padding: 15px 30px; 
+                    border-radius: 4px; 
+                    border: 1px solid rgba(44, 153, 153, 0.4);
+                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+                    text-align: center;">
+            <p style="font-size: 1.2rem; color: #2C9999; margin: 0; font-family: 'Orbitron', sans-serif; letter-spacing: 1px;">
+                Contact us at <span style="color: #FFFB03; text-shadow: 0 0 5px rgba(255, 251, 3, 0.5);">learnrobot@learnrobot.com</span> to add your technologies
+            </p>
+        </div>
+    </div>
+`;
     
     const targetGrid = document.getElementById('search-results-grid');
 
