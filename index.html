@@ -10,34 +10,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA===" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-function updateCategoryCounts() {
-    // 1. 전체 링크 수 표시 로직 추가
-    const totalCount = links.length;
-    const categoryTitle = document.querySelector('.sidebar-category-title');
-    if (categoryTitle) {
-        categoryTitle.innerHTML = `Category <span style="font-size: 0.85em; opacity: 0.7; margin-left: 5px;">(${totalCount})</span>`;
-    }
-
-    // 2. 개별 카테고리 버튼 숫자 업데이트 (기존 로직)
-    const buttons = document.querySelectorAll('.category-btn');
-    buttons.forEach(btn => {
-        const onclickAttr = btn.getAttribute('onclick');
-        if (onclickAttr) {
-            const categoryName = onclickAttr.match(/'([^']+)'/)[1];
-            const count = links.filter(link => link.category.toLowerCase() === categoryName.toLowerCase()).length;
-            
-            const originalText = btn.innerText.split('(')[0].trim();
-            btn.innerHTML = `${originalText} <span style="font-size: 0.85em; opacity: 0.6; margin-left: 5px;">(${count})</span>`;
+        /* 뚝뚝 끊김 없는 부드러운 '딥 브레스(Deep Breath)' 효과 */
+        /* 노란색(#FFFB03) 네온 호흡 효과 */
+        @keyframes neon-smooth-flow {
+            0% {
+                /* 빛이 약할 때: 노란색(255, 251, 3)의 투명도 조절 */
+                box-shadow: 0 0 4px rgba(255, 251, 3, 0.2), inset 0 0 2px rgba(255, 251, 3, 0.1);
+                border-color: rgba(255, 251, 3, 0.3);
+                background-color: rgba(40, 40, 40, 0.3);
+            }
+            50% {
+                /* 빛이 강할 때 */
+                box-shadow: 0 0 15px rgba(255, 251, 3, 0.9), inset 0 0 8px rgba(255, 251, 3, 0.5);
+                border-color: rgba(255, 251, 3, 1.0); 
+                background-color: rgba(40, 40, 40, 0.6);
+            }
+            100% {
+                /* 다시 약해짐 */
+                box-shadow: 0 0 4px rgba(255, 251, 3, 0.2), inset 0 0 2px rgba(255, 251, 3, 0.1);
+                border-color: rgba(255, 251, 3, 0.3);
+                background-color: rgba(40, 40, 40, 0.3);
+            }
         }
-    });
-}
-/* 국기 아이콘 크기 조절 */
-.fi {
-    font-size: 1.2rem !important; /* 원하는 크기로 조절 (기본보다 약 20% 커짐) */
-    border-radius: 2px;          /* 모서리를 약간 둥글게 */
-    vertical-align: middle;      /* 텍스트와 높이 맞춤 */
-    line-height: 1;
-}
+
+        /* 국기 아이콘 크기 조절 */
+        .fi {
+            font-size: 1.2rem !important; 
+            border-radius: 2px;          
+            vertical-align: middle;      
+            line-height: 1;
+        }
+
         /* --- CSS STYLES --- */
         :root {
             --bg-dark: #1E1E1E;      
@@ -126,6 +129,7 @@ function updateCategoryCounts() {
         }
 
         .ad-banner {
+            /* --- 기존 레이아웃 속성 유지 --- */
             text-decoration: none; 
             display: flex;
             align-items: center;
@@ -133,19 +137,26 @@ function updateCategoryCounts() {
             height: 100%; 
             max-width: 100%; 
             padding: 5px 15px; 
-            background-color: rgba(40, 40, 40, 0.5); 
-            border: 2px solid #2C9999; 
             border-radius: 8px; 
             cursor: pointer;
-            transition: all 0.3s ease; 
             gap: 10px;
             min-width: 0; 
+            
+            /* [수정됨] 노란색 테두리 */
+            border: 4px solid #FFFB03; 
+
+            transition: all 0.3s ease; 
+            animation: neon-smooth-flow 4s infinite ease-in-out;
         }
 
+        /* 마우스 올렸을 때: 애니메이션 멈추고 밝게 고정 */
         .ad-banner:hover {
-            opacity: 1; 
-            transform: scale(1.02); 
-            box-shadow: 0 0 15px #2C9999, 0 0 30px #2C9999, inset 0 0 10px #2C9999;
+            animation: none; /* 깜빡임 멈춤 */
+            border-color: #FFFB03; /* 선명한 노란색 */
+            /* 강렬한 노란색 빛 번짐 */
+            box-shadow: 0 0 20px #FFFB03, inset 0 0 10px #FFFB03;
+            transform: scale(1.02);
+            opacity: 1;
         }
         
         .ad-image {
@@ -157,14 +168,19 @@ function updateCategoryCounts() {
         }
         
         .ad-company-name {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Chakra Petch', sans-serif;
             font-size: 1.5rem;
             font-weight: 700;
-            color: #2C9999; 
+            
+            /* [수정됨] 글자색 노란색 변경 */
+            color: #FFFFFF; 
+            
             letter-spacing: 1px;
             white-space: nowrap; 
             overflow: visible; 
             text-overflow: clip;
+            /* 글자 주변에도 은은하게 노란 빛이 돌게 하려면 아래 줄 추가 (선택사항) */
+            text-shadow: 0 0 5px rgba(255, 251, 3, 0.5);
         }
 
         .container { 
@@ -180,53 +196,52 @@ function updateCategoryCounts() {
         } 
 
        aside {
-        width: var(--sidebar-width);
-        background: var(--bg-dark); 
-        background-color: var(--bg-dark); 
-        padding: 2rem 1.5rem;
-        display: flex;
-        flex-direction: column;
-        gap: 4px; 
-        border-right: none; 
-        height: 100%; 
-        z-index: 5;
-        transition: transform 0.3s ease-out; 
-    }
+            width: var(--sidebar-width);
+            background: var(--bg-dark); 
+            background-color: var(--bg-dark); 
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4px; 
+            border-right: none; 
+            height: 100%; 
+            z-index: 5;
+            transition: transform 0.3s ease-out; 
+        }
 
-    .sidebar-close {
-        display: none; 
-        color: var(--text-main);
-        font-size: 1.5rem;
-        cursor: pointer;
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        background: none;
-        border: none;
-        z-index: 10;
-    }
+        .sidebar-close {
+            display: none; 
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
 
-    .sidebar-category-list { 
-        flex-grow: 1; 
-        overflow-y: auto; 
-        padding-right: 5px; 
-        display: flex;
-        flex-direction: column;
-        gap: 4px; 
-        margin-bottom: 10px;
-        min-height: 0; 
-    }
+        .sidebar-category-list { 
+            flex-grow: 1; 
+            overflow-y: auto; 
+            padding-right: 5px; 
+            display: flex;
+            flex-direction: column;
+            gap: 4px; 
+            margin-bottom: 10px;
+            min-height: 0; 
+        }
 
-    .sidebar-category-list::-webkit-scrollbar { width: 6px; }
-    .sidebar-category-list::-webkit-scrollbar-track { background: rgba(40, 40, 40, 0.5); }
-    .sidebar-category-list:hover::-webkit-scrollbar-thumb { background-color: #444; }
+        .sidebar-category-list::-webkit-scrollbar { width: 6px; }
+        .sidebar-category-list::-webkit-scrollbar-track { background: rgba(40, 40, 40, 0.5); }
+        .sidebar-category-list:hover::-webkit-scrollbar-thumb { background-color: #444; }
 
         .category-btn {
             display: flex; 
-            /* space-between은 양끝으로 벌립니다. 이를 flex-start로 바꾸면 텍스트 바로 옆에 숫자가 붙습니다. */
             justify-content: flex-start; 
             align-items: center;
-            gap: 8px; /* 여기서 gap을 주어 미세하게 간격을 조절할 수도 있습니다. */
+            gap: 8px; 
             text-align: left;
             background: transparent;
             border: 1px solid transparent;
@@ -336,21 +351,18 @@ function updateCategoryCounts() {
         }
 
         .card-info { padding: 0.8rem 1rem; } 
-       /* --- CSS 수정 부분 --- */
 
-.link-title { 
-    font-weight: 700; 
-    margin-bottom: 8px; /* 아래쪽 여백 약간 추가 */
-    font-size: 1.1rem; 
-    color: var(--text-main);
-    /* 말줄임표 제거 및 줄바꿈 허용 */
-    white-space: normal;      /* 기본 줄바꿈 허용 */
-    word-break: keep-all;    /* 한글/영어 단어 단위 줄바꿈 */
-    display: block;          /* 블록 요소로 변경 */
-    line-height: 1.3;        /* 가독성을 위한 줄간격 */
-}
-
-/* 기존에 .link-title에 있던 overflow, text-overflow 속성은 삭제되었습니다. */
+        .link-title { 
+            font-weight: 700; 
+            margin-bottom: 8px; /* 아래쪽 여백 약간 추가 */
+            font-size: 1.1rem; 
+            color: var(--text-main);
+            /* 말줄임표 제거 및 줄바꿈 허용 */
+            white-space: normal;      /* 기본 줄바꿈 허용 */
+            word-break: keep-all;    /* 한글/영어 단어 단위 줄바꿈 */
+            display: block;          /* 블록 요소로 변경 */
+            line-height: 1.3;        /* 가독성을 위한 줄간격 */
+        }
         
         .modal {
             display: none; position: fixed; z-index: 100; left: 0; top: 0;
@@ -387,98 +399,128 @@ function updateCategoryCounts() {
             transition: transform 0.2s, color 0.2s; display: block; font-size: 2.1em;
         }
         .sns-icons a:hover { transform: scale(1.1); opacity: 0.8; }
-        /* --- 모바일 레이아웃 불균형 해결을 위한 수정본 --- */
-/* --- 모바일 레이아웃 및 햄버거 메뉴 완벽 복구 --- */
-/* --- 모바일 화면 꽉 채우기 및 헤더 정렬 최적화 --- */
-@media (max-width: 768px) {
-    header { 
-        height: 60px !important; 
-        padding: 0 15px !important; 
-        display: flex !important;
-        justify-content: space-between !important; 
-        align-items: center !important;
-        gap: 10px !important; 
-    }
-    
-    /* 1. 로고 크기 축소하여 공간 확보 */
-    .logo { 
-        font-size: 1.1rem !important; 
-        flex-shrink: 1 !important;
-    }
-    .logo-image { height: 30px !important; }
-    .logo span { font-size: 1.1rem !important; }
+        
+        /* --- 모바일 레이아웃 및 햄버거 메뉴 완벽 복구 --- */
+        @media (max-width: 768px) {
+            header { 
+                height: 60px !important; 
+                padding: 0 15px !important; 
+                display: flex !important;
+                justify-content: space-between !important; 
+                align-items: center !important;
+                gap: 10px !important; 
+            }
+            
+            /* 1. 로고 크기 축소하여 공간 확보 */
+            .logo { 
+                font-size: 1.1rem !important; 
+                flex-shrink: 1 !important;
+            }
+            .logo-image { height: 30px !important; }
+            .logo span { font-size: 1.1rem !important; }
 
-    /* 2. 중앙 광고 배너가 로고를 가리지 않게 축소 */
-    .header-ad-container { 
-        flex: 1 !important; 
-        display: flex !important;
-        justify-content: center !important;
-        max-width: 100px !important; 
-    }
-    .ad-banner { padding: 2px !important; border-width: 1px !important; }
-    .ad-image { max-height: 30px !important; }
-    .ad-company-name { display: none !important; }
+            /* 2. 중앙 광고 배너가 로고를 가리지 않게 축소 */
+            .header-ad-container { 
+                flex: 1 !important; 
+                display: flex !important;
+                justify-content: center !important;
+                max-width: 100px !important; 
+            }
+            .ad-banner { padding: 2px !important; border-width: 1px !important; }
+            .ad-image { max-height: 30px !important; }
+            .ad-company-name { display: none !important; }
 
-    /* 3. 햄버거 메뉴 버튼 강제 노출 및 정렬 */
-    .menu-toggle { 
-        display: block !important; 
-        order: 3 !important; 
-        font-size: 1.5rem !important;
-        background: transparent !important;
-        padding: 5px !important;
-    }
-    .auth-buttons, .sns-icons { display: none !important; }
+            /* 3. 햄버거 메뉴 버튼 강제 노출 및 정렬 */
+            .menu-toggle { 
+                display: block !important; 
+                order: 3 !important; 
+                font-size: 1.5rem !important;
+                background: transparent !important;
+                padding: 5px !important;
+            }
+            .auth-buttons, .sns-icons { display: none !important; }
 
-    /* 4. 본문 왼쪽 쏠림 해결: 너비를 100%로 확장 */
-    .container { 
-        flex-direction: column !important; 
-        height: auto !important;
-    }
-    
-    main { 
-        width: 100% !important; 
-        padding: 0 !important;
-        background-position: center top !important; /* 배경 이미지 중앙 정렬 */
-    }
+            /* 4. 본문 왼쪽 쏠림 해결: 너비를 100%로 확장 */
+            .container { 
+                flex-direction: column !important; 
+                height: auto !important;
+            }
+            
+            main { 
+                width: 100% !important; 
+                padding: 0 !important;
+                background-position: center top !important; /* 배경 이미지 중앙 정렬 */
+            }
 
-    #link-container { 
-        padding: 20px !important; 
-        width: 100% !important;
-        display: block !important;
-        text-align: center !important; /* 홈 텍스트 중앙 정렬 */
-    }
+            #link-container { 
+                padding: 20px !important; 
+                width: 100% !important;
+                display: block !important;
+                text-align: center !important; /* 홈 텍스트 중앙 정렬 */
+            }
 
-    .home-content {
-        max-width: 100% !important;
-        margin: 0 auto !important;
-    }
+            .home-content {
+                max-width: 100% !important;
+                margin: 0 auto !important;
+            }
 
-    /* 5. 링크 카드 그리드 한 줄로 꽉 채우기 */
-    .link-grid { 
-        grid-template-columns: 1fr !important; 
-        width: 100% !important;
-        gap: 15px !important;
-    }
+            /* 5. 링크 카드 그리드 한 줄로 꽉 채우기 */
+            .link-grid { 
+                grid-template-columns: 1fr !important; 
+                width: 100% !important;
+                gap: 15px !important;
+            }
 
-    .link-card { 
-        width: 100% !important; 
-        margin: 0 auto !important;
-    }
+            .link-card { 
+                width: 100% !important; 
+                margin: 0 auto !important;
+            }
 
-    /* 6. 사이드바 메뉴 최적화 */
-    aside { 
-        position: fixed !important; 
-        top: 0 !important;
-        left: 0 !important;
-        height: 100% !important;
-        width: 280px !important; 
-        transform: translateX(-100%) !important;
-        z-index: 10000 !important;
-    }
-    aside.active { transform: translateX(0) !important; }
-}
-    .sidebar-close { display: block !important; }
-}
+            /* 6. 사이드바 메뉴 최적화 */
+            aside { 
+                position: fixed !important; 
+                top: 0 !important;
+                left: 0 !important;
+                height: 100% !important;
+                width: 280px !important; 
+                transform: translateX(-100%) !important;
+                z-index: 10000 !important;
+            }
+            aside.active { transform: translateX(0) !important; }
+            .sidebar-close { display: block !important; }
+        }
+
+        /* --- 검색창 디자인 --- */
+        .search-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 40px 12px 15px; /* 아이콘 공간 확보 */
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #FFFB03; /* 포커스 시 노란색 네온 */
+            box-shadow: 0 0 10px rgba(255, 251, 3, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            pointer-events: none; /* 아이콘 클릭 방지 */
+        }
     </style>
 </head>
 <body>
@@ -492,9 +534,9 @@ function updateCategoryCounts() {
         </a>
         
         <div class="header-ad-container">
-            <a href="https://bostondynamics.com/products/spot/" target="_blank" class="ad-banner">
-                <span class="ad-company-name">Boston Dynamics</span>
-                <img src="1_boston_dynamics_spot.png" alt="Boston Dynamics 광고배너" class="ad-image">
+            <a href="#" target="_blank" class="ad-banner">
+                <span class="ad-company-name">Learn Robot</span>
+                <img src="" alt="광고배너" class="ad-image" style="display: none;">
             </a>
         </div>
         
@@ -518,6 +560,10 @@ function updateCategoryCounts() {
                 <i class="fas fa-times"></i>
             </button>
 
+            <div class="search-container" style="padding-bottom: 20px;">
+                <input type="text" id="searchInput" placeholder="Search Company..." onkeyup="searchLinks()" class="search-input">
+                <i class="fas fa-search search-icon"></i>
+            </div>
             <p class="sidebar-category-title">Category</p> 
             <div class="sidebar-category-list"> 
                 <button class="category-btn" onclick="filterLinks('humanoid')">Humanoid</button> 
@@ -664,7 +710,7 @@ function updateCategoryCounts() {
     { id: 602, title: "Locus Robotics", category: "logistics", source: "Locus", url: "https://www.locusrobotics.com/", country: "us" }, 
     { id: 603, title: "Zebra Technologies", category: "logistics", source: "Zebra", url: "https://www.zebra.com/us/en.html", country: "us" }, 
     { id: 620, title: "Toyota (Autopilot Forklifts)", category: "logistics", source: "Toyota Industries", url: "https://www.toyota-forklifts.eu/solutions/automated-solutions/", country: "jp" },
-    { id: 621, title: "Linde (Automated Forklifts)", category: "logistics", source: "KION Group", url: "https://www.linde-mh.com/en/Solutions/Automation/", country: "de" },
+    { id: 621, title: "Linde (Automated Forklifts)", category: "logistics", source: "KION Group", url: "https://www.linde-mh.com/en/Solutions/Automation/", country: "de" }, 
     { id: 622, title: "VisionNav (Driverless Forklift)", category: "logistics", source: "VisionNav", url: "https://www.visionnav.com/", country: "cn" },
     { id: 623, title: "Vecna (Autonomous Pallet Handling)", category: "logistics", source: "Vecna Robotics", url: "https://www.vecnarobotics.com/", country: "us" },
     { id: 624, title: "Jungheinrich (Automated Warehouse)", category: "logistics", source: "Jungheinrich", url: "https://www.jungheinrich.com/en/solutions/automation", country: "de" },
@@ -854,10 +900,13 @@ function updateCategoryCounts() {
         // 국기 클래스 생성 (데이터에 country가 없으면 기본으로 'un' 혹은 비워둠)
         const flagClass = link.country ? `fi fi-${link.country}` : 'fas fa-globe';
 
+        // source가 없으면 sub(설명)를 보여주도록 수정
+        const sourceText = link.source || link.sub || '';
+
         card.innerHTML = `
             <div class="card-info">
                 <div class="link-title">${link.title}</div>
-                <p style="font-size: 0.9rem; color: #A0A0A0; margin-top: 2px;">${link.source}</p> 
+                <p style="font-size: 0.9rem; color: #A0A0A0; margin-top: 2px;">${sourceText}</p> 
                 <div class="card-footer">
                     <span class="link-url">
                         <span class="${flagClass}" style="margin-right: 8px;"></span> ${displayUrl}
@@ -884,13 +933,18 @@ function updateCategoryCounts() {
 
                 <div style="position: absolute; bottom: 50px; left: 0; width: 100%; text-align: center;">
                     <p style="font-size: 1.5rem; color: #2C9999; margin: 0;">
-                        contact us at learnrobot@learnrobot.com to add your robot
+                        contact us at learnrobot@learnrobot.com to add your technologies
                     </p>
                 </div>
             `;
             
             const buttons = document.querySelectorAll('.category-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // 홈으로 돌아올 때 검색창 비우기
+            const searchInput = document.getElementById('searchInput');
+            if(searchInput) searchInput.value = '';
+            
             closeSidebar(); 
         }
         
@@ -987,9 +1041,90 @@ function handleNoticeModalEnterKey(event) {
     } 
 }
 
+/* --- 랜덤 광고 배너 기능 추가 --- */
+function setRandomBanner() {
+    // 1. 링크 데이터가 없으면 중단
+    if (links.length === 0) return;
+
+    // 2. 219개의 링크 중 하나를 랜덤으로 뽑기
+    const randomIndex = Math.floor(Math.random() * links.length);
+    const selectedLink = links[randomIndex];
+
+    // 3. HTML 요소 찾기
+    const bannerLink = document.querySelector('.ad-banner');
+    const companyNameSpan = document.querySelector('.ad-company-name');
+    const bannerImg = document.querySelector('.ad-image');
+
+    // 4. 내용 바꿔치기
+    if (bannerLink && selectedLink) {
+        // 링크 주소 변경
+        bannerLink.href = selectedLink.url; 
+        
+        // 회사 이름 변경
+        if (companyNameSpan) {
+            companyNameSpan.innerText = selectedLink.title; 
+        }
+        
+        // 이미지는 숨김 처리 (텍스트만 네온사인처럼 보이게 함)
+        if (bannerImg) {
+            bannerImg.style.display = 'none'; 
+        }
+    }
+}
+
+/* --- [수정 완료] 검색 기능 (에러 해결됨) --- */
+function searchLinks() {
+    // 1. 입력된 검색어 가져오기
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toLowerCase();
+    
+    // 2. 메인 화면 초기화 (홈 화면 상태 해제)
+    const mainContent = document.querySelector('main');
+    const container = document.getElementById('link-container');
+    mainContent.classList.remove('home-state');
+    container.classList.remove('home-state');
+
+    // 검색어가 비어있으면 홈 화면으로
+    if (filter === "") {
+        renderHome();
+        return;
+    }
+
+    // 3. 검색 결과 컨테이너 세팅
+    container.innerHTML = `
+        <h2 class="category-title" style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-muted); margin-bottom: 1.5rem; border-bottom: 1px solid #444; padding-bottom: 10px;">
+            SEARCH: "${input.value}"
+        </h2>
+        <div id="search-results-grid" class="link-grid"></div>
+    `;
+    
+    const targetGrid = document.getElementById('search-results-grid');
+
+    // 4. 전체 링크에서 검색 (title, source, sub 모두 검색)
+    const filteredLinks = links.filter(link => {
+        // 데이터가 없는 경우를 대비해 빈 문자열('')로 처리하여 에러 방지
+        const titleMatch = (link.title || '').toLowerCase().includes(filter);
+        const sourceMatch = (link.source || '').toLowerCase().includes(filter);
+        const subMatch = (link.sub || '').toLowerCase().includes(filter);
+        
+        return titleMatch || sourceMatch || subMatch;
+    });
+
+    // 5. 결과가 없을 경우
+    if (filteredLinks.length === 0) {
+        targetGrid.innerHTML = `<p style="color: #888; font-size: 1.2rem; margin-top: 20px;">No results found.</p>`;
+        return;
+    }
+
+    // 6. 결과 렌더링
+    renderSpecificLinksSorted(filteredLinks, targetGrid);
+}
+
 // 스크립트 맨 하단 실행부
 updateCategoryCounts(); 
 openNoticeModal();
+setRandomBanner(); // 초기 실행 (랜덤 광고 1회 표시)
+setInterval(setRandomBanner, 10000); // 10초마다 광고 문구 자동 변경
     </script>
 </body>
 </html>
