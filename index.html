@@ -15,12 +15,12 @@
     position: absolute; top: 35%; right: 1%;
     background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px);
     padding: 10px; border-radius: 7px; border: 0px solid rgba(255, 251, 3, 0.4);
-    display: grid; grid-template-columns: repeat(6, 1fr)
+    display: grid; grid-template-columns: repeat(3, 1fr);
     width: auto;
     gap: 12px; z-index: 5; pointer-events: none;
 }
 .stats-title {
-    grid-column: span 3 !important; 
+    grid-column: span 12 !important; 
     color: #2C9999 !important; 
     font-size: 20px !important; 
     font-weight: 900 !important; 
@@ -1018,8 +1018,7 @@ function renderCountryStats() {
     container.innerHTML = `
         <div class="home-content"> 
             <h1 style="font-family: 'Chakra Petch', sans-serif; font-size: 2.0rem; color: var(--text-muted); text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);">
-            <h1 style="font-family: 'Chakra Petch', sans-serif; font-size: 2.0rem; color: #FFFB03; 
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 1);">
+            <h1 style="font-family: 'Chakra Petch', sans-serif; font-size: 2.0rem; color: #FFFB03; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 1);">
                 The one-stop destination <br>for robots, components, and advanced technology.
             </h1> 
         </div>
