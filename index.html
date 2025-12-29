@@ -260,8 +260,12 @@
             min-height: 0; 
         }
 
-        .sidebar-category-list::-webkit-scrollbar { width: 6px; }
-        .sidebar-category-list::-webkit-scrollbar-track { background: rgba(40, 40, 40, 0.5); }
+      .sidebar-category-list::-webkit-scrollbar {
+    width: 5px;       /* 세로 스크롤바 너비를 0으로 설정 */
+    height: 0px;      /* 가로 스크롤바 높이를 0으로 설정하여 하단 회색바 제거 */
+    display: 2px;    /* 스크롤바 요소를 화면에서 보이지 않게 처리 */
+}
+        .sidebar-category-list::-webkit-scrollbar-track { background: rgba(40, 40, 40, 1.5); }
         .sidebar-category-list:hover::-webkit-scrollbar-thumb { background-color: #444; }
 
         .category-btn {
@@ -638,9 +642,9 @@
                 <button class="category-btn" onclick="filterLinks('stem')">Educational</button>
             </div> 
             <div class="sidebar-contact-text-wrapper">
-                <p class="sidebar-contact-text" style="font-size: 0.8rem; color: #64748b; margin-bottom: 5px; font-weight: 600; text-transform: uppercase;">Contact</p>
+                <p class="sidebar-contact-text" style="font-size: 0.8rem; color: #FFFB03; margin-bottom: 5px; font-weight: 600; text-transform: none;">Contact to add your robot</p>
                  <a href="mailto:learnrobot@learnrobot.com" 
-                    style="color: #2C9999; text-decoration: none; font-size: 1.0rem; display: block; transition: 0.3s; font-family: 'roboto', sans-serif;" 
+                    style="color: #2C9999; text-decoration: none; font-size: 1.0rem; display: block; transition: 0.3s; font-family: 'Chakra Petch', sans-serif;" 
                     onmouseover="this.style.color='var(--accent)'" 
                     onmouseout="this.style.color='#2C9999'"> learnrobot@learnrobot.com
                  </a>
@@ -1022,20 +1026,7 @@ function renderCountryStats() {
                 The one-stop destination <br>for robots, components, and advanced technology.
             </h1> 
         </div>
-
-        <div style="position: absolute; bottom: 30px; left: 25%; transform: translateX(-50%); width: 180px ; min-width: 400px;">
-            <div style="background: rgba(20, 20, 20, 0.5); 
-                        backdrop-filter: blur(8px); 
-                        padding: 10px 10x; 
-                        border-radius: 12px; /* 👈 여기에 4px이 정확히 적용되어야 합니다 */
-                        border: 1px solid rgba(44, 153, 153, 0.4);
-                        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-                        text-align: center;">
-                <p style="font-size: 1.2rem; color: #2C9999; margin: 0; font-family: 'Chakra Petch', sans-serif; letter-spacing: 1px;">
-                    contact us to add your robot
-                </p>
-            </div>
-        </div>
+     
     `;
     
     const buttons = document.querySelectorAll('.category-btn');
