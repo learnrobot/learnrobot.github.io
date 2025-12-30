@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="description" content="The one-stop destination for robots, components, and advanced technology.">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.2/css/flag-icons.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Let's learnrobot.com</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Orbitron:wght@500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA===" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+/* robot links by nation 스타일 */
+.country-stats-overlay {
+    position: absolute; top: 35%; right: 1%;
+    background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px);
+    padding: 10px; border-radius: 7px; border: 0px solid rgba(255, 251, 3, 0.4);
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    width: auto;
+    gap: 12px; z-index: 5; pointer-events: none;
+}
+.stats-title {
+    grid-column: span 12 !important; 
+    color: #2C9999 !important; 
+    font-size: 20px !important; 
+    font-weight: 900 !important; 
+    letter-spacing: 1.5px !important; 
+    margin-bottom: 10px !important; 
+    border-bottom: 1px solid rgba(44, 153, 153, 0.5) !important; 
+    padding-bottom: 5px !important; 
+    font-family: 'Chakra Petch', sans-serif !important; 
+    text-transform: none !important;
+    display: block !important;
+    /* 글자에 검은색 그림자를 넣어 배경색과 분리 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+.stat-item { display: flex; align-items: center; gap: 8px; font-family: 'Chakra Petch', sans-serif; color: #fff; font-size: 0.9rem; }
+.stat-count { color: #FFFB03; font-weight: 700; }
+
+        /* 뚝뚝 끊김 없는 부드러운 '딥 브레스(Deep Breath)' 효과 */
+        /* 노란색(#FFFB03) 네온 호흡 효과 */
+        @keyframes neon-smooth-flow {
+            0% {
+                /* 빛이 약할 때: 노란색(255, 251, 3)의 투명도 조절 */
+                box-shadow: 0 0 4px rgba(255, 251, 3, 0.2), inset 0 0 2px rgba(255, 251, 3, 0.1);
+                border-color: rgba(255, 251, 3, 0.3);
+                background-color: rgba(40, 40, 40, 0.3);
+            }
+            50% {
+                /* 빛이 강할 때 */
+                box-shadow: 0 0 15px rgba(255, 251, 3, 0.9), inset 0 0 8px rgba(255, 251, 3, 0.5);
+                border-color: rgba(255, 251, 3, 1.0); 
+                background-color: rgba(40, 40, 40, 0.6);
+            }
+            100% {
+                /* 다시 약해짐 */
+                box-shadow: 0 0 4px rgba(255, 251, 3, 0.2), inset 0 0 2px rgba(255, 251, 3, 0.1);
+                border-color: rgba(255, 251, 3, 0.3);
+                background-color: rgba(40, 40, 40, 0.3);
+            }
+        }
+
+        /* 국기 아이콘 크기 조절 */
+        .fi {
+            font-size: 1.2rem !important; 
+            border-radius: 2px;          
+            vertical-align: middle;      
+            line-height: 1;
+        }
+
+        /* --- CSS STYLES --- */
+        :root {
+            --bg-dark: #1E1E1E;      
+            --bg-panel: #282828;     
+            --accent: #E0DC12;       
+            --text-main: #f1f5f9;    
+            --text-muted: #E0DC12;   
+            --sidebar-width: 280px;
+            --card-glass: rgba(40, 40, 40, 0.9); 
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+
+        body { 
+            background-color: var(--bg-dark); 
+            color: var(--text-main); 
+            font-family: 'Chakra Petch', sans-serif !important;
+            display: flex; flex-direction: column; height: 100vh; 
+            overflow-x: hidden; 
+            overflow-y: auto;   
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: rgba(30, 30, 30, 0.95); 
+            backdrop-filter: blur(10px);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2.5rem;
+            border-bottom: none; 
+            z-index: 10;
+            gap: 20px; 
+        }
+        
+        .logo-link { text-decoration: none; color: inherit; cursor: pointer; }
+        .logo { 
+            font-family: 'Chakra Petch', sans-serif; 
+            font-size: 1.8rem; 
+            letter-spacing: 1px;
+            color: var(--text-main); 
+            font-weight: 900; 
+            display: flex; align-items: center; gap: 10px; 
+            text-shadow: 0 0 15px rgba(255, 255, 0, 0.5); 
+        }
+        
+        .logo-image {
+            height: 60px;
+            width: auto; 
+            object-fit: contain;
+            border-radius: 50%; 
+        }
+        
+        .menu-toggle {
+            display: none; 
+            background: transparent;
+            border: none;
+            color: var(--accent);
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .auth-buttons { display: flex; gap: 15px; align-items: center; }
+        .btn { 
+            padding: 10px 24px; 
+            border-radius: 6px; 
+            border: none; 
+            cursor: pointer; 
+            font-weight: 600; 
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .btn-primary { 
+            background: linear-gradient(135deg, var(--accent), #DDDD00); 
+            color: var(--bg-dark); 
+        }
+
+        .header-ad-container {
+            flex-grow: 1; 
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            min-width: 200px; 
+        }
+
+        .ad-banner {
+            /* --- 기존 레이아웃 속성 유지 --- */
+            text-decoration: none; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%; 
+            max-width: 100%; 
+            padding: 5px 15px; 
+            border-radius: 8px; 
+            cursor: pointer;
+            gap: 10px;
+            min-width: 0; 
+            
+            /* [수정됨] 노란색 테두리 */
+            border: 4px solid #FFFB03; 
+
+            transition: all 0.3s ease; 
+            animation: neon-smooth-flow 4s infinite ease-in-out;
+        }
+
+        /* 마우스 올렸을 때: 애니메이션 멈추고 밝게 고정 */
+        .ad-banner:hover {
+            animation: none; /* 깜빡임 멈춤 */
+            border-color: #FFFB03; /* 선명한 노란색 */
+            /* 강렬한 노란색 빛 번짐 */
+            box-shadow: 0 0 20px #FFFB03, inset 0 0 10px #FFFB03;
+            transform: scale(1.02);
+            opacity: 1;
+        }
+        
+        .ad-image {
+            max-height: 70px; 
+            width: auto;
+            display: block;
+            border-radius: 4px; 
+            object-fit: contain;
+        }
+        
+        .ad-company-name {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            
+            /* [수정됨] 글자색 노란색 변경 */
+            color: #FFFFFF; 
+            
+            letter-spacing: 1px;
+            white-space: nowrap; 
+            overflow: visible; 
+            text-overflow: clip;
+            /* 글자 주변에도 은은하게 노란 빛이 돌게 하려면 아래 줄 추가 (선택사항) */
+            text-shadow: 0 0 5px rgba(255, 251, 3, 0.5);
+        }
+
+        .container { 
+            display: flex; 
+            flex: 1; 
+            overflow: hidden; 
+            background-image: none;
+            background-color: var(--bg-dark); 
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover; 
+            background-attachment: fixed;
+        } 
+
+       aside {
+            width: var(--sidebar-width);
+            background: var(--bg-dark); 
+            background-color: var(--bg-dark); 
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4px; 
+            border-right: none; 
+            height: 100%; 
+            z-index: 5;
+            transition: transform 0.3s ease-out; 
+        }
+
+        .sidebar-close {
+            display: none; 
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+
+        .sidebar-category-list { 
+            flex-grow: 1; 
+            overflow-y: auto; 
+            padding-right: 5px; 
+            display: flex;
+            flex-direction: column;
+            gap: 4px; 
+            margin-bottom: 10px;
+            min-height: 0; 
+        }
+
+      .sidebar-category-list::-webkit-scrollbar {
+    width: 5px;       /* 세로 스크롤바 너비를 0으로 설정 */
+    height: 0px;      /* 가로 스크롤바 높이를 0으로 설정하여 하단 회색바 제거 */
+    display: 2px;    /* 스크롤바 요소를 화면에서 보이지 않게 처리 */
+}
+        .sidebar-category-list::-webkit-scrollbar-track { background: rgba(40, 40, 40, 1.5); }
+        .sidebar-category-list:hover::-webkit-scrollbar-thumb { background-color: #444; }
+
+        .category-btn {
+            display: flex; 
+            justify-content: flex-start; 
+            align-items: center;
+            gap: 8px; 
+            text-align: left;
+            background: transparent;
+            border: 1px solid transparent;
+            padding: 14px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #E0E0E0; 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 1.3rem;                   
+            font-weight: 900;                   
+            text-transform: capitalize;           
+            letter-spacing: 1px;                 
+            display: flex; align-items: center; gap: 4px;
+            transition: all 0.2s;
+        }
+        
+        .category-btn:hover { color: var(--text-muted); }
+        .category-btn.active { 
+            background: rgba(255, 255, 0, 0.1); 
+            border: 1px solid rgba(255, 255, 0, 0.3); 
+            color: var(--text-muted); 
+            font-weight: 900; 
+        }
+
+        .sidebar-category-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem; 
+            color: #2C9999; 
+            font-weight: 900; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px; 
+            padding-bottom: 5px;
+        }
+        
+        .sidebar-contact-text-wrapper {
+            margin-top: auto; 
+            padding-top: 20px; 
+            text-align: left;
+        }
+
+       main { 
+            flex: 1; 
+            overflow-y: auto; 
+            overflow-x: hidden; 
+            background-image: url('future_world.png'); 
+            background-color: transparent; 
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 100% 100%; 
+            background-attachment: fixed; 
+            display: flex; 
+            justify-content: flex-start; 
+            align-items: flex-start; 
+            position: relative;
+        }
+
+        #link-container {
+            width: 100%;
+            height: 100%; 
+            display: flex;
+            flex-direction: column;
+            padding: 3rem; 
+            background-color: transparent; 
+        }
+
+        .home-content {
+            text-align: left; 
+            max-width: 800px; 
+            margin: 0; 
+        }
+        
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+            gap: 1.5rem; 
+            width: 100%; 
+        }
+
+        .link-card {
+            background: var(--card-glass); 
+            border: 1px solid #444; 
+            border-radius: 8px; 
+            transition: all 0.3s ease;
+            position: relative;
+            font-family: 'Chakra Petch', sans-serif;
+            cursor: pointer; 
+            text-decoration: none;
+            color: inherit;
+            min-height: 100px; 
+        }
+
+        .link-card:hover { 
+            transform: translateY(-2px); 
+            border-color: var(--text-muted); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); 
+        }
+        
+        .card-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-top: 5px; margin-top: 10px; 
+        }
+        
+        .link-url {
+            font-size: 0.85rem; color: var(--accent); 
+            overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 100%; 
+        }
+
+        .card-info { padding: 0.8rem 1rem; } 
+
+        .link-title { 
+            font-weight: 700; 
+            margin-bottom: 8px; /* 아래쪽 여백 약간 추가 */
+            font-size: 1.1rem; 
+            color: var(--text-main);
+            /* 말줄임표 제거 및 줄바꿈 허용 */
+            white-space: normal;      /* 기본 줄바꿈 허용 */
+            word-break: keep-all;    /* 한글/영어 단어 단위 줄바꿈 */
+            display: block;          /* 블록 요소로 변경 */
+            line-height: 1.3;        /* 가독성을 위한 줄간격 */
+        }
+        
+        .modal {
+            display: none; position: fixed; z-index: 100; left: 0; top: 0;
+            width: 100%; height: 100%; overflow: auto; 
+            background-color: rgba(0,0,0,0.85);
+            justify-content: center; align-items: center; 
+        }
+        
+        #notice-modal { z-index: 9999; } 
+        #upload-modal { z-index: 105; } 
+
+        .modal-content {
+            background-color: var(--bg-panel); padding: 30px;
+            border: 2px solid var(--text-muted); 
+            border-radius: 12px;
+            width: 90%; max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            animation: modalOpen 0.3s ease-out;
+        }
+
+        @keyframes modalOpen { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        .form-input {
+            width: 100%; padding: 12px; margin: 8px 0;
+            border: 1px solid #444; border-radius: 4px;
+            background-color: #444; color: var(--text-main); font-size: 1rem;
+        }
+        .form-input:focus { border-color: var(--accent); }
+
+        .sns-icons { display: flex; gap: 15px; align-items: center; }
+        .sns-icons a { 
+            color: #2C9999; 
+            text-decoration: none; 
+            transition: transform 0.2s, color 0.2s; display: block; font-size: 2.1em;
+        }
+        .sns-icons a:hover { transform: scale(1.1); opacity: 0.8; }
+        
+        /* --- 모바일 레이아웃 및 햄버거 메뉴 완벽 복구 --- */
+        @media (max-width: 768px) {
+            header { 
+                height: 60px !important; 
+                padding: 0 15px !important; 
+                display: flex !important;
+                justify-content: space-between !important; 
+                align-items: center !important;
+                gap: 10px !important; 
+            }
+            
+            /* 1. 로고 크기 축소하여 공간 확보 */
+            .logo { 
+                font-size: 1.1rem !important; 
+                flex-shrink: 1 !important;
+            }
+            .logo-image { height: 30px !important; }
+            .logo span { font-size: 1.1rem !important; }
+
+            /* 2. 중앙 광고 배너가 로고를 가리지 않게 축소 */
+            .header-ad-container { 
+                flex: 1 !important; 
+                display: flex !important;
+                justify-content: center !important;
+                max-width: 100px !important; 
+            }
+            .ad-banner { padding: 2px !important; border-width: 1px !important; }
+            .ad-image { max-height: 30px !important; }
+            .ad-company-name { display: none !important; }
+
+            /* 3. 햄버거 메뉴 버튼 강제 노출 및 정렬 */
+            .menu-toggle { 
+                display: block !important; 
+                order: 3 !important; 
+                font-size: 1.5rem !important;
+                background: transparent !important;
+                padding: 5px !important;
+            }
+            .auth-buttons, .sns-icons { display: none !important; }
+
+            /* 4. 본문 왼쪽 쏠림 해결: 너비를 100%로 확장 */
+            .container { 
+                flex-direction: column !important; 
+                height: auto !important;
+            }
+            
+            main { 
+                width: 100% !important; 
+                padding: 0 !important;
+                background-position: center top !important; /* 배경 이미지 중앙 정렬 */
+            }
+
+            #link-container { 
+                padding: 20px !important; 
+                width: 100% !important;
+                display: block !important;
+                text-align: center !important; /* 홈 텍스트 중앙 정렬 */
+            }
+
+            .home-content {
+                max-width: 100% !important;
+                margin: 0 auto !important;
+            }
+
+            /* 5. 링크 카드 그리드 한 줄로 꽉 채우기 */
+            .link-grid { 
+                grid-template-columns: 1fr !important; 
+                width: 100% !important;
+                gap: 15px !important;
+            }
+
+            .link-card { 
+                width: 100% !important; 
+                margin: 0 auto !important;
+            }
+
+            /* 6. 사이드바 메뉴 최적화 */
+            aside { 
+                position: fixed !important; 
+                top: 0 !important;
+                left: 0 !important;
+                height: 100% !important;
+                width: 280px !important; 
+                transform: translateX(-100%) !important;
+                z-index: 10000 !important;
+            }
+            aside.active { transform: translateX(0) !important; }
+            .sidebar-close { display: block !important; }
+        }
+
+        /* --- 검색창 디자인 --- */
+        .search-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 40px 12px 15px; /* 아이콘 공간 확보 */
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid #FFFB03;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #FFFB03; /* 포커스 시 노란색 네온 */
+            box-shadow: 0 0 30px rgba(255, 251, 3, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 35%;
+            transform: translateY(-50%);
+            color: #FFFB03;
+            pointer-events: none; /* 아이콘 클릭 방지 */
+        }
+/* 검색창 안에 미리 적힌 글자(Placeholder) 색상 변경 */
+.search-input::placeholder {
+    color: #FFFB03; /* 원하는 색상으로 변경하세요 (예: #FFFFFF, #FFFB03) */
+    opacity: 0.7;   /* 투명도 (1로 하면 아주 진하게 나옵니다) */
+}
+
+/* robot links by nation 스타일 - 선택자를 구체적으로 적어 우선순위 확보 */
+.country-stats-overlay .stats-title {
+    grid-column: span 3 !important; 
+    color: #2C9999 !important; 
+    /* 글자 크기를 18px(약 1.1rem)로 확실히 고정 */
+    font-size: 18px !important; 
+    font-weight: 900 !important; 
+    letter-spacing: 1.5px !important; 
+    margin-bottom: 8px !important; 
+    border-bottom: 1px solid rgba(44, 153, 153, 0.3) !important; 
+    padding-bottom: 5px !important; 
+    font-family: 'Chakra Petch', sans-serif !important; 
+    text-transform: none !important;
+    display: block !important; /* 확실한 노출 보장 */
+}
+.stats-title {
+    grid-column: span 3; color: #2C9999; font-size: 1.7rem; font-weight: 900; 
+    letter-spacing: 1.5px; margin-bottom: 5px; border-bottom: 1px solid rgba(44, 153, 153, 0.3); 
+    padding-bottom: 3px; font-family: 'Chakra Petch', sans-serif; text-transform: none;
+}
+.stat-item { display: flex; align-items: center; gap: 8px; font-family: 'Chakra Petch', sans-serif; color: #fff; font-size: 0.9rem; }
+.stat-count { color: #FFFB03; font-weight: 700; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo-link" title="Home" onclick="renderHome()">
+            <div class="logo">
+                <img src="logo.png" alt="LearnRobot 로고" class="logo-image"> 
+                <span style="font-family: 'Chakra Petch'; font-size: 1.8rem; letter-spacing: 1px; color: var(--text-main);">LEARN<span style="color: #FFFB03;">ROBOT</span></span>
+            </div>
+        </a>
+        
+        <div class="header-ad-container">
+            <a href="#" target="_blank" class="ad-banner">
+                <span class="ad-company-name">Learn Robot</span>
+                <img src="" alt="광고배너" class="ad-image" style="display: none;">
+            </a>
+        </div>
+        
+        <button class="menu-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="auth-buttons">
+            <div class="header-right">
+                <div class="sns-icons">
+                    <a href="https://www.instagram.com/learnrobot" target="_blank" title="Instagram @learnrobot"><i class="fab fa-instagram"></i></a>
+                    <a href="https://x.com/learnrobot" target="_blank" title="X (Twitter) @learnrobot"><i class="fab fa-x-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside id="sidebar">
+            <button class="sidebar-close" onclick="closeSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="search-container" style="padding-bottom: 20px;">
+                <input type="text" id="searchInput" placeholder="Search Company..." onkeyup="searchLinks()" class="search-input">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <p class="sidebar-category-title">Category</p> 
+            <div class="sidebar-category-list"> 
+                <button class="category-btn" onclick="filterLinks('humanoid')">Humanoid</button> 
+                <button class="category-btn" onclick="filterLinks('automation')">Automation</button>
+                <button class="category-btn" onclick="filterLinks('service')">Service</button>
+                <button class="category-btn" onclick="filterLinks('mobility')">Mobility</button>
+                <button class="category-btn" onclick="filterLinks('medical')">Medical</button>
+                <button class="category-btn" onclick="filterLinks('farm')">Farm</button>
+                <button class="category-btn" onclick="filterLinks('logistics')">Logistics</button>
+                <button class="category-btn" onclick="filterLinks('home')">Home</button>        
+                <button class="category-btn" onclick="filterLinks('ai')">AI</button>
+                <button class="category-btn" onclick="filterLinks('software')">Software</button>
+                <button class="category-btn" onclick="filterLinks('components')">Components</button>
+                <button class="category-btn" onclick="filterLinks('academia')">Academia</button>
+                <button class="category-btn" onclick="filterLinks('events')">Events</button>        
+                <button class="category-btn" onclick="filterLinks('organization')">Organization</button>
+                <button class="category-btn" onclick="filterLinks('stem')">Educational</button>
+            </div> 
+            <div class="sidebar-contact-text-wrapper">
+                <p class="sidebar-contact-text" style="font-size: 0.8rem; color: #FFFB03; margin-bottom: 5px; font-weight: 600; text-transform: none;">Contact to add your robot</p>
+                 <a href="mailto:learnrobot@learnrobot.com" 
+                    style="color: #2C9999; text-decoration: none; font-size: 1.0rem; display: block; transition: 0.3s; font-family: 'Chakra Petch', sans-serif;" 
+                    onmouseover="this.style.color='var(--accent)'" 
+                    onmouseout="this.style.color='#2C9999'"> learnrobot@learnrobot.com
+                 </a>
+             </div>
+        </aside>
+
+        <main>
+            <div id="link-container"></div>
+        </main>
+    </div>
+
+    <div id="notice-modal" class="modal">
+        <div class="modal-content" style="width: 400px; max-width: 90%; text-align: center;">
+            <div style="width: 180px; height: 180px; border-radius: 50%; margin: 0 auto 20px auto; overflow: hidden; background: transparent;">
+                <img src="cowboy.png" alt="카우보이" style="width: 100%; height: 100%; display: block; object-fit: cover;">
+            </div>
+            <h3 style="color: var(--accent); font-size: 1.8rem; margin-bottom: 5px;">Welcome to Learnrobot.com</h3>
+            <p style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px;">We are preparing <br> the official launch of the website.</p>
+            <button class="btn btn-primary" style="width:100%; margin-top: 15px;" onclick="closeNoticeModal()">Enter to close</button>
+        </div>
+    </div>
+    
+    <script>
+        /* --- JAVASCRIPT LOGIC --- */
+    let links = [
+    // Humanoid
+    { id: 1, title: "Boston Dynamics (Atlas)", category: "humanoid", source: "Boston Dynamics", url: "https://www.bostondynamics.com/", country: "us" }, 
+    { id: 6, title: "Engineered Arts", category: "humanoid", source: "Engineered Arts", url: "https://www.engineeredarts.co.uk/", country: "gb" },
+    { id: 104, title: "XPENG Robotics (IRON)", category: "humanoid", source: "XPENG", url: "https://www.xpeng.com", country: "cn" }, 
+    { id: 106, title: "Tesla Optimus (AI & Robotics)", category: "humanoid", source: "Tesla", url: "https://www.tesla.com/en_in/we-robot", country: "us" },
+    { id: 106, title: "GAC (GoMate)", category: "humanoid", source: "GAC", url: "https://www.gac.com.cn/", country: "cn" }, 
+    { id: 106, title: "Fourier GR-1 (General Purpose)", category: "humanoid", source: "Fourier Robotics", url: "https://www.fftai.com/products-gr1", country: "cn" },
+    { id: 1012, title: "Figure AI", category: "humanoid", source: "Figure", url: "https://www.figure.ai/", country: "us" },
+    { id: 1013, title: "Apptronik (Apollo)", category: "humanoid", source: "Apptronik", url: "https://apptronik.com/", country: "us" },
+    { id: 1014, title: "Agility Robotics (Digit)", category: "humanoid", source: "Agility Robotics", url: "https://www.agilityrobotics.com/", country: "us" },
+    { id: 1015, title: "1X Technologies (Neo/Eve)", category: "humanoid", source: "1X", url: "https://www.1x.tech/neo/", country: "no" },
+    { id: 1017, title: "Rainbow Robotics (HUBO)", category: "humanoid", source: "Rainbow", url: "http://www.rainbow-robotics.com/", country: "kr" },
+    { id: 1018, title: "Unitree Robotics (H1/G1)", category: "humanoid", source: "Unitree", url: "https://www.unitree.com/h1", country: "cn" },
+    { id: 1019, title: "UBTECH (Walker S)", category: "humanoid", source: "UBTECH", url: "https://www.ubtrobot.com/", country: "cn" },
+    { id: 1020, title: "Xiaomi CyberOne", category: "humanoid", source: "Xiaomi", url: "https://www.mi.com/global/discover/article?id=2754", country: "cn" },
+    { id: 1021, title: "KAIST Hubo Lab", category: "humanoid", source: "Academic", url: "https://hubolab.kaist.ac.kr/", country: "kr" },
+    { id: 1023, title: "PAL Robotics (TALOS)", category: "humanoid", source: "PAL Robotics", url: "https://pal-robotics.com/robots/talos/", country: "es" },
+    { id: 1024, title: "Engineered Arts (Ameca)", category: "humanoid", source: "Engineered Arts", url: "https://www.engineeredarts.org.uk/", country: "gb" },
+    { id: 1025, title: "Sanctuary AI (Phoenix)", category: "humanoid", source: "Sanctuary AI", url: "https://www.sanctuary.ai/", country: "ca" },
+    { id: 1026, title: "Meka Robotics (Google DeepMind)", category: "humanoid", source: "Research", url: "https://deepmind.google/discover/blog/", country: "us" },
+    { id: 1027, title: "IIT (iCub)", category: "humanoid", source: "Research", url: "https://icub.iit.it/", country: "it" },
+    { id: 1050, title: "Neura Robotics", category: "humanoid", source: "Cognitive Robots", url: "https://neura-robotics.com/", country: "de" },
+    { id: 1060, title: "Agibot (Expedition A2)", category: "humanoid", source: "Embodied AI Pioneer", url: "https://www.agibot.com/", country: "cn" },
+    { id: 1061, title: "Deep Robotics (X30 Quadruped)", category: "humanoid", source: "Special Purpose Robots", url: "https://www.deeprobotics.cn/", country: "cn" },
+
+    // Automation
+    { id: 201, title: "FANUC Robotics", category: "automation", source: "FANUC", url: "https://www.fanuc.co.jp/en/robot/", country: "jp" }, 
+    { id: 202, title: "ABB Robotics", category: "automation", source: "ABB", url: "https://new.abb.com/products/robotics", country: "ch" }, 
+    { id: 2, title: "KUKA Industrial Robots", category: "automation", source: "KUKA", url: "https://www.kuka.com/", country: "de" }, 
+    { id: 204, title: "YASKAWA Robotics", category: "automation", source: "YASKAWA", url: "https://www.yaskawa.co.jp/en/products/robotics", country: "jp" },
+    { id: 205, title: "SIASUN Robotics", category: "automation", source: "SIASUN", url: "http://www.siasun.com/", country: "cn" }, 
+    { id: 206, title: "Estun Automation", category: "automation", source: "Estun", url: "https://www.estun.com/", country: "cn" },
+    { id: 207, title: "Doosan Robotics", category: "automation", sub: "Collaborative Robots", url: "https://www.doosanrobotics.com/kr/", country: "kr" },
+    { id: 208, title: "Neuromeka (Indy)", category: "automation", sub: "Collaborative Robots", url: "https://www.neuromeka.com/", country: "kr" },
+    { id: 1101, title: "Universal Robots", category: "automation", sub: "Collaborative Robots", url: "https://www.universal-robots.com/", country: "dk" },
+    { id: 1103, title: "Comau", category: "automation", sub: "Industrial Automation", url: "https://www.comau.com/", country: "it" },
+    { id: 1108, title: "FBR (Hadrian X)", category: "automation", sub: "Construction Robotics", url: "https://www.fbr.com.au/", country: "au" },
+    { id: 210, title: "Epson Robots", category: "automation", source: "SCARA Leader", url: "https://epson.com/robots", country: "jp" },
+    { id: 211, title: "Kawasaki Robotics", category: "automation", source: "Industrial Giants", url: "https://kawasakirobotics.com/", country: "jp" },
+    { id: 212, title: "Denso Robotics", category: "automation", source: "Small Assembly", url: "https://www.denso-robotics.com/", country: "jp" },
+    { id: 213, title: "Techman Robot", category: "automation", source: "AI Cobot", url: "https://www.tm-robot.com/en/", country: "tw" },
+    { id: 220, title: "Standard Bots (AI-native Cobots)", category: "automation", source: "Low-cost AI Robots", url: "https://standardbots.com/", country: "us" },
+    { id: 221, title: "Rockwell Automation", category: "automation", source: "Digital Transformation", url: "https://www.rockwellautomation.com/", country: "us" },
+
+    // Service
+    { id: 401, title: "SoftBank Robotics", category: "service", source: "SoftBank", url: "https://www.softbankrobotics.com/", country: "jp" }, 
+    { id: 402, title: "Bear Robotics (Serving)", category: "service", source: "Bear Robotics", url: "https://www.bearrobotics.com/", country: "us" }, 
+    { id: 4, title: "Aethon Autonomous Mobile Robots", category: "service", source: "Aethon", url: "https://www.aethon.com/", country: "us" }, 
+    { id: 403, title: "Pudu Robotics (Serving Robots)", category: "service", source: "Pudu", url: "https://www.pudurobotics.com/", country: "cn" },
+    { id: 404, title: "KEENON Robotics (Serving, Delivery)", category: "service", source: "KEENON", url: "https://www.keenon.com/", country: "cn" }, 
+    { id: 405, title: "LG CLOi ServeBot (Serving, Guide)", category: "service", source: "LG Electronics", url: "https://www.lg.com/global/business/robot/servebot", country: "kr" }, 
+    { id: 406, title: "KT AI Robot (Serving, Delivery)", category: "service", source: "KT", url: "https://ktrobotech.com/", country: "kr" }, 
+    { id: 407, title: "Woowa Brothers (Baemin Dilly)", category: "service", source: "Woowa Brothers", url: "https://robot.baemin.com/", country: "kr" }, 
+    { id: 408, title: "Robotis (Delivery Robot 'Gaemi')", category: "service", source: "Robotis", url: "https://www.robotis.com/sub/business_012.php", country: "kr" }, 
+    { id: 409, title: "Neubility (Neubie Delivery Robot)", category: "service", source: "Neubility", url: "https://www.neubility.co.kr/ir", country: "kr" }, 
+    { id: 410, title: "XYZ (Barista, Delivery)", category: "service", source: "XYZ", url: "https://xyzcorp.io/", country: "kr" }, 
+    { id: 411, title: "EOS Korea (Serving Robot)", category: "service", source: "EOS Korea", url: "https://eoskorea.kr/category/%EC%9D%B4%EC%98%A4%EC%8A%A4-%EC%84%9C%EB%B9%99%EB%A1%9C%EB%B4%87/43/", country: "kr" }, 
+    { id: 412, title: "Segway Robotics (Delivery & Mobility)", category: "service", source: "Segway-Ninebot", url: "https://robotics.segway.com/", country: "cn" },
+    { id: 413, title: "Gausium (Autonomous Cleaning Robots)", category: "service", source: "Gausium", url: "https://www.gausium.com/", country: "cn" },
+    { id: 414, title: "Excelland (Hotel & Delivery Robots)", category: "service", source: "Excelland", url: "https://www.excelland.com/en/", country: "cn" },
+    { id: 415, title: "YOGO Robot (Multi-robot Dispatch)", category: "service", source: "YOGO Robot", url: "https://www.yogorobot.com/", country: "cn" },
+    { id: 416, title: "Candela (Delivery & Sanitation)", category: "service", source: "Candela", url: "https://www.candelarobot.com/en/", country: "cn" },
+    { id: 417, title: "Reeman Robotics (Platform & Service)", category: "service", source: "Reeman", url: "https://www.reemanrobot.com/", country: "cn" },
+    { id: 1104, title: "Rosenbauer Robotics", category: "service", sub: "Firefighting Robots", url: "https://www.rosenbauer.com/", country: "at" },
+    { id: 450, title: "Diligent Robotics (Moxi)", category: "service", source: "Hospital Service Robot", url: "https://www.diligentrobots.com/", country: "us" },
+        
+    // Mobility 
+    { id: 501, title: "Waymo (Google)", category: "mobility", source: "Alphabet", url: "https://waymo.com/", country: "us" },
+    { id: 502, title: "Tesla (FSD/Robotaxi)", category: "mobility", source: "Tesla Inc.", url: "https://www.tesla.com/AI", country: "us" },
+    { id: 503, title: "Cruise (Driverless Ride)", category: "mobility", source: "GM Subsidiary", url: "https://www.getcruise.com/", country: "us" },
+    { id: 504, title: "Zoox (Amazon Mobility)", category: "mobility", source: "Amazon", url: "https://www.zoox.com/", country: "us" },
+    { id: 505, title: "Baidu Apollo (Apollo Go)", category: "mobility", source: "Baidu", url: "https://apollo.auto/", country: "cn" },
+    { id: 506, title: "WeRide (Global L4)", category: "mobility", source: "Smart Mobility", url: "https://www.weride.ai/", country: "cn" },
+    { id: 507, title: "Aurora (Autonomous Truck)", category: "mobility", source: "Aurora Tech", url: "https://aurora.tech/", country: "us" },
+    { id: 508, title: "Kodiak (Self-Driving Freight)", category: "mobility", source: "Kodiak Robotics", url: "https://kodiak.ai/", country: "us" },
+    { id: 509, title: "Einride (Digital Freight)", category: "mobility", source: "Freight Tech", url: "https://www.einride.tech/", country: "se" },
+    { id: 510, title: "Gatik (Middle-mile Delivery)", category: "mobility", source: "B2B Logistics", url: "https://gatik.ai/", country: "us" },
+    { id: 511, title: "Autonomous A2Z (AV Solution)", category: "mobility", source: "Korea Representative", url: "http://auto-a2z.com/", country: "kr" },
+    { id: 1110, title: "Clearpath Robotics", category: "mobility", sub: "Outdoor Autonomous UV", url: "https://clearpathrobotics.com/", country: "ca" },
+    { id: 550, title: "Einride", category: "mobility", source: "Autonomous Freight", url: "https://www.einride.tech/", country: "se" },
+    { id: 551, title: "Milrem Robotics", category: "mobility", source: "Defense & Rescue", url: "https://milremrobotics.com/", country: "ee" },
+    
+    // Medical
+    { id: 3001, title: "Intuitive Surgical (Da Vinci)", category: "medical", source: "Intuitive Surgical", url: "https://www.intuitive.com/", country: "us" }, 
+    { id: 3002, title: "Stryker (Mako Surgical Robot)", category: "medical", source: "Stryker", url: "https://www.stryker.com/us/en/joint-replacement/systems/Mako_SmartRobotics_Overview.html", country: "us" },
+    { id: 3003, title: "Medtronic (Surgical Robotics)", category: "medical", source: "Medtronic", url: "https://www.medtronic.com/us-en/c/surgical-robotics.html", country: "ie" },
+    { id: 3004, title: "CMR Surgical (Versius)", category: "medical", source: "CMR Surgical", url: "https://cmrsurgical.com/", country: "gb" },
+    { id: 3005, title: "Siemens Healthineers (Corindus)", category: "medical", source: "Siemens", url: "https://www.siemens-healthineers.com/endovascular-robotics", country: "de" },
+    { id: 3006, title: "Curexo (ROBODOC, CUVIS)", category: "medical", source: "Curexo", url: "http://www.curexo.com/", country: "kr" }, 
+    { id: 3007, title: "Koh Young Technology", category: "medical", source: "Koh Young Technology", url: "https://www.kohyoung.com/", country: "kr" }, 
+    { id: 3008, title: "MedinTeq (Endoscopy Robot)", category: "medical", source: "MedinTeq", url: "https://medintech.co.kr/", country: "kr" }, 
+    { id: 3009, title: "L&ROBOTICS (Cardiovascular)", category: "medical", source: "L&ROBOTICS", url: "http://www.lnrobotics.com/", country: "kr" }, 
+    { id: 1106, title: "ReWalk Robotics", category: "medical", sub: "Exoskeleton Rehab", url: "https://rewalk.com/", country: "il" },
+    { id: 3050, title: "Wandercraft", category: "medical", source: "Exoskeleton", url: "https://www.wandercraft.eu/", country: "fr" },
+    { id: 3051, title: "Zimmer Biomet (ROSA Robotics)", category: "medical", source: "Brain & Knee Surgery", url: "https://www.zimmerbiomet.com/en/products-and-solutions/zb-edge/rosa.html", country: "us" },
+    { id: 3052, title: "Smith+Nephew (Cori Surgical System)", category: "medical", source: "Handheld Robotics", url: "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/cori", country: "gb" },
+    { id: 3053, title: "Ekso Bionics (EksoNR)", category: "medical", source: "Rehabilitation Exoskeleton", url: "https://eksobionics.com/", country: "us" },
+    { id: 3054, title: "Hocoma (Lokomat)", category: "medical", source: "Robotic Gait Training", url: "https://www.hocoma.com/", country: "ch" },
+    { id: 3055, title: "Vicarious Surgical", category: "medical", source: "Next-gen Abdominal Surgery", url: "https://www.vicarioussurgical.com/", country: "us" },
+    { id: 3056, title: "Asensus Surgical (Senhance)", category: "medical", source: "Digital Laparoscopy", url: "https://www.asensus.com/", country: "us" },
+    { id: 3057, title: "MicroPort MedBot", category: "medical", source: "Multi-specialty Surgical", url: "https://www.medbot.com.cn/en", country: "cn" },
+    { id: 3058, title: "Think Surgical (TMAX)", category: "medical", source: "Orthopedic Surgery", url: "https://thinksurgical.com/", country: "us" },
+    { id: 3059, title: "EasyEndo Surgical", category: "medical", source: "Flexible Endoscopic Robot", url: "http://easyendo.com/", country: "kr" },
+    { id: 3060, title: "Heimrobot (Elderly Care)", category: "medical", source: "Assistive Care Robot", url: "https://heimrobot.com/", country: "kr" },
+    { id: 3061, title: "Bionics (Rehab Robot)", category: "medical", source: "Walking Rehabilitation", url: "http://www.bionicskorea.com/", country: "kr" },
+     
+    // Farm
+    { id: 501, title: "DJI Agricultural Drones", category: "farm", source: "DJI", url: "https://www.dji.com/kr/agriculture", country: "cn" }, 
+    { id: 502, title: "Blue River Technology", category: "farm", source: "Blue River", url: "https://www.bluerivertechnology.com/", country: "us" }, 
+    { id: 1109, title: "Lely", category: "farm", sub: "Dairy Farm Robotics", url: "https://www.lely.com/", country: "nl" },
+    { id: 503, title: "John Deere (Autonomous Tractor)", category: "farm", source: "John Deere", url: "https://www.deere.com/en/autonomous-tractor/", country: "us" },
+    { id: 504, title: "Harvest CROO (Strawberry Picking)", category: "farm", source: "Harvest CROO", url: "https://harvestcroo.com/", country: "us" },
+    { id: 505, title: "Carbon Robotics (LaserWeeder)", category: "farm", source: "Carbon Robotics", url: "https://carbonrobotics.com/", country: "us" },
+    { id: 506, title: "Naïo Technologies (Weeding Robot)", category: "farm", source: "Naïo Technologies", url: "https://www.naio-technologies.com/en/", country: "fr" },
+    { id: 507, title: "Dogtooth (Fruit Picking)", category: "farm", source: "Dogtooth Robotics", url: "https://dogtooth.tech/", country: "gb" },
+    { id: 508, title: "BouMatic (Robotic Milking)", category: "farm", source: "BouMatic", url: "https://boumatic.com/", country: "us" },
+    { id: 509, title: "Priva (Greenhouse Automation)", category: "farm", source: "Priva", url: "https://www.priva.com/robotics", country: "nl" },
+    { id: 510, title: "Spread (Techno Farm)", category: "farm", source: "Spread", url: "https://spread.co.jp/en/", country: "jp" },
+    { id: 511, title: "Abundant Robots (Apple Harvesting)", category: "farm", source: "Abundant Robots", url: "https://abundantrobots.ai/", country: "us" },
+    { id: 512, title: "Daedong (Autonomous Farming)", category: "farm", source: "AI Agriculture Robot", url: "https://daedong-kioti.com/innovation/futureagriculture/", country: "kr" },
+    
+    // Logistics
+    { id: 601, title: "Amazon Robotics", category: "logistics", source: "Amazon", url: "https://www.amazonrobotics.com/", country: "us" }, 
+    { id: 602, title: "Locus Robotics", category: "logistics", source: "Locus", url: "https://www.locusrobotics.com/", country: "us" }, 
+    { id: 603, title: "Zebra Technologies", category: "logistics", source: "Zebra", url: "https://www.zebra.com/us/en.html", country: "us" }, 
+    { id: 620, title: "Toyota (Autopilot Forklifts)", category: "logistics", source: "Toyota Material Handling", url: "https://www.toyotaforklift.com/", country: "jp" },
+    { id: 621, title: "Linde (Automated Forklifts)", category: "logistics", source: "KION Group", url: "https://www.linde-mh.com/en/Solutions/Automation/", country: "de" }, 
+    { id: 622, title: "VisionNav (Driverless Forklift)", category: "logistics", source: "VisionNav", url: "https://www.visionnav.com/", country: "cn" },
+    { id: 623, title: "Vecna (Autonomous Pallet Handling)", category: "logistics", source: "Vecna Robotics", url: "https://www.vecnarobotics.com/", country: "us" },
+    { id: 624, title: "Jungheinrich (Automated Warehouse)", category: "logistics", source: "Jungheinrich", url: "https://www.jungheinrich.com/en/solutions/automation", country: "de" },
+    { id: 626, title: "Mobyus (Autonomous Fork Lift)", category: "logistics", source: "Mobyus NVC", url: "http://www.mobyus.com/afl", country: "kr" },
+    { id: 627, title: "Balyo (Robotic Forklift Kits)", category: "logistics", source: "Balyo", url: "https://www.balyo.com/", country: "fr" },
+    { id: 628, title: "Hyster-Yale (Robotics)", category: "logistics", source: "Hyster-Yale Materials Handling", url: "https://www.hyster-yale.com/", country: "us" },
+    { id: 629, title: "Mitsubishi Logisnext", category: "logistics", source: "Material Handling", url: "https://www.logisnext.com/en/", country: "jp" },
+    { id: 1102, title: "MiR (Mobile Industrial Robots)", category: "logistics", sub: "Industrial AMR", url: "https://www.mobile-industrial-robots.com/", country: "dk" },
+    { id: 626, title: "Hyundai Wia (AMR & Parking Robot)", category: "logistics", source: "Autonomous Logistics Solution", url: "https://en.hyundai-wia.com/main/main.asp", country: "kr" },
+    { id: 650, title: "Exotec", category: "logistics", source: "Warehouse Robotics", url: "https://www.exotec.com/en/", country: "fr" },
+    { id: 651, title: "Starship Technologies", category: "logistics", source: "Delivery Robot", url: "https://www.starship.xyz/", country: "ee" },
+    { id: 652, title: "Swisslog", category: "logistics", source: "Intralogistics", url: "https://www.swisslog.com/", country: "ch" },
+    { id: 660, title: "Symbotic (AI Warehouse)", category: "logistics", source: "Warehouse Robotics", url: "https://www.symbotic.com/", country: "us" },
+    { id: 661, title: "Schneider Electric (Industrial AI)", category: "automation", source: "Digital Automation", url: "https://www.se.com/", country: "fr" },
+    { id: 662, title: "KION Group (Dematic)", category: "logistics", source: "Intralogistics Solutions", url: "https://www.kiongroup.com/", country: "de" },
+    
+    // Home 
+    { id: 1001, title: "Amazon Astro (Home)", category: "home", source: "Amazon", url: "https://www.aboutamazon.com/news/devices/meet-astro-a-home-robot-unlike-any-other", country: "us" }, 
+    { id: 1002, title: "iRobot Roomba (Vacuum/Mop)", category: "home", source: "iRobot", url: "https://www.irobot.com/", country: "us" }, 
+    { id: 1003, title: " Sony Aibo (AI Robot Pet)", category: "home", source: "Sony", url: "https://us.aibo.com/", country: "jp" }, 
+    { id: 1004, title: "Dreame Technology", category: "home", source: "Smart Cleaning", url: "https://global.dreametech.com/", country: "cn" },
+    { id: 1005, title: "Ecovacs Robotics", category: "home", source: "Service Robots", url: "https://www.ecovacs.com/", country: "cn" },
+    { id: 1006, title: "Enabot (EBO)", category: "home", source: "Companion Robot", url: "https://www.enabot.com/", country: "cn" },
+    { id: 1007, title: "Labrador Systems", category: "home", source: "Assistive Robot", url: "https://labradorsystems.com/", country: "us" },
+    { id: 1008, title: "Living AI (Emo)", category: "home", source: "AI Desktop Pet", url: "https://living.ai/", country: "cn" },
+    { id: 1009, title: "Moxie by Embodied", category: "home", source: "Learning Robot", url: "https://embodied.com/", country: "us" },
+    { id: 1010, title: "Narwal Robotics", category: "home", source: "Cleaning Robot", url: "https://shop.narwal.com/", country: "cn" },
+    { id: 1011, title: "Roborock", category: "home", source: "Smart Home", url: "https://global.roborock.com/", country: "cn" },
+    { id: 1012, title: "Samsung Jet Bot / Ballie", category: "home", source: "Samsung", url: "https://www.samsung.com/sec/robots/", country: "kr" },
+    { id: 1107, title: "Intuition Robotics", category: "home", sub: "Social Companion AI", url: "https://www.intuitionrobotics.com/", country: "il" },
+    
+    // AI
+    { id: 801, title: "OpenAI (ChatGPT)", category: "ai", source: "OpenAI", url: "https://openai.com/", country: "us" }, 
+    { id: 802, title: "Google DeepMind", category: "ai", source: "Google", url: "https://deepmind.google/", country: "gb" }, 
+    { id: 803, title: "Anthropic (Claude)", category: "ai", source: "Anthropic", url: "https://www.anthropic.com/", country: "us" }, 
+    { id: 804, title: "Meta AI (Llama)", category: "ai", source: "Meta", url: "https://ai.meta.com/", country: "us" },
+    { id: 805, title: "Hugging Face (AI Model's Hub)", category: "ai", source: "Hugging Face", url: "https://huggingface.co/", country: "us" },
+    { id: 806, title: "Gemini (Google DeepMind)", category: "ai", source: "Google DeepMind", url: "https://gemini.google.com/", country: "us" },
+    { id: 1105, title: "ZenRobotics", category: "ai", sub: "AI Waste Sorting", url: "https://zenrobotics.com/", country: "fi" },
+    
+    // Software
+    { id: 701, title: "ROS (Robot Operating System)", category: "software", source: "Open Source", url: "https://www.ros.org/", country: "us" }, 
+    { id: 702, title: "NVIDIA Isaac Sim", category: "software", source: "NVIDIA", url: "https://developer.nvidia.com/isaac-sim", country: "us" }, 
+    { id: 703, title: "MATLAB & Simulink", category: "software", source: "MathWorks", url: "https://www.mathworks.com/solutions/robotics.html", country: "us" },
+    { id: 704, title: "Gazebo Simulator", category: "software", source: "Open Source Robotics", url: "https://gazebosim.org/", country: "us" },
+    { id: 705, title: "Intrinsic (Alphabet)", category: "software", source: "Google Subsidiary", url: "https://www.intrinsic.ai/", country: "us" },
+    { id: 706, title: "Brain Corp (BrainOS)", category: "software", source: "Autonomous AI", url: "https://www.braincorp.com/", country: "us" },
+    { id: 707, title: "Clobot (Robot Control)", category: "software", source: "Korea S/W Leader", url: "https://www.clobot.co.kr/", country: "kr" },
+    { id: 708, title: "RobotStudio", category: "software", source: "ABB Robotics", url: "https://new.abb.com/products/robotics/robotstudio", country: "ch" },
+    { id: 709, title: "SolidWorks (Robot Design)", category: "software", source: "Dassault Systèmes", url: "https://www.solidworks.com/", country: "fr" },
+    { id: 710, title: "AWS RoboMaker", category: "software", source: "Amazon Web Services", url: "https://aws.amazon.com/robomaker/", country: "us" },
+    { id: 711, title: "Formant (Cloud Robotics)", category: "software", source: "Robot Management", url: "https://formant.io/", country: "us" },
+    { id: 712, title: "CloudMinds (HARIX OS)", category: "software", source: "Cloud Robot Pioneer", url: "https://www.cloudminds.com/", country: "cn" },
+    { id: 713, title: "Clobot (CROMS)", category: "software", source: "Korea Fleet Management", url: "https://www.clobot.co.kr/", country: "kr" },
+    { id: 714, title: "Orbit (Fleet Software)", category: "software", source: "Boston Dynamics", url: "https://bostondynamics.com/products/orbit/", country: "us" },
+    { id: 715, title: "Karelics (Fleet Management)", category: "software", source: "Construction Robotics", url: "https://karelics.fi/", country: "fi" },
+    { id: 716, title: "MyRobot.cloud", category: "software", source: "Rocketfarm", url: "https://myrobot.cloud/", country: "no" },
+    
+    // Components
+    { id: 901, title: "Lidar by Velodyne", category: "components", source: "Velodyne", url: "https://velodynelidar.com/", country: "us" }, 
+    { id: 902, title: "Robot Grippers by Robotiq", category: "components", source: "Robotiq", url: "https://robotiq.com/", country: "ca" },
+    { id: 903, title: "maxon (Precision Motors)", category: "components", source: "maxon", url: "https://www.maxongroup.com/", country: "ch" },
+    { id: 904, title: "Harmonic Drive", category: "components", source: "Harmonic Drive", url: "https://www.harmonicdrive.net/", country: "us" },
+    { id: 905, title: "Cognex (Machine Vision)", category: "components", source: "Cognex", url: "https://www.cognex.com/", country: "us" },
+    { id: 906, title: "Festo (Automation)", category: "components", source: "Festo", url: "https://www.festo.com/", country: "de" },
+    { id: 907, title: "Universal Robots+ (Tools)", category: "components", source: "Universal Robots", url: "https://www.universal-robots.com/plus/", country: "dk" },
+    { id: 908, title: "TE Connectivity (Sensors)", category: "components", source: "TE Connectivity", url: "https://www.te.com/", country: "ch" },
+    { id: 910, title: "Harmonic Drive - Precision", category: "components", source: "Global Leader", url: "https://www.harmonicdrive.net/", country: "jp" },
+    { id: 911, title: "Nabtesco - RV Reducers", category: "components", source: "Global Leader", url: "https://www.nabtesco.com/", country: "jp" },
+    { id: 912, title: "ROBOTIS - Dynamixel", category: "components", source: "Korea Specialty", url: "https://www.robotis.com/", country: "kr" },
+    { id: 913, title: "SBB Tech - Harmonic Reducers", category: "components", source: "Korea Specialty", url: "http://www.sbb.co.kr/", country: "kr" },
+    { id: 914, title: "Maxon Motor - Precision Drives", category: "components", source: "Global Specialty", url: "https://www.maxongroup.com/", country: "ch" }, 
+    { id: 915, title: "SPG - Precision Gears", category: "components", source: "Korea Specialty", url: "http://www.spg.co.kr/", country: "kr" },
+    { id: 950, title: "Velodyne Lidar", category: "components", source: "LiDAR Sensors", url: "https://velodynelidar.com/", country: "us" },
+    { id: 951, title: "Ouster", category: "components", source: "Digital LiDAR", url: "https://www.ouster.com/", country: "us" },
+    { id: 952, title: "LG Energy Solution", category: "components", source: "Robot Batteries", url: "https://www.lgensol.com/", country: "kr" },
+    { id: 953, title: "SOS Lab", category: "components", source: "Solid-state LiDAR", url: "https://www.soslab.co/en/", country: "kr" },
+    { id: 954, title: "Hesai Technology", category: "components", source: "LiDAR Solutions", url: "https://www.hesaitech.com/", country: "cn" },
+    { id: 955, title: "HL Mando", category: "components", source: "Radar, Camera & By-Wire Tech", url: "https://www.hlmando.com/en/solution/autonomous-driving.do", country: "kr" },
+
+    // Academia 
+    { id: 30001, title: "Carnegie Mellon Robotics Institute", category: "academia", sub: "AI & Autonomy", url: "https://www.ri.cmu.edu/", country: "us" },
+    { id: 30002, title: "MIT CSAIL Robotics", category: "academia", sub: "Robot Learning", url: "https://www.csail.mit.edu/research/robotics", country: "us" },
+    { id: 30003, title: "Stanford Robotics Lab", category: "academia", sub: "Vision & HRI", url: "https://robotics.stanford.edu/", country: "us" },
+    { id: 30004, title: "Harvard Biodesign Lab", category: "academia", sub: "Soft Robotics", url: "https://biodesign.seas.harvard.edu/", country: "us" },
+    { id: 30005, title: "UC Berkeley Robotics (BAIR)", category: "academia", sub: "Biomimetics", url: "https://bair.berkeley.edu/", country: "us" },
+    { id: 30006, title: "ETH Zurich Robotics Systems Lab", category: "academia", sub: "System Design", url: "https://rsl.ethz.ch/", country: "ch" },
+    { id: 30007, title: "EPFL Biorobotics Laboratory", category: "academia", sub: "Bio-inspired", url: "https://www.epfl.ch/labs/biorob/", country: "ch" },
+    { id: 30008, title: "TUM Munich Robotics", category: "academia", sub: "Cognitive Robots", url: "https://www.mirmi.tum.de/", country: "de" },
+    { id: 30009, title: "Imperial College Robotics", category: "academia", sub: "Surgical & Space", url: "https://www.imperial.ac.uk/robotics/", country: "gb" },
+    { id: 30010, title: "University of Tokyo Robotics", category: "academia", sub: "Human-Centered", url: "https://www.u-tokyo.ac.jp/en/research/robotics.html", country: "jp" },
+    { id: 30011, title: "KAIST Robotics Program", category: "academia", sub: "Humanoid & Field", url: "https://robotics.kaist.ac.kr/", country: "kr" },
+    { id: 30012, title: "NTU Singapore Robotics", category: "academia", sub: "Industrial & Medical", url: "https://www.ntu.edu.sg/robotics", country: "sg" },
+    { id: 30013, title: "IIT (Italian Institute of Tech)", category: "academia", sub: "Advanced Humanoid", url: "https://www.iit.it/research/robotics", country: "it" },
+    { id: 30014, title: "Georgia Tech Robotics", category: "academia", sub: "Intelligent Machines", url: "https://robotics.gatech.edu/", country: "us" },
+    { id: 30015, title: "University of Michigan Robotics", category: "academia", sub: "Legged Locomotion", url: "https://robotics.umich.edu/", country: "us" },
+    { id: 30016, title: "University of Sydney Robotics", category: "academia", sub: "Field Robotics", url: "https://www.sydney.edu.au/engineering/our-research/robotics.html", country: "au" },
+    { id: 30023, title: "Tsinghua University (Intelligent Systems)", category: "academia", sub: "AI & Manufacturing", url: "https://www.tsinghua.edu.cn/en/Research/Research_Centers.htm", country: "cn" },
+    { id: 30024, title: "Shanghai Jiao Tong University (Robotics)", category: "academia", sub: "Integrated Systems", url: "http://robotics.sjtu.edu.cn/", country: "cn" },
+    { id: 30025, title: "Harbin Institute of Technology (HIT)", category: "academia", sub: "Space & Industrial", url: "http://en.hit.edu.cn/about/research_centers", country: "cn" },
+    { id: 30026, title: "CAS - Shenyang Institute of Automation", category: "academia", sub: "National Robot Base", url: "http://english.sia.cas.cn/", country: "cn" },
+    { id: 30027, title: "Zhejiang University (Robotics Lab)", category: "academia", sub: "Intelligent Control", url: "https://www.zju.edu.cn/english/research/index.html", country: "cn" },
+    { id: 30028, title: "Peking University (Intelligence Science)", category: "academia", sub: "Machine Intelligence", url: "https://english.pku.edu.cn/research.html", country: "cn" },
+    { id: 30030, title: "Seoul National University (Robotics Lab)", category: "academia", sub: "Dynamics & Soft Robotics", url: "http://robotics.snu.ac.kr/", country: "kr" },
+    { id: 30031, title: "KIST Intelligence and Interaction", category: "academia", sub: "Social & Assistive Robots", url: "https://ir.kist.re.kr/", country: "kr" },
+    { id: 30032, title: "Hanyang University (Robot Engineering)", category: "academia", sub: "Industrial & Service", url: "https://robot.hanyang.ac.kr/", country: "kr" },
+    { id: 30033, title: "ETRI (Robot & AI Research)", category: "academia", sub: "Intelligence SW & OS", url: "https://www.etri.re.kr/kor/main/main.etri", country: "kr" },
+    { id: 30034, title: "Korea University (Intelligent Robotics)", category: "academia", sub: "Machine Learning & HRI", url: "https://robotics.korea.ac.kr/", country: "kr" },
+    { id: 30035, title: "POSTECH Robotics Lab", category: "academia", sub: "Industrial AI", url: "https://robotics.postech.ac.kr/", country: "kr" },
+    { id: 30050, title: "NTU Singapore (ROSE)", category: "academia", sub: "Service & AI", url: "https://www.ntu.edu.sg/rose", country: "sg" },
+    { id: 30060, title: "University of Oxford (Oxford Robotics Institute)", category: "academia", sub: "Mobile & Field Robotics", url: "https://ori.ox.ac.uk/", country: "gb" },
+    { id: 30061, title: "Nanyang Technological University (NTU)", category: "academia", sub: "Intelligent Systems", url: "https://www.ntu.edu.sg/engineering/robotics", country: "sg" },
+    { id: 30062, title: "Peking University (Institute of AI)", category: "academia", sub: "Machine Intelligence", url: "https://english.pku.edu.cn/", country: "cn" },
+    { id: 30063, title: "Delft University of Technology (TU Delft)", category: "academia", sub: "Cognitive Robotics", url: "https://www.tudelft.nl/en/ai/robotics", country: "nl" },
+    { id: 30064, title: "Georgia Institute of Technology (Georgia Tech)", category: "academia", sub: "Institute for Robotics", url: "https://robotics.gatech.edu/", country: "us" },
+    { id: 30070, title: "Johns Hopkins LCSR", category: "academia", sub: "Computer Integrated Surgery", url: "https://lcsr.jhu.edu/", country: "us" },
+    { id: 30071, title: "Wyss Institute (Harvard)", category: "academia", sub: "Soft Medical Robotics", url: "https://wyss.harvard.edu/", country: "us" },
+    { id: 30072, title: "Hamlyn Centre (Imperial College)", category: "academia", sub: "Robotic Surgery", url: "https://www.imperial.ac.uk/hamlyn-centre/", country: "gb" },
+    
+     // Events
+    { id: 10001, title: "ROBOT WORLD", category: "events", source: "KINTEX/KIRIA", url: "https://www.robotworld.or.kr/", country: "kr" }, 
+    { id: 10002, title: "iREX (Int'l Robot Exhibition)", category: "events", source: "JARA/NEDO", url: "https://irex.nikkan.co.jp", country: "jp" },
+    { id: 10003, title: "automatica Munich", category: "events", source: "Messe München", url: "https://automatica-munich.com/", country: "de" }, 
+    { id: 10004, title: "IEEE RAS (ICRA 2025)", category: "events", source: "IEEE", url: "https://2025.ieee-icra.org/", country: "us" }, 
+    { id: 10005, title: "AI EXPO KOREA", category: "events", source: "AI EXPO", url: "https://www.aiexpo.co.kr/", country: "kr" },
+    { id: 10006, title: "DJI Robotics (RoboMaster)", category: "events", source: "DJI", url: "https://www.robomaster.com/en-US", country: "cn" },
+    { id: 10007, title: "World Robot Conference (WRC)", category: "events", sub: "Global Robot Summit", url: "http://www.worldrobotconference.com/en/", country: "cn" },
+    { id: 10008, title: "CIROS (China Int'l Robot Show)", category: "events", sub: "Industrial & Service Expo", url: "http://www.ciros.com.cn/index.php?lang=en", country: "cn" },
+    { id: 10009, title: "CES - Robotics", category: "events", sub: "Consumer Tech & AI", url: "https://www.ces.tech/topics/topics/robotics.aspx", country: "us" },
+    { id: 10010, title: "Hannover Messe", category: "events", sub: "Integrated Industry", url: "https://www.hannovermesse.de/en/exhibition-topics/robotics/", country: "de" },
+    { id: 10011, title: "RoboCup World Championship", category: "events", sub: "AI & Robot Competition", url: "https://www.robocup.org/", country: "un" },
+    { id: 10012, title: "NVIDIA GTC (Robotics)", category: "events", sub: "Developer Conference", url: "https://www.nvidia.com/gtc/", country: "us" },
+    { id: 10013, title: "The Logistics World (Mexico)", category: "events", sub: "Logistics & Supply Chain", url: "https://thelogisticsworld.com/expo/", country: "mx" },
+    { id: 10014, title: "Modex Show", category: "events", sub: "Supply Chain Solutions", url: "https://www.modexshow.com/", country: "us" },
+
+    // Organization 
+    { id: 20001, title: "IFR", category: "organization", source: "IFR", url: "https://ifr.org/", country: "de" }, 
+    { id: 20003, title: "Silicon Valley Robotics", category: "organization", source: "SVR", url: "https://www.svrobo.org/", country: "us" },
+    { id: 20002, title: "IEEE RAS", category: "organization", source: "IEEE", url: "https://2025.ieee-icra.org/", country: "us" }, 
+    { id: 20004, title: "ISO TC 299 (Robotics)", category: "organization", source: "ISO", url: "https://committee.iso.org/home/tc299", country: "ch" },
+    { id: 20005, title: "KIRIA (Robot Industry Promotion)", category: "organization", sub: "Gov Agency / Promotion", url: "https://www.kiria.org/", country: "kr" },
+    { id: 20006, title: "KAR (Korea Robot Industry Association)", category: "organization", sub: "Trade Association", url: "http://www.korearobot.or.kr/", country: "kr" },
+    { id: 20007, title: "A3 (Advancing Automation)", category: "organization", sub: "North America Trade Group", url: "https://www.automate.org/", country: "us" },
+    { id: 20008, title: "JARA (Japan Robot Association)", category: "organization", sub: "Japan Industry Body", url: "https://www.jara.jp/english/", country: "jp" },
+    { id: 20009, title: "VDMA Robotics + Automation", category: "organization", sub: "European Industry Standards", url: "https://www.vdma.org/robotics-automation", country: "de" },
+    { id: 20010, title: "TAIROA (Taiwan Robot Association)", category: "organization", sub: "Automation & Intelligence", url: "https://www.tairoa.org.tw/", country: "tw" },
+    { id: 20011, title: "CRIA (China Robot Industry Alliance)", category: "organization", sub: "China Strategic Alliance", url: "http://cria.mei.net.cn/", country: "cn" }, 
+    { id: 20012, title: "MassRobotics", category: "organization", sub: "Robotics Innovation Hub", url: "https://www.massrobotics.org/", country: "us" },
+    { id: 20020, title: "A3 (Association for Advancing Automation)", category: "organization", sub: "North America Trade Group", url: "https://www.automate.org/", country: "us" },
+    { id: 20021, title: "CRIA (China Robot Industry Alliance)", category: "organization", sub: "China National Body", url: "http://cria.mei.net.cn/", country: "cn" },
+    { id: 20022, title: "BARA (British Automation & Robot Association)", category: "organization", sub: "UK Industry Body", url: "https://www.bara.org.uk/", country: "gb" },
+    { id: 20023, title: "SIRI (Italian Association of Robotics)", category: "organization", sub: "Italy National Association", url: "https://www.ss-siri.it/", country: "it" },
+    { id: 20024, title: "MassRobotics", category: "organization", sub: "Innovation Hub", url: "https://www.massrobotics.org/", country: "us" },
+
+    //Educational
+    { id: 50001, title: "UNESCO STEM Education", category: "stem", source: "UNESCO", url: "https://www.unesco.org/en/stem", country: "un" },
+    { id: 50002, title: "ISTE (EdTech Standards)", category: "stem", source: "ISTE", url: "https://www.iste.org/", country: "us" },
+    { id: 50101, title: "FIRST Robotics (K-12)", category: "stem", source: "FIRST", url: "https://www.firstinspires.org/", country: "us" },
+    { id: 50102, title: "Code.org (Computer Science)", category: "stem", source: "Code.org", url: "https://code.org/", country: "us" },
+    { id: 50103, title: "Khan Academy (STEM Courses)", category: "stem", source: "Khan Academy", url: "https://www.khanacademy.org/", country: "us" },
+    { id: 50104, title: "Girls Who Code", category: "stem", source: "Non-profit", url: "https://girlswhocode.com/", country: "us" },
+    { id: 50105, title: "Scratch Foundation", category: "stem", source: "MIT Media Lab", url: "https://scratch.mit.edu/", country: "us" },
+    { id: 50106, title: "MIND Research Institute", category: "stem", source: "ST Math", url: "https://www.mindresearch.org/", country: "us" },
+    { id: 50201, title: "NASA STEM Engagement", category: "stem", source: "NASA", url: "https://www.nasa.gov/learning-resources/", country: "us" },
+    { id: 50202, title: "NSF STEM Education (EDU)", category: "stem", source: "National Science Foundation", url: "https://new.nsf.gov/edu", country: "us" },
+    { id: 50203, title: "Smithsonian Science Center", category: "stem", source: "Smithsonian", url: "https://ssec.si.edu/", country: "us" },
+    { id: 50204, title: "DoD STEM (Defense Dept)", category: "stem", source: "U.S. Dept of Defense", url: "https://www.dodstem.us/", country: "us" },
+    { id: 50301, title: "Project Lead The Way (PLTW)", category: "stem", source: "STEM Curriculum", url: "https://www.pltw.org/", country: "us" },
+    { id: 50302, title: "STEM.org (Credentialing)", category: "stem", source: "Research Org", url: "https://stem.org/", country: "us" },
+];
+
+// 국가별 통계를 계산하고 화면에 그리는 함수
+// 통계창 삭제 함수
+function removeCountryStats() {
+    const existing = document.querySelector('.country-stats-overlay');
+    if (existing) existing.remove();
+}
+
+// 통계창 생성 함수
+function renderCountryStats() {
+    const mainArea = document.querySelector('main');
+    if (!mainArea) return;
+    removeCountryStats(); // 중복 방지
+
+    const statsOverlay = document.createElement('div');
+    statsOverlay.className = 'country-stats-overlay';
+
+    const counts = {};
+    links.forEach(l => { if (l.country) counts[l.country] = (counts[l.country] || 0) + 1; });
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+
+    let html = `<div class="stats-title">robot links by nation</div>`;
+    html += sorted.slice(0, 12).map(([code, count]) => `
+        <div class="stat-item">
+            <span class="fi fi-${code}"></span>
+            <span class="stat-count">${count}</span>
+        </div>
+    `).join('');
+
+    statsOverlay.innerHTML = html;
+    mainArea.appendChild(statsOverlay);
+}
+
+     function updateCategoryCounts() {
+    // 1. 전체 링크 수 표시 (CATEGORY 옆 숫자)
+    const totalCount = links.length;
+    const categoryTitle = document.querySelector('.sidebar-category-title');
+    if (categoryTitle) {
+        // [중요] 'Category' 바로 뒤에 공백 없이 <span>을 붙여서 작성합니다.
+        categoryTitle.innerHTML = `Category<span style="font-size: 0.6em; opacity: 0.9; margin-left: 4px;">(${totalCount})</span>`;
+    }
+
+    // 2. 개별 카테고리 버튼 숫자 업데이트
+    const buttons = document.querySelectorAll('.category-btn');
+    buttons.forEach(btn => {
+        const onclickAttr = btn.getAttribute('onclick');
+        if (onclickAttr) {
+            const categoryName = onclickAttr.match(/'([^']+)'/)[1];
+            const count = links.filter(link => link.category.toLowerCase() === categoryName.toLowerCase()).length;
+            
+            const originalText = btn.innerText.split('(')[0].trim();
+            // [중요] 텍스트와 <span> 사이의 공백을 제거하고 margin-left로 미세 조절합니다.
+            btn.innerHTML = `${originalText}<span style="font-size: 0.85em; opacity: 0.6; margin-left: 6px;">(${count})</span>`;
+        }
+    });
+}
+        function renderSpecificLinks(filter, targetId) {
+    const container = (typeof targetId === 'string') ? document.getElementById(targetId) : targetId; 
+    if (!container) return; 
+    container.innerHTML = '';
+    
+    const filteredLinks = links.filter(link => link.category.toLowerCase() === filter.toLowerCase());
+    
+    filteredLinks.forEach(link => {
+        const card = document.createElement('a');
+        card.className = 'link-card'; 
+        card.href = link.url;
+        card.target = "_blank"; 
+        
+        const displayUrl = link.url.replace(/^https?:\/\//, '').split('/')[0];
+        
+        // 국기 클래스 생성 (데이터에 country가 없으면 기본으로 'un' 혹은 비워둠)
+        const flagClass = link.country ? `fi fi-${link.country}` : 'fas fa-globe';
+
+        // source가 없으면 sub(설명)를 보여주도록 수정
+        const sourceText = link.source || link.sub || '';
+
+        card.innerHTML = `
+            <div class="card-info">
+                <div class="link-title">${link.title}</div>
+                <p style="font-size: 0.9rem; color: #A0A0A0; margin-top: 2px;">${sourceText}</p> 
+                <div class="card-footer">
+                    <span class="link-url">
+                        <span class="${flagClass}" style="margin-right: 8px;"></span> ${displayUrl}
+                    </span>
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+        function renderHome() {
+    const mainContent = document.querySelector('main');
+    const container = document.getElementById('link-container');
+    mainContent.classList.remove('home-state'); 
+    container.classList.remove('home-state');  
+    
+    container.innerHTML = `
+        <div class="home-content"> 
+            <h1 style="font-family: 'Chakra Petch', sans-serif; font-size: 2.0rem; color: var(--text-muted); text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);">
+            <h1 style="font-family: 'Chakra Petch', sans-serif; font-size: 2.0rem; color: #FFFB03; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 1);">
+                The one-stop destination <br>for robots, components, and advanced technology.
+            </h1> 
+        </div>
+     
+    `;
+    
+    const buttons = document.querySelectorAll('.category-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    const searchInput = document.getElementById('searchInput');
+    if(searchInput) searchInput.value = '';
+    
+    closeSidebar(); 
+    renderCountryStats();
+    }    
+        
+ function filterLinks(category) {
+    removeCountryStats();
+    const mainContent = document.querySelector('main');
+    const container = document.getElementById('link-container');
+    mainContent.classList.remove('home-state');
+    container.classList.remove('home-state');
+    
+    container.innerHTML = `
+        <h2 class="category-title" style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-muted); margin-bottom: 1.5rem; border-bottom: 1px solid #444; padding-bottom: 10px;">${category.toUpperCase()}</h2>
+        <div id="category-link-grid" class="link-grid"></div>
+    `;
+    
+    const targetGridElement = document.getElementById('category-link-grid');
+    
+    // 1. 카테고리 필터링
+    let filteredLinks = links.filter(link => link.category.toLowerCase() === category.toLowerCase());
+    
+    // 2. 회사 이름(title) 기준 ABC 순서 정렬 (반드시 수행)
+    filteredLinks.sort((a, b) => {
+        const titleA = a.title.trim().toUpperCase();
+        const titleB = b.title.trim().toUpperCase();
+        if (titleA < titleB) return -1;
+        if (titleA > titleB) return 1;
+        return 0;
+    });
+
+    // 3. 정렬된 리스트 전달
+    renderSpecificLinksSorted(filteredLinks, targetGridElement);
+
+    const buttons = document.querySelectorAll('.category-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    const targetButton = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(`'${category}'`));
+    if (targetButton) { targetButton.classList.add('active'); }
+    closeSidebar(); 
+}
+
+// renderSpecificLinks 함수를 정렬된 데이터를 직접 받도록 조금 변경한 버전입니다.
+/* --- JavaScript 수정 부분 (renderSpecificLinksSorted 함수 내) --- */
+
+function renderSpecificLinksSorted(dataList, container) {
+    if (!container) return; 
+    container.innerHTML = '';
+    
+    dataList.forEach(link => {
+        const card = document.createElement('a');
+        card.className = 'link-card'; 
+        card.href = link.url;
+        card.target = "_blank"; 
+        
+        // [필수] 리퍼러 정보를 삭제하여 주소창 입력과 동일한 효과를 냅니다.
+        card.rel = "noreferrer noopener"; 
+
+        const displayUrl = link.url.replace(/^https?:\/\//, '').split('/')[0];
+        const flagClass = link.country ? `fi fi-${link.country}` : 'fas fa-globe';
+
+        card.innerHTML = `
+            <div class="card-info">
+                <div class="link-title">${link.title}</div>
+                <div class="card-footer">
+                    <span class="link-url" style="display: flex; align-items: center;">
+                        <span class="${flagClass}" style="margin-right: 8px;"></span> ${displayUrl}
+                    </span>
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
+        function closeSidebar() { document.getElementById('sidebar').classList.remove('active'); }
+        function openNoticeModal() { 
+            document.getElementById('notice-modal').style.display = 'flex'; 
+            document.addEventListener('keydown', handleNoticeModalEnterKey);
+        }
+        /* 정상적으로 수정된 부분 */
+function closeNoticeModal() { 
+    // 1. 모달 팝업 닫기
+    document.getElementById('notice-modal').style.display = 'none'; 
+    
+    // 2. 키보드 이벤트 리스너 제거
+    document.removeEventListener('keydown', handleNoticeModalEnterKey);
+    
+    // 3. 기능 실행 (숫자 업데이트 및 홈 화면 출력)
+    updateCategoryCounts(); 
+    renderHome(); 
+    renderCountryStats();
+}
+
+// 기존에 중복되어 있던 handleNoticeModalEnterKey 중괄호 삭제됨
+function handleNoticeModalEnterKey(event) { 
+    if (event.key === 'Enter' || event.keyCode === 13) { 
+        closeNoticeModal(); 
+    } 
+}
+
+/* --- 랜덤 광고 배너 기능 추가 --- */
+function setRandomBanner() {
+    // 1. 링크 데이터가 없으면 중단
+    if (links.length === 0) return;
+
+    // 2. 219개의 링크 중 하나를 랜덤으로 뽑기
+    const randomIndex = Math.floor(Math.random() * links.length);
+    const selectedLink = links[randomIndex];
+
+    // 3. HTML 요소 찾기
+    const bannerLink = document.querySelector('.ad-banner');
+    const companyNameSpan = document.querySelector('.ad-company-name');
+    const bannerImg = document.querySelector('.ad-image');
+
+    // 4. 내용 바꿔치기
+    if (bannerLink && selectedLink) {
+        // 링크 주소 변경
+        bannerLink.href = selectedLink.url; 
+        
+        // 회사 이름 변경
+        if (companyNameSpan) {
+            companyNameSpan.innerText = selectedLink.title; 
+        }
+        
+        // 이미지는 숨김 처리 (텍스트만 네온사인처럼 보이게 함)
+        if (bannerImg) {
+            bannerImg.style.display = 'none'; 
+        }
+    }
+}
+
+/* --- [수정 완료] 검색 기능 (에러 해결됨) --- */
+/* --- [수정 완료] 검색 기능 정상화 --- */
+function searchLinks() {
+    const input = document.getElementById('searchInput');
+    const filter = document.getElementById('searchInput').value.toLowerCase();
+    removeCountryStats(); // 검색 시 통계 삭제
+    
+    const container = document.getElementById('link-container');
+
+    // 1. 검색어가 비어있으면 홈 화면으로 복구
+    if (filter.trim() === "") {
+        renderHome();
+        return;
+    }
+
+    // 2. 검색 결과 화면 레이아웃 생성 (이 부분이 renderHome과 겹치지 않게 수정됨)
+    container.innerHTML = `
+        <h2 style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-muted); margin-bottom: 1.5rem; border-bottom: 1px solid #444; padding-bottom: 10px;">
+            SEARCH RESULTS: "${filter.toUpperCase()}"
+        </h2>
+        <div id="search-results-grid" class="link-grid"></div>
+    `;
+    
+    const targetGrid = document.getElementById('search-results-grid');
+
+    // 3. 필터링 (title, source, sub 검색)
+    const filteredLinks = links.filter(link => {
+        const titleMatch = (link.title || '').toLowerCase().includes(filter);
+        const sourceMatch = (link.source || '').toLowerCase().includes(filter);
+        const subMatch = (link.sub || '').toLowerCase().includes(filter);
+        return titleMatch || sourceMatch || subMatch;
+    });
+
+    // 4. 결과 출력
+    if (filteredLinks.length === 0) {
+        targetGrid.innerHTML = `<p style="color: #888; font-size: 1.2rem; margin-top: 20px;">No results found for "${filter}".</p>`;
+    } else {
+        // 알파벳 순 정렬 추가
+        filteredLinks.sort((a, b) => a.title.localeCompare(b.title));
+        renderSpecificLinksSorted(filteredLinks, targetGrid);
+    }
+}
+// 스크립트 맨 하단 실행부
+updateCategoryCounts(); 
+openNoticeModal();
+setRandomBanner(); // 초기 실행 (랜덤 광고 1회 표시)
+setInterval(setRandomBanner, 10000); // 10초마다 광고 문구 자동 변경
+    </script>
+</body>
+</html>
