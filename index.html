@@ -620,7 +620,7 @@
             </button>
 
             <div class="search-container" style="padding-bottom: 20px;">
-                <input type="text" id="searchInput" placeholder="Search Company..." class="search-input">
+                <input type="text" id="searchInput" placeholder="Press Space to search" onkeyup="searchLinks()" class="search-input">
                 <i class="fas fa-search search-icon"></i>
             </div>
             <p class="sidebar-category-title">Category</p> 
@@ -1330,6 +1330,22 @@ function renderSpecificLinksSortedCustom(dataList, container) {
         container.appendChild(card);
     });
 }
+
+// 검색창 단축키를 Space bar로 설정
+document.addEventListener('keydown', function(e) {
+    // 1. 입력창에 포커스가 없을 때만 작동
+    if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        
+        // 2. e.key 값이 공백(' ')인 경우가 스페이스바입니다.
+        if (e.key === ' ' || e.code === 'Space') {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                e.preventDefault(); // 🚀 중요: 페이지가 아래로 스크롤되는 기본 동작 방지
+                searchInput.focus(); // 검색창에 커서 활성화
+            }
+        }
+    }
+});
     </script>
 </body>
 </html>
