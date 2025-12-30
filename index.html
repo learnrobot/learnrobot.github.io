@@ -620,7 +620,7 @@
             </button>
 
             <div class="search-container" style="padding-bottom: 20px;">
-                <input type="text" id="searchInput" placeholder="Search Company..." onkeyup="searchLinks()" class="search-input">
+                <input type="text" id="searchInput" placeholder="Search Company..." class="search-input">
                 <i class="fas fa-search search-icon"></i>
             </div>
             <p class="sidebar-category-title">Category</p> 
@@ -1077,8 +1077,25 @@ function renderCountryStats() {
     buttons.forEach(btn => btn.classList.remove('active'));
     
     const searchInput = document.getElementById('searchInput');
-    if(searchInput) searchInput.value = '';
-    
+let isComposing = false;
+
+// 한글 조합 시작
+searchInput.addEventListener('compositionstart', () => {
+    isComposing = true;
+});
+
+// 한글 조합 끝
+searchInput.addEventListener('compositionend', (e) => {
+    isComposing = false;
+    searchLinks(); // 조합이 끝난 최종 단어로 검색
+});
+
+// 일반 입력 (영어/숫자 포함)
+searchInput.addEventListener('input', () => {
+    if (!isComposing) {
+        searchLinks();
+    }
+});
     closeSidebar(); 
     renderCountryStats();
     }    
@@ -1091,7 +1108,18 @@ function renderCountryStats() {
     container.classList.remove('home-state');
     
     container.innerHTML = `
-        <h2 class="category-title" style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-muted); margin-bottom: 1.5rem; border-bottom: 1px solid #444; padding-bottom: 10px;">${category.toUpperCase()}</h2>
+        <h2 class="category-title" style="
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 1.5rem; 
+            color: var(--text-muted); 
+            margin-bottom: 1.5rem; 
+            border-bottom: 1px solid #444; 
+            padding-bottom: 10px;
+            /* 🚀 시인성 개선을 위한 그림자 효과 추가 */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 0, 0, 0.5);
+        ">
+            ${category.toUpperCase()}
+        </h2>
         <div id="category-link-grid" class="link-grid"></div>
     `;
     
@@ -1110,7 +1138,7 @@ function renderCountryStats() {
     });
 
     // 3. 정렬된 리스트 전달
-    renderSpecificLinksSorted(filteredLinks, targetGridElement);
+    renderSpecificLinksSortedCustom(filteredLinks, targetGridElement);
 
     const buttons = document.querySelectorAll('.category-btn');
     buttons.forEach(btn => btn.classList.remove('active'));
@@ -1224,12 +1252,9 @@ function searchLinks() {
         return;
     }
 
-    // 2. 검색 결과 화면 레이아웃 생성 (이 부분이 renderHome과 겹치지 않게 수정됨)
+    // 2. [수정됨] SEARCH RESULTS 텍스트를 제거하고 그리드만 생성
     container.innerHTML = `
-        <h2 style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-muted); margin-bottom: 1.5rem; border-bottom: 1px solid #444; padding-bottom: 10px;">
-            SEARCH RESULTS: "${filter.toUpperCase()}"
-        </h2>
-        <div id="search-results-grid" class="link-grid"></div>
+        <div id="search-results-grid" class="link-grid" style="margin-top: 20px;"></div>
     `;
     
     const targetGrid = document.getElementById('search-results-grid');
@@ -1242,13 +1267,14 @@ function searchLinks() {
         return titleMatch || sourceMatch || subMatch;
     });
 
-    // 4. 결과 출력
+   // 4. 결과 출력 및 폰트/대소문자 스타일 적용
     if (filteredLinks.length === 0) {
-        targetGrid.innerHTML = `<p style="color: #888; font-size: 1.2rem; margin-top: 20px;">No results found for "${filter}".</p>`;
+        targetGrid.innerHTML = `<p style="color: #888; font-size: 1.2rem; font-family: 'Chakra Petch', sans-serif;">No results found for "${filter}".</p>`;
     } else {
-        // 알파벳 순 정렬 추가
         filteredLinks.sort((a, b) => a.title.localeCompare(b.title));
-        renderSpecificLinksSorted(filteredLinks, targetGrid);
+        
+        // 5. [수정됨] 결과 텍스트 스타일 변경 (Chakra Petch & text-transform: none)
+        renderSpecificLinksSortedCustom(filteredLinks, targetGrid);
     }
 }
 // 스크립트 맨 하단 실행부
@@ -1256,6 +1282,54 @@ updateCategoryCounts();
 openNoticeModal();
 setRandomBanner(); // 초기 실행 (랜덤 광고 1회 표시)
 setInterval(setRandomBanner, 10000); // 10초마다 광고 문구 자동 변경
+
+// 이 함수를 스크립트 맨 하단, setInterval(setRandomBanner, 10000); 바로 위에 붙여넣으세요.
+function renderSpecificLinksSortedCustom(dataList, container) {
+    if (!container) return; 
+    container.innerHTML = '';
+    
+    dataList.forEach(link => {
+        const card = document.createElement('a');
+        card.className = 'link-card'; 
+        card.href = link.url;
+        card.target = "_blank"; 
+        card.rel = "noreferrer noopener"; 
+
+        const displayUrl = link.url.replace(/^https?:\/\//, '').split('/')[0];
+        const flagClass = link.country ? `fi fi-${link.country}` : 'fas fa-globe';
+
+        // 첫 글자만 대문자로 변환 (예: humanoid -> Humanoid)
+        const categoryName = link.category.charAt(0).toUpperCase() + link.category.slice(1).toLowerCase();
+
+        card.innerHTML = `
+            <div class="card-info" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+                <div class="link-title" style="font-family: 'Chakra Petch', sans-serif; text-transform: none; margin-bottom: 12px;">${link.title}</div>
+                
+                <div class="card-footer" style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto;">
+                    <span class="link-url" style="display: flex; align-items: center; font-family: 'Chakra Petch', sans-serif; overflow: hidden;">
+                        <span class="${flagClass}" style="margin-right: 8px; flex-shrink: 0;"></span>
+                        <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${displayUrl}</span>
+                    </span>
+
+                    <span style="
+                        font-size: 0.7rem; 
+                        color: #FFFFFF; 
+                        font-family: 'Chakra Petch', sans-serif; 
+                        background: rgba(255, 255, 255, 0.1); 
+                        padding: 2px 10px; 
+                        border-radius: 20px; 
+                        border: 1px solid rgba(255, 255, 255, 0.3);
+                        white-space: nowrap;
+                        flex-shrink: 0;
+                    ">
+                        ${categoryName}
+                    </span>
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
     </script>
 </body>
 </html>
