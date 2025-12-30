@@ -539,10 +539,15 @@
             transition: all 0.3s ease;
         }
 
-        .search-input:focus {
-            border-color: #FFFB03; /* 포커스 시 노란색 네온 */
-            box-shadow: 0 0 30px rgba(255, 251, 3, 0.3);
-        }
+        /* 검색창 활성화 시 네온 글로우 효과 */
+.search-input:focus {
+    border-color: #FFFB03 !important;
+    /* 안팎으로 노란색 빛이 강하게 퍼지는 효과 */
+    box-shadow: 0 0 15px rgba(255, 251, 3, 0.8), 
+                inset 0 0 10px rgba(255, 251, 3, 0.4) !important;
+    background-color: rgba(0, 0, 0, 0.6) !important; /* 배경을 좀 더 어둡게 하여 대비 강화 */
+    transition: all 0.3s ease-in-out;
+}
 
         .search-icon {
             position: absolute;
@@ -555,7 +560,7 @@
 /* 검색창 안에 미리 적힌 글자(Placeholder) 색상 변경 */
 .search-input::placeholder {
     color: #FFFB03; /* 원하는 색상으로 변경하세요 (예: #FFFFFF, #FFFB03) */
-    opacity: 0.7;   /* 투명도 (1로 하면 아주 진하게 나옵니다) */
+    opacity: 1.0;   /* 투명도 (1로 하면 아주 진하게 나옵니다) */
 }
 
 /* robot links by nation 스타일 - 선택자를 구체적으로 적어 우선순위 확보 */
@@ -620,8 +625,8 @@
             </button>
 
             <div class="search-container" style="padding-bottom: 20px;">
-                <input type="text" id="searchInput" placeholder="Press Space to search" onkeyup="searchLinks()" class="search-input">
-                <i class="fas fa-search search-icon"></i>
+                  <input type="text" id="searchInput" placeholder="Press Space to search" onkeyup="searchLinks()" class="search-input">
+                  <i class="fas fa-search search-icon"></i>
             </div>
             <p class="sidebar-category-title">Category</p> 
             <div class="sidebar-category-list"> 
@@ -1341,6 +1346,22 @@ document.addEventListener('keydown', function(e) {
             const searchInput = document.getElementById('searchInput');
             if (searchInput) {
                 e.preventDefault(); // 🚀 중요: 페이지가 아래로 스크롤되는 기본 동작 방지
+                searchInput.focus(); // 검색창에 커서 활성화
+            }
+        }
+    }
+});
+
+// 스페이스바를 누르면 검색창으로 커서 이동
+document.addEventListener('keydown', function(e) {
+    // 현재 포커스가 검색창(input)에 있지 않을 때만 실행
+    if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        
+        // 스페이스바 키(공백 또는 'Space' 코드) 확인
+        if (e.key === ' ' || e.code === 'Space') {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                e.preventDefault(); // 스페이스바의 기본 스크롤 기능 방지
                 searchInput.focus(); // 검색창에 커서 활성화
             }
         }
