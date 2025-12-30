@@ -10,6 +10,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA===" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
+/* 사이드바 상하단 광채 효과 */
+.sidebar-category-list {
+    position: relative;
+    transition: box-shadow 0.4s ease;
+}
+
+/* 맨 위/아래 도달 시 나타날 흰색 형광 효과 클래스 */
+.glow-top {
+    box-shadow: inset 0 20px 20px -10px rgba(255, 255, 255, 0.6) !important;
+}
+
+.glow-bottom {
+    box-shadow: inset 0 -20px 20px -10px rgba(255, 255, 255, 0.6) !important;
+}
 /* robot links by nation 스타일 */
 .country-stats-overlay {
     position: absolute; top: 35%; right: 1%;
@@ -249,16 +263,61 @@
             z-index: 10;
         }
 
-        .sidebar-category-list { 
-            flex-grow: 1; 
-            overflow-y: auto; 
-            padding-right: 5px; 
-            display: flex;
-            flex-direction: column;
-            gap: 4px; 
-            margin-bottom: 10px;
-            min-height: 0; 
-        }
+        /* 1. 사이드바 리스트 컨테이너에 상하단 네온 라인 추가 */
+/* 1. 사이드바 리스트 컨테이너 스타일 */
+.sidebar-category-list { 
+    flex-grow: 1; 
+    overflow-y: auto; 
+    overflow-x: hidden;
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px; 
+    margin-bottom: 10px;
+    min-height: 0;
+    position: relative;
+    /* 기존 background 선 효과 삭제 */
+    background: transparent; 
+    /* 스크롤바 숨기기 (Firefox용) */
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+    transition: box-shadow 0.4s ease;
+}
+
+/* 2. 스크롤바 완전히 제거 (Chrome, Safari, Edge용) */
+.sidebar-category-list::-webkit-scrollbar {
+    display: none; 
+}
+
+/* 상단 중앙 반달 광채 (양 옆 완벽 제거) */
+/* 상단 중앙 반달 광채 */
+.glow-top {
+    /* 0: 좌우 위치
+       45px: 위에서 아래로 내려오는 깊이
+       35px: 빛이 번지는 부드러움 (Blur)
+       -30px: 🚀 핵심! 양 옆의 빛을 깎아내어 둥근 반달 모양 형성 */
+    box-shadow: inset 0 40px 60px -60px rgba(255, 255, 255, 0.8) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.3); /* 상단 경계선만 살짝 강조 */
+}
+
+/* 하단 중앙 반달 광채 */
+.glow-bottom {
+    /* 0: 좌우 위치
+       -45px: 아래에서 위로 올라가는 깊이
+       35px: 빛이 번지는 부드러움
+       -30px: 🚀 핵심! 양 옆의 빛을 깎아냄 */
+    box-shadow: inset 0 -40px 60px -60px rgba(255, 255, 255, 0.8) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* 하단 경계선만 살짝 강조 */
+}
+
+/* 스크롤바가 선을 가리지 않도록 미세 조정 */
+.sidebar-category-list::-webkit-scrollbar {
+    width: 3px;
+}
+.sidebar-category-list::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
 
       .sidebar-category-list::-webkit-scrollbar {
     width: 5px;       /* 세로 스크롤바 너비를 0으로 설정 */
@@ -1105,28 +1164,16 @@ searchInput.addEventListener('input', () => {
     closeSidebar(); 
     renderCountryStats();
     }    
-        
- function filterLinks(category) {
+        function filterLinks(category) {
     removeCountryStats();
     const mainContent = document.querySelector('main');
     const container = document.getElementById('link-container');
     mainContent.classList.remove('home-state');
     container.classList.remove('home-state');
     
+    // 🚀 [수정됨] <h2> 태그(카테고리 제목)를 삭제하고 그리드 영역만 생성합니다.
     container.innerHTML = `
-        <h2 class="category-title" style="
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 1.5rem; 
-            color: var(--text-muted); 
-            margin-bottom: 1.5rem; 
-            border-bottom: 1px solid #444; 
-            padding-bottom: 10px;
-            /* 🚀 시인성 개선을 위한 그림자 효과 추가 */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 0, 0, 0.5);
-        ">
-            ${category.toUpperCase()}
-        </h2>
-        <div id="category-link-grid" class="link-grid"></div>
+        <div id="category-link-grid" class="link-grid" style="margin-top: 10px;"></div>
     `;
     
     const targetGridElement = document.getElementById('category-link-grid');
@@ -1134,7 +1181,7 @@ searchInput.addEventListener('input', () => {
     // 1. 카테고리 필터링
     let filteredLinks = links.filter(link => link.category.toLowerCase() === category.toLowerCase());
     
-    // 2. 회사 이름(title) 기준 ABC 순서 정렬 (반드시 수행)
+    // 2. 회사 이름(title) 기준 ABC 순서 정렬
     filteredLinks.sort((a, b) => {
         const titleA = a.title.trim().toUpperCase();
         const titleB = b.title.trim().toUpperCase();
@@ -1143,7 +1190,7 @@ searchInput.addEventListener('input', () => {
         return 0;
     });
 
-    // 3. 정렬된 리스트 전달
+    // 3. 정렬된 리스트 전달 (검색 결과와 동일한 스타일 함수 사용)
     renderSpecificLinksSortedCustom(filteredLinks, targetGridElement);
 
     const buttons = document.querySelectorAll('.category-btn');
@@ -1340,22 +1387,6 @@ function renderSpecificLinksSortedCustom(dataList, container) {
     });
 }
 
-// 검색창 단축키를 Space bar로 설정
-document.addEventListener('keydown', function(e) {
-    // 1. 입력창에 포커스가 없을 때만 작동
-    if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
-        
-        // 2. e.key 값이 공백(' ')인 경우가 스페이스바입니다.
-        if (e.key === ' ' || e.code === 'Space') {
-            const searchInput = document.getElementById('searchInput');
-            if (searchInput) {
-                e.preventDefault(); // 🚀 중요: 페이지가 아래로 스크롤되는 기본 동작 방지
-                searchInput.focus(); // 검색창에 커서 활성화
-            }
-        }
-    }
-});
-
 // 스페이스바를 누르면 검색창으로 커서 이동
 document.addEventListener('keydown', function(e) {
     // 현재 포커스가 검색창(input)에 있지 않을 때만 실행
@@ -1369,6 +1400,37 @@ document.addEventListener('keydown', function(e) {
                 searchInput.focus(); // 검색창에 커서 활성화
             }
         }
+    }
+});
+const sideList = document.querySelector('.sidebar-category-list');
+let isGlowing = false; // 효과 중복 방지 변수
+
+sideList.addEventListener('scroll', () => {
+    if (isGlowing) return; // 이미 빛나고 있다면 무시
+
+    const scrollTop = sideList.scrollTop;
+    const scrollHeight = sideList.scrollHeight;
+    const clientHeight = sideList.clientHeight;
+
+    if (scrollHeight <= clientHeight) return;
+
+    // 1. 맨 위 도달
+    if (scrollTop <= 1) {
+        isGlowing = true;
+        sideList.classList.add('glow-top');
+        setTimeout(() => {
+            sideList.classList.remove('glow-top');
+            isGlowing = false;
+        }, 500);
+    } 
+    // 2. 맨 아래 도달
+    else if (scrollTop + clientHeight >= scrollHeight - 1) {
+        isGlowing = true;
+        sideList.classList.add('glow-bottom');
+        setTimeout(() => {
+            sideList.classList.remove('glow-bottom');
+            isGlowing = false;
+        }, 500);
     }
 });
     </script>
