@@ -668,7 +668,9 @@
             </div>
             <h3 style="color: var(--accent); font-size: 1.8rem; margin-bottom: 5px;">Welcome to Learnrobot.com</h3>
             <p style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px;">We are preparing <br> the official launch of the website.</p>
-            <button class="btn btn-primary" style="width:100%; margin-top: 15px;" onclick="closeNoticeModal()">Enter to close</button>
+            <button class="btn btn-primary" style="width:100%; margin-top: 15px;" onclick="closeNoticeModal()">
+    Space to close
+</button>
         </div>
     </div>
     
@@ -1204,8 +1206,11 @@ function closeNoticeModal() {
 }
 
 // 기존에 중복되어 있던 handleNoticeModalEnterKey 중괄호 삭제됨
+// 기존 handleNoticeModalEnterKey 함수를 아래 내용으로 교체
 function handleNoticeModalEnterKey(event) { 
-    if (event.key === 'Enter' || event.keyCode === 13) { 
+    // Enter(13) 대신 Space(' ' 또는 32)를 감지하도록 변경
+    if (event.key === ' ' || event.code === 'Space' || event.keyCode === 32) { 
+        event.preventDefault(); // 스페이스바의 기본 스크롤 동작 방지
         closeNoticeModal(); 
     } 
 }
