@@ -990,7 +990,7 @@
     { id: 10006, title: "DJI Robotics (RoboMaster)", category: "events", source: "DJI", url: "https://www.robomaster.com/en-US", country: "cn" },
     { id: 10007, title: "World Robot Conference (WRC)", category: "events", sub: "Global Robot Summit", url: "http://www.worldrobotconference.com/en/", country: "cn" },
     { id: 10008, title: "CIROS (China Int'l Robot Show)", category: "events", sub: "Industrial & Service Expo", url: "http://www.ciros.com.cn/index.php?lang=en", country: "cn" },
-    { id: 10009, title: "CES - Robotics", category: "events", sub: "Consumer Tech & AI", url: "https://www.ces.tech", country: "us" },
+    { id: 10009, title: "CES - Robotics", category: "events", sub: "Consumer Tech & AI", url: "https://www.ces.tech/topics/topics/robotics.aspx", country: "us" },
     { id: 10010, title: "Hannover Messe", category: "events", sub: "Integrated Industry", url: "https://www.hannovermesse.de/en/exhibition-topics/robotics/", country: "de" },
     { id: 10011, title: "RoboCup World Championship", category: "events", sub: "AI & Robot Competition", url: "https://www.robocup.org/", country: "un" },
     { id: 10012, title: "NVIDIA GTC (Robotics)", category: "events", sub: "Developer Conference", url: "https://www.nvidia.com/gtc/", country: "us" },
@@ -1240,13 +1240,13 @@ function renderSpecificLinksSorted(dataList, container) {
         }
         /* 정상적으로 수정된 부분 */
 function closeNoticeModal() { 
-    // 1. 모달 팝업 닫기
+    // 🚀 수정됨: 스페이스바 중복 입력을 막기 위해 0.1초간 잠금
+    preventSearchFocus = true;
+    setTimeout(() => { preventSearchFocus = false; }, 100);
+
     document.getElementById('notice-modal').style.display = 'none'; 
-    
-    // 2. 키보드 이벤트 리스너 제거
     document.removeEventListener('keydown', handleNoticeModalEnterKey);
     
-    // 3. 기능 실행 (숫자 업데이트 및 홈 화면 출력)
     updateCategoryCounts(); 
     renderHome(); 
     renderCountryStats();
@@ -1254,10 +1254,17 @@ function closeNoticeModal() {
 
 // 기존에 중복되어 있던 handleNoticeModalEnterKey 중괄호 삭제됨
 // 기존 handleNoticeModalEnterKey 함수를 아래 내용으로 교체
+/* --- [수정 완료] 팝업 닫기와 검색창 중복 방지 --- */
 function handleNoticeModalEnterKey(event) { 
-    // Enter(13) 대신 Space(' ' 또는 32)를 감지하도록 변경
+    // Space 키 확인
     if (event.key === ' ' || event.code === 'Space' || event.keyCode === 32) { 
-        event.preventDefault(); // 스페이스바의 기본 스크롤 동작 방지
+        // 1. 스페이스바의 기본 스크롤 동작 방지
+        event.preventDefault(); 
+        
+        // 🚀 2. 이벤트 전파 차단 (이게 중요합니다! 검색창 활성화 코드가 실행되지 않게 막음)
+        event.stopPropagation(); 
+        
+        // 3. 팝업 닫기 실행
         closeNoticeModal(); 
     } 
 }
@@ -1389,15 +1396,15 @@ function renderSpecificLinksSortedCustom(dataList, container) {
 
 // 스페이스바를 누르면 검색창으로 커서 이동
 document.addEventListener('keydown', function(e) {
-    // 현재 포커스가 검색창(input)에 있지 않을 때만 실행
+    // 팝업 닫기 직후라면 실행 안 함
+    if (preventSearchFocus) return;
+
     if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
-        
-        // 스페이스바 키(공백 또는 'Space' 코드) 확인
         if (e.key === ' ' || e.code === 'Space') {
             const searchInput = document.getElementById('searchInput');
             if (searchInput) {
-                e.preventDefault(); // 스페이스바의 기본 스크롤 기능 방지
-                searchInput.focus(); // 검색창에 커서 활성화
+                e.preventDefault(); 
+                searchInput.focus(); 
             }
         }
     }
