@@ -1057,7 +1057,7 @@ function renderCountryStats() {
     links.forEach(l => { if (l.country) counts[l.country] = (counts[l.country] || 0) + 1; });
     const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
 
-    let html = `<div class="stats-title">robot links by nation</div>`;
+    let html = `<div class="stats-title">Robot links by nation</div>`;
     html += sorted.slice(0, 12).map(([code, count]) => `
         <div class="stat-item">
             <span class="fi fi-${code}"></span>
