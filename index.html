@@ -383,6 +383,7 @@
             background-position: center center;
             background-size: 100% 100%; 
             background-attachment: fixed; 
+            transition: background-image 1.0s ease-in-out;
             display: flex; 
             justify-content: flex-start; 
             align-items: flex-start; 
@@ -734,6 +735,36 @@
     </div>
     
     <script>
+/* --- 메인 배경 이미지 자동 변경 기능 --- */
+// 1. 사용할 이미지 파일명 리스트 (실제 파일명으로 수정하세요)
+const backgroundImages = [
+    '1.horserace.jpg',
+    '2.cute_robot.png', 
+    '3.future_world.png',
+    '4.h_parts.png',
+    '5.robot_hand.png'
+];
+
+let currentBgIndex = 0;
+
+function rotateBackgroundImage() {
+    const mainContent = document.querySelector('main');
+    if (!mainContent) return;
+
+    // 다음 이미지 인덱스로 이동
+    currentBgIndex = (currentBgIndex + 1) % backgroundImages.length;
+    
+    // 이미지 변경
+    const nextImg = backgroundImages[currentBgIndex];
+    mainContent.style.backgroundImage = `url('${nextImg}')`;
+    
+    // 부드러운 전환 효과를 원한다면 CSS에 transition이 있어야 합니다.
+    console.log("Background changed to: " + nextImg);
+}
+
+// 2. 10초(10000ms)마다 이미지 변경 설정
+setInterval(rotateBackgroundImage, 10000);
+
         /* --- JAVASCRIPT LOGIC --- */
     let links = [
     // Humanoid
