@@ -1208,7 +1208,7 @@ function toggleBackgroundRotation() {
     { id: 10015, title: "Automate Show (Chicago 2026)", category: "events", source: "A3 (Association for Advancing Automation)", url: "https://www.automateshow.com/", country: "us" },
 
     // Organization 
-    { id: 20001, title: "IFR", category: "organization", source: "IFR", url: "https://ifr.org/", country: "de" }, 
+    { id: 20001, title: "IFR<br>(International Federation of Robotics)", category: "organization", source: "IFR", url: "https://ifr.org/", country: "de" }, 
     { id: 20003, title: "Silicon Valley Robotics", category: "organization", source: "SVR", url: "https://www.svrobo.org/", country: "us" },
     { id: 20002, title: "IEEE RAS", category: "organization", source: "IEEE", url: "https://2025.ieee-icra.org/", country: "us" }, 
     { id: 20004, title: "ISO TC 299 (Robotics)", category: "organization", source: "ISO", url: "https://committee.iso.org/home/tc299", country: "ch" },
@@ -1573,9 +1573,10 @@ function renderSpecificLinksSortedCustom(dataList, container) {
         const displayUrl = link.url.replace(/^https?:\/\//, '').split('/')[0];
         const flagClass = link.country ? `fi fi-${link.country}` : 'fas fa-globe';
 
-        // 첫 글자만 대문자로 변환 (예: humanoid -> Humanoid)
-        const categoryName = link.category;
-
+    // 현재 코드 (614~616번 라인)
+const categoryName = link.category.split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
         card.innerHTML = `
             <div class="card-info" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
                 <div class="link-title" style="font-family: 'Chakra Petch', sans-serif; text-transform: none; margin-bottom: 12px;">${link.title}</div>
