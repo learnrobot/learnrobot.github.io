@@ -897,7 +897,7 @@ function toggleBackgroundRotation() {
         rotationInterval = setInterval(rotateBackgroundImage, 10000);
         
         icon.className = 'fas fa-pause'; // 일시정지 아이콘으로 복구
-        textSpan.innerText = "Auto Play"; // 텍스트 변경
+        textSpan.innerText = "Stop"; // 텍스트 변경
         isPaused = false;
         
         // 스타일 복구 (노란색)
@@ -908,7 +908,7 @@ function toggleBackgroundRotation() {
         clearInterval(rotationInterval);
         
         icon.className = 'fas fa-play';  // 재생 아이콘으로 변경
-        textSpan.innerText = "Paused";   // 텍스트 변경
+        textSpan.innerText = "Play";   // 텍스트 변경
         isPaused = true;
         
         // 멈춤 상태 강조 (빨간색)
