@@ -272,7 +272,7 @@
     padding: 10px 5px;
     display: flex;
     flex-direction: column;
-    gap: 4px; 
+    gap: 1px; 
     margin-bottom: 10px;
     min-height: 0;
     position: relative;
@@ -335,12 +335,12 @@
             text-align: left;
             background: transparent;
             border: 1px solid transparent;
-            padding: 14px 18px;
+            padding: 6px 18px;
             border-radius: 8px;
             cursor: pointer;
             color: #E0E0E0; 
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 1.3rem;                   
+            font-family: 'Chakra Petch', sans-serif; 
+            font-size: 1.5rem;                   
             font-weight: 900;                   
             text-transform: capitalize;           
             letter-spacing: 1px;                 
@@ -791,6 +791,8 @@ setInterval(rotateBackgroundImage, 10000);
     { id: 1050, title: "Neura Robotics", category: "humanoid", source: "Cognitive Robots", url: "https://neura-robotics.com/", country: "de" },
     { id: 1060, title: "Agibot (Expedition A2)", category: "humanoid", source: "Embodied AI Pioneer", url: "https://www.agibot.com/", country: "cn" },
     { id: 1061, title: "Deep Robotics (X30 Quadruped)", category: "humanoid", source: "Special Purpose Robots", url: "https://www.deeprobotics.cn/", country: "cn" },
+    { id: 1130, title: "AeiROBOT (Alice)", category: "humanoid", source: "Humanoid Robot Platform", url: "https://eng.arobot4all.com/", country: "kr" },
+    { id: 1210, title: "Sharpa Robotics<br>(dexterous robotic hand)", category: "humanoid", source: "Dexterous Robotic Hand (SharpaWave)", url: "https://www.sharpa.com/", country: "sg" },
 
     // Automation
     { id: 201, title: "FANUC Robotics", category: "automation", source: "FANUC", url: "https://www.fanuc.co.jp/en/robot/", country: "jp" }, 
@@ -834,22 +836,22 @@ setInterval(rotateBackgroundImage, 10000);
     { id: 1104, title: "Rosenbauer Robotics", category: "service", sub: "Firefighting Robots", url: "https://www.rosenbauer.com/", country: "at" },
     { id: 450, title: "Diligent Robotics (Moxi)", category: "service", source: "Hospital Service Robot", url: "https://www.diligentrobots.com/", country: "us" },
     { id: 1100, title: "United Robotics Group (URG)", category: "service", source: "Service Robotics Ecosystem", url: "https://unitedrobotics.group/en-us", country: "de" },
-        
+           
     // Mobility 
-    { id: 501, title: "Waymo (Google)", category: "mobility", source: "Alphabet", url: "https://waymo.com/", country: "us" },
-    { id: 502, title: "Tesla (FSD/Robotaxi)", category: "mobility", source: "Tesla Inc.", url: "https://www.tesla.com/AI", country: "us" },
-    { id: 503, title: "Cruise (Driverless Ride)", category: "mobility", source: "GM Subsidiary", url: "https://www.getcruise.com/", country: "us" },
-    { id: 504, title: "Zoox (Amazon Mobility)", category: "mobility", source: "Amazon", url: "https://www.zoox.com/", country: "us" },
-    { id: 505, title: "Baidu Apollo (Apollo Go)", category: "mobility", source: "Baidu", url: "https://apollo.auto/", country: "cn" },
-    { id: 506, title: "WeRide (Global L4)", category: "mobility", source: "Smart Mobility", url: "https://www.weride.ai/", country: "cn" },
-    { id: 507, title: "Aurora (Autonomous Truck)", category: "mobility", source: "Aurora Tech", url: "https://aurora.tech/", country: "us" },
-    { id: 508, title: "Kodiak (Self-Driving Freight)", category: "mobility", source: "Kodiak Robotics", url: "https://kodiak.ai/", country: "us" },
-    { id: 509, title: "Einride (Digital Freight)", category: "mobility", source: "Freight Tech", url: "https://www.einride.tech/", country: "se" },
-    { id: 510, title: "Gatik (Middle-mile Delivery)", category: "mobility", source: "B2B Logistics", url: "https://gatik.ai/", country: "us" },
-    { id: 511, title: "Autonomous A2Z (AV Solution)", category: "mobility", source: "Korea Representative", url: "http://auto-a2z.com/", country: "kr" },
+    { id: 501, title: "Waymo<br>(Autonomous Ride-hailing service)", category: "mobility", source: "Alphabet", url: "https://waymo.com/", country: "us" },
+    { id: 502, title: "Tesla<br>(FSD/Robotaxi)", category: "mobility", source: "Tesla Inc.", url: "https://www.tesla.com/AI", country: "us" },
+    { id: 503, title: "Cruise<br>(Driverless Ride)", category: "mobility", source: "GM Subsidiary", url: "https://www.getcruise.com/", country: "us" },
+    { id: 504, title: "Zoox<br>(Amazon Mobility)", category: "mobility", source: "Amazon", url: "https://www.zoox.com/", country: "us" },
+    { id: 505, title: "Baidu Apollo<br>(Apollo Go)", category: "mobility", source: "Baidu", url: "https://apollo.auto/", country: "cn" },
+    { id: 506, title: "WeRide<br>(Global L4)", category: "mobility", source: "Smart Mobility", url: "https://www.weride.ai/", country: "cn" },
+    { id: 507, title: "Aurora<br>(Autonomous Truck)", category: "mobility", source: "Aurora Tech", url: "https://aurora.tech/", country: "us" },
+    { id: 508, title: "Kodiak<br>(Self-Driving Freight)", category: "mobility", source: "Kodiak Robotics", url: "https://kodiak.ai/", country: "us" },
+    { id: 509, title: "Einride<br>(Digital Freight)", category: "mobility", source: "Freight Tech", url: "https://www.einride.tech/", country: "se" },
+    { id: 510, title: "Gatik<br>(Middle-mile Delivery)", category: "mobility", source: "B2B Logistics", url: "https://gatik.ai/", country: "us" },
     { id: 1110, title: "Clearpath Robotics", category: "mobility", sub: "Outdoor Autonomous UV", url: "https://clearpathrobotics.com/", country: "ca" },
-    { id: 550, title: "Einride", category: "mobility", source: "Autonomous Freight", url: "https://www.einride.tech/", country: "se" },
-    { id: 551, title: "Milrem Robotics", category: "mobility", source: "Defense & Rescue", url: "https://milremrobotics.com/", country: "ee" },
+    { id: 550, title: "Einride<br>(Autonomous Electric Freight)", category: "mobility", source: "Autonomous Freight", url: "https://www.einride.tech/", country: "se" },
+    { id: 1240, title: "Doosan Bobcat<br>(Autonomous & Electric Robotics)", category: "mobility", source: "Unmanned Construction Equipment", url: "www.bobcat.com/kr/ko/", country: "kr" },
+    { id: 1220, title: "GoLe Robotics<br>(Smart Construction & Logistics)", category: "mobility", source: "Smart Construction & Logistics", url: "http://golerobotics.com/", country: "kr" },
     
     // Medical
     { id: 3001, title: "Intuitive Surgical (Da Vinci)", category: "medical", source: "Intuitive Surgical", url: "https://www.intuitive.com/", country: "us" }, 
@@ -882,16 +884,16 @@ setInterval(rotateBackgroundImage, 10000);
     { id: 501, title: "DJI Agricultural Drones", category: "farm", source: "DJI", url: "https://www.dji.com/kr/agriculture", country: "cn" }, 
     { id: 502, title: "Blue River Technology", category: "farm", source: "Blue River", url: "https://www.bluerivertechnology.com/", country: "us" }, 
     { id: 1109, title: "Lely", category: "farm", sub: "Dairy Farm Robotics", url: "https://www.lely.com/", country: "nl" },
-    { id: 503, title: "John Deere (Autonomous Tractor)", category: "farm", source: "John Deere", url: "https://www.deere.com/en/autonomous-tractor/", country: "us" },
-    { id: 504, title: "Harvest CROO (Strawberry Picking)", category: "farm", source: "Harvest CROO", url: "https://harvestcroo.com/", country: "us" },
-    { id: 505, title: "Carbon Robotics (LaserWeeder)", category: "farm", source: "Carbon Robotics", url: "https://carbonrobotics.com/", country: "us" },
-    { id: 506, title: "Naïo Technologies (Weeding Robot)", category: "farm", source: "Naïo Technologies", url: "https://www.naio-technologies.com/en/", country: "fr" },
-    { id: 507, title: "Dogtooth (Fruit Picking)", category: "farm", source: "Dogtooth Robotics", url: "https://dogtooth.tech/", country: "gb" },
-    { id: 508, title: "BouMatic (Robotic Milking)", category: "farm", source: "BouMatic", url: "https://boumatic.com/", country: "us" },
-    { id: 509, title: "Priva (Greenhouse Automation)", category: "farm", source: "Priva", url: "https://www.priva.com/robotics", country: "nl" },
-    { id: 510, title: "Spread (Techno Farm)", category: "farm", source: "Spread", url: "https://spread.co.jp/en/", country: "jp" },
-    { id: 511, title: "Abundant Robots (Apple Harvesting)", category: "farm", source: "Abundant Robots", url: "https://abundantrobots.ai/", country: "us" },
-    { id: 512, title: "Daedong (Autonomous Farming)", category: "farm", source: "AI Agriculture Robot", url: "https://daedong-kioti.com/innovation/futureagriculture/", country: "kr" },
+    { id: 503, title: "John Deere<br> (Autonomous Tractor)", category: "farm", source: "John Deere", url: "https://www.deere.com/en/", country: "us" },
+    { id: 504, title: "Harvest CROO<br>(Strawberry Picking)", category: "farm", source: "Harvest CROO", url: "https://harvestcroo.com/", country: "us" },
+    { id: 505, title: "Carbon Robotics<br>(LaserWeeder)", category: "farm", source: "Carbon Robotics", url: "https://carbonrobotics.com/", country: "us" },
+    { id: 506, title: "Naïo Technologies<br>(Weeding Robot)", category: "farm", source: "Naïo Technologies", url: "https://www.naio-technologies.com/en/", country: "fr" },
+    { id: 507, title: "Dogtooth<br>(Fruit Picking)", category: "farm", source: "Dogtooth Robotics", url: "https://dogtooth.tech/", country: "gb" },
+    { id: 508, title: "BouMatic<br>(Robotic Milking)", category: "farm", source: "BouMatic", url: "https://boumatic.com/", country: "us" },
+    { id: 509, title: "Priva<br>(Greenhouse Automation)", category: "farm", source: "Priva", url: "https://www.priva.com/robotics", country: "nl" },
+    { id: 510, title: "Spread<br>(Techno Farm)", category: "farm", source: "Spread", url: "https://spread.co.jp/en/", country: "jp" },
+    { id: 511, title: "Abundant Robots<br>(Apple Harvesting)", category: "farm", source: "Abundant Robots", url: "https://abundantrobots.ai/", country: "us" },
+    { id: 512, title: "Daedong<br>(Autonomous Farming)", category: "farm", source: "AI Agriculture Robot", url: "https://daedong-kioti.com/innovation/futureagriculture/", country: "kr" },
     
     // Logistics
     { id: 601, title: "Amazon Robotics", category: "logistics", source: "Amazon", url: "https://www.amazonrobotics.com/", country: "us" }, 
@@ -917,7 +919,7 @@ setInterval(rotateBackgroundImage, 10000);
     
     // Home 
     { id: 1001, title: "Amazon Astro (Home)", category: "home", source: "Amazon", url: "https://www.aboutamazon.com/news/devices/meet-astro-a-home-robot-unlike-any-other", country: "us" }, 
-    { id: 1002, title: "iRobot Roomba (Vacuum/Mop)", category: "home", source: "iRobot", url: "https://www.irobot.com/", country: "us" }, 
+    { id: 1002, title: "iRobot<br>(Roomba & Braava)", category: "home", source: "iRobot", url: "https://www.irobot.com/", country: "us" }, 
     { id: 1003, title: " Sony Aibo (AI Robot Pet)", category: "home", source: "Sony", url: "https://us.aibo.com/", country: "jp" }, 
     { id: 1004, title: "Dreame Technology", category: "home", source: "Smart Cleaning", url: "https://global.dreametech.com/", country: "cn" },
     { id: 1005, title: "Ecovacs Robotics", category: "home", source: "Service Robots", url: "https://www.ecovacs.com/", country: "cn" },
@@ -929,7 +931,11 @@ setInterval(rotateBackgroundImage, 10000);
     { id: 1011, title: "Roborock", category: "home", source: "Smart Home", url: "https://global.roborock.com/", country: "cn" },
     { id: 1012, title: "Samsung Ballie", category: "home", source: "Samsung", url: "https://www.samsung.com/global/home-robot-ballie/", country: "kr" },
     { id: 1107, title: "Intuition Robotics", category: "home", sub: "Social Companion AI", url: "https://www.intuitionrobotics.com/", country: "il" },
-    
+    { id: 1140, title: "Aiper<br>(Cordless Pool Cleaner)", category: "home", source: "Cordless Pool Cleaner", url: "https://aiper.com/", country: "us" },
+    { id: 1150, title: "Tombot<br>(Jennie emotional support)", category: "home", source: "Emotional Support Robot Dog", url: "https://www.tombot.com/", country: "us" },
+    { id: 1190, title: "Sentigent<br>(Rover X3 Outdoor Companion Robot)", category: "home", source: "Outdoor Companion Robot", url: "https://www.sentigent.com/", country: "cn" },
+    { id: 1200, title: "SwitchBot Onero H1<br>(Multitasking Housebot)", category: "home", source: "AI Multitasking Housebot", url: "https://www.switch-bot.com/pages/onero-h1", country: "cn" },
+
     // AI
     { id: 801, title: "OpenAI (ChatGPT)", category: "ai", source: "OpenAI", url: "https://openai.com/", country: "us" }, 
     { id: 802, title: "Google DeepMind", category: "ai", source: "Google", url: "https://deepmind.google/", country: "gb" }, 
