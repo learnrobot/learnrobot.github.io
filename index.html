@@ -396,12 +396,13 @@
 }
         
         .category-btn:hover { color: var(--text-muted); }
-        .category-btn.active { 
-            background: rgba(255, 255, 0, 0.1); 
-            border: 1px solid rgba(255, 255, 0, 0.3); 
-            color: var(--text-muted); 
-            font-weight: 900; 
-        }
+     /* index.html 약 194번 라인 부근 */
+.category-btn.active { 
+    background: transparent !important; /* 🚀 배경 박스 제거 */
+    border: 1px solid transparent !important; /* 🚀 테두리 제거 */
+    color: #FFFB03 !important; /* 🚀 글자 색상만 노란색으로 유지 */
+    font-weight: 900; 
+}
 
         .sidebar-category-title {
             font-family: 'Orbitron', sans-serif;
