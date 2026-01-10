@@ -11,11 +11,38 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA===" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-/* 사이드바 상하단 광채 효과 */
-.sidebar-category-list {
-    position: relative;
-    transition: box-shadow 0.6s ease-out !important; /* 0.4s에서 변경 */
-}
+/* 실체 로봇 그룹: */
+.cat-hardware { color: #86D1D1 !important; }
+
+/* AI, 부품, 인프라 그룹: 사이트 포인트 컬러(청록색) */
+.cat-software { color: #679E9E !important;}
+
+/* 공통: 마우스 올리면 노란색으로 변함 */
+.category-btn:hover { color: #FFFB03 !important;}
+
+/* 공통: 활성화된 버튼 스타일 */
+.category-btn.active { color: #FFFB03 !important; background: rgba(255, 255, 0, 0.1);}
+
+<div class="sidebar-category-list"> 
+    <button class="category-btn cat-hardware" onclick="filterLinks('humanoid')">Humanoid</button> 
+    <button class="category-btn cat-hardware" onclick="filterLinks('automation')">Automation</button>
+    <button class="category-btn cat-hardware" onclick="filterLinks('service')">Service</button>
+    <button class="category-btn cat-hardware" onclick="filterLinks('home')">Home</button>                        
+    <button class="category-btn cat-hardware" onclick="filterLinks('logistics')">Logistics</button>
+    <button class="category-btn cat-hardware" onclick="filterLinks('mobility')">Mobility</button>
+    <button class="category-btn cat-hardware" onclick="filterLinks('medical')">Medical</button>
+    <button class="category-btn cat-hardware" onclick="filterLinks('farm')">Farm</button>
+
+    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 5px 10px;">
+
+    <button class="category-btn cat-software" onclick="filterLinks('ai')">AI</button>
+    <button class="category-btn cat-software" onclick="filterLinks('software')">Software</button>
+    <button class="category-btn cat-software" onclick="filterLinks('components')">Components</button>
+    <button class="category-btn cat-software" onclick="filterLinks('academia')">Academia</button>
+    <button class="category-btn cat-software" onclick="filterLinks('events')">Events</button>        
+    <button class="category-btn cat-software" onclick="filterLinks('organization')">Organization</button>
+    <button class="category-btn cat-software" onclick="filterLinks('stem')">Educational</button>
+</div>
 
 /* 맨 위/아래 도달 시 나타날 흰색 형광 효과 클래스 */
 .glow-top {
@@ -736,42 +763,46 @@
     </header>
 
     <div class="container">
-        <aside id="sidebar">
-            <button class="sidebar-close" onclick="closeSidebar()">
-                <i class="fas fa-times"></i>
-            </button>
+  <aside id="sidebar">
+    <button class="sidebar-close" onclick="closeSidebar()">
+        <i class="fas fa-times"></i>
+    </button>
 
-            <div class="search-container" style="padding-bottom: 20px;">
-                  <input type="text" id="searchInput" placeholder="Press Space to type" onkeyup="searchLinks()" class="search-input">
-                  <i class="fas fa-search search-icon"></i>
-            </div>
-            <p class="sidebar-category-title">Category</p> 
-            <div class="sidebar-category-list"> 
-                <button class="category-btn" onclick="filterLinks('humanoid')">Humanoid</button> 
-                <button class="category-btn" onclick="filterLinks('automation')">Automation</button>
-                <button class="category-btn" onclick="filterLinks('service')">Service</button>
-                <button class="category-btn" onclick="filterLinks('home')">Home</button>                        
-                <button class="category-btn" onclick="filterLinks('logistics')">Logistics</button>
-                <button class="category-btn" onclick="filterLinks('mobility')">Mobility</button>
-                <button class="category-btn" onclick="filterLinks('medical')">Medical</button>
-                <button class="category-btn" onclick="filterLinks('farm')">Farm</button>
-                <button class="category-btn" onclick="filterLinks('ai')">AI</button>
-                <button class="category-btn" onclick="filterLinks('software')">Software</button>
-                <button class="category-btn" onclick="filterLinks('components')">Components</button>
-                <button class="category-btn" onclick="filterLinks('academia')">Academia</button>
-                <button class="category-btn" onclick="filterLinks('events')">Events</button>        
-                <button class="category-btn" onclick="filterLinks('organization')">Organization</button>
-                <button class="category-btn" onclick="filterLinks('stem')">Educational</button>
-            </div> 
-            <div class="sidebar-contact-text-wrapper">
-                <p class="sidebar-contact-text" style="font-size: 0.8rem; color: #FFFB03; margin-bottom: 5px; font-weight: 600; text-transform: none;">Contact to add your robot</p>
-                 <a href="mailto:learnrobot@learnrobot.com" 
-                    style="color: #2C9999; text-decoration: none; font-size: 1.0rem; display: block; transition: 0.3s; font-family: 'Chakra Petch', sans-serif;" 
-                    onmouseover="this.style.color='var(--accent)'" 
-                    onmouseout="this.style.color='#2C9999'"> learnrobot@learnrobot.com
-                 </a>
-             </div>
-        </aside>
+    <div class="search-container" style="padding-bottom: 20px;">
+          <input type="text" id="searchInput" placeholder="Press Space to type" onkeyup="searchLinks()" class="search-input">
+          <i class="fas fa-search search-icon"></i>
+    </div>
+
+    <p class="sidebar-category-title">Category</p> 
+
+    <div class="sidebar-category-list"> 
+        <button class="category-btn cat-hardware" onclick="filterLinks('humanoid')">Humanoid</button> 
+        <button class="category-btn cat-hardware" onclick="filterLinks('automation')">Automation</button>
+        <button class="category-btn cat-hardware" onclick="filterLinks('service')">Service</button>
+        <button class="category-btn cat-hardware" onclick="filterLinks('home')">Home & BLDG</button>                        
+        <button class="category-btn cat-hardware" onclick="filterLinks('logistics')">Logistics</button>
+        <button class="category-btn cat-hardware" onclick="filterLinks('mobility')">Mobility</button>
+        <button class="category-btn cat-hardware" onclick="filterLinks('medical')">Medical</button>
+        <button class="category-btn cat-hardware" onclick="filterLinks('farm')">Farm</button>
+
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 8px 10px;">
+
+        <button class="category-btn cat-software" onclick="filterLinks('ai')">AI</button>
+        <button class="category-btn cat-software" onclick="filterLinks('software')">Software</button>
+        <button class="category-btn cat-software" onclick="filterLinks('components')">Components</button>
+        <button class="category-btn cat-software" onclick="filterLinks('academia')">Academia</button>
+        <button class="category-btn cat-software" onclick="filterLinks('events')">Events</button>        
+        <button class="category-btn cat-software" onclick="filterLinks('organization')">Organization</button>
+        <button class="category-btn cat-software" onclick="filterLinks('stem')">Educational</button>
+    </div> <div class="sidebar-contact-text-wrapper">
+        <p class="sidebar-contact-text" style="font-size: 0.8rem; color: #FFFB03; margin-bottom: 5px; font-weight: 600; text-transform: none;">Contact to add your robot</p>
+         <a href="mailto:learnrobot@learnrobot.com" 
+            style="color: #2C9999; text-decoration: none; font-size: 1.0rem; display: block; transition: 0.3s; font-family: 'Chakra Petch', sans-serif;" 
+            onmouseover="this.style.color='var(--accent)'" 
+            onmouseout="this.style.color='#2C9999'"> learnrobot@learnrobot.com
+         </a>
+     </div>
+</aside>
 
         <main>
             <div id="link-container"></div>
