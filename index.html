@@ -382,8 +382,8 @@
             background-color: transparent; 
             background-repeat: no-repeat;
             background-position: center center;
-            background-size: 100% 100%; 
-            background-attachment: fixed; 
+            background-size: cover; 
+            background-attachment: scroll; 
             transition: background-image 1.0s ease-in-out;
             display: flex; 
             justify-content: flex-start; 
@@ -646,6 +646,38 @@
 }
 .stat-item { display: flex; align-items: center; gap: 8px; font-family: 'Chakra Petch', sans-serif; color: #fff; font-size: 0.9rem; }
 .stat-count { color: #FFFB03; font-weight: 700; }
+/* 우측 하단 고정 플레이/일시정지 버튼 */
+/* 우측 하단 고정 플레이/일시정지 버튼 (알약 모양) */
+#bg-toggle-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    /* width, height 고정값 삭제하고 padding으로 크기 조절 */
+    padding: 12px 25px; 
+    background-color: rgba(0, 0, 0, 0.7); 
+    border: 2px solid #FFFB03;
+    border-radius: 30px;                 /* 둥근 알약 모양 */
+    color: #FFFB03;
+    font-family: 'Chakra Petch', sans-serif; /* 사이트 폰트 적용 */
+    font-weight: 700;                    /* 글자 굵게 */
+    font-size: 1.0rem;
+    cursor: pointer;
+    z-index: 9999;
+    transition: all 0.3s ease;
+    
+    /* 아이콘과 텍스트 가로 정렬 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;                           /* 아이콘과 글자 사이 간격 */
+    box-shadow: 0 0 10px rgba(255, 251, 3, 0.3);
+}
+
+#bg-toggle-btn:hover {
+    background-color: rgba(255, 251, 3, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 251, 3, 0.8);
+}
     </style>
 </head>
 <body>
@@ -748,6 +780,7 @@ const backgroundImages = [
 
 let currentBgIndex = 0;
 
+/* --- 메인 배경 이미지 자동 변경 기능 (수정됨) --- */
 function rotateBackgroundImage() {
     const mainContent = document.querySelector('main');
     if (!mainContent) return;
@@ -755,16 +788,65 @@ function rotateBackgroundImage() {
     // 다음 이미지 인덱스로 이동
     currentBgIndex = (currentBgIndex + 1) % backgroundImages.length;
     
-    // 이미지 변경
+    // 이미지 파일명 가져오기
     const nextImg = backgroundImages[currentBgIndex];
-    mainContent.style.backgroundImage = `url('${nextImg}')`;
     
-    // 부드러운 전환 효과를 원한다면 CSS에 transition이 있어야 합니다.
+    // 1. 배경 이미지 변경
+    mainContent.style.backgroundImage = `url('${nextImg}')`;
+
+    // 2. ★★★ 이미지 종류에 따른 크기/위치 자동 조절 (핵심 기능) ★★★
+    // 파일명에 'parts'가 포함된 경우 (인포그래픽) -> 화면에 100% 꽉 채워서 글자 잘림 방지
+    if (nextImg.includes('parts')) {
+        mainContent.style.backgroundSize = "100% 100%"; 
+        mainContent.style.backgroundPosition = "center top"; // 위쪽 텍스트 우선 표시
+    } 
+    // 그 외 일반 이미지 (말 그림 등) -> 비율 유지하며 꽉 채우기 (약간 잘려도 예쁨)
+    else {
+        mainContent.style.backgroundSize = "cover";
+        mainContent.style.backgroundPosition = "center center";
+    }
+    
     console.log("Background changed to: " + nextImg);
 }
 
 // 2. 10초(10000ms)마다 이미지 변경 설정
-setInterval(rotateBackgroundImage, 10000);
+/* --- 메인 배경 이미지 제어 변수 및 함수 --- */
+
+// 1. setInterval을 변수에 담아두어야 멈출 수 있습니다.
+/* --- 메인 배경 이미지 제어 (텍스트 변경 기능 추가) --- */
+let rotationInterval = setInterval(rotateBackgroundImage, 10000);
+let isPaused = false;
+
+function toggleBackgroundRotation() {
+    const btn = document.getElementById('bg-toggle-btn');
+    const icon = btn.querySelector('i');
+    const textSpan = document.getElementById('bg-toggle-text'); // 텍스트 영역 가져오기
+
+    if (isPaused) {
+        // [다시 재생]
+        rotateBackgroundImage(); // 누르자마자 다음 이미지로 넘김 (반응성 향상)
+        rotationInterval = setInterval(rotateBackgroundImage, 10000);
+        
+        icon.className = 'fas fa-pause'; // 일시정지 아이콘으로 복구
+        textSpan.innerText = "Auto Play"; // 텍스트 변경
+        isPaused = false;
+        
+        // 스타일 복구 (노란색)
+        btn.style.borderColor = "#FFFB03";
+        btn.style.color = "#FFFB03";
+    } else {
+        // [일시 정지]
+        clearInterval(rotationInterval);
+        
+        icon.className = 'fas fa-play';  // 재생 아이콘으로 변경
+        textSpan.innerText = "Paused";   // 텍스트 변경
+        isPaused = true;
+        
+        // 멈춤 상태 강조 (빨간색)
+        btn.style.borderColor = "#ff4444";
+        btn.style.color = "#ff4444";
+    }
+}
 
         /* --- JAVASCRIPT LOGIC --- */
     let links = [
@@ -1486,5 +1568,11 @@ sideList.addEventListener('scroll', () => {
     }
 });
     </script>
+
+<button id="bg-toggle-btn" onclick="toggleBackgroundRotation()" title="Pause/Play Background">
+    <i class="fas fa-pause"></i>
+    <span id="bg-toggle-text">Auto Play</span>
+</button>
+
 </body>
 </html>
