@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="preload" as="image" href="1.horserace.jpg">
+<link rel="preload" as="image" href="6.softwares.jpg">
 <meta name="description" content="The one-stop destination for robots, components, and advanced technology.">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.2/css/flag-icons.min.css" />
     <meta charset="UTF-8">
@@ -334,26 +334,39 @@
         .sidebar-category-list::-webkit-scrollbar-track { background: rgba(40, 40, 40, 1.5); }
         .sidebar-category-list:hover::-webkit-scrollbar-thumb { background-color: #444; }
 
-        .category-btn {
-            display: flex; 
-            justify-content: flex-start; 
-            align-items: center;
-            gap: 8px; 
-            text-align: left;
-            background: transparent;
-            border: 1px solid transparent;
-            padding: 6px 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            color: #E0E0E0; 
-            font-family: 'Chakra Petch', sans-serif; 
-            font-size: 1.5rem;                   
-            font-weight: 900;                   
-            text-transform: capitalize;           
-            letter-spacing: 1px;                 
-            display: flex; align-items: center; gap: 4px;
-            transition: all 0.2s;
-        }
+        /* index - 복사본.html 약 173번 라인 부근 */
+.category-btn {
+    display: flex; 
+    justify-content: flex-start; 
+    align-items: center;
+    gap: 4px; /* 아이콘/글자 간격 최소화 */
+    text-align: left;
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 8px 12px; /* 🚀 좌우 여백을 줄여 공간 확보 */
+    border-radius: 8px;
+    cursor: pointer;
+    color: #E0E0E0; 
+    font-family: 'Chakra Petch', sans-serif; 
+    
+    /* 🚀 폰트 크기를 1.5rem에서 1.3rem으로 소폭 하향 조정 */
+    font-size: 1.3rem;                   
+    font-weight: 900;                   
+    text-transform: capitalize;           
+    letter-spacing: 0.5px; /* 자간을 줄여 가로 폭 확보 */
+    
+    /* 🚀 텍스트가 길어도 한 줄을 유지하고 넘치면 생략(선택 사항) */
+    white-space: nowrap; 
+    overflow: hidden;
+    
+    transition: all 0.2s;
+}
+
+/* 숫자(count) 텍스트 스타일 미세 조정 */
+.category-btn span {
+    font-size: 0.75em !important; /* 숫자를 더 작게 하여 메인 텍스트 공간 확보 */
+    margin-left: 4px !important;
+}
         
         .category-btn:hover { color: var(--text-muted); }
         .category-btn.active { 
@@ -384,7 +397,7 @@
             flex: 1; 
             overflow-y: auto; 
             overflow-x: hidden; 
-            background-image: url('1.horserace.jpg'); 
+            background-image: url('6.softwares.jpg'); 
             background-color: transparent; 
             background-repeat: no-repeat;
             background-position: center center;
@@ -741,7 +754,7 @@
                 <button class="category-btn" onclick="filterLinks('medical')">Medical</button>
                 <button class="category-btn" onclick="filterLinks('farm')">Farm</button>
                 <button class="category-btn" onclick="filterLinks('logistics')">Logistics</button>
-                <button class="category-btn" onclick="filterLinks('home')">Home</button>        
+                <button class="category-btn" onclick="filterLinks('home')">Home & BLDG</button>        
                 <button class="category-btn" onclick="filterLinks('ai')">AI</button>
                 <button class="category-btn" onclick="filterLinks('software')">Software</button>
                 <button class="category-btn" onclick="filterLinks('components')">Components</button>
@@ -782,16 +795,16 @@
 /* --- 메인 배경 이미지 자동 변경 기능 --- */
 // 1. 사용할 이미지 파일명 리스트 (실제 파일명으로 수정하세요)
 const backgroundImages = [
-    '1.horserace.jpg',
-    '2.cute_robot.png', 
-    '3.future_world.png',
+    '6.softwares.jpg',
     '4.h_parts.png',
+    '1.horserace.jpg',
+    '3.future_world.png',
+    '2.cute_robot.png',
     '5.robot_hand.png'
 ];
 
 let currentBgIndex = 0;
 
-/* --- 메인 배경 이미지 자동 변경 기능 (수정됨) --- */
 /* --- 메인 배경 이미지 자동 변경 기능 (텍스트 숨김 기능 추가됨) --- */
 function rotateBackgroundImage() {
     const mainContent = document.querySelector('main');
@@ -1025,23 +1038,34 @@ function toggleBackgroundRotation() {
     { id: 662, title: "KION Group (Dematic)", category: "logistics", source: "Intralogistics Solutions", url: "https://www.kiongroup.com/", country: "de" },
     
     // Home 
-    { id: 1001, title: "Amazon Astro (Home)", category: "home", source: "Amazon", url: "https://www.aboutamazon.com/news/devices/meet-astro-a-home-robot-unlike-any-other", country: "us" }, 
+    { id: 1001, title: "Amazon<br>(Astro Home Robot)", category: "home", source: "Amazon", url: "https://www.aboutamazon.com/news/devices/meet-astro-a-home-robot-unlike-any-other", country: "us" }, 
     { id: 1002, title: "iRobot<br>(Roomba & Braava)", category: "home", source: "iRobot", url: "https://www.irobot.com/", country: "us" }, 
-    { id: 1003, title: " Sony Aibo (AI Robot Pet)", category: "home", source: "Sony", url: "https://us.aibo.com/", country: "jp" }, 
-    { id: 1004, title: "Dreame Technology", category: "home", source: "Smart Cleaning", url: "https://global.dreametech.com/", country: "cn" },
-    { id: 1005, title: "Ecovacs Robotics", category: "home", source: "Service Robots", url: "https://www.ecovacs.com/", country: "cn" },
-    { id: 1006, title: "Enabot (EBO)", category: "home", source: "Companion Robot", url: "https://www.enabot.com/", country: "cn" },
-    { id: 1007, title: "Labrador Systems", category: "home", source: "Assistive Robot", url: "https://labradorsystems.com/", country: "us" },
-    { id: 1008, title: "Living AI (Emo)", category: "home", source: "AI Desktop Pet", url: "https://living.ai/", country: "cn" },
-    { id: 1009, title: "Moxie by Embodied", category: "home", source: "Learning Robot", url: "https://embodied.com/", country: "us" },
-    { id: 1010, title: "Narwal Robotics", category: "home", source: "Cleaning Robot", url: "https://shop.narwal.com/", country: "cn" },
-    { id: 1011, title: "Roborock", category: "home", source: "Smart Home", url: "https://global.roborock.com/", country: "cn" },
-    { id: 1012, title: "Samsung Ballie", category: "home", source: "Samsung", url: "https://www.samsung.com/global/home-robot-ballie/", country: "kr" },
-    { id: 1107, title: "Intuition Robotics", category: "home", sub: "Social Companion AI", url: "https://www.intuitionrobotics.com/", country: "il" },
+    { id: 1003, title: "Sony<br>(aibo Robotic Companion)", category: "home", source: "Sony", url: "https://us.aibo.com/", country: "jp" }, 
+    { id: 1004, title: "Dreame Technology<br>(Window Cleaning Robot)", category: "home", source: "Smart Cleaning", url: "https://global.dreametech.com/", country: "cn" },
+    { id: 1005, title: "Ecovacs Robotics<br>(Intelligent Home Service)", category: "home", source: "Service Robots", url: "https://www.ecovacs.com/", country: "cn" },
+    { id: 1006, title: "Enabot (EBO)<br>(Family robot)", category: "home", source: "Companion Robot", url: "https://www.enabot.com/", country: "cn" },
+    { id: 1007, title: "Labrador Systems<br>(Assistive Robot)", category: "home", source: "Assistive Robot", url: "https://labradorsystems.com/", country: "us" },
+    { id: 1008, title: "LIVING.AI<br>(EMO & AIBI Desktop Pet)", category: "home", source: "AI Desktop Pet", url: "https://living.ai/", country: "cn" },
+    { id: 1009, title: "Moxie Robot<br>(AI Social Companion)", category: "home", source: "Learning Robot", url: "https://embodied.com/", country: "us" },
+    { id: 1010, title: "Narwal Robotics<br>(All for Clean Home)", category: "home", source: "Cleaning Robot", url: "https://shop.narwal.com/", country: "cn" },
+    { id: 1011, title: "Roborock<br>(Robotic Vacuum Cleaner)", category: "home", source: "Smart Home", url: "https://global.roborock.com/", country: "cn" },
+    { id: 1012, title: "Samsung Ballie<br>(Robot companion)", category: "home", source: "Samsung", url: "https://www.samsung.com/global/home-robot-ballie/", country: "kr" },
+    { id: 1107, title: "Intuition Robotics<br>(AI care companion robot)", category: "home", sub: "Social Companion AI", url: "https://www.intuitionrobotics.com/", country: "il" },
     { id: 1140, title: "Aiper<br>(Cordless Pool Cleaner)", category: "home", source: "Cordless Pool Cleaner", url: "https://aiper.com/", country: "us" },
     { id: 1150, title: "Tombot<br>(Jennie emotional support)", category: "home", source: "Emotional Support Robot Dog", url: "https://www.tombot.com/", country: "us" },
     { id: 1190, title: "Sentigent<br>(Rover X3 Outdoor Companion Robot)", category: "home", source: "Outdoor Companion Robot", url: "https://www.sentigent.com/", country: "cn" },
     { id: 1200, title: "SwitchBot Onero H1<br>(Multitasking Housebot)", category: "home", source: "AI Multitasking Housebot", url: "https://www.switch-bot.com/pages/onero-h1", country: "cn" },
+    { id: 1301, title: "Husqvarna Automower<br>(Robot Lawn mowers)", category: "home", source: "Robotic Lawn Mower", url: "https://www.husqvarna.com/us/robotic-lawn-mowers/", country: "se" },
+    { id: 1303, title: "Mammotion<br>(Autonomous Lawn Mower)", category: "home", source: "Wire-free Lawn Robot", url: "https://mammotion.com/", country: "cn" },
+    { id: 1310, title: "Dyson 360 Vis Nav<br>(robot vacuum)", category: "home", source: "Dyson", url: "https://www.dyson.com/vacuum-cleaners/robot/360-vis-nav", country: "uk" },
+    { id: 1311, title: "SharkNinja (Shark AI Robot)", category: "home", source: "Smart Cleaning", url: "https://www.sharkclean.com/robot-vacuums/", country: "us" },
+    { id: 1312, title: "eufy Clean<br>(Robot Vacuum>", category: "home", source: "Smart Cleaning", url: "https://www.eufy.com/", country: "cn" },
+    { id: 1320, title: "HOBOT Technology<br>(Window Cleaning Robot)", category: "home", source: "Window Cleaning Robot", url: "https://www.hobot.com.tw/", country: "tw" },
+    { id: 1330, title: "KEYi Robot<br>(Loona & ClicBot)", category: "home", source: "Smart Petbot", url: "https://keyirobot.com/", country: "cn" },
+    { id: 1331, title: "Vector 2.0<br>(Home Robot)", category: "home", source: "AI Companion", url: "https://anki.bot/", country: "us" },
+    { id: 1350, title: "Maytronics Dolphin<br>(Robotic Pool Cleaner)", category: "home", source: "Robotic Pool Cleaner", url: "https://maytronics.com/", country: "il" }, // Aiper 외의 메이저 수영장 청소 로봇
+    { id: 1351, title: "Grillbot<br>(Automatic Grill Cleaner)", category: "home", source: "Automatic Grill Cleaner", url: "https://grillbots.com/", country: "us" },
+    { id: 1353, title: "Matic Robots<br>(Next-Gen Floor Cleaner)", category: "home", source: "Next-Gen Floor Cleaner", url: "https://maticrobots.com/", country: "us" }, // 완전 자율 주행을 강조하는 신생 업체
 
     // AI
     { id: 801, title: "OpenAI (ChatGPT)", category: "ai", source: "OpenAI", url: "https://openai.com/", country: "us" }, 
@@ -1181,6 +1205,7 @@ function toggleBackgroundRotation() {
     { id: 50204, title: "DoD STEM (Defense Dept)", category: "stem", source: "U.S. Dept of Defense", url: "https://www.dodstem.us/", country: "us" },
     { id: 50301, title: "Project Lead The Way (PLTW)", category: "stem", source: "STEM Curriculum", url: "https://www.pltw.org/", country: "us" },
     { id: 50302, title: "STEM.org (Credentialing)", category: "stem", source: "Research Org", url: "https://stem.org/", country: "us" },
+    { id: 1341, title: "Sphero<br>(Coding & STEM Robots)", category: "stem", source: "Coding & STEM Robots", url: "https://sphero.com/", country: "us" },
 ];
 
 // 국가별 통계를 계산하고 화면에 그리는 함수
