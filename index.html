@@ -41,7 +41,7 @@
     <button class="category-btn cat-software" onclick="filterLinks('academia')">Academia</button>
     <button class="category-btn cat-software" onclick="filterLinks('events')">Events</button>        
     <button class="category-btn cat-software" onclick="filterLinks('organization')">Organization</button>
-    <button class="category-btn cat-software" onclick="filterLinks('stem')">Educational</button>
+    <button class="category-btn cat-software" onclick="filterLinks('educational')">Educational</button>
 </div>
 
 /* 맨 위/아래 도달 시 나타날 흰색 형광 효과 클래스 */
@@ -794,7 +794,7 @@
         <button class="category-btn cat-software" onclick="filterLinks('academia')">Academia</button>
         <button class="category-btn cat-software" onclick="filterLinks('events')">Events</button>        
         <button class="category-btn cat-software" onclick="filterLinks('organization')">Organization</button>
-        <button class="category-btn cat-software" onclick="filterLinks('stem')">Educational</button>
+        <button class="category-btn cat-software" onclick="filterLinks('educational')">Educational</button>
     </div> <div class="sidebar-contact-text-wrapper">
         <p class="sidebar-contact-text" style="font-size: 0.8rem; color: #FFFB03; margin-bottom: 5px; font-weight: 600; text-transform: none;">Contact to add your robot</p>
          <a href="mailto:learnrobot@learnrobot.com" 
@@ -1226,21 +1226,21 @@ function toggleBackgroundRotation() {
     { id: 20023, title: "SIRI (Italian Association of Robotics)", category: "organization", sub: "Italy National Association", url: "https://www.ss-siri.it/", country: "it" },
    
     //Educational
-    { id: 50001, title: "UNESCO STEM Education", category: "stem", source: "UNESCO", url: "https://www.unesco.org/en/stem", country: "un" },
-    { id: 50002, title: "ISTE (EdTech Standards)", category: "stem", source: "ISTE", url: "https://www.iste.org/", country: "us" },
-    { id: 50101, title: "FIRST Robotics (K-12)", category: "stem", source: "FIRST", url: "https://www.firstinspires.org/", country: "us" },
-    { id: 50102, title: "Code.org (Computer Science)", category: "stem", source: "Code.org", url: "https://code.org/", country: "us" },
-    { id: 50103, title: "Khan Academy (STEM Courses)", category: "stem", source: "Khan Academy", url: "https://www.khanacademy.org/", country: "us" },
-    { id: 50104, title: "Girls Who Code", category: "stem", source: "Non-profit", url: "https://girlswhocode.com/", country: "us" },
-    { id: 50105, title: "Scratch Foundation", category: "stem", source: "MIT Media Lab", url: "https://scratch.mit.edu/", country: "us" },
-    { id: 50106, title: "MIND Research Institute", category: "stem", source: "ST Math", url: "https://www.mindresearch.org/", country: "us" },
-    { id: 50201, title: "NASA STEM Engagement", category: "stem", source: "NASA", url: "https://www.nasa.gov/learning-resources/", country: "us" },
-    { id: 50202, title: "NSF STEM Education (EDU)", category: "stem", source: "National Science Foundation", url: "https://new.nsf.gov/edu", country: "us" },
-    { id: 50203, title: "Smithsonian Science Center", category: "stem", source: "Smithsonian", url: "https://ssec.si.edu/", country: "us" },
-    { id: 50204, title: "DoD STEM (Defense Dept)", category: "stem", source: "U.S. Dept of Defense", url: "https://www.dodstem.us/", country: "us" },
-    { id: 50301, title: "Project Lead The Way (PLTW)", category: "stem", source: "STEM Curriculum", url: "https://www.pltw.org/", country: "us" },
-    { id: 50302, title: "STEM.org (Credentialing)", category: "stem", source: "Research Org", url: "https://stem.org/", country: "us" },
-    { id: 1341, title: "Sphero<br>(Coding & STEM Robots)", category: "stem", source: "Coding & STEM Robots", url: "https://sphero.com/", country: "us" },
+    { id: 50001, title: "UNESCO STEM Education", category: "Educational", source: "UNESCO", url: "https://www.unesco.org/en/stem", country: "un" },
+    { id: 50002, title: "ISTE (EdTech Standards)", category: "Educational", source: "ISTE", url: "https://www.iste.org/", country: "us" },
+    { id: 50101, title: "FIRST Robotics (K-12)", category: "Educational", source: "FIRST", url: "https://www.firstinspires.org/", country: "us" },
+    { id: 50102, title: "Code.org (Computer Science)", category: "Educational", source: "Code.org", url: "https://code.org/", country: "us" },
+    { id: 50103, title: "Khan Academy (STEM Courses)", category: "Educational", source: "Khan Academy", url: "https://www.khanacademy.org/", country: "us" },
+    { id: 50104, title: "Girls Who Code", category: "Educational", source: "Non-profit", url: "https://girlswhocode.com/", country: "us" },
+    { id: 50105, title: "Scratch Foundation", category: "Educational", source: "MIT Media Lab", url: "https://scratch.mit.edu/", country: "us" },
+    { id: 50106, title: "MIND Research Institute", category: "Educational", source: "ST Math", url: "https://www.mindresearch.org/", country: "us" },
+    { id: 50201, title: "NASA STEM Engagement", category: "Educational", source: "NASA", url: "https://www.nasa.gov/learning-resources/", country: "us" },
+    { id: 50202, title: "NSF STEM Education (EDU)", category: "Educational", source: "National Science Foundation", url: "https://new.nsf.gov/edu", country: "us" },
+    { id: 50203, title: "Smithsonian Science Center", category: "Educational", source: "Smithsonian", url: "https://ssec.si.edu/", country: "us" },
+    { id: 50204, title: "DoD STEM (Defense Dept)", category: "Educational", source: "U.S. Dept of Defense", url: "https://www.dodstem.us/", country: "us" },
+    { id: 50301, title: "Project Lead The Way (PLTW)", category: "Educational", source: "STEM Curriculum", url: "https://www.pltw.org/", country: "us" },
+    { id: 50302, title: "STEM.org (Credentialing)", category: "Educational", source: "Research Org", url: "https://stem.org/", country: "us" },
+    { id: 1341, title: "Sphero<br>(Coding & STEM Robots)", category: "Educational", source: "Coding & STEM Robots", url: "https://sphero.com/", country: "us" },
 ];
 
 // 국가별 통계를 계산하고 화면에 그리는 함수
@@ -1574,9 +1574,21 @@ function renderSpecificLinksSortedCustom(dataList, container) {
         const flagClass = link.country ? `fi fi-${link.country}` : 'fas fa-globe';
 
     // 현재 코드 (614~616번 라인)
-const categoryName = link.category.split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ');
+/* --- [최종 해결] 특정 단어(BLDG)는 유지하고 나머지는 첫 글자만 대문자로 --- */
+/* --- [최종 해결] AI, BLDG 등 대문자 전용 단어 완벽 보호 로직 --- */
+/* --- [최종 통합] STEM -> Educational 변환 및 AI/BLDG 보호 로직 --- */
+const categoryName = link.category.split(' ').map(word => {
+    const upperWord = word.toUpperCase();
+    
+    // 1. 데이터가 'stem'인 경우 무조건 'Educational'로 표시
+    if (upperWord === 'STEM') return 'Educational';
+    
+    // 2. AI나 BLDG는 대문자 원본 유지
+    if (upperWord === 'AI' || upperWord === 'BLDG') return upperWord;
+    
+    // 3. 그 외 일반 단어는 첫 글자만 대문자로 변환 (예: farm -> Farm)
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+}).join(' ');
         card.innerHTML = `
             <div class="card-info" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
                 <div class="link-title" style="font-family: 'Chakra Petch', sans-serif; text-transform: none; margin-bottom: 12px;">${link.title}</div>
