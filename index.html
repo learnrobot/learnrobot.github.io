@@ -27,7 +27,8 @@
     font-weight: 700;
     margin-bottom: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start; 
+    span { margin-left: 10px; }
     align-items: center;
     border-bottom: 1px solid rgba(44, 153, 153, 0.2);
     padding-bottom: 5px;
@@ -35,11 +36,11 @@
 
 .group-title span {
     font-size: 0.8rem;
-    color: #FFFB03;
+    color: #2C9999;
 }
 
 .cat-hardware { color: #86D1D1 !important; }
-.cat-software { color: #679E9E !important; }
+.cat-software { color: #86D1D1 !important; }
 .category-btn:hover, .category-btn.active { color: #FFFB03 !important; }
 
 .sidebar-category-list { 
@@ -55,7 +56,7 @@
 .cat-hardware { color: #86D1D1 !important; }
 
 /* AI, 부품, 인프라: 사이트 포인트 컬러(청록색) */
-.cat-software { color: #679E9E !important;}
+.cat-software { color: #86D1D1 !important;}
 
 /* 공통: 마우스 올리면 노란색으로 변함 */
 .category-btn:hover { color: #FFFB03 !important;}
@@ -800,7 +801,7 @@
             <button class="category-btn cat-software" onclick="filterLinks('educational')">Educational</button>
         </div>
 
-        <div class="sidebar-contact-text-wrapper" style="margin-top: 5px; padding: 5px;">
+        <div class="sidebar-contact-text-wrapper" style="margin-top: 20px; padding: 5px;">
             <p class="sidebar-contact-text" style="font-size: 0.8rem; color: #FFFB03; margin-bottom: 5px; font-weight: 600; text-transform: none;">Contact to add your robot</p>
             <a href="mailto:learnrobot@learnrobot.com" 
                 style="color: #2C9999; text-decoration: none; font-size: 0.95rem; display: block; transition: 0.3s; font-family: 'Chakra Petch', sans-serif;" 
