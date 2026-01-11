@@ -290,52 +290,25 @@
             background-attachment: fixed;
         } 
 
-       aside {
-            width: var(--sidebar-width);
-            background: var(--bg-dark); 
-            background-color: var(--bg-dark); 
-            padding: 1rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 4px; 
-            border-right: none; 
-            height: 100%; 
-            z-index: 5;
-            transition: transform 0.3s ease-out; 
-        }
+aside {
+    width: var(--sidebar-width);
+    background: var(--bg-dark); 
+    padding: 0.5rem 1.5rem; /* 🚀 상단 padding을 1rem에서 0.5rem으로 축소 */
+    display: flex;
+    flex-direction: column;
+    gap: 0px; /* 🚀 간격을 없앰 */
+    height: 100%; 
+    z-index: 5;
+}
 
-        .sidebar-close {
-            display: none; 
-            color: var(--text-main);
-            font-size: 1.5rem;
-            cursor: pointer;
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            z-index: 10;
-        }
-
-        /* 1. 사이드바 리스트 컨테이너에 상하단 네온 라인 추가 */
-/* 1. 사이드바 리스트 컨테이너 스타일 */
 .sidebar-category-list { 
     flex-grow: 1; 
     overflow-y: auto; 
-    overflow-x: hidden;
-    padding: 0px 5px;
+    padding: 0px; /* 🚀 내부 여백 제거 */
     display: flex;
     flex-direction: column;
-    gap: 1px; 
-    margin-bottom: 10px;
-    min-height: 0;
-    position: relative;
-    /* 기존 background 선 효과 삭제 */
-    background: transparent; 
-    /* 스크롤바 숨기기 (Firefox용) */
-    scrollbar-width: none; 
-    -ms-overflow-style: none;
-    transition: box-shadow 0.4s ease;
+    gap: 0px; 
+    margin-top: 0px; /* 🚀 위로 바짝 붙임 */
 }
 
 /* 2. 스크롤바 완전히 제거 (Chrome, Safari, Edge용) */
@@ -733,64 +706,65 @@
 </head>
 <body>
 
-    <header>
-        <a href="#" class="logo-link" title="Home" onclick="renderHome()">
-            <div class="logo">
-                <img src="logo.png" alt="LearnRobot 로고" class="logo-image"> 
-                <span style="font-family: 'Chakra Petch'; font-size: 1.8rem; letter-spacing: 1px; color: var(--text-main);">LEARN<span style="color: #FFFB03;">ROBOT</span></span>
-            </div>
-        </a>
-        
-        <div class="header-ad-container">
-            <a href="#" target="_blank" class="ad-banner">
-                <span class="ad-company-name">Learn Robot</span>
-                <img src="" alt="광고배너" class="ad-image" style="display: none;">
-            </a>
+<header>
+    <a href="#" class="logo-link" title="Home" onclick="renderHome()">
+        <div class="logo">
+            <img src="logo.png" alt="LearnRobot 로고" class="logo-image"> 
+            <span style="font-family: 'Chakra Petch'; font-size: 1.8rem; letter-spacing: 1px; color: var(--text-main);">LEARN<span style="color: #FFFB03;">ROBOT</span></span>
         </div>
-        
-        <button class="menu-toggle" onclick="toggleSidebar()">
-            <i class="fas fa-bars"></i>
-        </button>
+    </a>
 
-        <div class="auth-buttons">
-            <div class="header-right">
-                <div class="sns-icons">
-                    <a href="https://www.instagram.com/learnrobot" target="_blank" title="Instagram @learnrobot"><i class="fab fa-instagram"></i></a>
-                    <a href="https://x.com/learnrobot" target="_blank" title="X (Twitter) @learnrobot"><i class="fab fa-x-twitter"></i></a>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <div class="container">
-  <aside id="sidebar">
-    <button class="sidebar-close" onclick="closeSidebar()">
-        <i class="fas fa-times"></i>
-    </button>
-
-    <div class="search-container" style="padding-bottom: 10px;">
+    <div class="search-container" style="flex: 0 1 300px; margin-left: 20px;">
         <input type="text" id="searchInput" placeholder="Press Space to type" onkeyup="searchLinks()" class="search-input">
         <i class="fas fa-search search-icon"></i>
     </div>
+    
+    <div class="header-ad-container">
+        <a href="#" target="_blank" class="ad-banner">
+            <span class="ad-company-name">Learn Robot</span>
+            <img src="" alt="광고배너" class="ad-image" style="display: none;">
+        </a>
+    </div>
+    
+    <button class="menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
 
-    <div class="sidebar-category-list"> 
-        <div class="category-group">
-            <div class="group-title">
-                Robot Types <span id="count-hardware">(0)</span>
+    <div class="auth-buttons">
+        <div class="header-right">
+            <div class="sns-icons">
+                <a href="https://www.instagram.com/learnrobot" target="_blank" title="Instagram @learnrobot"><i class="fab fa-instagram"></i></a>
+                <a href="https://x.com/learnrobot" target="_blank" title="X (Twitter) @learnrobot"><i class="fab fa-x-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div class="container">
+  <aside id="sidebar" style="width: 280px; background: #1E1E1E; padding: 10px 1.5rem; display: flex; flex-direction: column; height: 100%;">
+    <button class="sidebar-close" onclick="closeSidebar()" style="display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; text-align: right; margin-bottom: 10px;">
+        <i class="fas fa-times"></i>
+    </button>
+
+    <div class="sidebar-category-list" style="flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 5px;"> 
+        <div class="category-group" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 10px; margin-bottom: 10px;">
+            <div class="group-title" style="color: #2C9999; font-weight: 700; border-bottom: 1px solid rgba(44,153,153,0.2); padding-bottom: 5px; margin-bottom: 8px;">
+                Robot Types <span id="count-hardware" style="font-size: 0.8rem;">(0)</span>
             </div>
             <button class="category-btn cat-hardware" onclick="filterLinks('humanoid')">Humanoid</button> 
             <button class="category-btn cat-hardware" onclick="filterLinks('Industrial')">Industrial</button>
             <button class="category-btn cat-hardware" onclick="filterLinks('service')">Service</button>
             <button class="category-btn cat-hardware" onclick="filterLinks('Home & BLDG')">Home & BLDG</button>                        
             <button class="category-btn cat-hardware" onclick="filterLinks('logistics')">Logistics</button>
+            <button class="category-btn cat-hardware" onclick="filterLinks('wearable')">Wearable</button>
             <button class="category-btn cat-hardware" onclick="filterLinks('mobility')">Mobility</button>
             <button class="category-btn cat-hardware" onclick="filterLinks('medical')">Medical</button>
             <button class="category-btn cat-hardware" onclick="filterLinks('farm')">Farm</button>
         </div>
 
-        <div class="category-group">
-            <div class="group-title">
-                Ecosystem <span id="count-software">(0)</span>
+        <div class="category-group" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 10px;">
+            <div class="group-title" style="color: #2C9999; font-weight: 700; border-bottom: 1px solid rgba(44,153,153,0.2); padding-bottom: 5px; margin-bottom: 8px;">
+                Ecosystem <span id="count-software" style="font-size: 0.8rem;">(0)</span>
             </div>
             <button class="category-btn cat-software" onclick="filterLinks('ai')">AI</button>
             <button class="category-btn cat-software" onclick="filterLinks('software')">Software</button>
@@ -801,13 +775,9 @@
             <button class="category-btn cat-software" onclick="filterLinks('educational')">Educational</button>
         </div>
 
-        <div class="sidebar-contact-text-wrapper" style="margin-top: 20px; padding: 5px;">
-            <p class="sidebar-contact-text" style="font-size: 0.8rem; color: #FFFB03; margin-bottom: 5px; font-weight: 600; text-transform: none;">Contact to add your robot</p>
-            <a href="mailto:learnrobot@learnrobot.com" 
-                style="color: #2C9999; text-decoration: none; font-size: 0.95rem; display: block; transition: 0.3s; font-family: 'Chakra Petch', sans-serif;" 
-                onmouseover="this.style.color='var(--accent)'" 
-                onmouseout="this.style.color='#2C9999'"> learnrobot@learnrobot.com
-            </a>
+        <div class="sidebar-contact-text-wrapper" style="margin-top: auto; padding: 15px 5px;">
+            <p style="font-size: 0.8rem; color: #FFFB03; font-weight: 600;">Contact to add your robot</p>
+            <a href="mailto:learnrobot@learnrobot.com" style="color: #2C9999; text-decoration: none; font-size: 0.95rem;">learnrobot@learnrobot.com</a>
         </div>
     </div>
 </aside>
