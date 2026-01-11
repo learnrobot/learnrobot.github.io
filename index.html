@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA===" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-/* 실체 로봇 그룹: */
+/* 실체 로봇: */
 .cat-hardware { color: #86D1D1 !important; }
 
-/* AI, 부품, 인프라 그룹: 사이트 포인트 컬러(청록색) */
+/* AI, 부품, 인프라: 사이트 포인트 컬러(청록색) */
 .cat-software { color: #679E9E !important;}
 
 /* 공통: 마우스 올리면 노란색으로 변함 */
@@ -25,7 +25,7 @@
 
 <div class="sidebar-category-list"> 
     <button class="category-btn cat-hardware" onclick="filterLinks('humanoid')">Humanoid</button> 
-    <button class="category-btn cat-hardware" onclick="filterLinks('automation')">Automation</button>
+    <button class="category-btn cat-hardware" onclick="filterLinks('Industrial')">Industrial</button>
     <button class="category-btn cat-hardware" onclick="filterLinks('service')">Service</button>
     <button class="category-btn cat-hardware" onclick="filterLinks('home')">Home</button>                        
     <button class="category-btn cat-hardware" onclick="filterLinks('logistics')">Logistics</button>
@@ -778,7 +778,7 @@
 
     <div class="sidebar-category-list"> 
         <button class="category-btn cat-hardware" onclick="filterLinks('humanoid')">Humanoid</button> 
-        <button class="category-btn cat-hardware" onclick="filterLinks('automation')">Automation</button>
+        <button class="category-btn cat-hardware" onclick="filterLinks('Industrial')">Industrial</button>
         <button class="category-btn cat-hardware" onclick="filterLinks('service')">Service</button>
         <button class="category-btn cat-hardware" onclick="filterLinks('Home & BLDG')">Home & BLDG</button>                        
         <button class="category-btn cat-hardware" onclick="filterLinks('logistics')">Logistics</button>
@@ -944,25 +944,25 @@ function toggleBackgroundRotation() {
     { id: 1210, title: "Sharpa Robotics<br>(dexterous robotic hand)", category: "humanoid", source: "Dexterous Robotic Hand (SharpaWave)", url: "https://www.sharpa.com/", country: "sg" },
     { id: 106, title: "Fourier Robotics<br>(General-Purpose Humanoid)", category: "humanoid", source: "Embodied AI & Rehab Origin", url: "https://www.fftai.com/", country: "cn" },
 
-    // Automation
-    { id: 201, title: "FANUC Robotics", category: "automation", source: "FANUC", url: "https://www.fanuc.co.jp/en/robot/", country: "jp" }, 
-    { id: 202, title: "ABB Robotics", category: "automation", source: "ABB", url: "https://new.abb.com/products/robotics", country: "ch" }, 
-    { id: 2, title: "KUKA Industrial Robots", category: "automation", source: "KUKA", url: "https://www.kuka.com/", country: "de" }, 
-    { id: 204, title: "YASKAWA Robotics", category: "automation", source: "YASKAWA", url: "https://www.yaskawa.co.jp/en/products/robotics", country: "jp" },
-    { id: 205, title: "SIASUN Robotics", category: "automation", source: "SIASUN", url: "http://www.siasun.com/", country: "cn" }, 
-    { id: 206, title: "Estun Automation", category: "automation", source: "Estun", url: "https://www.estun.com/", country: "cn" },
-    { id: 207, title: "Doosan Robotics", category: "automation", sub: "Collaborative Robots", url: "https://www.doosanrobotics.com/kr/", country: "kr" },
-    { id: 208, title: "Neuromeka (Indy)", category: "automation", sub: "Collaborative Robots", url: "https://www.neuromeka.com/", country: "kr" },
-    { id: 1101, title: "Universal Robots", category: "automation", sub: "Collaborative Robots", url: "https://www.universal-robots.com/", country: "dk" },
-    { id: 1103, title: "Comau", category: "automation", sub: "Industrial Automation", url: "https://www.comau.com/", country: "it" },
-    { id: 1108, title: "FBR (Hadrian X)", category: "automation", sub: "Construction Robotics", url: "https://www.fbr.com.au/", country: "au" },
-    { id: 210, title: "Epson Robots", category: "automation", source: "SCARA Leader", url: "https://epson.com/robots", country: "jp" },
-    { id: 211, title: "Kawasaki Robotics", category: "automation", source: "Industrial Giants", url: "https://kawasakirobotics.com/", country: "jp" },
-    { id: 212, title: "Denso Robotics", category: "automation", source: "Small Assembly", url: "https://www.denso-robotics.com/", country: "jp" },
-    { id: 213, title: "Techman Robot", category: "automation", source: "AI Cobot", url: "https://www.tm-robot.com/en/", country: "tw" },
-    { id: 220, title: "Standard Bots (AI-native Cobots)", category: "automation", source: "Low-cost AI Robots", url: "https://standardbots.com/", country: "us" },
-    { id: 221, title: "Rockwell Automation", category: "automation", source: "Digital Transformation", url: "https://www.rockwellautomation.com/", country: "us" },
-    { id: 1102, title: "Robotnik (A URG Company)", category: "automation", source: "Mobile & Industrial Robots", url: "https://robotnik.eu/", country: "es" },
+    // Industrial
+    { id: 201, title: "FANUC Robotics<br>(Global Industrial Infrastructure)", category: "Industrial", source: "FANUC", url: "https://www.fanuc.co.jp/eindex.html", country: "jp" }, 
+    { id: 202, title: "ABB Robotics<br>(Industrial & Collaborative Solutions)", category: "Industrial", source: "ABB", url: "https://new.abb.com/products/robotics", country: "ch" }, 
+    { id: 2, title: "KUKA Industrial Robots", category: "Industrial", source: "KUKA", url: "https://www.kuka.com/", country: "de" }, 
+    { id: 204, title: "YASKAWA Robotics", category: "Industrial", source: "YASKAWA", url: "https://www.yaskawa.co.jp/en/products/robotics", country: "jp" },
+    { id: 205, title: "SIASUN Robotics", category: "Industrial", source: "SIASUN", url: "http://www.siasun.com/", country: "cn" }, 
+    { id: 206, title: "Estun Automation<br>(Motion Control & Industrial Robotics)", category: "Industrial", source: "Estun", url: "https://www.estun.com/", country: "cn" },
+    { id: 207, title: "Doosan Robotics<br>(Collaborative & AI Robot Solutions)", category: "Industrial", sub: "Collaborative Robots", url: "https://www.doosanrobotics.com/kr/", country: "kr" },
+    { id: 208, title: "Neuromeka (Indy)", category: "Industrial", sub: "Collaborative Robots", url: "https://www.neuromeka.com/", country: "kr" },
+    { id: 1101, title: "Universal Robots", category: "Industrial", sub: "Collaborative Robots", url: "https://www.universal-robots.com/", country: "dk" },
+    { id: 1103, title: "Comau<br>(Industrial Automation & Wearable Robotics)", category: "Industrial", sub: "Industrial Automation", url: "https://www.comau.com/", country: "it" },
+    { id: 1108, title: "FBR<br>(Autonomous Construction & Robotic Bricklaying)", category: "Industrial", sub: "Construction Robotics", url: "https://www.fbr.com.au/", country: "au" },
+    { id: 210, title: "Epson Robots<br>(High-Speed Precision SCARA & 6-Axis)", category: "Industrial", source: "SCARA Leader", url: "https://epson.com/robots", country: "jp" },
+    { id: 211, title: "Kawasaki Robotics", category: "Industrial", source: "Industrial Giants", url: "https://kawasakirobotics.com/", country: "jp" },
+    { id: 212, title: "DENSO Robotics<br>(High-Precision Small Assembly & Collaborative Robot)", category: "Industrial", source: "Small Assembly", url: "https://www.denso-robotics.com/", country: "jp" },
+    { id: 213, title: "Techman Robot", category: "Industrial", source: "AI Cobot", url: "https://www.tm-robot.com/en/", country: "tw" },
+    { id: 220, title: "Standard Bots (AI-native Cobots)", category: "Industrial", source: "Low-cost AI Robots", url: "https://standardbots.com/", country: "us" },
+    { id: 221, title: "Rockwell Automation", category: "Industrial", source: "Digital Transformation", url: "https://www.rockwellautomation.com/", country: "us" },
+    { id: 1102, title: "Robotnik (A URG Company)", category: "Industrial", source: "Mobile & Industrial Robots", url: "https://robotnik.eu/", country: "es" },
 
     // Service
     { id: 401, title: "SoftBank Robotics", category: "service", source: "SoftBank", url: "https://www.softbankrobotics.com/", country: "jp" }, 
