@@ -769,11 +769,11 @@ aside {
             <button class="category-btn cat-software" onclick="filterLinks('ai')">AI</button>
             <button class="category-btn cat-software" onclick="filterLinks('software')">Software</button>
             <button class="category-btn cat-software" onclick="filterLinks('components')">Components</button>
-            <button class="category-btn cat-software" onclick="filterLinks('academia')">Academia</button>
+            <button class="category-btn cat-software" onclick="filterLinks('research')">Research</button>
+            <button class="category-btn cat-software" onclick="filterLinks('educational')">Educational</button>
             <button class="category-btn cat-software" onclick="filterLinks('events')">Events</button>        
             <button class="category-btn cat-software" onclick="filterLinks('organization')">Organization</button>
-            <button class="category-btn cat-software" onclick="filterLinks('educational')">Educational</button>
-        </div>
+            </div>
 
         <div class="sidebar-contact-text-wrapper" style="margin-top: auto; padding: 15px 5px;">
             <p style="font-size: 0.8rem; color: #FFFB03; font-weight: 600;">Contact to add your robot</p>
@@ -1053,6 +1053,13 @@ function toggleBackgroundRotation() {
     { id: 1209, title: "Hilti (EXO-O1)<br>(Construction Wearable Robot)", category: "wearable", source: "Overhead Task Muscle Relief", url: "https://www.hilti.com/c/CLS_EXOSKELETONS", country: "li" },
     { id: 1210, title: "WIRobotics<br>(WIM Everyday Mobility Gear)", category: "wearable", source: "Ultra-Lightweight Walk Assist", url: "https://wirobotics.com/", country: "kr" },
     { id: 1211, title: "Bionik Labs<br>(InMotion Rehabilitation Robot)", category: "wearable", source: "AI-Driven Neuro-Recovery Solution", url: "https://www.bioniklabs.com/", country: "ca" },
+    { id: 1201, title: "Cyberdyne<br>(HAL Hybrid Assistive Limb)", category: "wearable", source: "Pioneer in Cybernic Technology", url: "https://www.cyberdyne.jp/english/", country: "jp" },
+    { id: 1202, title: "German Bionic<br>(Smart Industrial Exoskeleton)", category: "wearable", source: "AI-Powered Lumbar Support for Workers", url: "https://www.germanbionic.com/", country: "de" },
+    { id: 1203, title: "Ekso Bionics<br>(Medical & Industrial Exoskeletons)", category: "wearable", source: "Leader in Human Augmentation", url: "https://eksobionics.com/", country: "us" },
+    { id: 1205, title: "Hyundai Rotem<br>(X-ble Wearable Robot Series)", category: "wearable", source: "Industrial & Medical Muscle Support", url: "https://www.hyundai-rotem.co.kr/Business/Robot/Business_Intro.asp", country: "kr" },
+    { id: 1212, title: "Wandercraft<br>(Atalante Self-Balancing Exoskeleton)", category: "wearable", source: "Hands-free Rehabilitation Robot", url: "https://www.wandercraft.eu/", country: "fr" },
+    { id: 1213, title: "Innophys<br>(Every Muscle Suit)", category: "wearable", source: "Electricity-free Pneumatic Support", url: "https://innophys.jp/en/", country: "jp" },
+    { id: 1214, title: "Roam Robotics<br>(Forge Soft Exoskeleton)", category: "wearable", source: "Pneumatic Knee & Mobility Support", url: "https://www.roamrobotics.com/", country: "us" },
     
     // Home & BLDG 
     { id: 1450, title: "DEEP Robotics<br>(Industrial All-Terrain Inspection Robot)", category: "Home & BLDG", source: "Pioneering Embodied AI Technology", url: "https://www.deeprobotics.cn/en/", country: "cn"},
@@ -1143,42 +1150,43 @@ function toggleBackgroundRotation() {
     { id: 955, title: "HL Mando", category: "components", source: "Radar, Camera & By-Wire Tech", url: "https://www.hlmando.com/en/solution/autonomous-driving.do", country: "kr" },
     { id: 916, title: "Aidin Robotics<br>(Force/Torque Sensor)", category: "components", source: "Physical Interaction Intelligence", url: "https://www.aidinrobotics.co.kr/", country: "kr" },
 
-    // Academia 
-    { id: 30001, title: "Carnegie Mellon Robotics Institute", category: "academia", sub: "AI & Autonomy", url: "https://www.ri.cmu.edu/", country: "us" },
-    { id: 30002, title: "MIT CSAIL Robotics", category: "academia", sub: "Robot Learning", url: "https://www.csail.mit.edu/research/robotics", country: "us" },
-    { id: 30003, title: "Stanford Robotics Lab", category: "academia", sub: "Vision & HRI", url: "https://robotics.stanford.edu/", country: "us" },
-    { id: 30004, title: "Harvard Biodesign Lab", category: "academia", sub: "Soft Robotics", url: "https://biodesign.seas.harvard.edu/", country: "us" },
-    { id: 30005, title: "UC Berkeley Robotics (BAIR)", category: "academia", sub: "Biomimetics", url: "https://bair.berkeley.edu/", country: "us" },
-    { id: 30006, title: "ETH Zurich Robotics Systems Lab", category: "academia", sub: "System Design", url: "https://rsl.ethz.ch/", country: "ch" },
-    { id: 30007, title: "EPFL Biorobotics Laboratory", category: "academia", sub: "Bio-inspired", url: "https://www.epfl.ch/labs/biorob/", country: "ch" },
-    { id: 30008, title: "TUM Munich Robotics", category: "academia", sub: "Cognitive Robots", url: "https://www.mirmi.tum.de/", country: "de" },
-    { id: 30009, title: "Imperial College Robotics", category: "academia", sub: "Surgical & Space", url: "https://www.imperial.ac.uk/robotics/", country: "gb" },
-    { id: 30010, title: "University of Tokyo Robotics", category: "academia", sub: "Human-Centered", url: "https://www.u-tokyo.ac.jp/en/research/robotics.html", country: "jp" },
-    { id: 30011, title: "KAIST Robotics Program", category: "academia", sub: "Humanoid & Field", url: "https://robotics.kaist.ac.kr/", country: "kr" },
-    { id: 30013, title: "IIT (Italian Institute of Tech)", category: "academia", sub: "Advanced Humanoid", url: "https://www.iit.it/research/robotics", country: "it" },
-    { id: 30015, title: "University of Michigan Robotics", category: "academia", sub: "Legged Locomotion", url: "https://robotics.umich.edu/", country: "us" },
-    { id: 30016, title: "University of Sydney Robotics", category: "academia", sub: "Field Robotics", url: "https://www.sydney.edu.au/engineering/our-research/robotics.html", country: "au" },
-    { id: 30023, title: "Tsinghua University (Intelligent Systems)", category: "academia", sub: "AI & Manufacturing", url: "https://www.tsinghua.edu.cn/en/Research/Research_Centers.htm", country: "cn" },
-    { id: 30024, title: "Shanghai Jiao Tong University (Robotics)", category: "academia", sub: "Integrated Systems", url: "http://robotics.sjtu.edu.cn/", country: "cn" },
-    { id: 30025, title: "Harbin Institute of Technology (HIT)", category: "academia", sub: "Space & Industrial", url: "http://en.hit.edu.cn/about/research_centers", country: "cn" },
-    { id: 30026, title: "CAS - Shenyang Institute of Automation", category: "academia", sub: "National Robot Base", url: "http://english.sia.cas.cn/", country: "cn" },
-    { id: 30027, title: "Zhejiang University (Robotics Lab)", category: "academia", sub: "Intelligent Control", url: "https://www.zju.edu.cn/english/research/index.html", country: "cn" },
-    { id: 30090, title: "Peking Univ. School of Intelligence", category: "academia", sub: "Robotics & AI Research", url: "https://sai.pku.edu.cn/znxyenglish/Research_Area/Reseach_Themes.htm", country: "cn" },
-    { id: 30030, title: "Seoul National University (Robotics Lab)", category: "academia", sub: "Dynamics & Soft Robotics", url: "http://robotics.snu.ac.kr/", country: "kr" },
-    { id: 30031, title: "KIST Intelligence and Interaction", category: "academia", sub: "Social & Assistive Robots", url: "https://ir.kist.re.kr/", country: "kr" },
-    { id: 30032, title: "Hanyang University (Robot Engineering)", category: "academia", sub: "Industrial & Service", url: "https://robot.hanyang.ac.kr/", country: "kr" },
-    { id: 30033, title: "ETRI (Robot & AI Research)", category: "academia", sub: "Intelligence SW & OS", url: "https://www.etri.re.kr/kor/main/main.etri", country: "kr" },
-    { id: 30034, title: "Korea University (Intelligent Robotics)", category: "academia", sub: "Machine Learning & HRI", url: "https://isr.korea.ac.kr/", country: "kr" },
-    { id: 30035, title: "POSTECH Robotics Lab", category: "academia", sub: "Industrial AI", url: "https://robotics.postech.ac.kr/", country: "kr" },
-    { id: 30050, title: "NTU Singapore (ROSE)", category: "academia", sub: "Service & AI", url: "https://www.ntu.edu.sg/rose", country: "sg" },
-    { id: 30060, title: "University of Oxford (Oxford Robotics Institute)", category: "academia", sub: "Mobile & Field Robotics", url: "https://ori.ox.ac.uk/", country: "gb" },
-    { id: 30063, title: "Delft University of Technology (TU Delft)", category: "academia", sub: "Cognitive Robotics", url: "https://www.tudelft.nl/en/ai/robotics", country: "nl" },
-    { id: 30064, title: "Georgia Institute of Technology (Georgia Tech)", category: "academia", sub: "Institute for Robotics", url: "https://robotics.gatech.edu/", country: "us" },
-    { id: 30070, title: "Johns Hopkins LCSR", category: "academia", sub: "Computer Integrated Surgery", url: "https://lcsr.jhu.edu/", country: "us" },
-    { id: 30071, title: "Wyss Institute (Harvard)", category: "academia", sub: "Soft Medical Robotics", url: "https://wyss.harvard.edu/", country: "us" },
-    { id: 30072, title: "Hamlyn Centre (Imperial College)", category: "academia", sub: "Robotic Surgery", url: "https://www.imperial.ac.uk/hamlyn-centre/", country: "gb" },
-    { id: 30072, title: "Hamlyn Centre (Imperial)", category: "academia", sub: "Robotic Surgery", url: "https://www.imperial.ac.uk/hamlyn-centre/", country: "gb" },
-    { id: 3015, title: "RoMeLa (UCLA)<br>(Creative Robotics & Mechanisms Lab)", category: "academia", source: "Led by Prof. Dennis Hong", url: "https://www.romela.org/", country: "us" },
+    // Research
+    { id: 30001, title: "Carnegie Mellon Robotics Institute", category: "Research", sub: "AI & Autonomy", url: "https://www.ri.cmu.edu/", country: "us" },
+    { id: 30002, title: "MIT CSAIL Robotics", category: "Research", sub: "Robot Learning", url: "https://www.csail.mit.edu/research/robotics", country: "us" },
+    { id: 30003, title: "Stanford Robotics Lab", category: "Research", sub: "Vision & HRI", url: "https://robotics.stanford.edu/", country: "us" },
+    { id: 30004, title: "Harvard Biodesign Lab", category: "Research", sub: "Soft Robotics", url: "https://biodesign.seas.harvard.edu/", country: "us" },
+    { id: 30005, title: "UC Berkeley Robotics (BAIR)", category: "Research", sub: "Biomimetics", url: "https://bair.berkeley.edu/", country: "us" },
+    { id: 30006, title: "ETH Zurich Robotics Systems Lab", category: "Research", sub: "System Design", url: "https://rsl.ethz.ch/", country: "ch" },
+    { id: 30007, title: "EPFL Biorobotics Laboratory", category: "Research", sub: "Bio-inspired", url: "https://www.epfl.ch/labs/biorob/", country: "ch" },
+    { id: 30008, title: "TUM Munich Robotics", category: "Research", sub: "Cognitive Robots", url: "https://www.mirmi.tum.de/", country: "de" },
+    { id: 30009, title: "Imperial College Robotics", category: "Research", sub: "Surgical & Space", url: "https://www.imperial.ac.uk/robotics/", country: "gb" },
+    { id: 30010, title: "University of Tokyo Robotics", category: "Research", sub: "Human-Centered", url: "https://www.u-tokyo.ac.jp/en/research/robotics.html", country: "jp" },
+    { id: 30011, title: "KAIST Robotics Program", category: "Research", sub: "Humanoid & Field", url: "https://robotics.kaist.ac.kr/", country: "kr" },
+    { id: 30013, title: "IIT (Italian Institute of Tech)", category: "Research", sub: "Advanced Humanoid", url: "https://www.iit.it/research/robotics", country: "it" },
+    { id: 30015, title: "University of Michigan Robotics", category: "Research", sub: "Legged Locomotion", url: "https://robotics.umich.edu/", country: "us" },
+    { id: 30016, title: "University of Sydney Robotics", category: "Research", sub: "Field Robotics", url: "https://www.sydney.edu.au/engineering/our-research/robotics.html", country: "au" },
+    { id: 30023, title: "Tsinghua University (Intelligent Systems)", category: "Research", sub: "AI & Manufacturing", url: "https://www.tsinghua.edu.cn/en/Research/Research_Centers.htm", country: "cn" },
+    { id: 30024, title: "Shanghai Jiao Tong University (Robotics)", category: "Research", sub: "Integrated Systems", url: "http://robotics.sjtu.edu.cn/", country: "cn" },
+    { id: 30025, title: "Harbin Institute of Technology (HIT)", category: "Research", sub: "Space & Industrial", url: "http://en.hit.edu.cn/about/research_centers", country: "cn" },
+    { id: 30026, title: "CAS - Shenyang Institute of Automation", category: "Research", sub: "National Robot Base", url: "http://english.sia.cas.cn/", country: "cn" },
+    { id: 30027, title: "Zhejiang University (Robotics Lab)", category: "Research", sub: "Intelligent Control", url: "https://www.zju.edu.cn/english/research/index.html", country: "cn" },
+    { id: 30090, title: "Peking Univ. School of Intelligence", category: "Research", sub: "Robotics & AI Research", url: "https://sai.pku.edu.cn/znxyenglish/Research_Area/Reseach_Themes.htm", country: "cn" },
+    { id: 30030, title: "Seoul National University (Robotics Lab)", category: "Research", sub: "Dynamics & Soft Robotics", url: "http://robotics.snu.ac.kr/", country: "kr" },
+    { id: 30031, title: "KIST Intelligence and Interaction", category: "Research", sub: "Social & Assistive Robots", url: "https://ir.kist.re.kr/", country: "kr" },
+    { id: 30032, title: "Hanyang University (Robot Engineering)", category: "Research", sub: "Industrial & Service", url: "https://robot.hanyang.ac.kr/", country: "kr" },
+    { id: 30033, title: "ETRI (Robot & AI Research)", category: "Research", sub: "Intelligence SW & OS", url: "https://www.etri.re.kr/kor/main/main.etri", country: "kr" },
+    { id: 30034, title: "Korea University (Intelligent Robotics)", category: "Research", sub: "Machine Learning & HRI", url: "https://isr.korea.ac.kr/", country: "kr" },
+    { id: 30035, title: "POSTECH Robotics Lab", category: "Research", sub: "Industrial AI", url: "https://robotics.postech.ac.kr/", country: "kr" },
+    { id: 30050, title: "NTU Singapore (ROSE)", category: "Research", sub: "Service & AI", url: "https://www.ntu.edu.sg/rose", country: "sg" },
+    { id: 30060, title: "University of Oxford (Oxford Robotics Institute)", category: "Research", sub: "Mobile & Field Robotics", url: "https://ori.ox.ac.uk/", country: "gb" },
+    { id: 30063, title: "Delft University of Technology (TU Delft)", category: "Research", sub: "Cognitive Robotics", url: "https://www.tudelft.nl/en/ai/robotics", country: "nl" },
+    { id: 30064, title: "Georgia Institute of Technology (Georgia Tech)", category: "Research", sub: "Institute for Robotics", url: "https://robotics.gatech.edu/", country: "us" },
+    { id: 30070, title: "Johns Hopkins LCSR", category: "Research", sub: "Computer Integrated Surgery", url: "https://lcsr.jhu.edu/", country: "us" },
+    { id: 30071, title: "Wyss Institute (Harvard)", category: "Research", sub: "Soft Medical Robotics", url: "https://wyss.harvard.edu/", country: "us" },
+    { id: 30072, title: "Hamlyn Centre (Imperial)", category: "Research", sub: "Robotic Surgery", url: "https://www.imperial.ac.uk/hamlyn-centre/", country: "gb" },
+    { id: 3015, title: "RoMeLa (UCLA)<br>(Creative Robotics & Mechanisms Lab)", category: "Research", source: "Led by Prof. Dennis Hong", url: "https://www.romela.org/", country: "us" },
+    { id: 3016, title: "Clearpath Robotics<br>(Autonomous R&D Platforms)", category: "research", source: "Standard for ROS-Based UGV Systems", url: "https://clearpathrobotics.com/", country: "ca" },
+    { id: 3017, title: "Google DeepMind<br>(Robotic Transformers & Embodied AI)", category: "research", source: "Pioneer in Robotic Intelligence Models", url: "https://deepmind.google/blog/shaping-the-future-of-advanced-robotics/", country: "gb" },
     
      // Events
     { id: 10001, title: "ROBOT WORLD", category: "events", source: "KINTEX/KIRIA", url: "https://www.robotworld.or.kr/", country: "kr" }, 
