@@ -402,13 +402,13 @@ aside {
             flex: 1; 
             overflow-y: auto; 
             overflow-x: hidden; 
-            background-image: url('6.softwares.jpg'); 
+            background-image: url('welcome.png'); 
             background-color: transparent; 
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover; 
             background-attachment: scroll; 
-            transition: background-image 2.0s ease-in-out;
+            transition: background-image 0.8s ease-in-out;
             display: flex; 
             justify-content: flex-start; 
             align-items: flex-start; 
@@ -424,11 +424,17 @@ aside {
             background-color: transparent; 
         }
 
-      /* [수정] 텍스트 컨테이너에 부드러운 사라짐 효과(transition) 추가 */
-       .home-content {
-    text-align: left; 
-    max-width: 800px; 
-    margin: 0;
+      /* 가독성을 위해 새로 추가하세요 */
+.home-content h1 {
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 2.5rem !important; /* 너무 컸던 글자 크기 축소 */
+    color: #FFFB03 !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1), 
+                 -1px -1px 2px rgba(0, 0, 0, 1),
+                 0 0 15px rgba(0, 0, 0, 0.8) !important;
+    line-height: 1.4;
+    transition: opacity 0.5s ease-in-out;
+}
     
     /* 애니메이션 설정 */
     opacity: 1;                 /* 기본은 보임 */
@@ -809,92 +815,101 @@ aside {
 /* --- 메인 배경 이미지 자동 변경 기능 --- */
 // 1. 사용할 이미지 파일명 리스트 (실제 파일명으로 수정하세요)
 const backgroundImages = [
+    'welcome.png',
+    '4.h_parts.png',    
     '6.softwares.jpg',
-    '4.h_parts.png',
     '1.horserace.jpg',
     '3.future_world.png',
     '2.cute_robot.png',
     '5.robot_hand.png'
 ];
 
-let currentBgIndex = 0;
+const backgroundTexts = [
+    "Welcome to Learnrobot.com",
+    "The one-stop destination for robots, components, <br>and advanced technology",    
+    "Learn robot before they learn us.",
+    "Find high-precision hardware and robotic parts.",
+    "Let people learn your robot.",
+    "Friendly robots for your daily life",
+    "Advanced dexterity and robotic manipulation"
+];
 
-/* --- 메인 배경 이미지 자동 변경 기능 (텍스트 숨김 기능 추가됨) --- */
+let currentBgIndex = 0;
+let isPaused = false;
+
+/* --- 메인 배경 이미지 및 텍스트 싱크 수정 버전 --- */
 function rotateBackgroundImage() {
     const mainContent = document.querySelector('main');
-    const homeText = document.querySelector('.home-content'); // 텍스트 영역 선택
+    const h1 = document.querySelector('.home-content h1'); 
     
     if (!mainContent) return;
 
-    // 다음 이미지 인덱스로 이동
+    // 1. 인덱스를 먼저 올립니다. (0번에서 바로 1번으로)
     currentBgIndex = (currentBgIndex + 1) % backgroundImages.length;
-    
-    // 이미지 파일명 가져오기
-    const nextImg = backgroundImages[currentBgIndex];
-    
-    // 1. 배경 이미지 변경
-    mainContent.style.backgroundImage = `url('${nextImg}')`;
 
-    // 2. ★★★ 텍스트 보임/숨김 처리 (여기가 추가된 부분입니다) ★★★
-    if (homeText) {
-        // 인덱스가 0번(첫 번째 이미지)일 때만 텍스트를 보여줌
-        if (currentBgIndex === 0) {
-            homeText.style.opacity = '1';
-            homeText.style.visibility = 'visible';
-        } else {
-            // 나머지 이미지(2, 3, 4, 5번)에서는 텍스트를 숨김
-            homeText.style.opacity = '0';
-            homeText.style.visibility = 'hidden';
-        }
+    // 2. [동시 실행] 이미지와 텍스트를 즉시 교체
+    mainContent.style.backgroundImage = `url('${backgroundImages[currentBgIndex]}')`;
+    
+    if (h1) {
+        // 내용 교체와 투명도 조절을 동시에 하여 어긋남 방지
+        h1.innerHTML = backgroundTexts[currentBgIndex];
+        h1.style.transition = 'none'; // 순간 교체
+        h1.style.opacity = '0.7'; 
+        
+        setTimeout(() => {
+            h1.style.transition = 'opacity 0.8s ease-in-out';
+            h1.style.opacity = '1';
+        }, 50);
     }
 
-    // 3. 이미지 종류에 따른 크기/위치 자동 조절
-    if (nextImg.includes('parts')) {
+    // 3. 이미지 사이즈 최적화
+    if (backgroundImages[currentBgIndex].includes('parts')) {
         mainContent.style.backgroundSize = "100% 100%"; 
-        mainContent.style.backgroundPosition = "center top"; 
     } else {
         mainContent.style.backgroundSize = "cover";
-        mainContent.style.backgroundPosition = "center center";
     }
-    
-    console.log("Background changed to: " + nextImg);
 }
-
-
-// 1. setInterval을 변수에 담아두어야 멈출 수 있습니다.
-/* --- 메인 배경 이미지 제어 (텍스트 변경 기능 추가) --- */
 let rotationInterval = setInterval(rotateBackgroundImage, 8000);
-let isPaused = false;
 
 function toggleBackgroundRotation() {
     const btn = document.getElementById('bg-toggle-btn');
     const icon = btn.querySelector('i');
-    const textSpan = document.getElementById('bg-toggle-text'); // 텍스트 영역 가져오기
+    const textSpan = document.getElementById('bg-toggle-text');
 
     if (isPaused) {
-        // [다시 재생]
-        rotateBackgroundImage(); // 누르자마자 다음 이미지로 넘김 (반응성 향상)
-        rotationInterval = setInterval(rotateBackgroundImage, 10000);
-        
-        icon.className = 'fas fa-pause'; // 일시정지 아이콘으로 복구
-        textSpan.innerText = "Stop"; // 텍스트 변경
+        rotationInterval = setInterval(rotateBackgroundImage, 8000);
+        icon.className = 'fas fa-pause';
+        textSpan.innerText = "Auto Play";
         isPaused = false;
-        
-        // 스타일 복구 (노란색)
         btn.style.borderColor = "#FFFB03";
-        btn.style.color = "#FFFB03";
     } else {
-        // [일시 정지]
         clearInterval(rotationInterval);
-        
-        icon.className = 'fas fa-play';  // 재생 아이콘으로 변경
-        textSpan.innerText = "Play";   // 텍스트 변경
+        icon.className = 'fas fa-play';
+        textSpan.innerText = "Stopped";
         isPaused = true;
-        
-        // 멈춤 상태 강조 (빨간색)
         btn.style.borderColor = "#ff4444";
-        btn.style.color = "#ff4444";
     }
+function renderHome() {
+    const mainContent = document.querySelector('main');
+    const container = document.getElementById('link-container');
+    if(!mainContent || !container) return;
+
+    mainContent.classList.remove('home-state'); 
+    container.classList.remove('home-state');  
+    
+    // 현재 active 상태인 이미지 인덱스에 맞춰 텍스트를 생성
+    container.innerHTML = `
+        <div class="home-content"> 
+            <h1 style="opacity: 1;">${backgroundTexts[currentBgIndex]}</h1> 
+        </div>
+    `;
+    
+    const buttons = document.querySelectorAll('.category-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    closeSidebar(); 
+    renderCountryStats();
+}
 }
 
         /* --- JAVASCRIPT LOGIC --- */
@@ -1343,19 +1358,19 @@ const filteredLinks = links.filter(link => link.category === "Home & BLDG");
     });
 }
         function renderHome() {
-    const mainContent = document.querySelector('main');
+   const mainContent = document.querySelector('main');
     const container = document.getElementById('link-container');
+    if(!mainContent || !container) return;
+
     mainContent.classList.remove('home-state'); 
     container.classList.remove('home-state');  
     
+    // 고정 문구인 "The one-stop destination..."을 삭제하고
+    // 자바스크립트 배열(backgroundTexts)의 내용만 나오도록 수정합니다.
     container.innerHTML = `
         <div class="home-content"> 
-            <h1 style="font-family: 'Chakra Petch', sans-serif; font-size: 2.0rem; color: var(--text-muted); text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);">
-            <h1 style="font-family: 'Chakra Petch', sans-serif; font-size: 2.0rem; color: #FFFB03; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 1);">
-                The one-stop destination <br>for robots, components, and advanced technology.
-            </h1> 
+            <h1 style="opacity: 1;">${backgroundTexts[currentBgIndex]}</h1> 
         </div>
-     
     `;
     
     const buttons = document.querySelectorAll('.category-btn');
@@ -1565,6 +1580,8 @@ updateCategoryCounts();
 openNoticeModal();
 setRandomBanner(); // 초기 실행 (랜덤 광고 1회 표시)
 setInterval(setRandomBanner, 10000); // 10초마다 광고 문구 자동 변경
+
+currentBgIndex = 0;
 
 // 이 함수를 스크립트 맨 하단, setInterval(setRandomBanner, 10000); 바로 위에 붙여넣으세요.
 function renderSpecificLinksSortedCustom(dataList, container) {
