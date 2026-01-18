@@ -829,7 +829,7 @@ const backgroundTexts = [
     "The one-stop destination for robots and the technology",        
     "Find high-precision hardware and robotic parts,",
     "Learn robot before they learn us,",
-    "Let people learn your robot",
+    "Let people learn your robot,",
     "Where robots become companions",
     "With advanced dexterity and robotic manipulation."
 ];
@@ -869,7 +869,7 @@ function rotateBackgroundImage() {
         mainContent.style.backgroundSize = "cover";
     }
 }
-let rotationInterval = setInterval(rotateBackgroundImage, 8000);
+let rotationInterval = setInterval(rotateBackgroundImage, 6000);
 
 function toggleBackgroundRotation() {
     const btn = document.getElementById('bg-toggle-btn');
@@ -877,7 +877,7 @@ function toggleBackgroundRotation() {
     const textSpan = document.getElementById('bg-toggle-text');
 
     if (isPaused) {
-        rotationInterval = setInterval(rotateBackgroundImage, 8000);
+        rotationInterval = setInterval(rotateBackgroundImage, 6000);
         icon.className = 'fas fa-pause';
         textSpan.innerText = "Auto Play";
         isPaused = false;
