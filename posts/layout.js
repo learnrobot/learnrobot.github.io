@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
             </a>
             
             <a href="../insights.html" style="color: #fff; text-decoration:none; font-family: 'Chakra Petch', sans-serif; font-weight: bold;">
-                <i class="fas fa-arrow-left"></i> Back to Insights
+                <i class="fas fa-arrow-left"></i> Back to INSIGHTS
             </a>
         </header>
     `;
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 2. 푸터 (하단 카피라이트) 만들기
     const footerContent = `
         <div style="text-align: center; margin-bottom: 30px;">
-            <a href="../insights.html" class="back-btn">← Back to Insights</a>
+            <a href="../insights.html" class="back-btn">← Back to INSIGHTS</a>
         </div>
 
         <footer style="text-align:center; padding: 40px; border-top: 1px solid #333; margin-top: 40px; color: #666; font-family: 'Chakra Petch', sans-serif;">
