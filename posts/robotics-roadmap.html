@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The complete 2026 roadmap for learning robotics. From Python to ROS2.">
+    <title>The 2026 Roadmap to Learning Robotics - Learn Robot</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* --- 공통 스타일 (blog.html과 동일) --- */
+        :root { --bg-dark: #1E1E1E; --accent: #FFFB03; --text-main: #f1f5f9; }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Chakra Petch', sans-serif; margin: 0; padding: 0; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+
+        /* 헤더 */
+        header { background: rgba(30, 30, 30, 0.95); height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; border-bottom: 1px solid rgba(255, 251, 3, 0.2); }
+        .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: 1px; }
+
+        /* 글 본문 스타일 */
+        .article-container { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
+        
+        .article-header { border-bottom: 2px solid #333; padding-bottom: 20px; margin-bottom: 40px; }
+        .article-title { font-size: 2.5rem; color: var(--accent); margin: 0 0 10px 0; line-height: 1.2; }
+        .article-meta { color: #888; font-size: 0.9rem; }
+
+        .article-content h2 { color: #fff; margin-top: 40px; border-left: 5px solid var(--accent); padding-left: 15px; }
+        .article-content p { color: #ccc; font-size: 1.1rem; margin-bottom: 20px; }
+        .article-content ul { color: #ccc; margin-bottom: 20px; }
+        .article-content li { margin-bottom: 10px; }
+        
+        /* 코드 블럭 스타일 */
+        .code-box { background: #111; padding: 15px; border-radius: 8px; border: 1px solid #333; font-family: monospace; color: #a5d6ff; margin: 20px 0; overflow-x: auto; }
+
+        /* 애드센스 광고 자리 (가상) */
+        .ad-placeholder { background: #2a2a2a; border: 1px dashed #555; color: #777; padding: 30px; text-align: center; margin: 40px 0; border-radius: 8px; }
+
+        /* 뒤로가기 버튼 */
+        .back-btn { display: inline-block; margin-top: 50px; padding: 10px 20px; border: 1px solid var(--accent); color: var(--accent); border-radius: 30px; transition: 0.3s; }
+        .back-btn:hover { background: var(--accent); color: #000; font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="../index.html" class="logo">
+            <span style="color: #fff;">LEARN<span style="color: #FFFB03;">ROBOT</span></span>
+        </a>
+        <a href="../insights.html" style="color: #fff;"><i class="fas fa-arrow-left"></i> Back to Insights</a>
+    </header>
+
+    <main class="article-container">
+        <div class="article-header">
+            <h1 class="article-title">The 2026 Roadmap to Learning Robotics</h1>
+            <div class="article-meta">
+                <span><i class="far fa-calendar"></i> Jan 20, 2026</span> &nbsp;|&nbsp; 
+                <span><i class="far fa-user"></i> By Admin</span> &nbsp;|&nbsp; 
+                <span style="color: var(--accent);">#Beginner #Guide</span>
+            </div>
+        </div>
+
+        <div class="article-content">
+            <p>Robotics is one of the most exciting fields today, combining <strong>Mechanical Engineering</strong>, <strong>Electronics</strong>, and <strong>Computer Science</strong>. But where should you start? This roadmap will guide you from zero to hero.</p>
+
+            <div class="ad-placeholder">
+                [Google AdSense Area - Top]
+            </div>
+
+            <h2>Phase 1: The Foundations (No Robots Yet)</h2>
+            <p>Before buying expensive hardware, you need to understand the language of robots.</p>
+            <ul>
+                <li><strong>C++:</strong> Essential for hardware control and high-performance tasks.</li>
+                <li><strong>Python:</strong> perfect for AI, Machine Learning, and quick prototyping.</li>
+                <li><strong>Linux (Ubuntu):</strong> Most professional robot software (like ROS) runs on Linux. Don't use Windows for robotics!</li>
+            </ul>
+
+            <h2>Phase 2: Your First "Brain" (Arduino & RPi)</h2>
+            <p>Now, let's touch some hardware. You need to learn how to read sensors and move motors.</p>
+            <ul>
+                <li><strong>Arduino:</strong> Learn how to use GPIO pins. Try blinking an LED and reading a temperature sensor.</li>
+                <li><strong>Raspberry Pi:</strong> It's a mini-computer. Learn how to attach a camera and run Python scripts.</li>
+            </ul>
+
+            <div class="code-box">
+                // Example: Blinking LED in Arduino<br>
+                void setup() {<br>
+                  &nbsp;&nbsp;pinMode(13, OUTPUT);<br>
+                }<br>
+                void loop() {<br>
+                  &nbsp;&nbsp;digitalWrite(13, HIGH);<br>
+                  &nbsp;&nbsp;delay(1000);<br>
+                  &nbsp;&nbsp;digitalWrite(13, LOW);<br>
+                  &nbsp;&nbsp;delay(1000);<br>
+                }
+            </div>
+
+            <div class="ad-placeholder">
+                [Google AdSense Area - Middle]
+            </div>
+
+            <h2>Phase 3: ROS 2 (The Industry Standard)</h2>
+            <p>This is the most important step. <strong>ROS (Robot Operating System)</strong> is the middleware that allows different parts of a robot to communicate.</p>
+            <p>In 2026, make sure to learn <strong>ROS 2 (Jazzy or Humble)</strong>, not ROS 1.</p>
+
+            <h2>Conclusion</h2>
+            <p>Start small. Don't try to build a humanoid robot on day one. Start with a line-following robot, then a robotic arm, and keep growing!</p>
+        </div>
+
+        <a href="../blog.html" class="back-btn">← Back to Blog List</a>
+    </main>
+
+    <footer style="text-align:center; padding: 40px; border-top: 1px solid #333; margin-top: 40px; color: #666;">
+        &copy; 2026 Learn Robot.
+    </footer>
+
+</body>
+</html>

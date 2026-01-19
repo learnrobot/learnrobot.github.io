@@ -762,13 +762,38 @@ aside {
         <i class="fas fa-bars"></i>
     </button>
 
-    <div class="auth-buttons">
-        <div class="header-right">
-            <div class="sns-icons">
-                <a href="https://www.instagram.com/learnrobot" target="_blank" title="Instagram @learnrobot"><i class="fab fa-instagram"></i></a>
-                <a href="https://x.com/learnrobot" target="_blank" title="X (Twitter) @learnrobot"><i class="fab fa-x-twitter"></i></a>
-            </div>
+<div class="auth-buttons" style="display: flex; align-items: center; gap: 15px; height: 100%;">
+        
+        <a href="insights.html" class="btn" style="
+            background: transparent; 
+            border: 4px solid #FFFB03; 
+            color: #FFFB03; 
+            text-decoration: none; 
+            padding: 10px 24px; /* 패딩을 살짝 줄여서 높이 균형 맞춤 */
+            font-family: 'Chakra Petch';
+            font-weight: bold;
+            border-radius: 30px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem; /* 글자 크기 조정 */
+            line-height: 1;    /* 줄 간격 초기화 */
+        " onmouseover="this.style.background='#FFFB03'; this.style.color='#000'" 
+           onmouseout="this.style.background='transparent'; this.style.color='#FFFB03'">
+           INSIGHTS
+        </a>
+
+        <div class="sns-icons" style="display: flex; align-items: center; gap: 15px; margin: 0;">
+            <a href="https://www.instagram.com/learnrobot" target="_blank" title="Instagram" style="display: flex; align-items: center; color: #2C9999; font-size: 1.8rem; text-decoration: none;">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://x.com/learnrobot" target="_blank" title="X (Twitter)" style="display: flex; align-items: center; color: #2C9999; font-size: 1.8rem; text-decoration: none;">
+                <i class="fab fa-x-twitter"></i>
+            </a>
         </div>
+
+    </div>
     </div>
 </header>
 

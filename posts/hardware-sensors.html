@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Sensors for Your First Robot - Learn Robot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 스타일은 기존과 동일하게 유지 */
+        :root { --bg-dark: #1E1E1E; --accent: #FFFB03; --text-main: #f1f5f9; }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Chakra Petch', sans-serif; margin: 0; padding: 0; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        header { background: rgba(30, 30, 30, 0.95); height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; border-bottom: 1px solid rgba(255, 251, 3, 0.2); }
+        .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: 1px; }
+        .article-container { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
+        .article-title { font-size: 2.5rem; color: var(--accent); margin: 0 0 10px 0; line-height: 1.2; }
+        .article-meta { color: #888; font-size: 0.9rem; margin-bottom: 40px; border-bottom: 1px solid #333; padding-bottom: 20px; }
+        .article-content h2 { color: #fff; margin-top: 40px; border-left: 5px solid var(--accent); padding-left: 15px; }
+        .article-content p { color: #ccc; font-size: 1.1rem; margin-bottom: 20px; }
+        .article-content ul { color: #ccc; margin-bottom: 20px; }
+        .article-content li { margin-bottom: 10px; }
+        .back-btn { display: inline-block; margin-top: 50px; padding: 10px 20px; border: 1px solid var(--accent); color: var(--accent); border-radius: 30px; transition: 0.3s; }
+        .back-btn:hover { background: var(--accent); color: #000; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="../index.html" class="logo"><span style="color: #fff;">LEARN<span style="color: #FFFB03;">ROBOT</span></span></a>
+        <a href="../blog.html" style="color: #fff;"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+    </header>
+
+    <main class="article-container">
+        <h1 class="article-title">Best Sensors for Your First Robot</h1>
+        <div class="article-meta">
+            <span><i class="far fa-calendar"></i> Jan 22, 2026</span> &nbsp;|&nbsp; 
+            <span><i class="far fa-user"></i> By Admin</span>
+        </div>
+
+        <div class="article-content">
+            <p>Choosing the right "eyes" for your robot is crucial. Here is a comparison of the most popular sensors.</p>
+
+            <h2>1. Ultrasonic Sensors (HC-SR04)</h2>
+            <p>The cheapest option. It uses sound waves to detect distance. Great for avoiding walls, but bad at detecting soft objects.</p>
+
+            <h2>2. LiDAR (Light Detection and Ranging)</h2>
+            <p>The pro choice. It uses laser pulses to create a precise 2D or 3D map of the room. Essential for SLAM (Simultaneous Localization and Mapping).</p>
+
+            <h2>3. Cameras (Computer Vision)</h2>
+            <p>With AI, a simple camera can recognize objects, faces, and traffic signs. The Raspberry Pi Camera Module 3 is a great start.</p>
+        </div>
+
+        <a href="../blog.html" class="back-btn">← Back to Blog List</a>
+    </main>
+</body>
+</html>
