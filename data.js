@@ -200,6 +200,7 @@ let links = [
     { id: 1391, title: "Skyline Robotics<br>(OZMO Window Cleaner)", category: "Home & BLDG", source: "High-rise Window Cleaning", url: "https://skylinerobotics.com/", country: "us" },
     { id: 1392, title: "Avidbots<br>(Neo Floor Scrubber)", category: "Home & BLDG", source: "Commercial Facility Cleaning", url: "https://www.avidbots.com/", country: "ca" },
     { id: 1400, title: "Knightscope<br>(Security Robot)", category: "Home & BLDG", source: "24/7 Building Surveillance", url: "https://www.knightscope.com/", country: "us" },
+    { id: 4002, title: "LG Electronics<br>(Smart Home AI Agent)", category: "Service", source: "Two-Legged Mobile Smart Home Hub", url: "https://www.lgnewsroom.com/2023/12/lg-to-unveil-smart-home-ai-agent-at-ces-2024/", country: "kr" },
 
     // AI
     { id: 801, title: "OpenAI (ChatGPT)", category: "ai", source: "OpenAI", url: "https://openai.com/", country: "us" }, 
