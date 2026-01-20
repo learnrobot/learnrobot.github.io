@@ -286,7 +286,7 @@ let links = [
     { id: 30060, title: "University of Oxford (Oxford Robotics Institute)", category: "Research", sub: "Mobile & Field Robotics", url: "https://ori.ox.ac.uk/", country: "gb" },
     { id: 30063, title: "Delft University of Technology (TU Delft)", category: "Research", sub: "Cognitive Robotics", url: "https://www.tudelft.nl/en/ai/robotics", country: "nl" },
     { id: 30064, title: "Georgia Institute of Technology (Georgia Tech)", category: "Research", sub: "Institute for Robotics", url: "https://robotics.gatech.edu/", country: "us" },
-    { id: 30070, title: "Johns Hopkins LCSR", category: "Research", sub: "Computer Integrated Surgery", url: "https://lcsr.jhu.edu/", country: "us" },
+    { id: 3020, title: "Johns Hopkins LCSR<br>(Computational Sensing & Medical Robotics)", category: "Research", source: "Global Leader in Surgical & Healthcare Robotics", url: "https://lcsr.jhu.edu/", country: "us" },
     { id: 30071, title: "Wyss Institute (Harvard)", category: "Research", sub: "Soft Medical Robotics", url: "https://wyss.harvard.edu/", country: "us" },
     { id: 30072, title: "Hamlyn Centre (Imperial)", category: "Research", sub: "Robotic Surgery", url: "https://www.imperial.ac.uk/hamlyn-centre/", country: "gb" },
     { id: 3015, title: "RoMeLa (UCLA)<br>(Creative Robotics & Mechanisms Lab)", category: "Research", source: "Led by Prof. Dennis Hong", url: "https://www.romela.org/", country: "us" },
