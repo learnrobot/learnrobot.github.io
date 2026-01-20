@@ -76,18 +76,25 @@
 }
 /* robot links by nation 스타일 */
 .country-stats-overlay {
-    position: absolute; top: 25%; right: 1%;
+    position: absolute; 
+    top: 3%; /* 위치를 조금 위로 조정 */
+    right: 1%; /* 오른쪽 여백 확보 */
     
-    /* 0.5를 0.2로 변경하여 더 투명하게 만듦 */
-    background: rgba(0, 0, 0, 0.2); 
+    background: rgba(0, 0, 0, 0.5); /* 가독성을 위해 배경을 좀 더 어둡게 */
+    backdrop-filter: blur(5px);
     
-    /* (선택사항) 뒤에 있는 글자가 선명하게 보이려면 흐림 효과도 줄이세요 (8px -> 3px 또는 삭제) */
-    backdrop-filter: blur(1px);
+    padding: 20px; 
+    border-radius: 12px; 
+    border: 1px solid rgba(44, 153, 153, 0.3);
     
-    padding: 10px; border-radius: 7px; border: 0px solid rgba(255, 251, 3, 0.4);
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    width: auto;
-    gap: 12px; z-index: 5; pointer-events: none;
+    /* [핵심] 세로 정렬 설정 */
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; /* 항목 간 간격 */
+    
+    width: 130px; /* 너비 고정 (세로로 길게 보기 위함) */
+    z-index: 5; 
+    pointer-events: none; /* 클릭 통과 */
 }
 .stats-title {
     grid-column: span 12 !important; 
@@ -682,26 +689,41 @@ aside {
 
 /* robot links by nation 스타일 - 선택자를 구체적으로 적어 우선순위 확보 */
 .country-stats-overlay .stats-title {
-    grid-column: span 3 !important; 
-    color: #FFFFFF !important; 
-    /* 글자 크기를 18px(약 1.1rem)로 확실히 고정 */
-    font-size: 18px !important; 
+    /* 기존 grid 관련 속성 제거 및 초기화 */
+    grid-column: auto !important; 
+    width: 100%;
+    
+    color: #2C9999 !important; 
+    font-size: 1.1rem !important; 
     font-weight: 900 !important; 
-    letter-spacing: 1.5px !important; 
-    margin-bottom: 8px !important; 
-    border-bottom: 1px solid rgba(44, 153, 153, 0.3) !important; 
-    padding-bottom: 5px !important; 
-    font-family: 'Chakra Petch', sans-serif !important; 
-    text-transform: none !important;
-    display: block !important; /* 확실한 노출 보장 */
+    letter-spacing: 1px !important; 
+    margin-bottom: 10px !important; 
+    border-bottom: 2px solid rgba(44, 153, 153, 0.5) !important; 
+    padding-bottom: 8px !important; 
+    text-align: left; /* 왼쪽 정렬 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
 .stats-title {
     grid-column: span 3; color: #2C9999; font-size: 1.7rem; font-weight: 900; 
     letter-spacing: 1.5px; margin-bottom: 5px; border-bottom: 1px solid rgba(44, 153, 153, 0.3); 
     padding-bottom: 3px; font-family: 'Chakra Petch', sans-serif; text-transform: none;
 }
-.stat-item { display: flex; align-items: center; gap: 8px; font-family: 'Chakra Petch', sans-serif; color: #fff; font-size: 0.9rem; }
-.stat-count { color: #FFFB03; font-weight: 700; }
+.stat-item { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; /* 국기는 왼쪽, 숫자는 오른쪽 끝에 배치 */
+    width: 100%;
+    font-family: 'Chakra Petch', sans-serif; 
+    color: #fff; 
+    font-size: 1rem; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* 얇은 구분선 추가 */
+    padding-bottom: 4px;
+}
+.stat-count { 
+    color: #FFFB03; 
+    font-weight: 700; 
+    font-size: 1.1rem;
+}
 /* 우측 하단 고정 플레이/일시정지 버튼 */
 /* 우측 하단 고정 플레이/일시정지 버튼 (알약 모양) */
 #bg-toggle-btn {
@@ -1041,14 +1063,35 @@ function removeCountryStats() {
 function renderCountryStats() {
     const mainArea = document.querySelector('main');
     if (!mainArea) return;
-    removeCountryStats();
+    
+    removeCountryStats(); // 기존 통계창 삭제
+
     const statsOverlay = document.createElement('div');
     statsOverlay.className = 'country-stats-overlay';
+
+    // 국가별 카운트 계산
     const counts = {};
-    links.forEach(l => { if (l.country) counts[l.country] = (counts[l.country] || 0) + 1; });
+    links.forEach(l => { 
+        if (l.country) counts[l.country] = (counts[l.country] || 0) + 1; 
+    });
+
+    // [정렬 로직] 내림차순 정렬 (이미 되어있던 부분)
     const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-    let html = `<div class="stats-title" style="grid-column: span 3;">Robot links by nation</div>`;
-    html += sorted.slice(0, 12).map(([code, count]) => `<div class="stat-item"><span class="fi fi-${code}"></span><span class="stat-count">${count}</span></div>`).join('');
+
+    // 제목 생성 (Grid 속성 제거됨)
+    let html = `<div class="stats-title">Robot Links <br> by nation</div>`;
+
+    // 상위 12개 국가만 표시 (세로로 너무 길어지지 않게 조절)
+    // map 함수 안에 인덱스(i)를 추가하여 순위(1, 2, 3...) 표시 가능
+    html += sorted.slice(0, 12).map(([code, count], index) => `
+        <div class="stat-item">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <span style="color:#888; font-size:0.8rem; width:15px;">${index + 1}</span> <span class="fi fi-${code}"></span>
+            </div>
+            <span class="stat-count">${count}</span>
+        </div>
+    `).join('');
+
     statsOverlay.innerHTML = html;
     mainArea.appendChild(statsOverlay);
 }
