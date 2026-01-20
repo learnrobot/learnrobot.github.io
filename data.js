@@ -179,7 +179,7 @@ let links = [
     { id: 1009, title: "Moxie Robot<br>(AI Social Companion)", category: "Home & BLDG", source: "Learning Robot", url: "https://embodied.com/", country: "us" },
     { id: 1010, title: "Narwal Robotics<br>(All for Clean Home)", category: "Home & BLDG", source: "Cleaning Robot", url: "https://shop.narwal.com/", country: "cn" },
     { id: 1011, title: "Roborock<br>(Robotic Vacuum Cleaner)", category: "Home & BLDG", source: "Smart Home", url: "https://global.roborock.com/", country: "cn" },
-    { id: 1012, title: "Samsung Ballie<br>(Robot companion)", category: "Home & BLDG", source: "Samsung", url: "https://www.samsung.com/global/home-robot-ballie/", country: "kr" },
+    { id: 1012, title: "Samsung Ballie<br>(Robot companion)", category: "Home & BLDG", source: "Samsung", url: "https://news.samsung.com/us/samsung-ballie-ai-companion-robot-home-video-ces-2024", country: "kr" },
     { id: 1107, title: "Intuition Robotics<br>(AI care companion robot)", category: "Home & BLDG", sub: "Social Companion AI", url: "https://www.intuitionrobotics.com/", country: "il" },
     { id: 1140, title: "Aiper<br>(Cordless Pool Cleaner)", category: "Home & BLDG", source: "Cordless Pool Cleaner", url: "https://aiper.com/", country: "us" },
     { id: 1150, title: "Tombot<br>(Jennie emotional support)", category: "Home & BLDG", source: "Emotional Support Robot Dog", url: "https://www.tombot.com/", country: "us" },
