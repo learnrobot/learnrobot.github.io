@@ -223,7 +223,6 @@ let links = [
     { id: 707, title: "Clobot (Robot Control)", category: "software", source: "Korea S/W Leader", url: "https://www.clobot.co.kr/", country: "kr" },
     { id: 708, title: "RobotStudio", category: "software", source: "ABB Robotics", url: "https://new.abb.com/products/robotics/robotstudio", country: "ch" },
     { id: 709, title: "SolidWorks (Robot Design)", category: "software", source: "Dassault Systèmes", url: "https://www.solidworks.com/", country: "fr" },
-    { id: 710, title: "AWS RoboMaker", category: "software", source: "Amazon Web Services", url: "https://aws.amazon.com/robomaker/", country: "us" },
     { id: 711, title: "Formant (Cloud Robotics)", category: "software", source: "Robot Management", url: "https://formant.io/", country: "us" },
     { id: 712, title: "CloudMinds (HARIX OS)", category: "software", source: "Cloud Robot Pioneer", url: "https://www.cloudminds.com/", country: "cn" },
     { id: 713, title: "Clobot (CROMS)", category: "software", source: "Korea Fleet Management", url: "https://www.clobot.co.kr/", country: "kr" },
