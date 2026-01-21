@@ -62,7 +62,7 @@ let links = [
     { id: 417, title: "Reeman Robotics (Platform & Service)", category: "service", source: "Reeman", url: "https://www.reemanrobot.com/", country: "cn" },
     { id: 1104, title: "Rosenbauer Robotics", category: "service", sub: "Firefighting Robots", url: "https://www.rosenbauer.com/", country: "at" },
     { id: 450, title: "Diligent Robotics (Moxi)", category: "service", source: "Hospital Service Robot", url: "https://www.diligentrobots.com/", country: "us" },
-    { id: 1100, title: "United Robotics Group (URG)", category: "service", source: "Service Robotics Ecosystem", url: "https://unitedrobotics.group/en-us", country: "de" },
+    { id: 1100, title: "United Robotics Group (URG)", category: "service", source: "Service Robotics Ecosystem", url: "https://unitedrobotics.group/en-us", country: "de" },{ id: 4006, title: "Diligent Robotics<br>(Moxi - Hospital Support Robot)", category: "Service", source: "Nurse Assistant with Manipulator Arm", url: "https://diligentrobots.com/", country: "us" },
            
     // Mobility 
     { id: 501, title: "Waymo<br>(Ride-hailing service)", category: "mobility", source: "Alphabet", url: "https://waymo.com/", country: "us" },
@@ -80,6 +80,11 @@ let links = [
     { id: 1220, title: "GoLe Robotics<br>(Smart Construction & Logistics)", category: "mobility", source: "Smart Construction & Logistics", url: "http://golerobotics.com/", country: "kr" },
     { id: 502, title: "Tesla<br>(Autonomous Ecosystem: Cybercab & Optimus)", category: "mobility", source: "The Future of Autonomous Life", url: "https://www.tesla.com/we-robot", country: "us" },
     { id: 106, title: "GAC Group<br>(Intelligent Mobility & Flying Robot)", category: "mobility", source: "GAC", url: "https://www.gac.com.cn/", country: "cn" }, 
+
+    // Marine (Underwater & Subsea Robots) ---
+    { id: 6001, title: "WHOI<br>(Alvin & Remus - Deep Sea Exploration)", category: "Marine", source: "Discovered Titanic / Premier Ocean Research", url: "https://www.whoi.edu/what-are-ocean-robots/", country: "us" },
+    { id: 6002, title: "Eelume<br>(Snake-like Subsea Robot)", category: "Marine", source: "Autonomous Maintenance for Subsea Infrastructure", url: "https://eelume.com/", country: "no" },
+    { id: 6003, title: "QYSEA<br>(FIFISH Underwater Drones)", category: "Marine", source: "Consumer & Industrial Underwater Exploration", url: "https://www.qysea.com/", country: "cn" },
     
     // Medical
     { id: 3001, title: "Intuitive Surgical (Da Vinci)", category: "medical", source: "Intuitive Surgical", url: "https://www.intuitive.com/", country: "us" }, 
@@ -143,6 +148,7 @@ let links = [
     { id: 661, title: "Schneider Electric (Industrial AI)", category: "automation", source: "Digital Automation", url: "https://www.se.com/", country: "fr" },
     { id: 1115, title: "KION Group<br>(Linde, STILL & Dematic Automation Solutions)", category: "logistics", source: "Global Leader in Smart Supply Chain & Industrial Trucks", url: "https://www.kiongroup.com/en/", country: "de" },
     { id: 1104, title: "OTTO Motors<br>(Material Handling AMRs)", category: "logistics", source: "A Rockwell Automation Company", url: "https://ottomotors.com/", country: "ca" },
+    { id: 1116, title: "Serve Robotics<br>(AI-Powered Sidewalk Delivery)", category: "logistics", source: "Uber Spinoff Leading Last-Mile Autonomy", url: "https://www.serverobotics.com/", country: "us" },
     
     // Wearables
     { id: 1201, title: "Cyberdyne<br>(HAL Hybrid Assistive Limb)", category: "wearable", source: "Pioneer in Cybernic Technology", url: "https://www.cyberdyne.jp/english/", country: "jp" },
