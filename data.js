@@ -165,6 +165,7 @@ let links = [
     { id: 1212, title: "Wandercraft<br>(Atalante Self-Balancing Exoskeleton)", category: "wearable", source: "Hands-free Rehabilitation Robot", url: "https://www.wandercraft.eu/", country: "fr" },
     { id: 1213, title: "Innophys<br>(Every Muscle Suit)", category: "wearable", source: "Electricity-free Pneumatic Support", url: "https://innophys.jp/en/", country: "jp" },
     { id: 1214, title: "Roam Robotics<br>(Forge Soft Exoskeleton)", category: "wearable", source: "Pneumatic Knee & Mobility Support", url: "https://www.roamrobotics.com/", country: "us" },
+    { id: 1215, title: "Trexo Robotics<br>(Pediatric Wearable Exoskeleton)", category: "Wearable", source: "Robotic Legs for Children with Disabilities", url: "https://trexorobotics.com/", country: "ca" },
     
     // Home & BLDG 
     { id: 1450, title: "DEEP Robotics<br>(Industrial All-Terrain Inspection Robot)", category: "Home & BLDG", source: "Pioneering Embodied AI Technology", url: "https://www.deeprobotics.cn/en/", country: "cn"},
