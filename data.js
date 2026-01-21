@@ -91,7 +91,6 @@ let links = [
     { id: 3007, title: "Koh Young Technology", category: "medical", source: "Koh Young Technology", url: "https://www.kohyoung.com/", country: "kr" }, 
     { id: 3008, title: "MedinTeq (Endoscopy Robot)", category: "medical", source: "MedinTeq", url: "https://medintech.co.kr/", country: "kr" }, 
     { id: 1106, title: "ReWalk Robotics", category: "medical", sub: "Exoskeleton Rehab", url: "https://rewalk.com/", country: "il" },
-    { id: 3050, title: "Wandercraft", category: "medical", source: "Exoskeleton", url: "https://www.wandercraft.eu/", country: "fr" },
     { id: 3051, title: "Zimmer Biomet (ROSA Robotics)", category: "medical", source: "Brain & Knee Surgery", url: "https://www.zimmerbiomet.com/en/products-and-solutions/zb-edge/rosa.html", country: "us" },
     { id: 3052, title: "Smith+Nephew (Cori Surgical System)", category: "medical", source: "Handheld Robotics", url: "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/cori", country: "gb" },
     { id: 3053, title: "Ekso Bionics (EksoNR)", category: "medical", source: "Rehabilitation Exoskeleton", url: "https://eksobionics.com/", country: "us" },
@@ -166,6 +165,7 @@ let links = [
     { id: 1213, title: "Innophys<br>(Every Muscle Suit)", category: "wearable", source: "Electricity-free Pneumatic Support", url: "https://innophys.jp/en/", country: "jp" },
     { id: 1214, title: "Roam Robotics<br>(Forge Soft Exoskeleton)", category: "wearable", source: "Pneumatic Knee & Mobility Support", url: "https://www.roamrobotics.com/", country: "us" },
     { id: 1215, title: "Trexo Robotics<br>(Pediatric Wearable Exoskeleton)", category: "Wearable", source: "Robotic Legs for Children with Disabilities", url: "https://trexorobotics.com/", country: "ca" },
+    { id: 1217, title: "Angel Robotics<br>(Wearable Suits for Rehab & Industry)", category: "Wearable", source: "Cybathlon Gold Medalist & KAIST Spin-off", url: "https://angel-robotics.com/en/", country: "kr" },
     
     // Home & BLDG 
     { id: 1450, title: "DEEP Robotics<br>(Industrial All-Terrain Inspection Robot)", category: "Home & BLDG", source: "Pioneering Embodied AI Technology", url: "https://www.deeprobotics.cn/en/", country: "cn"},
