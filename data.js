@@ -40,6 +40,10 @@ let links = [
     { id: 221, title: "Rockwell Automation", category: "Industrial", source: "Digital Transformation", url: "https://www.rockwellautomation.com/", country: "us" },
     { id: 1102, title: "Robotnik (A URG Company)", category: "Industrial", source: "Mobile & Industrial Robots", url: "https://robotnik.eu/", country: "es" },
     { id: 215, title: "NAU Robotics<br>(Smart Industrial & Logistics)", category: "Industrial", source: "Leading K-Robot Automation Solutions", url: "https://www.naurobot.com/", country: "kr" },
+    { id: 230, title: "OMRON Robotics<br>(Industrial & Collaborative)", category: "Industrial", source: "Integrated Automation & AI", url: "https://robotics.omron.com/", country: "jp" },
+    { id: 231, title: "Stäubli Robotics<br>(High-Precision & Cleanroom)", category: "Industrial", source: "Swiss Precision Robotics", url: "https://www.staubli.com/en-us/robotics/", country: "ch" },
+    { id: 232, title: "Comau<br>(Stellantis Automation)", category: "Industrial", source: "Automotive & Industrial Arms", url: "https://www.comau.com/en/", country: "it" },
+    { id: 1451, title: "ANYbotics<br>(ANYmal - Industrial Inspection)", category: "Home & BLDG", source: "Autonomous Legged Inspection Robot", url: "https://www.anybotics.com/", country: "ch" },
 
     // Service
     { id: 401, title: "SoftBank Robotics", category: "service", source: "SoftBank", url: "https://www.softbankrobotics.com/", country: "jp" }, 
@@ -149,6 +153,10 @@ let links = [
     { id: 1115, title: "KION Group<br>(Linde, STILL & Dematic Automation Solutions)", category: "logistics", source: "Global Leader in Smart Supply Chain & Industrial Trucks", url: "https://www.kiongroup.com/en/", country: "de" },
     { id: 1104, title: "OTTO Motors<br>(Material Handling AMRs)", category: "logistics", source: "A Rockwell Automation Company", url: "https://ottomotors.com/", country: "ca" },
     { id: 1116, title: "Serve Robotics<br>(AI-Powered Sidewalk Delivery)", category: "logistics", source: "Uber Spinoff Leading Last-Mile Autonomy", url: "https://www.serverobotics.com/", country: "us" },
+    { id: 1120, title: "Geek+<br>(Global Market Leader in AMR)", category: "logistics", source: "World's #1 AMR Market Share", url: "https://www.geekplus.com/", country: "cn" },
+    { id: 1121, title: "AutoStore<br>(Cube Storage Automation)", category: "logistics", source: "High-Density Warehouse Robotics", url: "https://www.autostoresystem.com/", country: "no" },
+    { id: 1122, title: "Zipline<br>(Autonomous Drone Delivery)", category: "logistics", source: "Life-Saving Medical Delivery Drone", url: "https://www.zipline.com/", country: "us" },
+    { id: 1123, title: "Wing<br>(Alphabet Drone Delivery)", category: "logistics", source: "Google's Drone Delivery Service", url: "https://wing.com/", country: "us" },
     
     // Wearables
     { id: 1201, title: "Cyberdyne<br>(HAL Hybrid Assistive Limb)", category: "wearable", source: "Pioneer in Cybernic Technology", url: "https://www.cyberdyne.jp/english/", country: "jp" },
