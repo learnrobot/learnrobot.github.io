@@ -227,10 +227,11 @@ let links = [
     { id: 1105, title: "ZenRobotics", category: "ai", sub: "AI Waste Sorting", url: "https://zenrobotics.com/", country: "fi" },
     { id: 720, title: "Scale AI", category: "ai", source: "Data Infrastructure", url: "https://scale.com/", country: "us" },
     { id: 807, title: "Mistral AI", category: "ai", source: "Frontier AI Models (France)", url: "https://mistral.ai/", country: "fr" },
+    { id: 731, title: "DeepSeek<br>(Open Source AGI & Reasoning)", category: "ai", source: "Vision-Language AI for Robot Brains", url: "https://www.deepseek.com/", country: "cn" },
     
     // Software
     { id: 701, title: "ROS (Robot Operating System)", category: "software", source: "Open Source", url: "https://www.ros.org/", country: "us" }, 
-    { id: 702, title: "NVIDIA Isaac Sim", category: "software", source: "NVIDIA", url: "https://developer.nvidia.com/isaac-sim", country: "us" }, 
+    { id: 702, title: "NVIDIA Isaac Sim", category: "software", source: "NVIDIA", url: "https://developer.nvidia.com/isaac", country: "us" }, 
     { id: 703, title: "MATLAB & Simulink", category: "software", source: "MathWorks", url: "https://www.mathworks.com/solutions/robotics.html", country: "us" },
     { id: 704, title: "Gazebo Simulator", category: "software", source: "Open Source Robotics", url: "https://gazebosim.org/", country: "us" },
     { id: 705, title: "Intrinsic (Alphabet)", category: "software", source: "Google Subsidiary", url: "https://www.intrinsic.ai/", country: "us" },
