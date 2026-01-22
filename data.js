@@ -66,8 +66,8 @@ let links = [
     { id: 417, title: "Reeman Robotics (Platform & Service)", category: "service", source: "Reeman", url: "https://www.reemanrobot.com/", country: "cn" },
     { id: 1104, title: "Rosenbauer Robotics", category: "service", sub: "Firefighting Robots", url: "https://www.rosenbauer.com/", country: "at" },
     { id: 450, title: "Diligent Robotics (Moxi)", category: "service", source: "Hospital Service Robot", url: "https://www.diligentrobots.com/", country: "us" },
-    { id: 1100, title: "United Robotics Group (URG)", category: "service", source: "Service Robotics Ecosystem", url: "https://unitedrobotics.group/en-us", country: "de" },{ id: 4006, title: "Diligent Robotics<br>(Moxi - Hospital Support Robot)", category: "Service", source: "Nurse Assistant with Manipulator Arm", url: "https://diligentrobots.com/", country: "us" },
-           
+    { id: 1100, title: "United Robotics Group (URG)", category: "service", source: "Service Robotics Ecosystem", url: "https://unitedrobotics.group/en-us", country: "de" },
+               
     // Mobility 
     { id: 501, title: "Waymo<br>(Ride-hailing service)", category: "mobility", source: "Alphabet", url: "https://waymo.com/", country: "us" },
     { id: 502, title: "Tesla<br>(FSD/Robotaxi)", category: "mobility", source: "Tesla Inc.", url: "https://www.tesla.com/AI", country: "us" },
@@ -161,7 +161,6 @@ let links = [
     // Wearables
     { id: 1201, title: "Cyberdyne<br>(HAL Hybrid Assistive Limb)", category: "wearable", source: "Pioneer in Cybernic Technology", url: "https://www.cyberdyne.jp/english/", country: "jp" },
     { id: 1202, title: "German Bionic<br>(Smart Industrial Exoskeleton)", category: "wearable", source: "AI-Powered Lumbar Support for Workers", url: "https://www.germanbionic.com/", country: "de" },
-    { id: 1203, title: "Ekso Bionics<br>(Medical & Industrial Exoskeletons)", category: "wearable", source: "Leader in Human Augmentation", url: "https://eksobionics.com/", country: "us" },
     { id: 1204, title: "Lifeward (ReWalk)<br>(Personal Mobility Exoskeleton)", category: "wearable", source: "Empowering People with Mobility Impairment", url: "https://www.lifeward.com/", country: "us" },
     { id: 1103, title: "Comau MATE<br>(Upper-limb Work Support)", category: "wearable", source: "Ergonomic Industrial Wearable", url: "https://www.comau.com/en/competencies/robotics/wearable-robotics/", country: "it" },
     { id: 1205, title: "Hyundai Rotem<br>(X-ble Wearable Robot Series)", category: "wearable", source: "Industrial & Medical Muscle Support", url: "https://www.hyundai-rotem.co.kr/Business/Robot/Business_Intro.asp", country: "kr" },
@@ -171,10 +170,7 @@ let links = [
     { id: 1209, title: "Hilti (EXO-O1)<br>(Construction Wearable Robot)", category: "wearable", source: "Overhead Task Muscle Relief", url: "https://www.hilti.com/c/CLS_EXOSKELETONS", country: "li" },
     { id: 1210, title: "WIRobotics<br>(WIM Everyday Mobility Gear)", category: "wearable", source: "Ultra-Lightweight Walk Assist", url: "https://wirobotics.com/", country: "kr" },
     { id: 1211, title: "Bionik Labs<br>(InMotion Rehabilitation Robot)", category: "wearable", source: "AI-Driven Neuro-Recovery Solution", url: "https://www.bioniklabs.com/", country: "ca" },
-    { id: 1201, title: "Cyberdyne<br>(HAL Hybrid Assistive Limb)", category: "wearable", source: "Pioneer in Cybernic Technology", url: "https://www.cyberdyne.jp/english/", country: "jp" },
-    { id: 1202, title: "German Bionic<br>(Smart Industrial Exoskeleton)", category: "wearable", source: "AI-Powered Lumbar Support for Workers", url: "https://www.germanbionic.com/", country: "de" },
     { id: 1203, title: "Ekso Bionics<br>(Medical & Industrial Exoskeletons)", category: "wearable", source: "Leader in Human Augmentation", url: "https://eksobionics.com/", country: "us" },
-    { id: 1205, title: "Hyundai Rotem<br>(X-ble Wearable Robot Series)", category: "wearable", source: "Industrial & Medical Muscle Support", url: "https://www.hyundai-rotem.co.kr/Business/Robot/Business_Intro.asp", country: "kr" },
     { id: 1212, title: "Wandercraft<br>(Atalante Self-Balancing Exoskeleton)", category: "wearable", source: "Hands-free Rehabilitation Robot", url: "https://www.wandercraft.eu/", country: "fr" },
     { id: 1213, title: "Innophys<br>(Every Muscle Suit)", category: "wearable", source: "Electricity-free Pneumatic Support", url: "https://innophys.jp/en/", country: "jp" },
     { id: 1214, title: "Roam Robotics<br>(Forge Soft Exoskeleton)", category: "wearable", source: "Pneumatic Knee & Mobility Support", url: "https://www.roamrobotics.com/", country: "us" },
@@ -215,7 +211,7 @@ let links = [
     { id: 1391, title: "Skyline Robotics<br>(OZMO Window Cleaner)", category: "Home & BLDG", source: "High-rise Window Cleaning", url: "https://skylinerobotics.com/", country: "us" },
     { id: 1392, title: "Avidbots<br>(Neo Floor Scrubber)", category: "Home & BLDG", source: "Commercial Facility Cleaning", url: "https://www.avidbots.com/", country: "ca" },
     { id: 1400, title: "Knightscope<br>(Security Robot)", category: "Home & BLDG", source: "24/7 Building Surveillance", url: "https://www.knightscope.com/", country: "us" },
-    { id: 4002, title: "LG Electronics<br>(Smart Home AI Agent)", category: "Service", source: "Two-Legged Mobile Smart Home Hub", url: "https://www.lgnewsroom.com/2023/12/lg-to-unveil-smart-home-ai-agent-at-ces-2024/", country: "kr" },
+    { id: 4002, title: "LG Electronics<br>(Smart Home AI Agent)", category: "service", source: "Two-Legged Mobile Smart Home Hub", url: "https://www.lgnewsroom.com/2023/12/lg-to-unveil-smart-home-ai-agent-at-ces-2024/", country: "kr" },
 
     // AI
     { id: 801, title: "OpenAI (ChatGPT)", category: "ai", source: "OpenAI", url: "https://openai.com/", country: "us" }, 
