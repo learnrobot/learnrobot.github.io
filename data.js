@@ -44,6 +44,7 @@ let links = [
     { id: 231, title: "Stäubli Robotics<br>(High-Precision & Cleanroom)", category: "Industrial", source: "Swiss Precision Robotics", url: "https://www.staubli.com/en-us/robotics/", country: "ch" },
     { id: 232, title: "Comau<br>(Stellantis Automation)", category: "Industrial", source: "Automotive & Industrial Arms", url: "https://www.comau.com/en/", country: "it" },
     { id: 1451, title: "ANYbotics<br>(ANYmal - Industrial Inspection)", category: "Home & BLDG", source: "Autonomous Legged Inspection Robot", url: "https://www.anybotics.com/", country: "ch" },
+    { id: 1150, title: "Canvas<br>(Drywall Finishing Robot)", category: "Industrial", sub: "Construction Robotics", url: "https://www.canvas.build/", country: "us" },
 
     // Service
     { id: 401, title: "SoftBank Robotics", category: "service", source: "SoftBank", url: "https://www.softbankrobotics.com/", country: "jp" }, 
@@ -67,6 +68,11 @@ let links = [
     { id: 1104, title: "Rosenbauer Robotics", category: "service", sub: "Firefighting Robots", url: "https://www.rosenbauer.com/", country: "at" },
     { id: 450, title: "Diligent Robotics (Moxi)", category: "service", source: "Hospital Service Robot", url: "https://www.diligentrobots.com/", country: "us" },
     { id: 1100, title: "United Robotics Group (URG)", category: "service", source: "Service Robotics Ecosystem", url: "https://unitedrobotics.group/en-us", country: "de" },
+    { id: 460, title: "Simbe Robotics<br>(Tally - Retail Inventory Robot)", category: "service", source: "Store Intelligence Solution", url: "https://www.simberobotics.com/", country: "us" },
+    { id: 1391, title: "Skyline Robotics<br>(OZMO Window Cleaner)", category: "service", source: "High-rise Window Cleaning", url: "https://skylinerobotics.com/", country: "us" },
+    { id: 1392, title: "Avidbots<br>(Neo Floor Scrubber)", category: "service", source: "Commercial Facility Cleaning", url: "https://www.avidbots.com/", country: "ca" },
+    { id: 1400, title: "Knightscope<br>(Security Robot)", category: "service", source: "24/7 Building Surveillance", url: "https://www.knightscope.com/", country: "us" },
+    { id: 1450, title: "DEEP Robotics<br>(Industrial All-Terrain Inspection Robot)", category: "service", source: "Pioneering Embodied AI Technology", url: "https://www.deeprobotics.cn/en/", country: "cn"},
                
     // Mobility 
     { id: 501, title: "Waymo<br>(Ride-hailing service)", category: "mobility", source: "Alphabet", url: "https://waymo.com/", country: "us" },
@@ -157,6 +163,8 @@ let links = [
     { id: 1121, title: "AutoStore<br>(Cube Storage Automation)", category: "logistics", source: "High-Density Warehouse Robotics", url: "https://www.autostoresystem.com/", country: "no" },
     { id: 1122, title: "Zipline<br>(Autonomous Drone Delivery)", category: "logistics", source: "Life-Saving Medical Delivery Drone", url: "https://www.zipline.com/", country: "us" },
     { id: 1123, title: "Wing<br>(Alphabet Drone Delivery)", category: "logistics", source: "Google's Drone Delivery Service", url: "https://wing.com/", country: "us" },
+    { id: 1125, title: "Hai Robotics<br>(Autonomous Case-handling Robot)", category: "logistics", source: "Pioneer of ACR Systems", url: "https://www.hairobotics.com/", country: "cn" },
+    { id: 1126, title: "Ocado Group<br>(Grocery Fulfillment)", category: "logistics", source: "Grocery Automation Grid", url: "https://www.ocadogroup.com/", country: "gb" },
     
     // Wearables
     { id: 1201, title: "Cyberdyne<br>(HAL Hybrid Assistive Limb)", category: "wearable", source: "Pioneer in Cybernic Technology", url: "https://www.cyberdyne.jp/english/", country: "jp" },
@@ -177,41 +185,37 @@ let links = [
     { id: 1215, title: "Trexo Robotics<br>(Pediatric Wearable Exoskeleton)", category: "Wearable", source: "Robotic Legs for Children with Disabilities", url: "https://trexorobotics.com/", country: "ca" },
     { id: 1217, title: "Angel Robotics<br>(Wearable Suits for Rehab & Industry)", category: "Wearable", source: "Cybathlon Gold Medalist & KAIST Spin-off", url: "https://angel-robotics.com/en/", country: "kr" },
     
-    // Home & BLDG 
-    { id: 1450, title: "DEEP Robotics<br>(Industrial All-Terrain Inspection Robot)", category: "Home & BLDG", source: "Pioneering Embodied AI Technology", url: "https://www.deeprobotics.cn/en/", country: "cn"},
-    { id: 1001, title: "Amazon<br>(Astro Home Robot)", category: "Home & BLDG", source: "Amazon", url: "https://www.aboutamazon.com/news/devices/meet-astro-a-home-robot-unlike-any-other", country: "us" }, 
-    { id: 1002, title: "iRobot<br>(Roomba & Braava)", category: "Home & BLDG", source: "iRobot", url: "https://www.irobot.com/", country: "us" }, 
-    { id: 1003, title: "Sony<br>(aibo Robotic Companion)", category: "Home & BLDG", source: "Sony", url: "https://us.aibo.com/", country: "jp" }, 
-    { id: 1004, title: "Dreame Technology<br>(Window Cleaning Robot)", category: "Home & BLDG", source: "Smart Cleaning", url: "https://global.dreametech.com/", country: "cn" },
-    { id: 1005, title: "Ecovacs Robotics<br>(Intelligent Home Service)", category: "Home & BLDG", source: "Service Robots", url: "https://www.ecovacs.com/", country: "cn" },
-    { id: 1006, title: "Enabot (EBO)<br>(Family robot)", category: "Home & BLDG", source: "Companion Robot", url: "https://www.enabot.com/", country: "cn" },
-    { id: 1007, title: "Labrador Systems<br>(Assistive Robot)", category: "Home & BLDG", source: "Assistive Robot", url: "https://labradorsystems.com/", country: "us" },
-    { id: 1008, title: "LIVING.AI<br>(EMO & AIBI Desktop Pet)", category: "Home & BLDG", source: "AI Desktop Pet", url: "https://living.ai/", country: "cn" },
-    { id: 1009, title: "Moxie Robot<br>(AI Social Companion)", category: "Home & BLDG", source: "Learning Robot", url: "https://embodied.com/", country: "us" },
-    { id: 1010, title: "Narwal Robotics<br>(All for Clean Home)", category: "Home & BLDG", source: "Cleaning Robot", url: "https://shop.narwal.com/", country: "cn" },
-    { id: 1011, title: "Roborock<br>(Robotic Vacuum Cleaner)", category: "Home & BLDG", source: "Smart Home", url: "https://global.roborock.com/", country: "cn" },
-    { id: 1012, title: "Samsung Ballie<br>(Robot companion)", category: "Home & BLDG", source: "Samsung", url: "https://news.samsung.com/us/samsung-ballie-ai-companion-robot-home-video-ces-2024", country: "kr" },
-    { id: 1107, title: "Intuition Robotics<br>(AI care companion robot)", category: "Home & BLDG", sub: "Social Companion AI", url: "https://www.intuitionrobotics.com/", country: "il" },
-    { id: 1140, title: "Aiper<br>(Cordless Pool Cleaner)", category: "Home & BLDG", source: "Cordless Pool Cleaner", url: "https://aiper.com/", country: "us" },
+    // Home 
+    { id: 1001, title: "Amazon<br>(Astro Home Robot)", category: "Home", source: "Amazon", url: "https://www.aboutamazon.com/news/devices/meet-astro-a-home-robot-unlike-any-other", country: "us" }, 
+    { id: 1002, title: "iRobot<br>(Roomba & Braava)", category: "Home", source: "iRobot", url: "https://www.irobot.com/", country: "us" }, 
+    { id: 1003, title: "Sony<br>(aibo Robotic Companion)", category: "Home", source: "Sony", url: "https://us.aibo.com/", country: "jp" }, 
+    { id: 1004, title: "Dreame Technology<br>(Window Cleaning Robot)", category: "Home", source: "Smart Cleaning", url: "https://global.dreametech.com/", country: "cn" },
+    { id: 1005, title: "Ecovacs Robotics<br>(Intelligent Home Service)", category: "Home", source: "Service Robots", url: "https://www.ecovacs.com/", country: "cn" },
+    { id: 1006, title: "Enabot (EBO)<br>(Family robot)", category: "Home", source: "Companion Robot", url: "https://www.enabot.com/", country: "cn" },
+    { id: 1007, title: "Labrador Systems<br>(Assistive Robot)", category: "Home", source: "Assistive Robot", url: "https://labradorsystems.com/", country: "us" },
+    { id: 1008, title: "LIVING.AI<br>(EMO & AIBI Desktop Pet)", category: "Home", source: "AI Desktop Pet", url: "https://living.ai/", country: "cn" },
+    { id: 1009, title: "Moxie Robot<br>(AI Social Companion)", category: "Home", source: "Learning Robot", url: "https://embodied.com/", country: "us" },
+    { id: 1010, title: "Narwal Robotics<br>(All for Clean Home)", category: "Home", source: "Cleaning Robot", url: "https://shop.narwal.com/", country: "cn" },
+    { id: 1011, title: "Roborock<br>(Robotic Vacuum Cleaner)", category: "Home", source: "Smart Home", url: "https://global.roborock.com/", country: "cn" },
+    { id: 1012, title: "Samsung Ballie<br>(Robot companion)", category: "Home", source: "Samsung", url: "https://news.samsung.com/us/samsung-ballie-ai-companion-robot-home-video-ces-2024", country: "kr" },
+    { id: 1107, title: "Intuition Robotics<br>(AI care companion robot)", category: "Home", sub: "Social Companion AI", url: "https://www.intuitionrobotics.com/", country: "il" },
+    { id: 1140, title: "Aiper<br>(Cordless Pool Cleaner)", category: "Home", source: "Cordless Pool Cleaner", url: "https://aiper.com/", country: "us" },
     { id: 1150, title: "Tombot<br>(Jennie emotional support)", category: "Home & BLDG", source: "Emotional Support Robot Dog", url: "https://www.tombot.com/", country: "us" },
-    { id: 1190, title: "Sentigent<br>(Rover X3 Outdoor Companion Robot)", category: "Home & BLDG", source: "Outdoor Companion Robot", url: "https://www.sentigent.com/", country: "cn" },
-    { id: 1200, title: "SwitchBot Onero H1<br>(Multitasking Housebot)", category: "Home & BLDG", source: "AI Multitasking Housebot", url: "https://www.switch-bot.com/pages/onero-h1", country: "cn" },
-    { id: 1301, title: "Husqvarna Automower<br>(Robot Lawn mowers)", category: "Home & BLDG", source: "Robotic Lawn Mower", url: "https://www.husqvarna.com/us/robotic-lawn-mowers/", country: "se" },
-    { id: 1303, title: "Mammotion<br>(Lawn Mower)", category: "Home & BLDG", source: "Wire-free Lawn Robot", url: "https://mammotion.com/", country: "cn" },
-    { id: 1310, title: "Dyson 360 Vis Nav<br>(robot vacuum)", category: "Home & BLDG", source: "Dyson", url: "https://www.dyson.com/vacuum-cleaners/robot/360-vis-nav", country: "uk" },
-    { id: 1311, title: "SharkNinja (Shark AI Robot)", category: "Home & BLDG", source: "Smart Cleaning", url: "https://www.sharkclean.com/robot-vacuums/", country: "us" },
-    { id: 1312, title: "eufy Clean<br>(Robot Vacuum>", category: "Home & BLDG", source: "Smart Cleaning", url: "https://www.eufy.com/", country: "cn" },
-    { id: 1320, title: "HOBOT Technology<br>(Window Cleaning Robot)", category: "Home & BLDG", source: "Window Cleaning Robot", url: "https://www.hobot.com.tw/", country: "tw" },
-    { id: 1330, title: "KEYi Robot<br>(Loona & ClicBot)", category: "Home & BLDG", source: "Smart Petbot", url: "https://keyirobot.com/", country: "cn" },
-    { id: 1331, title: "Vector 2.0<br>(Home Robot)", category: "Home & BLDG", source: "AI Companion", url: "https://anki.bot/", country: "us" },
-    { id: 1350, title: "Maytronics Dolphin<br>(Robotic Pool Cleaner)", category: "Home & BLDG", source: "Robotic Pool Cleaner", url: "https://maytronics.com/", country: "il" }, // Aiper 외의 메이저 수영장 청소 로봇
-    { id: 1351, title: "Grillbot<br>(Automatic Grill Cleaner)", category: "Home & BLDG", source: "Automatic Grill Cleaner", url: "https://grillbots.com/", country: "us" },
-    { id: 1353, title: "Matic Robots<br>(Next-Gen Floor Cleaner)", category: "Home & BLDG", source: "Next-Gen Floor Cleaner", url: "https://maticrobots.com/", country: "us" }, // 완전 자율 주행을 강조하는 신생 업체
-    { id: 1390, title: "Gausium<br>(Building Service)", category: "Home & BLDG", source: "Commercial Floor Scrubber", url: "https://www.gausium.com/", country: "cn" },
-    { id: 1391, title: "Skyline Robotics<br>(OZMO Window Cleaner)", category: "Home & BLDG", source: "High-rise Window Cleaning", url: "https://skylinerobotics.com/", country: "us" },
-    { id: 1392, title: "Avidbots<br>(Neo Floor Scrubber)", category: "Home & BLDG", source: "Commercial Facility Cleaning", url: "https://www.avidbots.com/", country: "ca" },
-    { id: 1400, title: "Knightscope<br>(Security Robot)", category: "Home & BLDG", source: "24/7 Building Surveillance", url: "https://www.knightscope.com/", country: "us" },
-    { id: 4002, title: "LG Electronics<br>(Smart Home AI Agent)", category: "service", source: "Two-Legged Mobile Smart Home Hub", url: "https://www.lgnewsroom.com/2023/12/lg-to-unveil-smart-home-ai-agent-at-ces-2024/", country: "kr" },
+    { id: 1190, title: "Sentigent<br>(Rover X3 Outdoor Companion Robot)", category: "Home", source: "Outdoor Companion Robot", url: "https://www.sentigent.com/", country: "cn" },
+    { id: 1200, title: "SwitchBot Onero H1<br>(Multitasking Housebot)", category: "Home", source: "AI Multitasking Housebot", url: "https://www.switch-bot.com/pages/onero-h1", country: "cn" },
+    { id: 1301, title: "Husqvarna Automower<br>(Robot Lawn mowers)", category: "Home", source: "Robotic Lawn Mower", url: "https://www.husqvarna.com/us/robotic-lawn-mowers/", country: "se" },
+    { id: 1303, title: "Mammotion<br>(Lawn Mower)", category: "Home", source: "Wire-free Lawn Robot", url: "https://mammotion.com/", country: "cn" },
+    { id: 1310, title: "Dyson 360 Vis Nav<br>(robot vacuum)", category: "Home", source: "Dyson", url: "https://www.dyson.com/vacuum-cleaners/robot/360-vis-nav", country: "uk" },
+    { id: 1311, title: "SharkNinja (Shark AI Robot)", category: "Home", source: "Smart Cleaning", url: "https://www.sharkclean.com/robot-vacuums/", country: "us" },
+    { id: 1312, title: "eufy Clean<br>(Robot Vacuum>", category: "Home", source: "Smart Cleaning", url: "https://www.eufy.com/", country: "cn" },
+    { id: 1320, title: "HOBOT Technology<br>(Window Cleaning Robot)", category: "Home", source: "Window Cleaning Robot", url: "https://www.hobot.com.tw/", country: "tw" },
+    { id: 1330, title: "KEYi Robot<br>(Loona & ClicBot)", category: "Home", source: "Smart Petbot", url: "https://keyirobot.com/", country: "cn" },
+    { id: 1331, title: "Vector 2.0<br>(Home Robot)", category: "Home", source: "AI Companion", url: "https://anki.bot/", country: "us" },
+    { id: 1350, title: "Maytronics Dolphin<br>(Robotic Pool Cleaner)", category: "Home", source: "Robotic Pool Cleaner", url: "https://maytronics.com/", country: "il" }, // Aiper 외의 메이저 수영장 청소 로봇
+    { id: 1351, title: "Grillbot<br>(Automatic Grill Cleaner)", category: "Home", source: "Automatic Grill Cleaner", url: "https://grillbots.com/", country: "us" },
+    { id: 1353, title: "Matic Robots<br>(Next-Gen Floor Cleaner)", category: "Home", source: "Next-Gen Floor Cleaner", url: "https://maticrobots.com/", country: "us" }, // 완전 자율 주행을 강조하는 신생 업체
+    { id: 4010, title: "Alice the Social Robot<br>(Elderly Care Companion)", category: "Home", source: "Reducing Loneliness for the Elderly", url: "https://www.deloittedigital.com/nl/en/work/alice.html", country: "nl" },
+    { id: 4002, title: "LG Electronics<br>(Smart Home AI Agent)", category: "Home", source: "Two-Legged Mobile Smart Home Hub", url: "https://www.lgnewsroom.com/2023/12/lg-to-unveil-smart-home-ai-agent-at-ces-2024/", country: "kr" },
 
     // AI
     { id: 801, title: "OpenAI (ChatGPT)", category: "ai", source: "OpenAI", url: "https://openai.com/", country: "us" }, 
@@ -242,6 +246,7 @@ let links = [
     { id: 716, title: "MyRobot.cloud", category: "software", source: "Rocketfarm", url: "https://myrobot.cloud/", country: "no" },
     { id: 717, title: "Applied Intuition", category: "software", source: "Autonomous Vehicle Simulation", url: "https://www.appliedintuition.com/", country: "us" },
     { id: 718, title: "Weights & Biases (W&B)", category: "software", source: "AI Developer Platform", url: "https://wandb.ai/", country: "us" },
+    { id: 730, title: "Mujin<br>(Intelligent Robot Controller)", category: "software", source: "Teach-less Motion Planning", url: "https://www.mujin.co.jp/en/", country: "jp" },
     
     // Components
     { id: 901, title: "Lidar by Velodyne", category: "components", source: "Velodyne", url: "https://velodynelidar.com/", country: "us" }, 
@@ -265,6 +270,8 @@ let links = [
     { id: 954, title: "Hesai Technology", category: "components", source: "LiDAR Solutions", url: "https://www.hesaitech.com/", country: "cn" },
     { id: 955, title: "HL Mando", category: "components", source: "Radar, Camera & By-Wire Tech", url: "https://www.hlmando.com/en/solution/autonomous-driving.do", country: "kr" },
     { id: 916, title: "Aidin Robotics<br>(Force/Torque Sensor)", category: "components", source: "Physical Interaction Intelligence", url: "https://www.aidinrobotics.co.kr/", country: "kr" },
+    { id: 960, title: "SICK AG<br>(Safety Sensors & LiDAR)", category: "components", source: "Industrial Safety Systems", url: "https://www.sick.com/", country: "de" },
+    { id: 961, title: "Keyence<br>(Machine Vision & Sensors)", category: "components", source: "Factory Automation Sensors", url: "https://www.keyence.com/", country: "jp" },
 
     // Research
     { id: 30001, title: "Carnegie Mellon Robotics Institute", category: "Research", sub: "AI & Autonomy", url: "https://www.ri.cmu.edu/", country: "us" },
