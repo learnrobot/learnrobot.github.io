@@ -353,4 +353,5 @@ let links = [
     { id: 50301, title: "Project Lead The Way (PLTW)", category: "Educational", source: "STEM Curriculum", url: "https://www.pltw.org/", country: "us" },
     { id: 50302, title: "STEM.org<br>(Global STEM Research & Accreditation)", category: "Educational", source: "Research Org", url: "https://stem.org/", country: "us" },
     { id: 1341, title: "Sphero<br>(Coding & STEM Robots)", category: "Educational", source: "Coding & STEM Robots", url: "https://sphero.com/", country: "us" },
+    { id: 50110, title: "Comau e.DO<br>(Educational Robotic Arm)", category: "Educational", source: "Open Source Learning Robot", url: "https://edo.cloud/", country: "it" },
 ];
