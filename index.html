@@ -891,11 +891,11 @@ const backgroundImages = [
 '5.robot_hand.png'];
 
 const backgroundTexts = [
-    "Welcome to LearnRobot.com <br> - a curated list of 300+ leading robotics companies worldwide by sector.",    
+    "Welcome to LearnRobot.com <br> - a curated list of 300+ leading robotics companies worldwide by sector",    
     "Your one-stop destination for robots and robotics technology",        
-    "Let people learn your robot,",
-    "Discover high-precision hardware and robotic components,",    
-    "Learn robots before they learn us,",    
+    "Let people learn your robot",
+    "Discover high-precision hardware and robotic components",    
+    "Learn robots before they learn us",    
     "Where robots become companions",
     "Powered by advanced dexterity and robotic manipulation."
 ];
@@ -926,7 +926,7 @@ function rotateBackgroundImage() {
     }
 }
 
-let rotationInterval = setInterval(rotateBackgroundImage, 6000);
+let rotationInterval = setInterval(rotateBackgroundImage, 10000);
 
 function toggleBackgroundRotation() {
     const btn = document.getElementById('bg-toggle-btn');
@@ -934,7 +934,7 @@ function toggleBackgroundRotation() {
     const textSpan = document.getElementById('bg-toggle-text');
 
     if (isPaused) {
-        rotationInterval = setInterval(rotateBackgroundImage, 6000);
+        rotationInterval = setInterval(rotateBackgroundImage, 10000);
         icon.className = 'fas fa-pause';
         textSpan.innerText = "Auto Play";
         isPaused = false;
