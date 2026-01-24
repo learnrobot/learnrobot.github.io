@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936" crossorigin="anonymous"></script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insights - LearnRobot.com</title>
+    <meta name="description" content="Robotics Insights - Tutorials, Industry News, and Tech Reviews.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+/* insights.html의 <style> 안에 추가할 내용 */
+
+/* 네비게이션 메뉴 스타일 */
+.main-nav { display: flex; gap: 30px; align-items: center; margin-right: auto; margin-left: 50px; }
+.nav-item {
+    font-size: 1.5rem; color: #2C9999; text-decoration: none; font-weight: 900;
+    font-family: 'Chakra Petch', sans-serif; text-transform: uppercase;
+    border-bottom: 3px solid transparent; padding-bottom: 5px; transition: all 0.3s;
+}
+.nav-item:hover, .nav-item.active {
+    color: #FFFB03; text-shadow: 0 0 10px rgba(255, 251, 3, 0.6); border-bottom-color: #FFFB03;
+}
+
+/* 모바일에서는 숨김 (반응형) */
+@media (max-width: 768px) { .main-nav { display: none; } }
+
+        /* 기본 스타일 (index.html과 통일) */
+        :root { --bg-dark: #1E1E1E; --accent: #FFFB03; --text-main: #f1f5f9; }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Chakra Petch', sans-serif; margin: 0; padding: 0; }
+        a { text-decoration: none; color: inherit; }
+
+        /* 헤더 스타일 */
+        header { background: rgba(30, 30, 30, 0.95); height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; border-bottom: 1px solid rgba(255, 251, 3, 0.2); }
+        .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: 1px; }
+        
+        /* 메인 컨텐츠 영역 */
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; text-align: center; }
+        .page-title { font-size: 3rem; color: var(--accent); margin-bottom: 10px; text-shadow: 0 0 10px rgba(255, 251, 3, 0.5); }
+        .page-subtitle { color: #888; margin-bottom: 60px; font-size: 1.1rem; }
+
+        /* 카드 그리드 레이아웃 */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+
+        /* 게시글 카드 디자인 */
+        .card { 
+            background: #252525; border: 1px solid #333; border-radius: 12px; overflow: hidden; 
+            transition: transform 0.3s, border-color 0.3s; text-align: left; 
+            display: flex; flex-direction: column;
+        }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        
+        /* 카드 이미지 (unsplash 랜덤 로봇 이미지) */
+        .card-img { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid #333; }
+        
+        .card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-tag { color: #888; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; }
+        .card-title { font-size: 1.4rem; margin: 0 0 15px 0; color: #fff; line-height: 1.3; }
+        .card-desc { color: #aaa; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
+        
+        .read-more-btn { 
+            display: inline-block; color: var(--accent); font-weight: bold; margin-top: auto; 
+            transition: 0.3s; 
+        }
+        .read-more-btn:hover { color: #fff; text-shadow: 0 0 5px var(--accent); }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            header { padding: 0 1rem; }
+            .page-title { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+   <header>
+    <a href="index.html" class="logo">
+        <span style="color: #fff;">LEARN<span style="color: #FFFB03;">ROBOT</span></span>
+    </a>
+
+    <nav class="main-nav">
+        <a href="index.html" class="nav-item">COMPANIES</a>
+        <a href="insights.html" class="nav-item active">INSIGHTS</a>
+        <a href="learn.html" class="nav-item">LEARN</a>
+    </nav>
+
+    <div style="width: 20px;"></div> 
+</header>
+    <div class="container">
+        <h1 class="page-title">ROBOTICS INSIGHTS</h1>
+        <p class="page-subtitle">Tutorials, Industry News, and Tech Reviews.</p>
+
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&h=400" class="card-img" alt="Roadmap">
+                <div class="card-content">
+                    <span class="card-tag" style="color: #FFFB03;">Guide</span>
+                    <h3 class="card-title">The 2026 Roadmap to Learning Robotics</h3>
+                    <p class="card-desc">From Arduino to ROS2. Here is the step-by-step guide for beginners who want to build their first robot.</p>
+                    <a href="posts/roadmap.html" class="read-more-btn">Read Article &rarr;</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&h=400" class="card-img" alt="Sensors">
+                <div class="card-content">
+                    <span class="card-tag" style="color: #86D1D1;">Hardware</span>
+                    <h3 class="card-title">Best Sensors for Your First Robot</h3>
+                    <p class="card-desc">LiDAR vs Ultrasonic vs Camera. Which eye should you give to your robot? A complete comparison.</p>
+                    <a href="posts/hardware-sensors.html" class="read-more-btn">Read Article &rarr;</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1535378437323-95288fb8e65e?auto=format&fit=crop&w=600&h=400" class="card-img" alt="Humanoid">
+                <div class="card-content">
+                    <span class="card-tag" style="color: #FF7777;">News</span>
+                    <h3 class="card-title">Humanoid Robots in 2026</h3>
+                    <p class="card-desc">Analysis of the latest Tesla Optimus and Figure AI updates. Are they ready for our homes?</p>
+                    <a href="posts/humanoid-news.html" class="read-more-btn">Read Article &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; padding: 40px; border-top: 1px solid #333; margin-top: 40px; color: #666; font-size: 0.8rem;">
+        &copy; 2026 Learn Robot. All rights reserved. <br>
+        <a href="privacy.html" style="color: #888; text-decoration: underline; margin-top: 5px; display: inline-block;">Privacy Policy</a>
+    </div>
+
+</body>
+</html>
