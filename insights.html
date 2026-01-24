@@ -11,30 +11,52 @@
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <style>
-/* insights.html의 <style> 안에 추가할 내용 */
+  <style>
+        /* 1. 박스 크기 계산법 통일 (필수) */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* 네비게이션 메뉴 스타일 */
-.main-nav { display: flex; gap: 30px; align-items: center; margin-right: auto; margin-left: 50px; }
-.nav-item {
-    font-size: 1.5rem; color: #2C9999; text-decoration: none; font-weight: 900;
-    font-family: 'Chakra Petch', sans-serif; text-transform: uppercase;
-    border-bottom: 3px solid transparent; padding-bottom: 5px; transition: all 0.3s;
-}
-.nav-item:hover, .nav-item.active {
-    color: #FFFB03; text-shadow: 0 0 10px rgba(255, 251, 3, 0.6); border-bottom-color: #FFFB03;
-}
-
-/* 모바일에서는 숨김 (반응형) */
-@media (max-width: 768px) { .main-nav { display: none; } }
-
-        /* 기본 스타일 (index.html과 통일) */
+        /* 2. 변수 설정 */
         :root { --bg-dark: #1E1E1E; --accent: #FFFB03; --text-main: #f1f5f9; }
-        body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Chakra Petch', sans-serif; margin: 0; padding: 0; }
+
+        /* 3. body 스타일 (스크롤바 고정 포함) */
+        body {
+            background-color: var(--bg-dark); 
+            color: var(--text-main); 
+            font-family: 'Chakra Petch', sans-serif; 
+            margin: 0; 
+            padding: 0;
+            
+            /* ⭐ 덜컹거림 방지 핵심 코드 (괄호 안에 잘 들어있습니다!) */
+            overflow-y: scroll; 
+            overflow-x: hidden;
+        }
+
         a { text-decoration: none; color: inherit; }
 
+        /* 4. 네비게이션 메뉴 스타일 */
+        .main-nav { display: flex; gap: 30px; align-items: center; margin-right: auto; margin-left: 50px; }
+        .nav-item {
+            font-size: 1.5rem; color: #2C9999; text-decoration: none; font-weight: 900;
+            font-family: 'Chakra Petch', sans-serif; text-transform: uppercase;
+            border-bottom: 3px solid transparent; padding-bottom: 5px; transition: all 0.3s;
+        }
+        .nav-item:hover, .nav-item.active {
+            color: #FFFB03; text-shadow: 0 0 10px rgba(255, 251, 3, 0.6); border-bottom-color: #FFFB03;
+        }
+
         /* 헤더 스타일 */
-        header { background: rgba(30, 30, 30, 0.95); height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; border-bottom: 1px solid rgba(255, 251, 3, 0.2); }
+        header { 
+    background: rgba(30, 30, 30, 0.95); 
+    height: 80px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    padding: 0 2.5rem; 
+    border-bottom: 1px solid rgba(255, 251, 3, 0.2);
+    
+    /* 👇 이 한 줄이 빠져서 로고와 메뉴가 가까웠던 겁니다! */
+    gap: 20px; 
+}
         .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: 1px; }
         
         /* 메인 컨텐츠 영역 */
@@ -53,7 +75,7 @@
         }
         .card:hover { transform: translateY(-5px); border-color: var(--accent); }
         
-        /* 카드 이미지 (unsplash 랜덤 로봇 이미지) */
+        /* 카드 이미지 */
         .card-img { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid #333; }
         
         .card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
@@ -71,14 +93,19 @@
         @media (max-width: 768px) {
             header { padding: 0 1rem; }
             .page-title { font-size: 2.2rem; }
+            .main-nav { display: none; }
         }
     </style>
 </head>
 <body>
-
-   <header>
-    <a href="index.html" class="logo">
-        <span style="color: #fff;">LEARN<span style="color: #FFFB03;">ROBOT</span></span>
+<header>
+    <a href="index.html" class="logo" style="text-decoration: none; cursor: pointer;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="favicon.png" alt="Logo" style="height: 60px; width: auto; border-radius: 50%;"> 
+            <span style="font-family: 'Chakra Petch', sans-serif; font-size: 1.8rem; font-weight: 900; letter-spacing: 1px; color: #f1f5f9;">
+                LEARN<span style="color: #FFFB03;">ROBOT</span>
+            </span>
+        </div>
     </a>
 
     <nav class="main-nav">

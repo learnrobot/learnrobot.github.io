@@ -19,12 +19,13 @@
 
     <style>
 /* --- 메인 내비게이션 스타일 (새로 추가) --- */
+/* index.html의 <style> 태그 안 */
 .main-nav {
     display: flex;
-    gap: 30px; /* 메뉴 간 간격 */
+    gap: 30px;
     align-items: center;
-    margin-left: 30px; /* 검색창과의 거리 */
-    margin-right: auto; /* 남은 공간을 밀어내어 왼쪽 정렬 유지 */
+    margin-left: 50px; /* 👈 여기를 30px에서 50px로 변경하여 통일! */
+    margin-right: auto;
 }
 
 .nav-item {
@@ -204,7 +205,7 @@
             font-family: 'Chakra Petch', sans-serif !important;
             display: flex; flex-direction: column; height: 100vh; 
             overflow-x: hidden; 
-            overflow-y: auto;   
+            overflow-y: scroll;   
         }
 
         /* --- HEADER --- */
@@ -805,27 +806,28 @@ aside {
 </head>
 <body>
 
-<header>
-    <a href="#" class="logo-link" title="Home" onclick="renderHome()">
+<header style="position: relative;"> <a href="#" class="logo-link" title="Home" onclick="renderHome()">
         <div class="logo">
             <img src="favicon.png" alt="LearnRobot 로고" class="logo-image"> 
             <span style="font-family: 'Chakra Petch'; font-size: 1.8rem; letter-spacing: 1px; color: var(--text-main);">LEARN<span style="color: #FFFB03;">ROBOT</span></span>
         </div>
     </a>
 
-    <div class="search-container" style="flex: 0 1 300px; margin-left: 20px;">
+    <nav class="main-nav" style="display: flex; gap: 30px; margin-left: 50px; margin-right: auto;">
+        <a href="index.html" class="nav-item active">COMPANIES</a>
+        <a href="insights.html" class="nav-item">INSIGHTS</a>
+        <a href="learn.html" class="nav-item">LEARN</a>
+    </nav>
+
+    <div class="search-container" style="
+        position: absolute; 
+        left: 50%; 
+        transform: translateX(-50%); 
+        width: 300px;
+    ">
         <input type="text" id="searchInput" placeholder="Search the robot" onkeyup="searchLinks()" class="search-input">
-        <i class="fas fa-search search-icon"></i>
+        <i class="fas fa-search search-icon" style="right: 15px;"></i>
     </div>
-<nav class="main-nav" style="display: flex; gap: 30px; margin-right: auto; margin-left: 50px;">
-    
-    <a href="index.html" class="nav-item active">COMPANIES</a>
-
-    <a href="insights.html" class="nav-item">INSIGHTS</a>
-
-    <a href="learn.html" class="nav-item">LEARN</a>
-
-</nav>
     
     <div class="header-ad-container">
         <a href="#" target="_blank" class="ad-banner">
@@ -838,19 +840,16 @@ aside {
         <i class="fas fa-bars"></i>
     </button>
 
-<div class="auth-buttons" style="display: flex; align-items: center; gap: 15px; height: 100%;">
-    
-    <div class="sns-icons" style="display: flex; align-items: center; gap: 15px; margin: 0;">
-        <a href="https://www.instagram.com/learnrobot" target="_blank" title="Instagram" style="display: flex; align-items: center; color: #2C9999; font-size: 1.8rem; text-decoration: none;">
-            <i class="fab fa-instagram"></i>
-        </a>
-        <a href="https://x.com/learnrobot" target="_blank" title="X (Twitter)" style="display: flex; align-items: center; color: #2C9999; font-size: 1.8rem; text-decoration: none;">
-            <i class="fab fa-x-twitter"></i>
-        </a>
+    <div class="auth-buttons" style="display: flex; align-items: center; gap: 15px; height: 100%;">
+        <div class="sns-icons" style="display: flex; align-items: center; gap: 15px; margin: 0;">
+            <a href="https://www.instagram.com/learnrobot" target="_blank" title="Instagram" style="display: flex; align-items: center; color: #2C9999; font-size: 1.8rem; text-decoration: none;">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://x.com/learnrobot" target="_blank" title="X (Twitter)" style="display: flex; align-items: center; color: #2C9999; font-size: 1.8rem; text-decoration: none;">
+                <i class="fab fa-x-twitter"></i>
+            </a>
+        </div>
     </div>
-
-</div>
-</div>
 </header>
 
     <div class="container">

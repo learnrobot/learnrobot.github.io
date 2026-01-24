@@ -28,13 +28,17 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
 
-        body { 
-            background-color: var(--bg-dark); 
-            color: var(--text-main); 
-            font-family: 'Chakra Petch', sans-serif !important;
-            display: flex; flex-direction: column; height: 100vh; 
-            overflow-x: hidden; overflow-y: hidden;
-        }
+       /* learn.html의 <style> 태그 안 */
+body { 
+    background-color: var(--bg-dark); 
+    color: var(--text-main); 
+    font-family: 'Chakra Petch', sans-serif !important;
+    display: flex; flex-direction: column; height: 100vh; 
+    
+    /* 👇 이 줄을 수정/추가하세요! (overflow-y: scroll) */
+    overflow-x: hidden; 
+    overflow-y: scroll; /* 강제로 스크롤바 공간을 확보해서 덜컹거림 방지 */
+}
 
         /* 헤더 스타일 */
         header {
@@ -56,7 +60,7 @@
         .logo-image { height: 60px; width: auto; object-fit: contain; border-radius: 50%; }
 
         /* 네비게이션 스타일 */
-        .main-nav { display: flex; gap: 30px; align-items: center; margin-left: 30px; margin-right: auto; }
+        .main-nav { display: flex; gap: 30px; align-items: center; margin-left: 50px; margin-right: auto; }
         .nav-item {
             font-family: 'Chakra Petch', sans-serif; font-size: 1.5rem; font-weight: 900;
             color: #2C9999; text-decoration: none; text-transform: uppercase;
