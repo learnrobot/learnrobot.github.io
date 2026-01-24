@@ -17,6 +17,45 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA===" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
+/* --- 메인 내비게이션 스타일 (새로 추가) --- */
+.main-nav {
+    display: flex;
+    gap: 30px; /* 메뉴 간 간격 */
+    align-items: center;
+    margin-left: 30px; /* 검색창과의 거리 */
+    margin-right: auto; /* 남은 공간을 밀어내어 왼쪽 정렬 유지 */
+}
+
+.nav-item {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 1.3rem; /* 글자 크기 키움 */
+    font-weight: 900;
+    color: #2C9999; /* 기본 색상 (비활성) */
+    text-decoration: none;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    border-bottom: 3px solid transparent; /* 밑줄 자리 확보 */
+    transition: all 0.3s ease;
+}
+
+/* 마우스를 올리거나 활성화(active) 되었을 때 */
+.nav-item:hover, .nav-item.active {
+    color: #FFFB03 !important; 
+    text-shadow: 0 0 10px rgba(255, 251, 3, 0.6); /* 네온 효과 */
+    border-bottom-color: #FFFB03;
+}
+
+/* Resources 탭 전용 색상 (원하시면 구분 가능) */
+.nav-item.resource-tab:hover, .nav-item.resource-tab.active {
+    color: #2C9999;
+    text-shadow: 0 0 10px rgba(44, 153, 153, 0.6);
+    border-bottom-color: #2C9999;
+}
+
+/* 모바일에서는 숨기거나 조정 (필요 시) */
+@media (max-width: 768px) {
+    .main-nav { display: none; } /* 일단 모바일엔 숨김 처리 */
+}
 /* 카테고리 그룹 박스 스타일 */
 .category-group {
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -772,6 +811,10 @@ aside {
         <input type="text" id="searchInput" placeholder="Search the robot" onkeyup="searchLinks()" class="search-input">
         <i class="fas fa-search search-icon"></i>
     </div>
+<nav class="main-nav" style="display: flex; gap: 30px; margin-right: auto; margin-left: 50px;">
+    <a href="index.html" class="nav-item active" style="font-size: 1.5rem; color: #2C9999; text-decoration: none; font-weight: 900;">COMPANIES</a>
+    <a href="Learn.html" class="nav-item" style="font-size: 1.5rem; color: #2C9999; text-decoration: none; font-weight: 900;">Learn</a>
+</nav>
     
     <div class="header-ad-container">
         <a href="#" target="_blank" class="ad-banner">
@@ -785,38 +828,18 @@ aside {
     </button>
 
 <div class="auth-buttons" style="display: flex; align-items: center; gap: 15px; height: 100%;">
-        
-        <a href="insights.html" class="btn" style="
-            background: transparent; 
-            border: 4px solid #FFFB03; 
-            color: #FFFB03; 
-            text-decoration: none; 
-            padding: 10px 24px; /* 패딩을 살짝 줄여서 높이 균형 맞춤 */
-            font-family: 'Chakra Petch';
-            font-weight: bold;
-            border-radius: 30px;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem; /* 글자 크기 조정 */
-            line-height: 1;    /* 줄 간격 초기화 */
-        " onmouseover="this.style.background='#FFFB03'; this.style.color='#000'" 
-           onmouseout="this.style.background='transparent'; this.style.color='#FFFB03'">
-           INSIGHTS
+    
+    <div class="sns-icons" style="display: flex; align-items: center; gap: 15px; margin: 0;">
+        <a href="https://www.instagram.com/learnrobot" target="_blank" title="Instagram" style="display: flex; align-items: center; color: #2C9999; font-size: 1.8rem; text-decoration: none;">
+            <i class="fab fa-instagram"></i>
         </a>
-
-        <div class="sns-icons" style="display: flex; align-items: center; gap: 15px; margin: 0;">
-            <a href="https://www.instagram.com/learnrobot" target="_blank" title="Instagram" style="display: flex; align-items: center; color: #2C9999; font-size: 1.8rem; text-decoration: none;">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://x.com/learnrobot" target="_blank" title="X (Twitter)" style="display: flex; align-items: center; color: #2C9999; font-size: 1.8rem; text-decoration: none;">
-                <i class="fab fa-x-twitter"></i>
-            </a>
-        </div>
-
+        <a href="https://x.com/learnrobot" target="_blank" title="X (Twitter)" style="display: flex; align-items: center; color: #2C9999; font-size: 1.8rem; text-decoration: none;">
+            <i class="fab fa-x-twitter"></i>
+        </a>
     </div>
-    </div>
+
+</div>
+</div>
 </header>
 
     <div class="container">
@@ -891,13 +914,13 @@ const backgroundImages = [
 '5.robot_hand.png'];
 
 const backgroundTexts = [
-    "Welcome to LearnRobot.com <br> - a curated list of 300+ leading robotics companies worldwide by sector",    
-    "Your one-stop destination for robots and robotics technology",        
-    "Let people learn your robot",
+    "Welcome to LearnRobot.com <br> : A curated platform of 300+ leading robotics companies worldwide by sector",    
+    "Explore the global robotics landscape",        
+    "Navigate the core of robot intelligence",
     "Discover high-precision hardware and robotic components",    
     "Learn robots before they learn us",    
-    "Where robots become companions",
-    "Powered by advanced dexterity and robotic manipulation."
+    "Meet your robot companion",
+    "Touch the future of robotics technology",
 ];
 
 let currentBgIndex = 0;
@@ -1142,7 +1165,7 @@ window.onload = () => {
     renderHome(); 
     
     // 3. 공지 모달 열기
-    openNoticeModal();
+    //openNoticeModal();
     
     // 4. 광고 로테이션 시작
     startAdRotation(); 
@@ -1196,6 +1219,30 @@ document.addEventListener('keydown', (e) => {
     <i class="fas fa-pause"></i>
     <span id="bg-toggle-text">Auto Play</span>
 </button>
+<div style="
+    position: fixed; 
+    bottom: 15px; 
+    left: 0; 
+    width: 100%; 
+    text-align: center; 
+    z-index: 50; 
+    color: rgba(255, 255, 255, 0.6); /* 반투명 흰색 */
+    font-size: 0.8rem; 
+    font-family: 'Chakra Petch', sans-serif;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8); /* 배경이 밝아도 글자가 잘 보이게 그림자 추가 */
+    pointer-events: none; /* 글자 없는 곳은 클릭 통과 */
+">
+    <span style="pointer-events: auto;">&copy; 2026 Learn Robot. All rights reserved.</span>
+    
+    <span style="margin: 0 10px; opacity: 0.5;">|</span> 
+    
+    <a href="privacy.html" style="
+        color: #FFFB03; 
+        text-decoration: none; 
+        pointer-events: auto; 
+        font-weight: bold;
+    ">Privacy Policy</a>
+</div>
 
 </body>
 </html>
