@@ -97,7 +97,7 @@
             padding: 10px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.03);
         }
         .group-title {
-            color: #2C9999; font-weight: 700; font-size: 0.95rem; margin-bottom: 8px;
+            color: #FFFB03; font-weight: 700; font-size: 0.95rem; margin-bottom: 8px;
             border-bottom: 1px solid rgba(44, 153, 153, 0.2); padding-bottom: 5px;
             display: flex; justify-content: space-between;
         }
@@ -107,7 +107,7 @@
             color: #E0E0E0; font-family: 'Chakra Petch', sans-serif; font-size: 1rem;
             cursor: pointer; border-radius: 6px; transition: all 0.2s;
         }
-        .category-btn:hover, .category-btn.active { color: #FFFB03; background: rgba(255, 251, 3, 0.05); font-weight: 700; }
+        .category-btn:hover, .category-btn.active { color: #FFFB03 !important ; background: rgba(255, 251, 3, 0.05); font-weight: 700; }
         .cat-topic { color: #86D1D1; }
 
         /* --- [Learn 페이지 전용] 메인 콘텐츠 스타일 --- */
@@ -179,7 +179,7 @@
     
     <div class="header-ad-container">
         <a href="#" class="ad-banner">
-            <span class="ad-company-name">Start Learning Robotics Today</span>
+            <span class="ad-company-name">your robot here</span>
         </a>
     </div>
 
@@ -194,91 +194,289 @@
 <div class="container">
     <aside>
         <div class="category-group">
-            <div class="group-title">Topics</div>
-            <button class="category-btn cat-topic active">Introduction</button>
+            <div class="group-title" style="letter-spacing: 0px;">What Makes a Robot</div>
             <button class="category-btn cat-topic">Robot Mechanics</button>
             <button class="category-btn cat-topic">Electronics & Sensors</button>
-            <button class="category-btn cat-topic">Programming (C++/Python)</button>
+            <button class="category-btn cat-topic">Programming</button>
             <button class="category-btn cat-topic">AI & Perception</button>
             <button class="category-btn cat-topic">ROS 2</button>
         </div>
-
-        <div class="category-group">
-            <div class="group-title">Level</div>
-            <button class="category-btn">Beginner</button>
-            <button class="category-btn">Intermediate</button>
-            <button class="category-btn">Advanced</button>
-        </div>
-        
+         
         <div style="margin-top:auto; padding: 20px 0; color: #666; font-size: 0.8rem;">
             &copy; 2026 LearnRobot.com
         </div>
     </aside>
 
     <main>
-        <div class="content-header">
-            <h1>Robot Learning Hub</h1>
-            <p>Fundamental guides and technical documentation for robot builders.</p>
+    <div class="content-header">
+        <h1>What makes a Robot</h1>
+        <p>Fundamental guides and technical documentation for robot builders.</p>
+    </div>
+
+    <div class="main-visual" style="margin-top: 20px; text-align: center; background: rgba(0,0,0,0.3); padding: 30px; border-radius: 15px; border: 1px solid rgba(255, 251, 3, 0.1);">
+        <img src="4.h_parts.png" alt="Essential Components of Robotic Mechanisms" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 0 30px rgba(0,0,0,0.6);">
+        
+        <div style="margin-top: 20px; color: #FFFB03; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8;">
+            Essential Components of Robotic Mechanisms
         </div>
+    </div>
+</main>
+</div>
+<script>
+const buttons = document.querySelectorAll('.category-btn');
+const mainContent = document.querySelector('main');
 
-        <div class="article-list">
+// Robot Mechanics용 영문 아티클 데이터 (이미지 포함)
+const articles = {
+    'Robot Mechanics': `
+        <div class="content-header">
+            <h1>Robot Mechanics: The Foundation of Motion</h1>
+            <p>Understanding the physical framework and how robots interact with the world.</p>
+        </div>
+        
+        <div class="article-content" style="line-height: 1.8; color: #ccc; font-family: 'Roboto', sans-serif;">
             
-            <a href="#" class="article-card">
-                <div class="article-title">
-                    <i class="fas fa-book-open" style="color: #FFFB03;"></i>
-                    What is a Robot?
-                </div>
-                <div class="article-desc">
-                    A comprehensive introduction to the definition of robots, their history, and the types of robots used in modern industry and daily life.
-                </div>
-                <div class="article-meta">
-                    <span class="tag">Basics</span>
-                    <span class="tag">Theory</span>
-                    <span>Last updated: Jan 24, 2026</span>
-                </div>
-            </a>
+            <h3 style="color: #FFFB03; margin-top: 20px;">1. Introduction to Robot Anatomy</h3>
+            <p>Robotics starts with the physical structure that allows a machine to interact with the world. This is called <strong>Mechanics</strong>. Just as the human body relies on bones and muscles, a robot uses a combination of rigid structures and power sources.</p>
 
-            <a href="#" class="article-card">
-                <div class="article-title">
-                    <i class="fas fa-microchip" style="color: #FFFB03;"></i>
-                    Understanding Microcontrollers
-                </div>
-                <div class="article-desc">
-                    Learn about Arduino, ESP32, and Raspberry Pi. How to choose the right brain for your robot project.
-                </div>
-                <div class="article-meta">
-                    <span class="tag">Hardware</span>
-                    <span class="tag">Electronics</span>
-                </div>
-            </a>
-
-            <a href="#" class="article-card">
-                <div class="article-title">
-                    <i class="fas fa-code" style="color: #FFFB03;"></i>
-                    Python for Robotics: Getting Started
-                </div>
-                <div class="article-desc">
-                    Why Python is the dominant language in robotics. Setting up your environment and writing your first 'Hello Robot' script.
-                </div>
-                <div class="article-meta">
-                    <span class="tag">Software</span>
-                    <span class="tag">Coding</span>
-                </div>
-            </a>
-
-            <div class="article-card" style="opacity: 0.5; cursor: default;">
-                <div class="article-title">
-                    <i class="fas fa-lock" style="color: #888;"></i>
-                    Advanced Kinematics (Coming Soon)
-                </div>
-                <div class="article-desc">
-                    Forward and Inverse Kinematics explained.
-                </div>
+            <h3 style="color: #FFFB03; margin-top:30px;">2. Core Concepts</h3>
+            
+            <h4 style="color: #86D1D1; margin-top:20px;">A. Links and Joints (The Skeleton)</h4>
+            <p><strong>Links</strong> are the rigid sections of a robot that provide its shape and strength. <strong>Joints</strong> are the connection points between links that allow movement.</p>
+            
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="links_joints_diagram.png" alt="Links and Joints Diagram" style="max-width: 100%; height: auto; border: 1px solid #444; border-radius: 8px;">
             </div>
 
+            <ul>
+                <li><em>Revolute Joints:</em> Provide rotational movement (like an elbow).</li>
+                <li><em>Prismatic Joints:</em> Provide sliding or linear movement (like a telescope).</li>
+            </ul>
+
+            <h4 style="color: #86D1D1; margin-top:20px;">B. Actuators (The Muscles)</h4>
+            <p>Actuators are the components responsible for moving or controlling a mechanism. Common types include DC Motors, Servo Motors, and Stepper Motors.</p>
+
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="motor_diagram.png" alt="Motor Actuator Diagram" style="max-width: 100%; height: auto; border: 1px solid #444; border-radius: 8px;">
+            </div>
+
+            <h4 style="color: #86D1D1; margin-top:20px;">C. Power Transmission (Gears & Belts)</h4>
+            <p>Mechanisms like gears and belts transfer power from the motor to the joint. Using different gear ratios allows you to trade speed for torque (strength).</p>
+
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="gears_diagram.png" alt="Gear Ratio Diagram" style="max-width: 100%; height: auto; border: 1px solid #444; border-radius: 8px;">
+            </div>
+
+            <h4 style="color: #86D1D1; margin-top:20px;">D. Degrees of Freedom (DOF)</h4>
+            <p>Degrees of Freedom represent the number of independent ways a robot can move in 3D space (Surge, Sway, Heave, Roll, Pitch, Yaw).</p>
+
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="dof_diagram.png" alt="Degrees of Freedom Diagram" style="max-width: 100%; height: auto; border: 1px solid #444; border-radius: 8px;">
+            </div>
+
+            <table style="width: 100%; border-collapse: collapse; margin-top: 30px; border: 1px solid #444;">
+                <tr style="background: rgba(44, 153, 153, 0.2); color: #FFFB03;">
+                    <th style="padding: 10px; border: 1px solid #444;">Component</th>
+                    <th style="padding: 10px; border: 1px solid #444;">Function</th>
+                    <th style="padding: 10px; border: 1px solid #444;">Human Equivalent</th>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #444;">Link</td>
+                    <td style="padding: 10px; border: 1px solid #444;">Structural Support</td>
+                    <td style="padding: 10px; border: 1px solid #444;">Bone</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #444;">Joint</td>
+                    <td style="padding: 10px; border: 1px solid #444;">Enables Movement</td>
+                    <td style="padding: 10px; border: 1px solid #444;">Elbow / Knee</td>
+                </tr>
+            </table>
         </div>
-    </main>
-</div>
+    `,
+'Electronics & Sensors': `
+        <div class="content-header">
+            <h1>Electronics & Sensors: The Nervous System</h1>
+            <p>From the brain that thinks to the sensors that feel—how robots process information.</p>
+        </div>
+        
+        <div class="article-content" style="line-height: 1.8; color: #ccc; font-family: 'Roboto', sans-serif;">
+            
+            <h3 style="color: #FFFB03; margin-top: 20px;">1. The Robot Brain: Microcontrollers</h3>
+            <p>If the mechanics are the body, electronics are the nervous system. At the center is the <strong>Microcontroller (MCU)</strong>. It reads data from sensors, makes decisions, and tells the motors what to do.</p>
+            
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="controller_diagram.png" alt="Microcontroller Diagram" style="max-width: 100%; border: 1px solid #444; border-radius: 8px;">
+            </div>
+
+            <ul style="margin-top: 10px;">
+                <li><strong>Arduino:</strong> Great for beginners and simple hardware control.</li>
+                <li><strong>Raspberry Pi:</strong> A full mini-computer for advanced AI and vision.</li>
+                <li><strong>ESP32:</strong> Powerful and cheap, with built-in Wi-Fi/Bluetooth.</li>
+            </ul>
+
+            <h3 style="color: #FFFB03; margin-top:30px;">2. Perception: How Robots "See"</h3>
+            <p>Robots need <strong>Sensors</strong> to understand their environment. They convert physical quantities (light, distance, heat) into electrical signals.</p>
+
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="sensor_diagram.png" alt="Sensor Principle Diagram" style="max-width: 100%; border: 1px solid #444; border-radius: 8px;">
+            </div>
+
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #444;">
+                <tr style="background: rgba(44, 153, 153, 0.2); color: #FFFB03;">
+                    <th style="padding: 8px; border: 1px solid #444;">Sensor Type</th>
+                    <th style="padding: 8px; border: 1px solid #444;">Human Sense</th>
+                    <th style="padding: 8px; border: 1px solid #444;">Use Case</th>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #444;">Ultrasonic / Lidar</td>
+                    <td style="padding: 8px; border: 1px solid #444;">Sight/Echo</td>
+                    <td style="padding: 8px; border: 1px solid #444;">Measuring Distance</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #444;">IMU (Gyro)</td>
+                    <td style="padding: 8px; border: 1px solid #444;">Balance</td>
+                    <td style="padding: 8px; border: 1px solid #444;">Detecting Tilt/Rotation</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #444;">Camera</td>
+                    <td style="padding: 8px; border: 1px solid #444;">Vision</td>
+                    <td style="padding: 8px; border: 1px solid #444;">Object Recognition</td>
+                </tr>
+            </table>
+
+            <h3 style="color: #FFFB03; margin-top:30px;">3. The Lifeblood: Power & Circuits</h3>
+            <p>Nothing works without power. A robot's <strong>Circuit</strong> distributes electricity from the battery to all components. Understanding Voltage (V) and Current (I) is essential to prevent burning out your expensive parts.</p>
+
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="circuit_diagram.png" alt="Circuit Diagram" style="max-width: 100%; border: 1px solid #444; border-radius: 8px;">
+            </div>
+        </div>
+    `,
+'Programming': `
+        <div class="content-header">
+            <h1>Programming: Breathing Life into Metal</h1>
+            <p>Software is what turns a pile of parts into an intelligent machine.</p>
+        </div>
+        <div class="article-content" style="line-height: 1.8; color: #ccc; font-family: 'Roboto', sans-serif;">
+            
+            <h3 style="color: #FFFB03; margin-top: 20px;">1. The Control Loop: Sense, Plan, Act</h3>
+            <p>Every robot operates on a continuous cycle called the Control Loop. It never stops while the robot is running.</p>
+            <ul style="margin-bottom: 20px;">
+                <li><strong>Sense:</strong> Gather data from sensors (e.g., "Is there a wall?").</li>
+                <li><strong>Plan:</strong> Decide what to do based on code (e.g., "If wall, stop.").</li>
+                <li><strong>Act:</strong> Send commands to motors (e.g., "Stop motors.").</li>
+            </ul>
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="control_loop_diagram.png" alt="Control Loop Diagram" style="max-width: 100%; border: 1px solid #444; border-radius: 8px;">
+            </div>
+
+            <h3 style="color: #FFFB03; margin-top:30px;">2. The Software Stack</h3>
+            <p>Robotic software is built in layers. Low-level code talks to hardware, while high-level code handles intelligence.</p>
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="software_stack_diagram.png" alt="Software Stack Diagram" style="max-width: 100%; border: 1px solid #444; border-radius: 8px;">
+            </div>
+            <p><strong>C++</strong> is often used for the bottom layers (fast, direct control), while <strong>Python</strong> is popular for the top layers (AI, easy logic).</p>
+
+            <h3 style="color: #FFFB03; margin-top:30px;">3. Logic & Algorithms</h3>
+            <p>Programming is essentially writing a set of rules. A simple "Obstacle Avoidance" algorithm looks like this:</p>
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="logic_flow_diagram.png" alt="Logic Flow Diagram" style="max-width: 100%; border: 1px solid #444; border-radius: 8px;">
+            </div>
+            <p>By combining thousands of these simple decisions, robots can navigate complex worlds.</p>
+        </div>
+`,
+'AI & Perception': `
+        <div class="content-header">
+            <h1>AI & Perception: The Robot's Mind</h1>
+            <p>Making sense of the world—transforming raw data into meaningful understanding.</p>
+        </div>
+        <div class="article-content" style="line-height: 1.8; color: #ccc; font-family: 'Roboto', sans-serif;">
+            
+            <h3 style="color: #FFFB03; margin-top: 20px;">1. What is Perception?</h3>
+            <p>There is a big difference between <strong>Sensing</strong> and <strong>Perception</strong>. Sensing is just gathering raw data (like pixels from a camera), while Perception is the ability to <em>understand</em> what that data means.</p>
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="perception_process.png" alt="Sensing vs Perception Diagram" style="max-width: 100%; border: 1px solid #444; border-radius: 8px;">
+            </div>
+
+            <h3 style="color: #FFFB03; margin-top:30px;">2. SLAM: "Where am I?"</h3>
+            <p><strong>SLAM</strong> (Simultaneous Localization and Mapping) is a key technology that allows a robot to build a map of an unknown environment while keeping track of its own location within it.</p>
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="slam_diagram.png" alt="SLAM Diagram" style="max-width: 100%; border: 1px solid #444; border-radius: 8px;">
+            </div>
+
+            <h3 style="color: #FFFB03; margin-top:30px;">3. Artificial Intelligence (AI)</h3>
+            <p>Modern robots use <strong>Neural Networks</strong> to learn from experience. Instead of following strict rules, AI allows robots to recognize objects, understand speech, and make complex decisions.</p>
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="neural_net_diagram.png" alt="Neural Network Diagram" style="max-width: 100%; border: 1px solid #444; border-radius: 8px;">
+            </div>
+            
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #444;">
+                <tr style="background: rgba(44, 153, 153, 0.2); color: #FFFB03;">
+                    <th style="padding: 8px; border: 1px solid #444;">Task</th>
+                    <th style="padding: 8px; border: 1px solid #444;">Technology</th>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #444;">Recognizing a Face</td>
+                    <td style="padding: 8px; border: 1px solid #444;">Computer Vision (AI)</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #444;">Mapping a Room</td>
+                    <td style="padding: 8px; border: 1px solid #444;">LiDAR SLAM</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #444;">Driving a Car</td>
+                    <td style="padding: 8px; border: 1px solid #444;">Sensor Fusion & Deep Learning</td>
+                </tr>
+            </table>
+        </div>
+    `,
+'ROS 2': `
+        <div class="content-header">
+            <h1>ROS 2: The Standard for Robotics</h1>
+            <p>The Robot Operating System (ROS) is not an actual OS, but a set of software libraries and tools that help you build robot applications.</p>
+        </div>
+        <div class="article-content" style="line-height: 1.8; color: #ccc; font-family: 'Roboto', sans-serif;">
+            
+            <h3 style="color: #FFFB03; margin-top: 20px;">1. Nodes & The Graph</h3>
+            <p>In ROS, a robot is not one giant program. It is a collection of small programs called <strong>Nodes</strong> (e.g., one node controls the camera, another drives the wheels). Together, they form a network called the <strong>Graph</strong>.</p>
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="ros_graph_diagram.png" alt="ROS Graph Diagram" style="max-width: 100%; border: 1px solid #444; border-radius: 8px;">
+            </div>
+
+            <h3 style="color: #FFFB03; margin-top:30px;">2. How Nodes Talk (Communication)</h3>
+            <p>Nodes need to exchange data. There are two main ways they do this:</p>
+            
+            <h4 style="color: #86D1D1; margin-top:20px;">A. Topics (Publisher / Subscriber)</h4>
+            <p>This is for streaming data (like video or sensor readings). One node shouts data out (Publish), and others listen (Subscribe).</p>
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="ros_nodes_diagram.png" alt="ROS Nodes Diagram" style="max-width: 100%; border: 1px solid #444; border-radius: 8px;">
+            </div>
+
+            <h4 style="color: #86D1D1; margin-top:20px;">B. Services (Request / Response)</h4>
+            <p>This is for specific tasks. One node asks for something ("Turn on the light"), and the other replies ("Done").</p>
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="ros_patterns_diagram.png" alt="ROS Patterns Diagram" style="max-width: 100%; border: 1px solid #444; border-radius: 8px;">
+            </div>
+
+            <h3 style="color: #FFFB03; margin-top:30px;">3. Why use ROS 2?</h3>
+            <p>Before ROS, everyone wrote their own code for motors and sensors from scratch. ROS provides standard drivers and tools (like <strong>Rviz</strong> for visualization and <strong>Gazebo</strong> for simulation), saving years of development time.</p>
+        </div>
+    `
+};
+
+buttons.forEach(button => {
+    button.addEventListener('click', function() {
+        buttons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+
+        const category = this.textContent.trim();
+        if (articles[category]) {
+            mainContent.innerHTML = articles[category];
+            mainContent.scrollTop = 0; // 스크롤 상단 이동
+        }
+    });
+});
+</script>
 
 </body>
 </html>
