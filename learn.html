@@ -12,6 +12,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
     <style>
+/* 마우스를 올리면 노란색으로 빛나게 하여 클릭 가능함을 알림 */
+.group-title:hover {
+    color: #FFFB03 !important;
+    text-shadow: 0 0 8px rgba(255, 251, 3, 0.5);
+}
         /* --- index.html의 스타일을 그대로 가져옴 --- */
         :root {
             --bg-dark: #1E1E1E;      
@@ -194,7 +199,9 @@
 <div class="container">
     <aside>
         <div class="category-group">
-            <div class="group-title" style="letter-spacing: 0px;">What makes a Robot</div>
+            <div class="group-title" onclick="resetToHome()" style="letter-spacing: 0px; cursor: pointer; transition: color 0.2s;">
+    What makes a Robot
+</div>
             <button class="category-btn cat-topic">Robot Mechanics</button>
             <button class="category-btn cat-topic">Electronics & Sensors</button>
             <button class="category-btn cat-topic">Programming</button>
@@ -210,29 +217,13 @@
     <main>
     <div class="content-header">
         <h1>What makes a Robot</h1>
-        <p>Fundamental guides and technical documentation for robot builders.</p>
+        <p>Essential Components of Robotic Mechanisms</p>
     </div>
 <div class="main-visual" style="margin-top: 10px; text-align: center; width: 100%; position: relative;">
-        
         <img src="4.h_parts.png" 
              alt="Essential Components of Robotic Mechanisms" 
              style="max-width: 100%; width: auto; height: calc(100vh - 240px); object-fit: contain; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); border: 1px solid rgba(255, 251, 3, 0.3);">
-        
-        <div style="
-            position: absolute; 
-            bottom: 30px;          /* 바닥에서 30px 위로 띄움 */
-            left: 0; 
-            width: 100%; 
-            text-align: center;
-            color: #FFFB03; 
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 1.1rem; 
-            letter-spacing: 3px; 
-            text-transform: uppercase; 
-            /* 글자가 이미지에 묻히지 않게 진한 그림자 추가 */
-            text-shadow: 2px 2px 4px rgba(0,0,0,1), 0 0 10px rgba(255, 251, 3, 0.5);
-            pointer-events: none;"> Essential Components of Robotic Mechanisms
-        </div>
+    </div>
     </div>
 </main>
 </div>
@@ -240,6 +231,17 @@
 const buttons = document.querySelectorAll('.category-btn');
 const mainContent = document.querySelector('main');
 
+// [추가된 코드 1] 처음 로딩됐을 때의 화면(휴머노이드 이미지)을 저장해둠
+const initialHomeContent = mainContent.innerHTML;
+
+// [추가된 코드 2] "What Makes a Robot" 클릭 시 호출되는 함수
+function resetToHome() {
+    // 1. 메인 화면을 저장해둔 초기 화면(이미지)으로 되돌림
+    mainContent.innerHTML = initialHomeContent;
+    
+    // 2. 다른 메뉴 버튼들의 노란색(active) 불을 다 끔
+    buttons.forEach(btn => btn.classList.remove('active'));
+}
 // Robot Mechanics용 영문 아티클 데이터 (이미지 포함)
 const articles = {
     'Robot Mechanics': `
