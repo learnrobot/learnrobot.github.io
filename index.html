@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <script src="data.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936"
      crossorigin="anonymous"></script>
@@ -685,13 +686,15 @@ aside {
         }
 
         /* --- 검색창 디자인 --- */
-        .search-container {
-            position: relative;
-            width: 100%;
-        }
+     .search-container {
+    position: relative;  /* [핵심] 자식(아이콘)의 가두리 양식장 역할을 합니다 */
+    display: flex;
+    align-items: center;
+    width: auto ;  /* 혹은 100% 등 상황에 맞춰 조정 */
+}
 
         .search-input {
-            width: 100%;
+            width: 200px;
             padding: 12px 40px 12px 15px; /* 아이콘 공간 확보 */
             background-color: rgba(0, 0, 0, 0.3);
             border: 1px solid #FFFB03;
@@ -712,14 +715,17 @@ aside {
     transition: all 0.3s ease-in-out;
 }
 
-        .search-icon {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #FFFB03;
-            pointer-events: none; /* 아이콘 클릭 방지 */
+     .search-icon {
+    z-index: 10;
+    position: absolute; /* 절대 위치 설정 */
+    right: 120px; /* 오른쪽 끝에서 10px 떨어진 곳에 위치 (조절 가능) */
+    color: #FFFB03;
+    font-size : 1.1rem
+    /* top: 50%; 필요하다면 수직 정렬을 위해 추가 */
+    /* transform: translateY(-50%); 필요하다면 수직 정렬을 위해 추가 */
+    pointer-events: none; /* 아이콘이 클릭을 방해하지 않도록 설정 */
         }
+
 /* 검색창 안에 미리 적힌 글자(Placeholder) 색상 변경 */
 .search-input::placeholder {
     color: #FFFB03; /* 원하는 색상으로 변경하세요 (예: #FFFFFF, #FFFB03) */
