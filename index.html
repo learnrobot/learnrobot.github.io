@@ -477,9 +477,19 @@ aside {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1), 
                  -1px -1px 2px rgba(0, 0, 0, 1),
                  0 0 15px rgba(0, 0, 0, 0.2) !important;
-    line-height: 1.4;
+    line-height: 1.5;
     margin: 0;
+    background-color: rgba(0, 0, 0, 0.35); /* 65% 투명한 검은색 */
+    backdrop-filter: blur(5px);             /* 배경 흐림 효과 (유리 느낌) */
+    padding: 30px 40px;                     /* 텍스트 주변 여백 (위아래, 좌우) */
+    border-radius: 20px;                    /* 모서리 둥글게 */
+    border: 1px solid rgba(255, 255, 255, 0.15); /* 아주 얇은 테두리로 경계 구분 */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);  /* 박스 자체 그림자 (입체감) */
     
+    /* 박스 크기 제한 (너무 넓게 퍼지지 않도록) */
+    display: inline-block; 
+    max-width: 90%;
+
     /* 애니메이션 설정 (괄호 안으로 올바르게 넣었습니다) */
     opacity: 1;                 
     visibility: visible;        
@@ -937,6 +947,7 @@ const backgroundTexts = [
      where you can explore high-precision hardware, <br>
      navigate robot intelligence, <br>
      and touch the future of technology.<br>
+     _______________________________________<br>
      Learn robots before they learn us.`
 ];
 
