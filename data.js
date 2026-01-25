@@ -183,6 +183,7 @@ let links = [
     { id: 1214, title: "Roam Robotics<br>(Forge Soft Exoskeleton)", category: "wearable", source: "Pneumatic Knee & Mobility Support", url: "https://www.roamrobotics.com/", country: "us" },
     { id: 1215, title: "Trexo Robotics<br>(Pediatric Wearable Exoskeleton)", category: "Wearable", source: "Robotic Legs for Children with Disabilities", url: "https://trexorobotics.com/", country: "ca" },
     { id: 1217, title: "Angel Robotics<br>(Wearable Suits for Rehab & Industry)", category: "Wearable", source: "Cybathlon Gold Medalist & KAIST Spin-off", url: "https://angel-robotics.com/en/", country: "kr" },
+    { id: 1218, title: "Open Bionics<br>(Hero Arm - 3D Printed Bionic Hand)", category: "Wearable", source: "Affordable Multi-Grip Bionic Arm", url: "https://openbionics.com/", country: "gb" },
     
     // Home 
     { id: 1001, title: "Amazon<br>(Astro Home Robot)", category: "Home", source: "Amazon", url: "https://www.aboutamazon.com/news/devices/meet-astro-a-home-robot-unlike-any-other", country: "us" }, 
