@@ -472,11 +472,11 @@ aside {
 
 .home-content h1 {
     font-family: 'Chakra Petch', sans-serif !important;
-    font-size: 2.5rem !important;
-    color: #FFFB03 !important;
+    font-size: 2.1rem !important;
+    color: #F5F5F5 !important;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1), 
                  -1px -1px 2px rgba(0, 0, 0, 1),
-                 0 0 15px rgba(0, 0, 0, 0.8) !important;
+                 0 0 15px rgba(0, 0, 0, 0.2) !important;
     line-height: 1.4;
     margin: 0;
     
@@ -607,13 +607,24 @@ aside {
             .logo span { font-size: 1.1rem !important; }
 
             /* 2. 중앙 광고 배너가 로고를 가리지 않게 축소 */
-            .header-ad-container { 
-                flex: 1 !important; 
-                display: flex !important;
-                justify-content: center !important;
-                max-width: 100px !important; 
-            }
-            .ad-banner { padding: 2px !important; border-width: 1px !important; }
+         .header-ad-container {
+    flex-grow: 1;      /* 남은 공간을 모두 차지 */
+    flex-shrink: 1;    /* 공간 부족하면 줄어듦 */
+    min-width: 0;      /* [중요] flex 자식이 줄어들 수 있게 허용 */
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 (혹은 center) */
+    align-items: center;
+    overflow: hidden;  /* 넘치는 내용 숨김 */
+}
+         .ad-banner {
+    max-width: 100%;       /* 부모를 넘지 않음 */
+    white-space: nowrap;   /* 줄바꿈 금지 */
+    overflow: hidden;      /* 넘치면 숨김 */
+    text-overflow: ellipsis; /* ... 처리 (텍스트가 너무 길 때) */
+    display: flex;
+    align-items: center;
+    /* 기존 스타일 유지... */
+}
             .ad-image { max-height: 30px !important; }
             .ad-company-name { display: none !important; }
 
@@ -662,7 +673,7 @@ aside {
 
 .home-content h1 {
     font-family: 'Chakra Petch', sans-serif !important;
-    font-size: 3rem !important; /* 크기 복구 */
+    font-size: clamp(1.5rem, 4vw, 3.5rem) !important;
     color: #FFFB03 !important;
     text-shadow: 3px 3px 10px rgba(0, 0, 0, 1) !important;
     line-height: 1.2;
@@ -688,24 +699,26 @@ aside {
 
         /* --- 검색창 디자인 --- */
      .search-container {
-    position: relative;  /* [핵심] 자식(아이콘)의 가두리 양식장 역할을 합니다 */
+    position: relative; /* 자식(아이콘)의 기준점 */
     display: flex;
     align-items: center;
-    width: auto ;  /* 혹은 100% 등 상황에 맞춰 조정 */
+    width: 260px; /* 적당한 고정 너비 (필요시 조절) */
+    margin: 0 20px; /* 양옆 여백을 줘서 메뉴/배너와 거리 두기 */
+    flex-shrink: 0; /* 화면이 줄어도 검색창 크기는 찌그러지지 않게 방어 */
 }
 
-        .search-input {
-            width: 200px;
-            padding: 12px 40px 12px 15px; /* 아이콘 공간 확보 */
-            background-color: rgba(0, 0, 0, 0.3);
-            border: 1px solid #FFFB03;
-            border-radius: 8px;
-            color: var(--text-main);
-            font-family: 'Chakra Petch', sans-serif;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
+    .search-input {
+    width: 100%;
+    /* 위, 오른쪽, 아래, 왼쪽 (오른쪽 40px은 아이콘 들어갈 자리) */
+    padding: 10px 40px 10px 15px; 
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid #FFFB03;
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
         /* 검색창 활성화 시 네온 글로우 효과 */
 .search-input:focus {
     border-color: #FFFB03 !important;
@@ -716,16 +729,16 @@ aside {
     transition: all 0.3s ease-in-out;
 }
 
-     .search-icon {
-    z-index: 10;
-    position: absolute; /* 절대 위치 설정 */
-    right: 120px; /* 오른쪽 끝에서 10px 떨어진 곳에 위치 (조절 가능) */
+  .search-icon {
+    position: absolute; 
+    right: 12px;       /* 오른쪽 끝에서 12px 떨어짐 */
+    top: 50%;          /* 수직 중앙 */
+    transform: translateY(-50%); /* 정확한 수직 중앙 정렬 */
     color: #FFFB03;
-    font-size : 1.1rem
-    /* top: 50%; 필요하다면 수직 정렬을 위해 추가 */
-    /* transform: translateY(-50%); 필요하다면 수직 정렬을 위해 추가 */
-    pointer-events: none; /* 아이콘이 클릭을 방해하지 않도록 설정 */
-        }
+    font-size: 1rem;
+    pointer-events: none; /* 아이콘 클릭 방지 (입력창 클릭되게) */
+    z-index: 2;
+}
 
 /* 검색창 안에 미리 적힌 글자(Placeholder) 색상 변경 */
 .search-input::placeholder {
@@ -819,15 +832,10 @@ aside {
         <a href="learn.html" class="nav-item">LEARN</a>
     </nav>
 
-    <div class="search-container" style="
-        position: absolute; 
-        left: 50%; 
-        transform: translateX(-50%); 
-        width: 300px;
-    ">
-        <input type="text" id="searchInput" placeholder="Search the robot" onkeyup="searchLinks()" class="search-input">
-        <i class="fas fa-search search-icon" style="right: 15px;"></i>
-    </div>
+    <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search the robot" onkeyup="searchLinks()" class="search-input">
+    <i class="fas fa-search search-icon"></i>
+</div>
     
     <div class="header-ad-container">
         <a href="#" target="_blank" class="ad-banner">
@@ -924,42 +932,41 @@ const backgroundImages = [
 '5.robot_hand.png'];
 
 const backgroundTexts = [
-    "Welcome to LearnRobot.com <br> : A curated platform of 300+ leading robotics companies worldwide by sector",    
-    "Explore the global robotics landscape",        
-    "Navigate the core of robot intelligence",
-    "Discover high-precision hardware and robotic components",    
-    "Learn robots before they learn us",    
-    "Meet your robot companion",
-    "Touch the future of robotics technology",
+    `Welcome to LearnRobot.com, a curated platform of <br>
+     300+ leading global companies <br>
+     where you can explore high-precision hardware, <br>
+     navigate robot intelligence, <br>
+     and touch the future of technology.<br>
+     Learn robots before they learn us.`
 ];
 
 let currentBgIndex = 0;
 let isPaused = false;
 let preventSearchFocus = false;
 
-/* --- 배경 로테이션 로직 --- */
+/* --- 배경 로테이션 로직 (수정됨) --- */
 function rotateBackgroundImage() {
     if (isPaused) return;
     const mainContent = document.querySelector('main');
-    // 홈 화면에 텍스트가 있는지 확인
     const h1 = document.querySelector('.home-content h1'); 
     
     if (!mainContent) return;
 
+    // 1. 이미지 변경
     currentBgIndex = (currentBgIndex + 1) % backgroundImages.length;
     mainContent.style.backgroundImage = `url('${backgroundImages[currentBgIndex]}')`;
     
-    // 중요: 홈 화면 모드(카테고리 클릭 전)일 때만 h1 텍스트를 업데이트
-    if (h1) {
-        h1.style.opacity = '0'; // 부드러운 전환
+    // 2. [수정] 텍스트 삭제 조건 변경
+    // currentBgIndex가 1보다 클 때 (즉, 3번째 이미지부터) 삭제
+    if (currentBgIndex > 4 && h1) { 
+        h1.style.opacity = '0'; 
         setTimeout(() => {
-            h1.innerHTML = backgroundTexts[currentBgIndex];
-            h1.style.opacity = '1';
+            if(h1) h1.remove(); 
         }, 500);
     }
 }
 
-let rotationInterval = setInterval(rotateBackgroundImage, 10000);
+let rotationInterval = setInterval(rotateBackgroundImage, 20000);
 
 function toggleBackgroundRotation() {
     const btn = document.getElementById('bg-toggle-btn');
@@ -967,7 +974,7 @@ function toggleBackgroundRotation() {
     const textSpan = document.getElementById('bg-toggle-text');
 
     if (isPaused) {
-        rotationInterval = setInterval(rotateBackgroundImage, 10000);
+        rotationInterval = setInterval(rotateBackgroundImage, 20000);
         icon.className = 'fas fa-pause';
         textSpan.innerText = "Auto Play";
         isPaused = false;
@@ -992,7 +999,7 @@ function renderHome() {
     // 홈 콘텐츠 구조 생성
     container.innerHTML = `
         <div class="home-content"> 
-            <h1>${backgroundTexts[currentBgIndex]}</h1> 
+            <h1>${backgroundTexts[0]}</h1>
         </div>
     `;
     
@@ -1002,9 +1009,6 @@ function renderHome() {
     // 국가별 통계 다시 그리기
     renderCountryStats();
 }
-
-// 링크 카드를 실제로 생성하는 핵심 함수
-// 링크 카드를 실제로 생성하는 핵심 함수 (텍스트 및 디자인 복구)
 // [수정 완료] 중복 그리드 생성 방지 버전
 function renderSpecificLinksSortedCustom(dataList, container) {
     if (!container) return; 

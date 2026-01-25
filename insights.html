@@ -12,6 +12,50 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
   <style>
+/* 네온 호흡 효과 애니메이션 */
+@keyframes neon-smooth-flow {
+    0%, 100% { box-shadow: 0 0 4px rgba(255, 251, 3, 0.2); border-color: rgba(255, 251, 3, 0.3); }
+    50% { box-shadow: 0 0 15px rgba(255, 251, 3, 0.9); border-color: #FFFB03; }
+}
+
+/* 광고 배너 컨테이너: 왼쪽 정렬로 변경 */
+.header-ad-container { 
+    flex-grow: 1; 
+    display: flex; 
+    justify-content: flex-start; /* 👈 중앙에서 왼쪽 정렬로 변경 */
+    min-width: 0; 
+    margin-left: 20px; /* 👈 메뉴와 배너 사이 최소 간격 확보 */
+    overflow: hidden;
+}
+
+/* 광고 배너 박스: 왼쪽 정렬 및 최대 너비 설정 */
+.ad-banner {
+    text-decoration: none; 
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-start; /* 👈 내부 콘텐츠 왼쪽 정렬 */
+    height: 100%; 
+    padding: 5px 15px; 
+    border-radius: 8px; 
+    border: 4px solid #FFFB03;
+    gap: 10px;
+    transition: all 0.3s ease; 
+    animation: neon-smooth-flow 4s infinite ease-in-out;
+    max-width: fit-content; /* 👈 박스 크기가 내용물에 맞춰지도록 설정 */
+}
+
+/* 회사명: 왼쪽 고정 및 넘칠 때 말줄임표 처리 */
+.ad-company-name {
+    font-family: 'Chakra Petch', sans-serif; 
+    font-weight: 700; 
+    color: #FFFFFF;
+    font-size: clamp(0.9rem, 1.3vw, 1.5rem); 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    text-align: left; /* 👈 왼쪽 정렬 명시 */
+    flex: 1;
+}
         /* 1. 박스 크기 계산법 통일 (필수) */
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -90,11 +134,13 @@
         .read-more-btn:hover { color: #fff; text-shadow: 0 0 5px var(--accent); }
 
         /* 반응형 */
-        @media (max-width: 768px) {
-            header { padding: 0 1rem; }
-            .page-title { font-size: 2.2rem; }
-            .main-nav { display: none; }
-        }
+        @media (max-width: 1024px) { /* 👈 768px에서 1024px로 변경 */
+    header { padding: 0 1rem; }
+    .page-title { font-size: 2.2rem; }
+    .main-nav { display: none; }
+    /* 배너를 더 일찍 숨겨서 글자 겹침 방지 */
+    .header-ad-container { display: none !important; }
+}
     </style>
 </head>
 <body>
@@ -113,7 +159,11 @@
         <a href="insights.html" class="nav-item active">INSIGHTS</a>
         <a href="learn.html" class="nav-item">LEARN</a>
     </nav>
-
+<div class="header-ad-container" style="flex-grow: 1; display: flex; min-width: 200px;">
+        <a href="#" class="ad-banner">
+            <span class="ad-company-name">Learn Robot</span>
+        </a>
+    </div>
     <div style="width: 20px;"></div> 
 </header>
     <div class="container">
@@ -157,6 +207,21 @@
         &copy; 2026 Learn Robot. All rights reserved. <br>
         <a href="privacy.html" style="color: #888; text-decoration: underline; margin-top: 5px; display: inline-block;">Privacy Policy</a>
     </div>
-
+<script src="data.js"></script>
+<script>
+    function startAdRotation() {
+        const showNextAd = () => {
+            if (typeof links !== 'undefined' && links.length > 0) {
+                const randomLink = links[Math.floor(Math.random() * links.length)];
+                document.querySelector('.ad-banner .ad-company-name').innerText = randomLink.title;
+                document.querySelector('.ad-banner').href = randomLink.url;
+                document.querySelector('.ad-banner').target = "_blank";
+            }
+        };
+        showNextAd();
+        setInterval(showNextAd, 10000);
+    }
+    window.onload = startAdRotation;
+</script>
 </body>
 </html>
