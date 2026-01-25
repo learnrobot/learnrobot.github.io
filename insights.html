@@ -161,7 +161,7 @@
     </nav>
 <div class="header-ad-container" style="flex-grow: 1; display: flex; min-width: 200px;">
         <a href="#" class="ad-banner">
-            <span class="ad-company-name">Learn Robot</span>
+            <span class="ad-company-name">&nbsp;</span>
         </a>
     </div>
     <div style="width: 20px;"></div> 
@@ -221,7 +221,7 @@
         showNextAd();
         setInterval(showNextAd, 10000);
     }
-    window.onload = startAdRotation;
+    document.addEventListener('DOMContentLoaded', startAdRotation);
 </script>
 </body>
 </html>
