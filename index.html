@@ -244,45 +244,56 @@ body {
 
     <main>
  <main style="padding: 30px 50px; display: flex; flex-direction: column; gap: 20px; overflow-x: hidden;">
-    <div class="content-header" style="border-bottom: 2px solid #FFFB03; padding-bottom: 10px; margin-bottom: 10px;">
-        <h1 style="font-size: 2.2rem; color: #FFFB03; text-transform: none; letter-spacing: 1px;">What Makes a Robot</h1>
-        <p style="color: #aaa; font-size: 1rem;">The Essential Roadmap for Robotics Engineering</p>
-    </div>
+ <div class="content-header" style="border-bottom: 2px solid #FFFB03; padding-bottom: 10px; margin-bottom: 10px;">
+    <h1 style="font-size: 2.2rem; color: #FFFB03; text-transform: none; letter-spacing: 1px;">What Makes a Robot</h1>
+    <p style="color: #aaa; font-size: 1rem;">The Essential Roadmap for Robotics Engineering</p>
+</div>
 
-    <div class="main-split-layout" style="display: flex; gap: 30px; align-items: stretch; width: 100%;">
+<div class="main-split-layout" style="display: flex; gap: 30px; align-items: stretch; width: 100%;">
+    
+    <div class="guide-column" style="flex: 0 0 350px; display: flex; flex-direction: column; justify-content: center; gap: 20px;">
         
-        <div class="guide-column" style="flex: 0 0 350px; display: flex; flex-direction: column; gap: 15px;">
-            <div class="guide-step" style="background: rgba(44, 153, 153, 0.1); border: 1px solid rgba(44, 153, 153, 0.4); border-radius: 12px; padding: 18px;">
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-                    <i class="fas fa-cog" style="font-size: 1.8rem; color: #FFFB03;"></i>
-                    <h3 style="color: #FFFB03; font-size: 1.2rem;">Step 1. Mechanics</h3>
-                </div>
-                <p style="color: #ccc; font-size: 0.9rem; line-height: 1.4;">Study the physical framework: joints, links, and kinematics that define movement.</p>
-            </div>
-
-            <div class="guide-step" style="background: rgba(44, 153, 153, 0.1); border: 1px solid rgba(44, 153, 153, 0.4); border-radius: 12px; padding: 18px;">
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-                    <i class="fas fa-microchip" style="font-size: 1.8rem; color: #FFFB03;"></i>
-                    <h3 style="color: #FFFB03; font-size: 1.2rem;">Step 2. Electronics</h3>
-                </div>
-                <p style="color: #ccc; font-size: 0.9rem; line-height: 1.4;">The nervous system: integrating sensors, MCUs, and power systems.</p>
-            </div>
-
-            <div class="guide-step" style="background: rgba(44, 153, 153, 0.1); border: 1px solid rgba(44, 153, 153, 0.4); border-radius: 12px; padding: 18px;">
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-                    <i class="fas fa-code" style="font-size: 1.8rem; color: #FFFB03;"></i>
-                    <h3 style="color: #FFFB03; font-size: 1.2rem;">Step 3. Programming</h3>
-                </div>
-                <p style="color: #ccc; font-size: 0.9rem; line-height: 1.4;">Implement logic using C++ and Python to transform code into behavior.</p>
-            </div>
+        <div style="background: rgba(30, 30, 30, 0.6); border-left: 4px solid #FFFB03; padding: 20px;">
+            <h2 style="color: #fff; font-size: 1.5rem; margin-bottom: 15px; font-weight: 700;">More Than Parts</h2>
+            <p style="color: #ccc; font-size: 1.3rem; line-height: 1.6; font-family: 'Roboto', sans-serif;">
+                Robotics is the intersection where <strong style="color: #86D1D1;">Mechanics</strong> provides the body, <strong style="color: #86D1D1;">Electronics</strong> builds the nervous system, and <strong style="color: #86D1D1;">Code</strong> breathes life into the machine.
+            </p>
         </div>
 
-        <div class="image-column" style="flex: 1; display: flex; align-items: flex-start; min-width: 0;">
-            <div style="width: 100%; border-radius: 15px; overflow: hidden; border: 1px solid rgba(255, 251, 3, 0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.8); background: #000;">
-                <img src="4.h_parts.png" alt="Robotics Technical Infographic" style="width: 100%; height: auto; display: block; object-fit: contain; transform: scale(1.05); transform-origin: top center;">
-            </div>
+        <div style="padding: 10px;">
+            <p style="color: #aaa; font-size: 1.1rem; line-height: 1.5; font-family: 'Roboto', sans-serif;">
+                This curriculum is designed to guide you through each layer. 
+                Use the <span style="color:#FFFB03; font-weight:bold;">sidebar menu</span> to explore each domain specifically, from nuts and bolts to artificial intelligence.
+            </p>
+        </div>
+
+        <button onclick="document.querySelectorAll('.category-btn')[0].click()" 
+                style="margin-top: 10px; padding: 12px 20px; background: transparent; border: 2px solid #2C9999; color: #2C9999; font-family: 'Chakra Petch', sans-serif; font-weight: bold; font-size: 1rem; cursor: pointer; transition: all 0.3s; border-radius: 5px; text-align:center;">
+            Start Your Journey <i class="fas fa-arrow-right" style="margin-left:8px;"></i>
+        </button>
+
+    </div>
+
+    <div class="image-column" style="flex: 1; display: flex; align-items: flex-start; min-width: 0;">
+        <div style="width: 100%; border-radius: 15px; overflow: hidden; border: 1px solid rgba(255, 251, 3, 0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.8); background: #000;">
+            <img src="4.h_parts.png" alt="Robotics Technical Infographic" style="width: 100%; height: auto; display: block; object-fit: contain;">
         </div>
     </div>
+</div>
+
+<script>
+    const startBtn = document.querySelector('button[onclick*="category-btn"]');
+    if(startBtn){
+        startBtn.addEventListener('mouseover', () => {
+            startBtn.style.background = '#2C9999';
+            startBtn.style.color = '#1E1E1E';
+        });
+        startBtn.addEventListener('mouseout', () => {
+            startBtn.style.background = 'transparent';
+            startBtn.style.color = '#2C9999';
+        });
+    }
+</script>
 </main>
 <script>
 const buttons = document.querySelectorAll('.category-btn');
