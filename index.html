@@ -344,194 +344,460 @@ function resetToHome() {
 }
 // Robot Mechanics용 영문 아티클 데이터 (이미지 포함)
 const articles = {
-    'Robot Mechanics': `
-        <div class="content-header">
-            <h1>Robot Mechanics: The Body & Muscles</h1>
-            <p>Just like you have bones and muscles, robots have Mechanics.</p>
-        </div>
+'Robot Mechanics': `
+    <div class="content-header">
+        <h1>Robot Mechanics: The Body, Muscles & Secrets</h1>
+        <p>Robots are not just metal statues. They move, lift, and dance! Let's look inside their metal bodies.</p>
+    </div>
+    
+    <div class="article-content" style="line-height: 1.8; color: #ccc; font-family: 'Roboto', sans-serif;">
         
-        <div class="article-content" style="line-height: 1.8; color: #ccc; font-family: 'Roboto', sans-serif;">
-            
-            <div class="analogy-box">
-                <div class="analogy-title"><i class="fas fa-child"></i> Think about your body</div>
-                <p>Move your arm. Your <strong>Bones</strong> give you shape, your <strong>Elbow</strong> lets you bend, and your <strong>Muscles</strong> give you power. Robots work exactly the same way!</p>
+        <div class="analogy-box">
+            <div class="analogy-title"><i class="fas fa-child"></i> Imagine your own body</div>
+            <p>
+                To move your arm, you need three things working together:<br>
+                1. <strong>Bones</strong> to keep your arm straight and hard.<br>
+                2. <strong>Joints</strong> (like your elbow) to bend.<br>
+                3. <strong>Muscles</strong> to pull the bones up and down.<br>
+                A robot is exactly the same! It just uses metal instead of bone, and motors instead of muscle.
+            </p>
+        </div>
+
+        <h3 style="color: #FFFB03; margin-top: 40px;">1. The Skeleton (Links & Materials)</h3>
+        <p>
+            The hard parts of a robot are called <span class="highlight-term">Links</span>. But what are they made of? 
+            If a robot is too heavy, the motors cannot move it. If it is too light, it might break!
+        </p>
+        <ul style="margin-bottom: 20px;">
+            <li><strong>Aluminum:</strong> The most popular choice. It is strong like steel but much lighter.</li>
+            <li><strong>Plastic (3D Printed):</strong> Good for small robots and toys. It is cheap and easy to make.</li>
+            <li><strong>Carbon Fiber:</strong> Super expensive! It is extremely light and strong. Used in advanced running robots.</li>
+        </ul>
+
+        <h3 style="color: #FFFB03; margin-top: 40px;">2. The Joints (How it bends)</h3>
+        <p>
+            Without joints, a robot would be a stiff statue. <span class="highlight-term">Joints</span> connect the links and allow movement.
+            Engineers choose different joints depending on the job.
+        </p>
+        
+        <div style="display: flex; gap: 20px; margin: 20px 0; flex-wrap: wrap;">
+            <div class="step-box" style="flex: 1;">
+                <strong style="color:#fff; font-size: 1.1rem;">① Revolute Joint (Spin)</strong><br>
+                <p style="font-size: 0.9rem; margin-top: 5px;">
+                    Think of a door hinge or your knee. It rotates around one point. 
+                    Most industrial robot arms are made of 6 revolute joints connected together.
+                </p>
             </div>
-
-            <h3 style="color: #FFFB03; margin-top: 30px;">1. Links & Joints (The Skeleton)</h3>
-            <p>Robots are made of hard parts called <span class="highlight-term">Links</span> (like bones) and movable parts called <span class="highlight-term">Joints</span> (like knees and elbows).</p>
-            
-            <div style="display: flex; gap: 20px; margin: 20px 0; flex-wrap: wrap;">
-                <div class="step-box" style="flex: 1;">
-                    <strong style="color:#fff;">Revolute Joint</strong><br>
-                    It rotates like a door hinge or your elbow.<br>
-                    <i class="fas fa-sync-alt" style="color:#FFFB03; margin-top:10px;"></i>
-                </div>
-                <div class="step-box" style="flex: 1;">
-                    <strong style="color:#fff;">Prismatic Joint</strong><br>
-                    It slides in a straight line like a drawer or a telescope.<br>
-                    <i class="fas fa-arrows-alt-h" style="color:#FFFB03; margin-top:10px;"></i>
-                </div>
+            <div class="step-box" style="flex: 1;">
+                <strong style="color:#fff; font-size: 1.1rem;">② Prismatic Joint (Slide)</strong><br>
+                <p style="font-size: 0.9rem; margin-top: 5px;">
+                    Think of a drawer opening, or a telescope extending. 
+                    The link slides in a straight line. This is great for elevators or precision machines.
+                </p>
             </div>
+        </div>
 
-            <div style="text-align: center; margin: 30px 0;">
-                <img src="links_joints_diagram.png" alt="Skeleton Diagram" style="max-width: 100%; border-radius: 12px; border: 1px solid #444;">
-                <p style="font-size: 0.9rem; color: #888;">(Image: Comparing Human Arm vs. Robot Arm)</p>
-            </div>
+        <div style="text-align: center; margin: 40px 0;">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Factory_Automation_Robotics_Palettizing_Bread.jpg" 
+                 alt="KUKA Industrial Robot Arm" 
+                 style="max-width: 600px; width: 100%; border-radius: 12px; border: 1px solid #444; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">(Fig 1. A standard 6-axis robot arm working in a factory)</p>
+        </div>
 
-            <h3 style="color: #FFFB03; margin-top: 30px;">2. Actuators (The Muscles)</h3>
-            <p>A robot skeleton can't move without muscles. In robotics, we call these muscles <span class="highlight-term">Actuators</span> (Ack-choo-ay-tors). They turn electricity into movement.</p>
+        <h3 style="color: #FFFB03; margin-top: 40px;">3. The Muscles (Actuators)</h3>
+        <p>
+            Links and joints cannot move by themselves. They need power! In robotics, we call the "muscle" an <span class="highlight-term">Actuator</span>.
+            There are three main types of robot muscles:
+        </p>
 
+        <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 10px; margin-top: 15px;">
             <ul style="list-style: none; padding: 0;">
-                <li style="margin-bottom: 10px;"><i class="fas fa-bolt" style="color:#FFFB03; width:20px;"></i> <strong>DC Motor:</strong> Spins fast like a fan (Simple & Fast).</li>
-                <li style="margin-bottom: 10px;"><i class="fas fa-robot" style="color:#FFFB03; width:20px;"></i> <strong>Servo Motor:</strong> Moves to a precise angle (Great for robot arms).</li>
+                <li style="margin-bottom: 15px;">
+                    <i class="fas fa-bolt" style="color:#FFFB03; width:25px;"></i> 
+                    <strong>DC Motors:</strong> Simple motors that spin fast. Used in RC cars and drones.
+                </li>
+                <li style="margin-bottom: 15px;">
+                    <i class="fas fa-robot" style="color:#FFFB03; width:25px;"></i> 
+                    <strong>Servo Motors:</strong> Smart motors. You can tell them: "Go to 90 degrees and stop!" Perfect for robot arms.
+                </li>
+                <li>
+                    <i class="fas fa-tint" style="color:#FFFB03; width:25px;"></i> 
+                    <strong>Hydraulics:</strong> These use liquid pressure instead of electricity. They are slow but incredibly strong. Giant construction robots use this.
+                </li>
             </ul>
-
-            <div class="fun-fact">
-                <strong><i class="fas fa-lightbulb"></i> Fun Fact:</strong><br>
-                Some giant robots use <em>Hydraulics</em> (liquid pressure) instead of motors. It's the same power that makes construction excavators so strong!
-            </div>
         </div>
-    `,
 
-    'Electronics & Sensors': `
-        <div class="content-header">
-            <h1>Electronics: The Heart & Five Senses</h1>
-            <p>How robots feel the world and get the energy to move.</p>
+        <h3 style="color: #FFFB03; margin-top: 40px;">4. The Secret Power: Gears (Transmission)</h3>
+        <p>
+            Here is a secret: Electric motors are actually very weak! They spin super fast, but they have no strength (Torque).
+            If you connect a motor directly to a robot arm, it cannot lift anything.
+        </p>
+        <div class="analogy-box">
+            <div class="analogy-title"><i class="fas fa-bicycle"></i> The Bicycle Analogy</div>
+            <p>
+                Think about riding a bike up a steep hill. It's hard! So you change the <strong>Gears</strong>. 
+                You pedal faster, but the wheels turn slower and with more power.<br>
+                Robots use <strong>Gearboxes</strong> to trade speed for super-strength!
+            </p>
         </div>
+
+        <h3 style="color: #FFFB03; margin-top: 40px;">5. The Hands (End Effectors)</h3>
+        <p>
+            Robots don't always have human-like hands. The tool attached to the end of the robot arm is called an <span class="highlight-term">End Effector</span>.
+            Robots can change their hands like you change tools in a video game!
+        </p>
+        <ul style="margin-top: 10px;">
+            <li><strong>Gripper:</strong> Two fingers to pick up boxes.</li>
+            <li><strong>Suction Cup:</strong> Uses air to lift smooth glass or metal sheets.</li>
+            <li><strong>Welding Torch:</strong> To melt metal and build cars.</li>
+        </ul>
+
+        <div class="fun-fact" style="margin-top: 40px;">
+            <strong><i class="fas fa-lightbulb"></i> Did you know?</strong><br>
+            The human hand is a mechanical masterpiece. It has 27 bones and over 30 muscles. 
+            Building a robot hand that is as good as yours is still one of the hardest challenges in engineering!
+        </div>
+    </div>
+`,
+
+'Electronics & Sensors': `
+    <div class="content-header">
+        <h1>Electronics: The Nervous System & Senses</h1>
+        <p>If Mechanics is the body, Electronics is the life. Without it, a robot is just a statue.</p>
+    </div>
+    
+    <div class="article-content" style="line-height: 1.8; color: #ccc; font-family: 'Roboto', sans-serif;">
         
-        <div class="article-content" style="line-height: 1.8; color: #ccc; font-family: 'Roboto', sans-serif;">
-            
-            <h3 style="color: #FFFB03; margin-top: 20px;">1. The Nervous System (Circuits)</h3>
-            <p>Imagine if your brain told your hand to move, but there were no nerves to send the message. Nothing would happen! <span class="highlight-term">Wires</span> are like nerves, and <span class="highlight-term">Batteries</span> are like the heart pumping energy.</p>
-
-            <div style="text-align: center; margin: 20px 0;">
-                <img src="circuit_diagram.png" alt="Circuit Diagram" style="max-width: 100%; border-radius: 12px; border: 1px solid #444;">
-            </div>
-
-            <h3 style="color: #FFFB03; margin-top: 30px;">2. Sensors (The Five Senses)</h3>
-            <p>Humans have eyes, ears, and skin. Robots have <strong>Sensors</strong> to understand the world.</p>
-
-            <table style="width: 100%; border-collapse: separate; border-spacing: 0 10px; margin-top: 20px;">
-                <tr style="background: #252525;">
-                    <td style="padding: 15px; border-radius: 8px 0 0 8px;"><i class="fas fa-eye" style="color:#86D1D1;"></i> <strong>Camera</strong></td>
-                    <td style="padding: 15px; border-radius: 0 8px 8px 0;">The Robot's <strong>Eye</strong>. It sees colors and objects.</td>
-                </tr>
-                <tr style="background: #252525;">
-                    <td style="padding: 15px; border-radius: 8px 0 0 8px;"><i class="fas fa-broadcast-tower" style="color:#86D1D1;"></i> <strong>Lidar / Ultrasonic</strong></td>
-                    <td style="padding: 15px; border-radius: 0 8px 8px 0;">Like a <strong>Bat's Echo</strong>. It shoots invisible beams to measure distance.</td>
-                </tr>
-                <tr style="background: #252525;">
-                    <td style="padding: 15px; border-radius: 8px 0 0 8px;"><i class="fas fa-balance-scale" style="color:#86D1D1;"></i> <strong>IMU (Gyro)</strong></td>
-                    <td style="padding: 15px; border-radius: 0 8px 8px 0;">The <strong>Inner Ear</strong>. It helps the robot keep its balance and not fall over.</td>
-                </tr>
-            </table>
-
-            <div class="analogy-box">
-                <div class="analogy-title"><i class="fas fa-gamepad"></i> Try this at home!</div>
-                <p>Close your eyes and try to walk. It's hard, right? That's a robot without sensors. Now utilize your hands to feel the wall. You just became a <em>Touch Sensor</em>!</p>
-            </div>
+        <div class="analogy-box">
+            <div class="analogy-title"><i class="fas fa-bolt"></i> The Human Body Analogy</div>
+            <p>
+                Electronics works just like your body:<br>
+                1. <strong>Battery</strong> = The Heart (Pumps energy/blood)<br>
+                2. <strong>Wires</strong> = Nerves (Send signals)<br>
+                3. <strong>Microcontroller</strong> = The Brain (Decides what to do)<br>
+                4. <strong>Sensors</strong> = Eyes, Ears, and Skin (Feel the world)
+            </p>
         </div>
-    `,
 
-    'Programming': `
-        <div class="content-header">
-            <h1>Programming: The Recipe for Intelligence</h1>
-            <p>Code is just a set of instructions. It's not magic, it's logic!</p>
-        </div>
+        <h3 style="color: #FFFB03; margin-top: 40px;">1. The Brain (Microcontrollers)</h3>
+        <p>
+            A robot needs a brain to think. We call this a <span class="highlight-term">Microcontroller (MCU)</span>. 
+            It is a tiny computer that reads sensors and tells motors to move.
+        </p>
         
-        <div class="article-content" style="line-height: 1.8; color: #ccc; font-family: 'Roboto', sans-serif;">
-            
-            <div class="analogy-box">
-                <div class="analogy-title"><i class="fas fa-utensils"></i> Cooking Analogy</div>
-                <p>Imagine baking a cake. You follow a recipe:<br>
-                1. Break eggs.<br>
-                2. Mix flour.<br>
-                3. Bake for 30 mins.<br>
-                <strong>Programming</strong> is just writing a recipe for the robot to follow!</p>
+        <div style="display: flex; gap: 20px; margin: 20px 0; flex-wrap: wrap;">
+            <div class="step-box" style="flex: 1; border-color: #2C9999;">
+                <strong style="color:#fff; font-size: 1.1rem;">Arduino (The Reflex Brain)</strong><br>
+                <p style="font-size: 0.9rem; margin-top: 5px;">
+                    Simple, fast, and rugged. It's perfect for moving motors and reading buttons. 
+                    Think of it like the part of your brain that pulls your hand away from fire.
+                </p>
             </div>
-
-            <h3 style="color: #FFFB03; margin-top: 30px;">1. The Loop (Sense -> Think -> Act)</h3>
-            <p>Robots don't just do one thing. They do this loop forever:</p>
-            
-            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin: 20px 0;">
-                <div class="step-box" style="text-align: center;">👀<br><strong>Sense</strong><br>(Look)</div>
-                <i class="fas fa-arrow-right" style="color:#2C9999;"></i>
-                <div class="step-box" style="text-align: center;">🧠<br><strong>Plan</strong><br>(Think)</div>
-                <i class="fas fa-arrow-right" style="color:#2C9999;"></i>
-                <div class="step-box" style="text-align: center;">🦾<br><strong>Act</strong><br>(Move)</div>
-            </div>
-
-            <h3 style="color: #FFFB03; margin-top: 30px;">2. Languages Robots Speak</h3>
-            <p>We speak English or Korean. Robots speak:</p>
-            <ul>
-                <li><strong style="color:#fff;">Python:</strong> Easy and popular. Like writing simple sentences. (Great for AI)</li>
-                <li><strong style="color:#fff;">C++:</strong> Fast and precise. Like complex math formulas. (Great for control)</li>
-            </ul>
-
-            <div class="fun-fact">
-                <strong><i class="fas fa-code"></i> Kid's Challenge:</strong><br>
-                Write a "code" for your parent to drink water.<br>
-                1. Walk to kitchen.<br>
-                2. If (Cup is empty) { Fill cup }.<br>
-                3. Drink.<br>
-                See? You are already a programmer!
+            <div class="step-box" style="flex: 1; border-color: #d63384;">
+                <strong style="color:#fff; font-size: 1.1rem;">Raspberry Pi (The Thinking Brain)</strong><br>
+                <p style="font-size: 0.9rem; margin-top: 5px;">
+                    A full mini-computer. It can run AI, process video, and connect to WiFi. 
+                    It is used when the robot needs to recognize faces or talk.
+                </p>
             </div>
         </div>
-    `,
 
-    'AI & Perception': `
-        <div class="content-header">
-            <h1>AI & Perception: How Robots Learn</h1>
-            <p>Teaching robots to think like humans, not just follow orders.</p>
+        <div style="text-align: center; margin: 40px 0;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Arduino_Uno_-_R3.jpg/800px-Arduino_Uno_-_R3.jpg" 
+                 alt="Arduino Uno Microcontroller" 
+                 style="max-width: 500px; width: 100%; border-radius: 12px; border: 1px solid #444; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">(Fig 1. Arduino Uno: The most popular robot brain for beginners)</p>
         </div>
+
+        <h3 style="color: #FFFB03; margin-top: 40px;">2. The Senses (Sensors)</h3>
+        <p>
+            How does a robot know where it is? It uses <span class="highlight-term">Sensors</span> to convert the physical world into electrical signals.
+        </p>
+
+        <table style="width: 100%; border-collapse: separate; border-spacing: 0 10px; margin-top: 10px;">
+            <tr style="background: #252525;">
+                <td style="padding: 15px; border-radius: 8px 0 0 8px; width: 50px; text-align: center;">
+                    <i class="fas fa-eye" style="color:#86D1D1; font-size: 1.5rem;"></i>
+                </td>
+                <td style="padding: 15px;">
+                    <strong style="color:#fff;">Lidar & Ultrasonic</strong><br>
+                    <span style="font-size: 0.9rem;">The "Distance" sense. Like a bat using echolocation to see walls in the dark.</span>
+                </td>
+            </tr>
+            <tr style="background: #252525;">
+                <td style="padding: 15px; width: 50px; text-align: center;">
+                    <i class="fas fa-balance-scale" style="color:#86D1D1; font-size: 1.5rem;"></i>
+                </td>
+                <td style="padding: 15px;">
+                    <strong style="color:#fff;">IMU (Gyroscope)</strong><br>
+                    <span style="font-size: 0.9rem;">The "Balance" sense. It tells the robot if it is falling over (Pitch/Roll/Yaw).</span>
+                </td>
+            </tr>
+            <tr style="background: #252525;">
+                <td style="padding: 15px; border-radius: 0 8px 8px 0; width: 50px; text-align: center;">
+                    <i class="fas fa-camera" style="color:#86D1D1; font-size: 1.5rem;"></i>
+                </td>
+                <td style="padding: 15px; border-radius: 0 8px 8px 0;">
+                    <strong style="color:#fff;">Camera</strong><br>
+                    <span style="font-size: 0.9rem;">The "Vision" sense. Combined with AI, it can recognize cats, stop signs, and humans.</span>
+                </td>
+            </tr>
+        </table>
+
+        <h3 style="color: #FFFB03; margin-top: 40px;">3. The Heart (Power & Battery)</h3>
+        <p>
+            Robots are hungry! They usually run on <strong>LiPo (Lithium Polymer)</strong> batteries, which are powerful but dangerous if treated badly.
+        </p>
+        <ul style="margin-bottom: 20px;">
+            <li><strong>Voltage (V):</strong> Think of it as water pressure. (e.g., 12V is stronger than 5V).</li>
+            <li><strong>Current (A):</strong> Think of it as the amount of water flowing. Motors need a lot of current!</li>
+        </ul>
+
+        <div class="fun-fact" style="border-color: #ff4444; background: rgba(255, 68, 68, 0.1);">
+            <strong><i class="fas fa-exclamation-triangle" style="color: #ff4444;"></i> Engineer's Joke: The Magic Smoke</strong><br>
+            Electronics run on "Magic Smoke" trapped inside the chips. <br>
+            If you connect the wires wrong (Short Circuit), the smoke escapes, and the chip stops working!<br>
+            <em>(Lesson: Never let the magic smoke out! Check your wiring.)</em>
+        </div>
+
+        <h3 style="color: #FFFB03; margin-top: 40px;">4. The Translator (Motor Drivers)</h3>
+        <p>
+            Here is a problem: The Brain (Arduino) is weak. The Muscles (Motors) are strong. 
+            If you connect a motor directly to the brain, the brain will burn out!
+        </p>
+        <p>
+            We use a chip called a <span class="highlight-term">Motor Driver</span>. It listens to the brain's weak whispers and sends strong power from the battery to the motors. It's like a heavy-lifter following orders.
+        </p>
+    </div>
+`,
+
+  'Programming': `
+    <div class="content-header">
+        <h1>Programming: The Recipe for Intelligence</h1>
+        <p>A robot without code is just a pile of metal. Programming breathes life into the machine.</p>
+    </div>
+    
+    <div class="article-content" style="line-height: 1.8; color: #ccc; font-family: 'Roboto', sans-serif;">
         
-        <div class="article-content" style="line-height: 1.8; color: #ccc; font-family: 'Roboto', sans-serif;">
-            
-            <h3 style="color: #FFFB03; margin-top: 20px;">1. Seeing vs. Understanding</h3>
-            <p>A camera sees a picture of a cat, but it's just colorful dots (pixels) to a computer. <strong>Perception</strong> is the ability to say "Hey! That's a cat!"</p>
-
-            <div style="text-align: center; margin: 20px 0;">
-                <img src="perception_process.png" alt="AI Vision Diagram" style="max-width: 100%; border-radius: 12px; border: 1px solid #444;">
-            </div>
-
-            <h3 style="color: #FFFB03; margin-top: 30px;">2. Machine Learning (Practice makes perfect)</h3>
-            <div class="analogy-box">
-                <div class="analogy-title"><i class="fas fa-brain"></i> The Toddler Brain</div>
-                <p>How does a baby learn what an apple is? By seeing thousands of apples. <br>
-                <strong>AI (Artificial Intelligence)</strong> works the same way. We show the robot 10,000 photos of apples until it learns!</p>
-            </div>
-
-            <h3 style="color: #FFFB03; margin-top: 30px;">3. SLAM (Map Making)</h3>
-            <p>Imagine waking up in a dark room. You walk around touching walls to build a map in your head. Robots do this with lasers! It's called <strong>SLAM</strong> (Simultaneous Localization And Mapping).</p>
+        <div class="analogy-box">
+            <div class="analogy-title"><i class="fas fa-utensils"></i> The Cooking Analogy</div>
+            <p>
+                Imagine teaching a robot to make a sandwich. You can't just say "Make food." You must be exact:<br>
+                1. Pick up bread.<br>
+                2. Put ham on bread.<br>
+                3. Close bread.<br>
+                <strong>Programming</strong> is just writing a detailed recipe (Algorithm) for the robot to follow!
+            </p>
         </div>
-    `,
 
-    'ROS 2': `
-        <div class="content-header">
-            <h1>ROS 2: The Super Team Manager</h1>
-            <p>How all the robot parts talk to each other without fighting.</p>
-        </div>
+        <h3 style="color: #FFFB03; margin-top: 40px;">1. The Never-Ending Loop (Sense-Think-Act)</h3>
+        <p>
+            Humans sleep, but robots stay awake waiting for orders. Almost every robot runs on a giant circle called the <span class="highlight-term">Control Loop</span>. It repeats this 100 times per second!
+        </p>
         
-        <div class="article-content" style="line-height: 1.8; color: #ccc; font-family: 'Roboto', sans-serif;">
-            
-            <h3 style="color: #FFFB03; margin-top: 20px;">1. Why do we need ROS?</h3>
-            <p>Building a robot is like building a LEGO castle with 100 friends. If everyone shouts at once, it's chaos! <br>
-            <strong>ROS (Robot Operating System)</strong> is the manager that makes sure the Camera talks to the Wheels, and the Brain talks to the Battery nicely.</p>
-
-            <div style="text-align: center; margin: 20px 0;">
-                <img src="ros_graph_diagram.png" alt="ROS Graph Diagram" style="max-width: 100%; border-radius: 12px; border: 1px solid #444;">
+        <div style="display: flex; gap: 15px; margin: 25px 0; justify-content: center; align-items: stretch;">
+            <div class="step-box" style="flex: 1; text-align: center; border-color: #86D1D1;">
+                <i class="fas fa-eye" style="font-size: 2rem; color: #86D1D1; margin-bottom: 10px;"></i><br>
+                <strong style="color:#fff;">1. SENSE</strong><br>
+                <span style="font-size: 0.9rem;">"Is there a wall?"</span>
             </div>
-
-            <h3 style="color: #FFFB03; margin-top: 30px;">2. Topics (The Newspaper)</h3>
-            <p>Imagine a newspaper boy (Publisher) shouting "Extra! Extra! Obstacle ahead!" <br>
-            Anyone who is interested (Subscriber) listens to that news. This is how data moves in a robot.</p>
-
-            <div class="fun-fact">
-                <strong><i class="fas fa-globe"></i> Did you know?</strong><br>
-                NASA uses ROS on the space robots inside the International Space Station! By learning ROS, you are learning space-grade tech.
+            <div style="display:flex; align-items:center;"><i class="fas fa-arrow-right" style="color:#555;"></i></div>
+            <div class="step-box" style="flex: 1; text-align: center; border-color: #FFFB03;">
+                <i class="fas fa-brain" style="font-size: 2rem; color: #FFFB03; margin-bottom: 10px;"></i><br>
+                <strong style="color:#fff;">2. THINK</strong><br>
+                <span style="font-size: 0.9rem;">"If wall, turn left!"</span>
+            </div>
+            <div style="display:flex; align-items:center;"><i class="fas fa-arrow-right" style="color:#555;"></i></div>
+            <div class="step-box" style="flex: 1; text-align: center; border-color: #FF7777;">
+                <i class="fas fa-walking" style="font-size: 2rem; color: #FF7777; margin-bottom: 10px;"></i><br>
+                <strong style="color:#fff;">3. ACT</strong><br>
+                <span style="font-size: 0.9rem;">(Spin Motors)</span>
             </div>
         </div>
-    `
+
+        <div style="text-align: center; margin: 40px 0;">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                 alt="Computer Screen with Code" 
+                 style="max-width: 600px; width: 100%; border-radius: 12px; border: 1px solid #444; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">(Fig 1. Real code usually looks like this: colorful text on a black screen)</p>
+        </div>
+
+        <h3 style="color: #FFFB03; margin-top: 40px;">2. Robot Languages (Python vs C++)</h3>
+        <p>
+            We speak English or Korean. Robots speak <strong>Programming Languages</strong>. There are two main languages you need to know:
+        </p>
+
+        <div style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 20px; margin-top: 15px;">
+            <div style="margin-bottom: 20px;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                    <i class="fab fa-python" style="color: #FFD43B; font-size: 1.5rem;"></i> 
+                    <strong style="font-size: 1.2rem; color: #fff;">Python (The Easy One)</strong>
+                </div>
+                <p style="margin: 0; padding-left: 34px; font-size: 0.95rem;">
+                    It reads like simple English. Great for Artificial Intelligence (AI) and beginners. <br>
+                    <em>Example: <code>robot.move_forward()</code></em>
+                </p>
+            </div>
+            <div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                    <i class="fas fa-code" style="color: #00599C; font-size: 1.5rem;"></i> 
+                    <strong style="font-size: 1.2rem; color: #fff;">C++ (The Fast One)</strong>
+                </div>
+                <p style="margin: 0; padding-left: 34px; font-size: 0.95rem;">
+                    It is harder to write but runs extremely fast. Used for controlling motors and self-driving cars where speed matters.
+                </p>
+            </div>
+        </div>
+
+        <h3 style="color: #FFFB03; margin-top: 40px;">3. Logic (If, Then, Else)</h3>
+        <p>
+            Robots are logical. They make decisions using <span class="highlight-term">"If Statements"</span>. 
+            It is a simple branching path.
+        </p>
+        
+        <div style="background: #111; border-left: 4px solid #86D1D1; padding: 15px; font-family: 'Courier New', monospace; color: #fff; margin: 15px 0;">
+            <span style="color: #FF7777;">if</span> (battery < 10%) {<br>
+            &nbsp;&nbsp; go_to_charger();<br>
+            } <span style="color: #FF7777;">else</span> {<br>
+            &nbsp;&nbsp; keep_cleaning();<br>
+            }
+        </div>
+        <p style="font-size: 0.9rem;">(Translation: "If you are hungry, go eat. Otherwise, keep working!")</p>
+
+        <div class="fun-fact" style="margin-top: 40px;">
+            <strong><i class="fas fa-bug"></i> History Lesson: Why "Bugs"?</strong><br>
+            When code has an error, we call it a <strong>"Bug"</strong>. Why?<br>
+            In 1947, a computer pioneer named Grace Hopper found a <em>real moth</em> stuck inside a computer relay, causing it to fail. It was the world's first literal computer bug!
+        </div>
+    </div>
+`,
+
+  'AI & Perception': `
+    <div class="content-header">
+        <h1>AI & Perception: The Robot's Mind</h1>
+        <p>Mechanics is the body. Programming is the logic. But AI is the ability to <em>Learn</em> and <em>Understand</em>.</p>
+    </div>
+    
+    <div class="article-content" style="line-height: 1.8; color: #ccc; font-family: 'Roboto', sans-serif;">
+        
+        <div class="analogy-box">
+            <div class="analogy-title"><i class="fas fa-brain"></i> The Toddler Analogy</div>
+            <p>
+                How does a baby learn what an "Apple" is? You don't explain the math of a circle. <br>
+                You just show them an apple 100 times and say "Apple!"<br>
+                <strong>AI (Artificial Intelligence)</strong> works the same way. We show the robot 10,000 photos until it learns on its own.
+            </p>
+        </div>
+
+        <h3 style="color: #FFFB03; margin-top: 40px;">1. Seeing vs. Understanding (Perception)</h3>
+        <p>
+            A camera is just a sensor. It only sees colored dots (pixels). <span class="highlight-term">Perception</span> is the ability to look at those dots and say, <strong>"Hey! That is a cat!"</strong>
+        </p>
+
+        <div style="display: flex; gap: 20px; margin: 20px 0; align-items: center; justify-content: center; flex-wrap: wrap;">
+            <div class="step-box" style="flex: 1; text-align: center; border-color: #888;">
+                <i class="fas fa-camera" style="font-size: 2rem; color: #888; margin-bottom: 10px;"></i><br>
+                <strong style="color:#fff;">Sensing</strong><br>
+                <span style="font-size: 0.9rem;">"I see red and round pixels."</span>
+            </div>
+            <i class="fas fa-arrow-right" style="color: #FFFB03; font-size: 1.5rem;"></i>
+            <div class="step-box" style="flex: 1; text-align: center; border-color: #FFFB03;">
+                <i class="fas fa-lightbulb" style="font-size: 2rem; color: #FFFB03; margin-bottom: 10px;"></i><br>
+                <strong style="color:#fff;">Perception</strong><br>
+                <span style="font-size: 0.9rem;">"It is an Apple!"</span>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 40px 0;">
+            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                 alt="Robot Face" 
+                 style="max-width: 600px; width: 100%; border-radius: 12px; border: 1px solid #444; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">(Fig 1. Modern robots use cameras and AI to recognize human faces)</p>
+        </div>
+
+        <h3 style="color: #FFFB03; margin-top: 40px;">2. The Artificial Brain (Neural Networks)</h3>
+        <p>
+            Traditional code follows rules ("If A, then B"). But AI uses <span class="highlight-term">Neural Networks</span>. 
+            These are computer programs written to imitate the neurons in a human brain. They get smarter the more they practice!
+        </p>
+
+        <ul style="margin-top: 15px;">
+            <li><strong>Training:</strong> Studying for a test (Showing the robot data).</li>
+            <li><strong>Inference:</strong> Taking the test (The robot making a guess).</li>
+        </ul>
+
+        <h3 style="color: #FFFB03; margin-top: 40px;">3. SLAM (Mapping the World)</h3>
+        <p>
+            Imagine waking up in a completely dark room. To know where you are, you walk around touching the walls and building a map in your head.
+        </p>
+        <p>
+            Robots do this using Lasers (Lidar) and Cameras. We call this <span class="highlight-term">SLAM</span> (Simultaneous Localization And Mapping). It is how robot vacuums know not to clean the same spot twice!
+        </p>
+
+        <div style="text-align: center; margin: 40px 0;">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                 alt="Neural Network Abstract" 
+                 style="max-width: 600px; width: 100%; border-radius: 12px; border: 1px solid #444; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">(Fig 2. AI connects data points just like neurons in a brain)</p>
+        </div>
+
+        <div class="fun-fact" style="margin-top: 40px; border-color: #d63384; background: rgba(214, 51, 132, 0.1);">
+            <strong><i class="fas fa-gamepad" style="color: #d63384;"></i> Fun Fact: AI vs Humans</strong><br>
+            In 2016, an AI named <strong>AlphaGo</strong> defeated the world champion of "Go" (Baduk). 
+            The AI made moves that no human had ever thought of in 3,000 years of history!
+        </div>
+    </div>
+`, 
+
+'ROS 2': `
+    <div class="content-header">
+        <h1>ROS 2: The Robot Operating System</h1>
+        <p>You have the body (Mechanics) and the brain (Code). Now you need a manager to make them work together.</p>
+    </div>
+    
+    <div class="article-content" style="line-height: 1.8; color: #ccc; font-family: 'Roboto', sans-serif;">
+        
+        <div class="analogy-box">
+            <div class="analogy-title"><i class="fas fa-users-cog"></i> The Manager Analogy</div>
+            <p>
+                Imagine a football team. If every player runs randomly, they lose. They need a <strong>Manager</strong>.<br>
+                <strong>ROS</strong> is that manager. It helps the Camera, Wheels, and Arm talk to each other perfectly.
+            </p>
+        </div>
+
+        <h3 style="color: #FFFB03; margin-top: 40px;">1. Nodes (The Workers)</h3>
+        <p>
+            ROS breaks a big program into small pieces called <span class="highlight-term">Nodes</span>. 
+            One node controls the wheels, another reads the camera. They talk to each other over a network.
+        </p>
+
+        <div style="text-align: center; margin: 40px 0;">
+            <img src="ROS2_nodes.png" 
+                 alt="ROS Network Graph" 
+                 style="max-width: 80%; border-radius: 12px; border: 1px solid #444; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">(Fig 1. Nodes communicate like a complex network)</p>
+        </div>
+
+        <h3 style="color: #FFFB03; margin-top: 40px;">2. Communication (Topics & Services)</h3>
+        <p>
+            <strong>Topics:</strong> Like a radio broadcast. (Streaming Data)<br>
+            <strong>Services:</strong> Like ordering a pizza. (Request & Response)
+        </p>
+
+        <h3 style="color: #FFFB03; margin-top: 40px;">3. Simulation (Gazebo)</h3>
+        <p>
+            Before building a real robot, we test it in a video-game-like world called <strong>Gazebo</strong>. 
+            If the code fails here, it costs $0. If it fails in real life, it costs millions!
+        </p>
+
+        <div style="text-align: center; margin: 40px 0;">
+            <img src="ROS2_gazebo.png" 
+                 alt="Gazebo Simulation" 
+                 style="max-width: 70%; border-radius: 12px; border: 1px solid #444; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">(Fig 2. Testing a robot in the Gazebo Simulator)</p>
+        </div>
+    </div>
+`,
 };
 
 buttons.forEach(button => {
