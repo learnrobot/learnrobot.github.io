@@ -20,38 +20,34 @@
     <style>
 /* --- 메인 내비게이션 스타일 (새로 추가) --- */
 /* index.html의 <style> 태그 안 */
-.main-nav {
+/* [수정] 네비게이션 스타일 교체 (메뉴 3개 -> 홈 버튼 1개) */
+.quick-nav {
     display: flex;
-    gap: 30px;
     align-items: center;
-    margin-left: 50px; /* 👈 여기를 30px에서 50px로 변경하여 통일! */
-    margin-right: auto;
+    margin-left: 50px;  /* 로고와의 간격 */
+    margin-right: auto; /* 광고 배너를 오른쪽으로 밀어냄 (필수) */
 }
 
-.nav-item {
-    font-family: 'Chakra Petch', sans-serif;
-    font-size: 1.5rem; /* 글자 크기 키움 */
-    font-weight: 900;
-    color: #2C9999; /* 기본 색상 (비활성) */
-    text-decoration: none;
-    text-transform: none;
-    padding-bottom: 5px;
-    border-bottom: 3px solid transparent; /* 밑줄 자리 확보 */
-    transition: all 0.3s ease;
-}
-
-/* 마우스를 올리거나 활성화(active) 되었을 때 */
-.nav-item:hover, .nav-item.active {
-    color: #FFFB03 !important; 
-    text-shadow: 0 0 10px rgba(255, 251, 3, 0.6); /* 네온 효과 */
-    border-bottom-color: #FFFB03;
-}
-
-/* Resources 탭 전용 색상 (원하시면 구분 가능) */
-.nav-item.resource-tab:hover, .nav-item.resource-tab.active {
+.nav-btn {
+    background: rgba(44, 153, 153, 0.1);
+    border: 1px solid #2C9999;
     color: #2C9999;
-    text-shadow: 0 0 10px rgba(44, 153, 153, 0.6);
-    border-bottom-color: #2C9999;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.nav-btn:hover {
+    background: #2C9999;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(44, 153, 153, 0.5);
 }
 
 /* 모바일에서는 숨기거나 조정 (필요 시) */
@@ -856,13 +852,9 @@ aside {
         </div>
     </a>
 
-    <nav class="main-nav" style="display: flex; gap: 30px; margin-left: 50px; margin-right: auto;">
-        <a href="index.html" class="nav-item">LEARN</a>
-    
-    <a href="players_in_robotics.html" class="nav-item active">Players<br>in Robotics</a>
-    
-    <a href="insights.html" class="nav-item">INSIGHTS</a>
-    </nav>
+   <div class="quick-nav">
+        <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
+    </div>
 
     <div class="search-container">
     <input type="text" id="searchInput" placeholder="Search the robot" onkeyup="searchLinks()" class="search-input">

@@ -78,16 +78,35 @@
         a { text-decoration: none; color: inherit; }
 
         /* 4. 네비게이션 메뉴 스타일 */
-        .main-nav { display: flex; gap: 30px; align-items: center; margin-right: auto; margin-left: 50px; }
-        .nav-item {
-            font-size: 1.5rem; color: #2C9999; text-decoration: none; font-weight: 900;
-            font-family: 'Chakra Petch', sans-serif; text-transform: none ;
-            border-bottom: 3px solid transparent; padding-bottom: 5px; transition: all 0.3s;
-        }
-        .nav-item:hover, .nav-item.active {
-            color: #FFFB03; text-shadow: 0 0 10px rgba(255, 251, 3, 0.6); border-bottom-color: #FFFB03;
-        }
+      /* [수정] 네비게이션 스타일 교체 (메뉴 3개 -> 홈 버튼 1개) */
+.quick-nav {
+    display: flex;
+    align-items: center;
+    margin-left: 50px;  /* 로고와의 간격 */
+    margin-right: auto; /* 광고 배너를 오른쪽으로 밀어냄 (필수) */
+}
 
+.nav-btn {
+    background: rgba(44, 153, 153, 0.1);
+    border: 1px solid #2C9999;
+    color: #2C9999;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.nav-btn:hover {
+    background: #2C9999;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(44, 153, 153, 0.5);
+}
         /* 헤더 스타일 */
         header { 
     background: rgba(30, 30, 30, 0.95); 
@@ -153,14 +172,10 @@
             </span>
         </div>
     </a>
-
-    <nav class="main-nav">
-      <a href="index.html" class="nav-item">LEARN</a>
+<div class="quick-nav">
+        <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
+    </div>
     
-    <a href="players_in_robotics.html" class="nav-item">Players<br>in Robotics</a>
-    
-    <a href="insights.html" class="nav-item active">INSIGHTS</a>
-    </nav>
 <div class="header-ad-container" style="flex-grow: 1; display: flex; min-width: 200px;">
         <a href="#" class="ad-banner">
             <span class="ad-company-name">&nbsp;</span>
