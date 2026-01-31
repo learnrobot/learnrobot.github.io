@@ -955,7 +955,7 @@ function startAdRotation() {
         const adText = document.querySelector('.ad-banner .ad-company-name');
         const adAnchor = document.querySelector('.ad-banner');
         if (adText && adAnchor) {
-            adText.innerHTML = randomLink.title.replace(/<br>/g, ' ');
+            adText.innerHTML = randomLink.title;
             adAnchor.href = randomLink.url;
             adAnchor.target = "_blank";
         }
