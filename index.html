@@ -211,7 +211,21 @@ margin: 0 !important;
         .analogy-title { color: #FFFB03; font-weight: bold; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
         .fun-fact { background: rgba(255, 251, 3, 0.05); border: 1px dashed #FFFB03; border-radius: 12px; padding: 15px; margin-top: 20px; }
         .highlight-term { color: #86D1D1; font-weight: bold; }
-        .step-box { background: #252525; padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #444; }
+        .step-box {
+    background: #252525 !important;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    /* 기존 색상들을 무시하고 청록색으로 강제 지정 */
+    border: 2px solid rgba(44, 153, 153, 0.6) !important; 
+    transition: all 0.3s ease;
+}
+
+/* 마우스를 올렸을 때 강조 효과 */
+.step-box:hover {
+    border-color: #86D1D1 !important;
+    box-shadow: 0 0 15px rgba(44, 153, 153, 0.3);
+}
 
       /* [수정] 햄버거 버튼 및 닫기 버튼 스타일 추가 */
         .menu-toggle {
@@ -626,7 +640,7 @@ margin: 0 !important;
                     Robots are hungry! They usually run on <strong>LiPo (Lithium Polymer)</strong> batteries, which are powerful but dangerous if treated badly.
                 </p>
 
-                <div class="fun-fact" style="border-color: #ff4444; background: rgba(255, 68, 68, 0.1);">
+                <div class="fun-fact">
                     <strong><i class="fas fa-exclamation-triangle" style="color: #ff4444;"></i> Engineer's Joke: The Magic Smoke</strong><br>
                     Electronics run on "Magic Smoke" trapped inside the chips. <br>
                     If you connect the wires wrong (Short Circuit), the smoke escapes, and the chip stops working!<br>
@@ -677,7 +691,7 @@ margin: 0 !important;
                 </p>
                 
                 <div style="display: flex; gap: 15px; margin: 25px 0; justify-content: center; align-items: stretch;">
-                    <div class="step-box" style="flex: 1; text-align: center; border-color: #86D1D1;">
+                    <div class="step-box" style="flex: 1; text-align: center; ">
                         <i class="fas fa-eye" style="font-size: 2rem; color: #86D1D1; margin-bottom: 10px;"></i><br>
                         <strong style="color:#fff;">1. SENSE</strong><br>
                         <span style="font-size: 0.9rem;">"Is there a wall?"</span>
@@ -741,7 +755,7 @@ margin: 0 !important;
                 </div>
                 <p style="font-size: 0.9rem;">(Translation: "If you are hungry, go eat. Otherwise, keep working!")</p>
 
-                <div class="fun-fact" style="margin-top: 40px;">
+                <div class="fun-fact">
                     <strong><i class="fas fa-bug"></i> History Lesson: Why "Bugs"?</strong><br>
                     In 1947, a computer pioneer named Grace Hopper found a <em>real moth</em> stuck inside a computer relay, causing it to fail. It was the world's first literal computer bug!
                 </div>
@@ -802,7 +816,7 @@ margin: 0 !important;
                     <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">(AI connects data points just like neurons in a brain)</p>
                 </div>
 
-                <div class="fun-fact" style="margin-top: 40px; border-color: #d63384; background: rgba(214, 51, 132, 0.1);">
+                <div class="fun-fact">
                     <strong><i class="fas fa-gamepad" style="color: #d63384;"></i> Fun Fact: AI vs Humans</strong><br>
                     In 2016, an AI named <strong>AlphaGo</strong> defeated the world champion of "Go" (Baduk). 
                     The AI made moves that no human had ever thought of in 3,000 years of history!
