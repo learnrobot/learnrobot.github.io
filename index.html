@@ -201,8 +201,38 @@ margin: 0 !important;
         section:last-child { border-bottom: none; }
         #intro { padding: 40px 50px; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
 
-        .content-header { margin-bottom: 30px; border-bottom: 2px solid #FFFB03; padding-bottom: 15px; }
-        .content-header h1 { font-size: 2.5rem; color: #FFFB03; margin-bottom: 10px; text-shadow: 0 0 10px rgba(255, 251, 3, 0.3); }
+        .content-header { margin-bottom: 30px; border-bottom: 2px solid #2C9999; padding-bottom: 15px; }
+  /* [수정] 주제 제목의 과한 형광 효과를 은은한 광채로 완화 */
+.content-header h1 { 
+    font-size: 2.6rem !important; 
+    color: #86D1D1 !important; 
+    font-weight: 700 !important;
+    letter-spacing: 1.2px !important;
+    
+    /* 그림자 레이어를 줄이고 투명도를 높여 빛을 억제 */
+    text-shadow: 
+        0 0 8px rgba(134, 209, 209, 0.4), /* 아주 옅은 청록색 번짐 */
+        0 0 15px rgba(44, 153, 153, 0.2); /* 배경에 살짝 묻어나는 정도 */
+    
+    margin-bottom: 15px !important;
+    transition: all 0.3s ease;
+}
+
+/* 마우스를 올렸을 때만 살짝 더 밝아지게 설정 */
+.content-header h1:hover {
+    color: #fff !important;
+    text-shadow: 0 0 12px rgba(134, 209, 209, 0.6);
+    transform: none; /* 움직임 제거로 차분함 유지 */
+}
+
+/* 제목 하단 선(Underline)도 빛을 줄임 */
+.content-header { 
+    margin-bottom: 30px; 
+    border-bottom: 2px solid rgba(44, 153, 153, 0.5) !important; 
+    padding-bottom: 15px; 
+    box-shadow: none; /* 하단 선의 그림자 제거 */
+}
+
         .content-header p { color: #aaa; font-size: 1.1rem; }
 
         /* 콘텐츠 텍스트 스타일 */
@@ -399,7 +429,7 @@ margin: 0 !important;
     <main id="main-scroll-area">
         <section id="intro">
             <div class="content-header" style="border-bottom: 2px solid #FFFB03; padding-bottom: 10px; margin-bottom: 10px;">
-                <h1 style="font-size: 2.2rem; color: #FFFB03; text-transform: none; letter-spacing: 1px;">What makes a Robot</h1>
+                <h1 style="font-size: 2.5rem; color: #86D1D1; text-transform: none; letter-spacing: 1px;">What makes a Robot</h1>
                 <p style="color: #aaa; font-size: 1rem;">The Essential Roadmap for Robotics Engineering</p>
             </div>
             <div class="main-split-layout" style="display: flex; gap: 30px; align-items: stretch; width: 100%;">
@@ -475,9 +505,11 @@ margin: 0 !important;
                     </div>
                 </div>
 
-                <h3 style="color: #FFFB03; margin-top: 40px;">3. The Muscles (Actuators)</h3>
+                <h3 style="color: #FFFB03; margin-top: 40px;">3. The Muscles (Actuators: Turning Energy into Motion)</h3>
                 <p>
-                    Links and joints cannot move by themselves. They need power! In robotics, we call the "muscle" an <span class="highlight-term">Actuator</span>.
+                    Links and joints cannot move by themselves. They need power! In robotics, we call the "muscle" an <span class="highlight-term">Actuator</span>. 
+                    Actuators are the components responsible for moving and controlling a mechanism or system. They take an energy source (usually electricity, 
+                   but sometimes air or liquid pressure) and convert it into physical force.
                     There are three main types of robot muscles:
                 </p>
 
@@ -485,15 +517,20 @@ margin: 0 !important;
                     <ul style="list-style: none; padding: 0;">
                         <li style="margin-bottom: 15px;">
                             <i class="fas fa-bolt" style="color:#FFFB03; width:25px;"></i> 
-                            <strong>DC Motors:</strong> Simple motors that spin fast. Used in RC cars and drones.
+                            <strong>DC Motors:</strong> DC motors provide continuous, high-speed rotation for wheels and fans. Stepper motors move in precise "steps," 
+                            making them ideal for 3D printers and high-accuracy movements. Used in RC cars and drones.
                         </li>
                         <li style="margin-bottom: 15px;">
                             <i class="fas fa-robot" style="color:#FFFB03; width:25px;"></i> 
-                            <strong>Servo Motors:</strong> Smart motors. You can tell them: "Go to 90 degrees and stop!" Perfect for robot arms.
+                            <strong>Servo Motors:</strong> These are "smart" motors equipped with built-in sensors and feedback control. Instead of just spinning, 
+                               you can command them to stay at a precise angle (e.g., "Hold at 45 degrees"). 
+                              They are the primary choice for robot arm joints and humanoid limb movements. 
+                              You can tell them: "Go to 90 degrees and stop!" Perfect for robot arms.
                         </li>
                         <li>
                             <i class="fas fa-tint" style="color:#FFFB03; width:25px;"></i> 
-                            <strong>Hydraulics:</strong> These use liquid pressure instead of electricity. They are slow but incredibly strong. Giant construction robots use this.
+                            <strong>Hydraulics & Pneumatic Actuators (The Heavy Lifters):</strong> Hydraulics use pressurized fluid to generate immense force, 
+                           while Pneumatics use compressed air for rapid, jerky movements. These are used in heavy industrial robots that need to lift car frames or in high-speed sorting machines.
                         </li>
                     </ul>
                 </div>
@@ -906,15 +943,39 @@ Services: On-Demand Interaction
         </div>
     </div>
 </div>
-                <div style="margin-top: 50px; padding: 20px; border-top: 1px solid #444; text-align: center;">
+                
+            </div>
+        </section>
+<section id="synergy" style="background: rgba(44, 153, 153, 0.03); border-top: 1px solid rgba(134, 209, 209, 0.2);">
+    <div class="content-header">
+        <h1 style="color: #86D1D1 !important; text-shadow: 0 0 10px rgba(134, 209, 209, 0.3);">The Robotic Synergy: How It All Connects</h1>
+        <p>A robot is more than the sum of its parts; it is a perfectly synchronized system.</p>
+    </div>
+
+    <div class="article-content">
+        <div style="border: 2px dashed rgba(44, 153, 153, 0.5) !important; padding: 30px; border-radius: 20px;">
+            <ul style="list-style: none; padding: 0; line-height: 2;">
+                <li><strong style="color: #86D1D1;"><i class="fas fa-link"></i> Mechanics & Electronics:</strong> The physical body gets its nervous system. Sensors are mounted on links, and actuators move the joints.</li>
+                <li><strong style="color: #86D1D1;"><i class="fas fa-link"></i> Electronics & Programming:</strong> The hardware finds its voice. Code interprets electrical signals from sensors and sends precise commands to motor drivers.</li>
+                <li><strong style="color: #86D1D1;"><i class="fas fa-link"></i> Programming & AI:</strong> The logic becomes wisdom. Simple 'if-else' rules are enhanced by neural networks, allowing the robot to learn from its environment.</li>
+                <li><strong style="color: #86D1D1;"><i class="fas fa-link"></i> ROS 2:</strong> The ultimate conductor. It ensures that the camera (AI), the brain (Programming), and the muscles (Mechanics) all communicate in perfect harmony.</li>
+            </ul>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <div style="display: inline-block; padding: 15px; border: 1px solid rgba(134, 209, 209, 0.3); border-radius: 15px; background: #000;">
+                <img src="synergy_map.jpg" alt="Robotics Elements Integration Map" style="max-width: 100%; height: auto; border-radius: 10px;">
+            </div>
+            <p style="font-size: 0.9rem; color: #888; margin-top: 15px;">(Diagram: The seamless integration of the 5 core robotics pillars)</p>
+        </div>
+    </div>
+</section>
+<div style="margin-top: 50px; padding: 20px; border-top: 1px solid #444; text-align: center;">
                     <h3 style="color: #86D1D1; margin-bottom: 10px;">🎉 You are ready!</h3>
                     <p style="font-size: 1.1rem; color: #fff;">
                         You have unlocked the secrets of Robotics. The future is waiting for you.<br>
                         </p>
                 </div>
-            </div>
-        </section>
-
     </main>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
