@@ -466,26 +466,27 @@ aside {
       /* 가독성을 위해 새로 추가하세요 */
 /* --- 이 부분을 찾아서 아래 코드로 통째로 바꿔주세요 --- */
 
+/* 이 부분을 찾아서 아래 내용으로 교체하세요 */
 .home-content h1 {
     position: relative;
-    font-family: 'Chakra Petch', sans-serif !important;
-    font-size: 2.1rem !important;
+   font-size: 1.3rem !important;
     color: #F5F5F5 !important;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1), 
-                 -1px -1px 2px rgba(0, 0, 0, 1),
-                 0 0 15px rgba(0, 0, 0, 0.2) !important;
-    line-height: 1.5;
-    margin: 0;
-    background-color: rgba(0, 0, 0, 0.35); /* 65% 투명한 검은색 */
-    backdrop-filter: blur(5px);             /* 배경 흐림 효과 (유리 느낌) */
-    padding: 30px 30px 60px 40px;     /* 텍스트 주변 여백 (위아래, 좌우) */
-    border-radius: 20px;                    /* 모서리 둥글게 */
-    border: 1px solid rgba(255, 255, 255, 0.15); /* 아주 얇은 테두리로 경계 구분 */
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);  /* 박스 자체 그림자 (입체감) */
+    background-color: rgba(0, 0, 0, 0.2) !important; /* 가독성을 위해 조금 더 어둡게 */
+    backdrop-filter: blur(1px);
     
-    /* 박스 크기 제한 (너무 넓게 퍼지지 않도록) */
-    display: inline-block; 
-    max-width: 90%;
+text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
+
+    /* [박스 크기 조절] 위/아래 15px, 좌우 45px로 슬림하게 */
+    padding: 20px 60px 20px 25px !important;
+    min-height: 1.6rem;
+    
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: inline-block;
+    max-width: 85%;
+    line-height: 1.6;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
 
     /* 애니메이션 설정 (괄호 안으로 올바르게 넣었습니다) */
     opacity: 1;                 
@@ -494,17 +495,19 @@ aside {
 }
 .text-close-btn {
     position: absolute;
-    top: auto;        /* 상단에서 10px 떨어짐 */
-    bottom: 15px;
-    right: 20px;      /* 우측에서 15px 떨어짐 */
-    background-color: transparent !important; 
+    /* [수정] 박스 세로 중앙에 배치하고 오른쪽 끝에서 15px 띄움 */
+    top: 50%;
+    right: 15px; 
+    transform: translateY(-50%);
+    
+    background: transparent !important;
     border: none !important;
-    box-shadow: none !important;
-    color: rgba(255, 255, 255, 0.4); /* 평소엔 흐릿하게 */
-    font-size: 1.2rem;
+    color: #FFFB03 !important; 
+    font-size: 1.3rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    padding: 5px;     /* 터치 영역 확보 */
+    opacity: 0.8;
+    padding: 5px; /* 클릭하기 편하게 영역 확보 */
+    line-height: 1;
     z-index: 10;
 }
 .text-close-btn:hover {
@@ -683,29 +686,24 @@ aside {
                 text-align: center !important; /* 홈 텍스트 중앙 정렬 */
             }
 
-   .home-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    text-align: center;
-    z-index: 2;
-    pointer-events: none; /* 클릭 방해 금지 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+.home-content {
+        position: absolute;
+        top: 50%;
+        left: 5% !important;        /* 왼쪽 정렬을 위해 5%로 고정 */
+        transform: translateY(-50%) !important; /* 수직 중앙만 유지 */
+        width: 90%;
+        text-align: left !important;
+        z-index: 2;
+        display: flex;
+        justify-content: flex-start;
+    }
 
-.home-content h1 {
-    font-family: 'Chakra Petch', sans-serif !important;
-    font-size: clamp(1.5rem, 4vw, 3.5rem) !important;
-    color: #FFFB03 !important;
-    text-shadow: 3px 3px 10px rgba(0, 0, 0, 1) !important;
-    line-height: 1.2;
-    opacity: 1;
-    margin: 0;
-}
+    .home-content h1 {
+      padding: 15px 50px 15px 20px !important; /* 오른쪽 여백 45px 유지 */
+        font-size: 1.1rem !important;
+        max-width: 90% !important;
+       
+    }
 
         
 
@@ -726,44 +724,40 @@ aside {
         /* --- 검색창 디자인 --- */
      .search-container {
     position: relative; /* 자식(아이콘)의 기준점 */
-    display: flex;
-    align-items: center;
-    width: 260px; /* 적당한 고정 너비 (필요시 조절) */
+    display: inline-block;
+    max-width: 600px;
+    width: auto; /* 적당한 고정 너비 (필요시 조절) */
     margin: 0 20px; /* 양옆 여백을 줘서 메뉴/배너와 거리 두기 */
     flex-shrink: 0; /* 화면이 줄어도 검색창 크기는 찌그러지지 않게 방어 */
 }
 
     .search-input {
-    width: 100%;
-    /* 위, 오른쪽, 아래, 왼쪽 (오른쪽 40px은 아이콘 들어갈 자리) */
-    padding: 10px 40px 10px 15px; 
-    background-color: rgba(0, 0, 0, 0.3);
-    border: 1px solid #FFFB03;
-    border-radius: 8px;
-    color: var(--text-main);
-    font-family: 'Chakra Petch', sans-serif;
-    font-size: 0.9rem;
+  width: 200px; /* 너비를 적절하게 고정 */
+    padding: 8px 35px 8px 15px !important; /* 위아래 간격을 줄임 */
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 10px !important; /* 알약 모양으로 변경 */
+    color: #fff !important;
+    font-size: 0.85rem !important;
+    height: 36px !important; /* 높이 고정 */
     transition: all 0.3s ease;
 }
         /* 검색창 활성화 시 네온 글로우 효과 */
 .search-input:focus {
+    width: 250px; /* 클릭하면 살짝 길어짐 */
     border-color: #FFFB03 !important;
-    /* 안팎으로 노란색 빛이 강하게 퍼지는 효과 */
-    box-shadow: 0 0 15px rgba(255, 251, 3, 0.8), 
-                inset 0 0 10px rgba(255, 251, 3, 0.4) !important;
-    background-color: rgba(0, 0, 0, 0.6) !important; /* 배경을 좀 더 어둡게 하여 대비 강화 */
-    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 10px rgba(255, 251, 3, 0.4) !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
-  .search-icon {
-    position: absolute; 
-    right: 12px;       /* 오른쪽 끝에서 12px 떨어짐 */
-    top: 50%;          /* 수직 중앙 */
-    transform: translateY(-50%); /* 정확한 수직 중앙 정렬 */
-    color: #FFFB03;
-    font-size: 1rem;
-    pointer-events: none; /* 아이콘 클릭 방지 (입력창 클릭되게) */
-    z-index: 2;
+.search-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(44, 153, 153, 0.8);
+    font-size: 0.9rem;
+    pointer-events: none;
 }
 
 /* 검색창 안에 미리 적힌 글자(Placeholder) 색상 변경 */
@@ -954,12 +948,7 @@ const backgroundImages = [
 '5.robot_hand.png'];
 
 const backgroundTexts = [
-    `Welcome to LearnRobot.com, a curated platform of <br>
-     300+ leading global companies <br>
-     where you can explore high-precision hardware, <br>
-     navigate robot intelligence, <br>
-     touch the future of technology,<br>
-     and learn robots before they learn us.`
+    `Curated 300+ leading global companies in robotics and its ecosystem`
 ];
 
 let currentBgIndex = 0;
@@ -974,18 +963,16 @@ function rotateBackgroundImage() {
     
     if (!mainContent) return;
 
-    // 1. 이미지 변경
+    // 1. 이미지 변경 (이 부분은 유지)
     currentBgIndex = (currentBgIndex + 1) % backgroundImages.length;
     mainContent.style.backgroundImage = `url('${backgroundImages[currentBgIndex]}')`;
     
-    // 2. [수정] 텍스트 삭제 조건 변경
-    // currentBgIndex가 1보다 클 때 (즉, 3번째 이미지부터) 삭제
-    if (currentBgIndex > 4 && h1) { 
+    // 2. 텍스트 삭제 로직 제거 (아래 내용을 삭제하세요)
+    /* if (currentBgIndex > 4 && h1) { 
         h1.style.opacity = '0'; 
-        setTimeout(() => {
-            if(h1) h1.remove(); 
-        }, 500);
+        ...
     }
+    */
 }
 
 let rotationInterval = setInterval(rotateBackgroundImage, 20000);
@@ -1282,12 +1269,12 @@ document.addEventListener('keydown', (e) => {
     text-shadow: 1px 1px 3px rgba(0,0,0,0.8); /* 배경이 밝아도 글자가 잘 보이게 그림자 추가 */
     pointer-events: none; /* 글자 없는 곳은 클릭 통과 */
 ">
-    <span style="pointer-events: auto;">&copy; 2026 Learn Robot. All rights reserved.</span>
+    <span style="pointer-events: auto;">&copy; 2026 Learnrobot.com All rights reserved.</span>
     
     <span style="margin: 0 10px; opacity: 0.5;">|</span> 
     
     <a href="privacy.html" style="
-        color: #FFFB03; 
+        color: inherit; 
         text-decoration: none; 
         pointer-events: auto; 
         font-weight: bold;
