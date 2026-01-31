@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936" crossorigin="anonymous"></script>
     <link rel="icon" href="favicon.png?v=2" type="image/png">
     <meta name="description" content="Learn robotics from basics to advanced. Your guide to the future of technology.">
@@ -13,16 +14,53 @@
 
     <script src="data.js"></script>
     <style>
-        :root {
-            --bg-dark: #1E1E1E;      
-            --accent: #E0DC12;      
-            --text-main: #f1f5f9;    
-            --text-muted: #E0DC12;   
-            --sidebar-width: 280px;
-        }
+/* [추가] 심화 아코디언 스타일 */
+.deep-dive-container { margin-top: 40px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid rgba(134, 209, 209, 0.2); }
+.deep-dive-title { color: #86D1D1; font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+.accordion { --bs-accordion-bg: #252525; --bs-accordion-color: #ccc; --bs-accordion-btn-color: #FFFB03; --bs-accordion-btn-bg: #2a2a2a; --bs-accordion-active-bg: #333; --bs-accordion-active-color: #FFFB03; border: 1px solid rgba(255,255,255,0.1); }
+/* [수정] 아코디언 아이콘을 왼쪽으로 이동 및 스타일 강화 */
+.accordion-button {
+    background-color: rgba(44, 153, 153, 0.1) !important;
+    color: #FFFB03 !important;
+    flex-direction: row-reverse; 
+    justify-content: flex-end; 
+    gap: 15px;
+}
 
-        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+.accordion-item {
+    background-color: transparent !important;
+    border: 1px solid rgba(44, 153, 153, 0.4) !important;
+    margin-bottom: 10px;
+    border-radius: 8px !important;
+    overflow: hidden;
+}
 
+.accordion-button::after {
+    margin-left: 0;
+    margin-right: 0;
+    /* 노란색(#FFFB03) 계열로 변경하는 필터 값 */
+    filter: invert(90%) sepia(100%) saturate(1000%) hue-rotate(10deg) brightness(100%) contrast(100%) !important;
+    background-size: 1rem;
+    transition: transform 0.3s ease;
+}
+/* 닫혀있을 때 아이콘 모양 (오른쪽 화살표) */
+.accordion-button.collapsed::after {
+    transform: rotate(-90deg);   /* 기본 위쪽 화살표를 오른쪽으로 회전 */
+}
+
+.accordion-button:not(.collapsed)::after {
+    filter: invert(90%) sepia(100%) saturate(1000%) hue-rotate(10deg) brightness(100%) contrast(100%) !important;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    background-color: rgba(255, 251, 3, 0.1); /* 클릭 시 피드백 강화 */
+}
+.accordion-body {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #ccc;
+    border-top: 1px solid rgba(44, 153, 153, 0.2);
+}
         body { 
             background-color: var(--bg-dark); 
             color: var(--text-main); 
@@ -44,10 +82,19 @@
 
         .logo-link { text-decoration: none; color: inherit; cursor: pointer; }
         .logo { 
-            font-family: 'Chakra Petch', sans-serif; 
-            font-size: 1.8rem; letter-spacing: 1px; color: var(--text-main); 
-            font-weight: 900; display: flex; align-items: center; gap: 10px; 
-        }
+    font-family: 'Chakra Petch', sans-serif !important; 
+    font-size: 1.8rem !important; 
+    letter-spacing: 1px !important; 
+    color: #f1f5f9 !important; /* 다시 흰색으로 고정 */
+    font-weight: 900 !important; 
+    display: flex !important; 
+    align-items: center !important; 
+    gap: 10px !important; 
+}
+.logo-link, .logo-link:hover, .logo-link:focus {
+    text-decoration: none !important;
+    color: #f1f5f9 !important;
+}
         .logo-image { height: 60px; width: auto; object-fit: contain; border-radius: 50%; }
 
         /* 광고 배너 */
@@ -74,15 +121,29 @@
         .sns-icons a:hover { color: #FFFB03; }
 
         /* 레이아웃 */
-        .container { display: flex; flex: 1; overflow: hidden; height: calc(100vh - 80px); }
+        .container { 
+display: flex; 
+flex: 1; 
+overflow: hidden; 
+height: calc(100vh - 80px); 
+max-width: 100% !important; 
+padding-left: 0 !important;
+padding-right: 0 !important;
+margin: 0 !important;
+}
 
         /* 사이드바 */
-        aside {
-            width: var(--sidebar-width); background: var(--bg-dark); 
-            padding: 15px 1.5rem; display: flex; flex-direction: column; 
-            border-right: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0;
-            gap: 15px; /* 그룹 간 간격 */
-        }
+  aside {
+    width: var(--sidebar-width) !important;
+    background-color: #1E1E1E !important; /* var(--bg-dark) 직접 입력으로 확실하게 적용 */
+    padding: 15px 1.5rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+    flex-shrink: 0 !important;
+    gap: 15px !important;
+    z-index: 100 !important;
+}
         
         .category-group {
             border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px;
@@ -205,6 +266,55 @@
             main { padding: 20px; }
             section { padding: 40px 20px; }
         }
+/* [수정] 상단 이동 버튼 메인 영역 중앙 배치 */
+#topBtn {
+    display: none; 
+    position: fixed;
+    /* [수정] 사이드바 너비를 시작점으로 잡고, 나머지 공간의 절반(50%)을 이동 */
+    left: var(--sidebar-width);
+    margin-left: 50%; 
+    
+    /* [핵심] 버튼 자신의 너비 절반만큼 다시 왼쪽으로 당겨 완벽한 중앙 정렬 */
+    transform: translateX(-50%); 
+    
+    bottom: 30px;
+    z-index: 9999;
+    
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    
+    /* 투명 디자인 유지 */
+    background-color: rgba(30, 30, 30, 0.4); 
+    border: 2px solid #2C9999;
+    color: #2C9999;
+    opacity: 0.6;
+    
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+    backdrop-filter: blur(2px);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 호버 효과 유지 */
+#topBtn:hover {
+    opacity: 1; 
+    transform: translateX(-50%) translateY(-5px);
+    border-color: #86D1D1;
+    color: #86D1D1;
+}
+
+/* 모바일 대응: 사이드바가 사라지는 구간 */
+@media (max-width: 1024px) {
+    #topBtn {
+        left: 0;
+        margin-left: 50%;
+    }
+}
     </style>
 </head>
 <body>
@@ -405,6 +515,27 @@
                      style="max-width: 600px; width: 100%; border-radius: 12px; border: 1px solid #444; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
                 <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">(Structure of industrial robot arm)</p>
             </div>
+<div class="deep-dive-container">
+    <h4 class="deep-dive-title"><i class="fas fa-microchip"></i> Mechanics: Technical Deep Dive</h4>
+    <div class="accordion" id="mAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mC1">Degrees of Freedom (DoF) & Kinematics</button></h2>
+            <div id="mC1" class="accordion-collapse collapse" data-bs-parent="#mAccordion">
+                <div class="accordion-body">
+                    <p><strong>DoF</strong> defines the configuration parameters of a robot. A 6-DoF arm mimics a human arm's range. <strong>Forward Kinematics</strong> finds position from angles; <strong>Inverse Kinematics</strong> calculates the angles needed to reach a specific target point.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mC2">Torque & Materials Spec</button></h2>
+            <div id="mC2" class="accordion-collapse collapse" data-bs-parent="#mAccordion">
+                <div class="accordion-body">
+                    <p>Actuators are chosen based on <strong>Torque</strong> (Force × Distance). Aluminum provides a high strength-to-weight ratio, while carbon fiber is used for high-performance rigidity.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
         </section>
 
         <section id="electronics">
@@ -507,6 +638,19 @@
                     We use a chip called a <span class="highlight-term">Motor Driver</span>. It listens to the brain's weak whispers and sends strong power from the battery to the motors. It's like a heavy-lifter following orders.
                 </p>
             </div>
+<div class="deep-dive-container">
+    <h4 class="deep-dive-title"><i class="fas fa-wave-square"></i> Electronics: Technical Deep Dive</h4>
+    <div class="accordion" id="eAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#eC1">Sensor Fusion & Kalman Filters</button></h2>
+            <div id="eC1" class="accordion-collapse collapse" data-bs-parent="#eAccordion">
+                <div class="accordion-body">
+                    <p>Robots use <strong>Sensor Fusion</strong> (e.g., IMU + Lidar) to reduce errors. The <strong>Kalman Filter</strong> is an algorithm that predicts and corrects the robot's state by processing noisy data streams in real-time.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
         </section>
 
         <section id="programming">
@@ -602,6 +746,19 @@
                     In 1947, a computer pioneer named Grace Hopper found a <em>real moth</em> stuck inside a computer relay, causing it to fail. It was the world's first literal computer bug!
                 </div>
             </div>
+<div class="deep-dive-container">
+    <h4 class="deep-dive-title"><i class="fas fa-terminal"></i> Programming: Technical Deep Dive</h4>
+    <div class="accordion" id="pAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pC1">PID Control & State Machines</button></h2>
+            <div id="pC1" class="accordion-collapse collapse" data-bs-parent="#pAccordion">
+                <div class="accordion-body">
+                    <p><strong>PID Control</strong> (Proportional-Integral-Derivative) ensures smooth movement by minimizing errors. <strong>Finite State Machines (FSM)</strong> are used to manage complex behaviors like 'Search', 'Grab', and 'Charge'.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
         </section>
 
         <section id="ai">
@@ -651,6 +808,19 @@
                     The AI made moves that no human had ever thought of in 3,000 years of history!
                 </div>
             </div>
+<div class="deep-dive-container">
+    <h4 class="deep-dive-title"><i class="fas fa-brain"></i> AI & Perception: Technical Deep Dive</h4>
+    <div class="accordion" id="aAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#aC1">CNNs & Reinforcement Learning</button></h2>
+            <div id="aC1" class="accordion-collapse collapse" data-bs-parent="#aAccordion">
+                <div class="accordion-body">
+                    <p><strong>Convolutional Neural Networks (CNNs)</strong> allow robots to recognize patterns in images. <strong>Reinforcement Learning (RL)</strong> enables robots to learn complex tasks like walking through a reward-based trial-and-error process.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
         </section>
 
         <section id="ros">
@@ -695,7 +865,19 @@
                      <img src="Gazebo_Simulator.jpg" alt="Gazebo Simulation" style="max-width: 600px; width:100%; border-radius:12px; border:1px solid #444;">
                     <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">(Testing a robot in the Gazebo Simulator)</p>
                 </div>
-                
+                <div class="deep-dive-container">
+    <h4 class="deep-dive-title"><i class="fas fa-project-diagram"></i> ROS 2: Technical Deep Dive</h4>
+    <div class="accordion" id="rAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rC1">DDS & Middleware Architecture</button></h2>
+            <div id="rC1" class="accordion-collapse collapse" data-bs-parent="#rAccordion">
+                <div class="accordion-body">
+                    <p>ROS 2 uses <strong>DDS (Data Distribution Service)</strong> as its middleware to ensure secure, real-time communication between nodes. This architecture supports <strong>Digital Twins</strong> by linking physical hardware with Gazebo simulations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
                 <div style="margin-top: 50px; padding: 20px; border-top: 1px solid #444; text-align: center;">
                     <h3 style="color: #86D1D1; margin-bottom: 10px;">🎉 You are ready!</h3>
                     <p style="font-size: 1.1rem; color: #fff;">
@@ -707,7 +889,10 @@
 
     </main>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<button onclick="scrollToTop()" id="topBtn" title="Go to top">
+    <i class="fas fa-arrow-up"></i>
+</button>
 <script>
 // [추가] 사이드바 열기/닫기 기능
 function toggleSidebar() {
@@ -751,7 +936,28 @@ function startAdRotation() {
     setInterval(showNextAd, 10000);
 }
 document.addEventListener('DOMContentLoaded', startAdRotation);
-</script>
+// 스크롤 감지하여 버튼 보이기/숨기기
+const topBtn = document.getElementById("topBtn");
+const mainArea = document.getElementById("main-scroll-area");
 
+mainArea.onscroll = function() {
+    const topBtn = document.getElementById("topBtn");
+    if (topBtn) {
+        if (mainArea.scrollTop > 300) {
+            // 버튼을 나타낼 때 "flex"로 설정해야 아이콘 중앙 정렬이 유지됩니다.
+            topBtn.style.display = "flex"; 
+        } else {
+            topBtn.style.display = "none";
+        }
+    }
+};
+// 최상단으로 부드럽게 이동
+function scrollToTop() {
+    mainArea.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+</script>
 </body>
 </html>
