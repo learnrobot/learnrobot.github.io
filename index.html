@@ -14,6 +14,220 @@
 
     <script src="data.js"></script>
     <style>
+/* [신규] Today's Featured Robot 배너 스타일 */
+.spotlight-wrapper {
+    width: 100%;
+    margin-bottom: 60px; /* 타이틀과의 간격 */
+    position: relative;
+    z-index: 5;
+}
+
+/* [최종 수정] Today's Featured Robot 배너 (슬림한 비율 & 완벽한 테두리) */
+.spotlight-card {
+    /* 1. 배경 설정: 진한 회색 + 투명도 (뒤가 비침) */
+    background-color: rgba(20, 20, 20, 0.7); 
+    
+    /* 2. 모눈종이(Grid) 패턴: 아주 연한 청록색 실선 */
+    background-image: 
+        linear-gradient(rgba(134, 209, 209, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(134, 209, 209, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px; /* 격자 크기 */
+    
+    /* 3. 유리 효과: 배경 블러 처리 */
+    backdrop-filter: blur(10px);
+    
+    /* 4. 내부 광채 및 그림자 */
+    box-shadow: 
+        0 0 30px rgba(0, 0, 0, 0.5), /* 바깥 그림자 */
+        inset 0 0 20px rgba(134, 209, 209, 0.05); /* 안쪽 광채 */
+
+    /* 텍스트 및 레이아웃 설정 (기존 유지) */
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 35px;
+    gap: 30px;
+    border-radius: 12px;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 1; /* 가상요소보다 위에 위치 */
+}
+
+/* 3. [핵심] 움직이는 점선 테두리 (설정값 고정) */
+.spotlight-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 12px;
+    pointer-events: none;
+    
+    /* 노란색 점선 패턴 */
+    background-image: 
+        linear-gradient(90deg, #FFFB03 50%, transparent 50%),
+        linear-gradient(90deg, #FFFB03 50%, transparent 50%),
+        linear-gradient(0deg, #FFFB03 50%, transparent 50%),
+        linear-gradient(0deg, #FFFB03 50%, transparent 50%);
+        
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    
+    /* 점선 크기 및 위치 */
+    background-size: 24px 2px, 24px 2px, 2px 24px, 2px 24px;
+    background-position: 0 0, 0 100%, 0 0, 100% 0;
+        
+    animation: border-march 1s infinite linear;
+    z-index: -1; /* 내용물 뒤로 배치 */
+}
+
+/* 애니메이션 키프레임 (정확히 패턴 길이 24px만큼만 이동) */
+@keyframes border-march {
+    0% {
+        background-position: 
+            0 0, 
+            0 100%, 
+            0 0, 
+            100% 0;
+    }
+    100% {
+        background-position: 
+            24px 0,     /* 오른쪽으로 이동 */
+            -24px 100%, /* 왼쪽으로 이동 */
+            0 -24px,    /* 위쪽으로 이동 */
+            100% 24px;  /* 아래쪽으로 이동 */
+    }
+}
+
+/* --- 내부 요소 스타일 (크기 축소) --- */
+
+/* 좌측 정보 영역 */
+.sl-main-info {
+    width: 100%;
+    display: flex; /* 기존 flex 속성 덮어쓰기 */
+    align-items: center;
+}
+
+/* 국기 크기 줄임 (3.5rem -> 2.5rem) */
+.sl-flag-wrapper {
+    padding-top: 3px;
+    flex-shrink: 0;
+}
+.country-flag {
+    font-size: 2.5rem; /* 적당한 크기로 조정 */
+    filter: drop-shadow(0 0 10px rgba(255,255,255,0.1));
+}
+
+/* 텍스트 콘텐츠 */
+.sl-text-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px; /* 줄 사이 간격 */
+}
+
+/* 상단 헤더 */
+.spotlight-header-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.3rem;
+    color: #FFFB03; 
+    font-weight: 700;
+    margin-left: 2px; /* 시각적 정렬 */
+}
+.company-identity-row {
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    gap: 15px; /* 국기와 이름 사이 거리 */
+}
+.country-flag {
+    font-size: 2.2rem; /* 국기 크기 */
+    line-height: 1;
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+}
+
+/* 회사 이름 크기 줄임 (3.5rem -> 2.4rem) */
+.spotlight-company-name {
+    font-size: 3rem; /* 이름 크기 */
+    font-weight: 900;
+    margin: 0;
+    line-height: 1;
+    color: #fff !important;
+    text-transform: uppercase;
+}
+
+/* 스펙 그리드 */
+.spec-grid {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    margin-top: 5px;
+}
+.spec-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 1.45rem;
+}
+
+.spec-label {
+    color: #86D1D1;
+    font-weight: 700;
+    opacity: 0.8;
+    font-size: 1.0rem;
+}
+
+.spec-value {
+    color: #fff;
+    font-weight: 500;
+    font-size: 2.0rem;
+}
+
+/* 기술 태그 */
+.tech-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tech-badge {
+    background: rgba(44, 153, 153, 0.1);
+    border: 1px solid rgba(44, 153, 153, 0.3);
+    color: #86D1D1;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+/* 버튼 */
+.sl-action-section {
+    flex-shrink: 0;
+}
+.visit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #FFFB03;
+    color: #000;
+    padding: 12px 24px; /* 버튼도 살짝 작게 */
+    font-size: 1rem;
+    font-weight: 900;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+.visit-btn:hover {
+    transform: scale(1.05);
+    background: #fff;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .spotlight-card { flex-direction: column; align-items: flex-start; padding: 20px; }
+    .sl-main-info { flex-direction: column; gap: 15px; }
+    .sl-action-section { width: 100%; text-align: right; }
+    .visit-btn { width: 100%; justify-content: center; }
+}
 /* [추가] 심화 아코디언 스타일 */
 .deep-dive-container { margin-top: 40px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid rgba(134, 209, 209, 0.2); }
 .deep-dive-title { color: #86D1D1; font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
@@ -280,36 +494,14 @@ margin: 0 !important;
         }
 
         /* [수정] 모바일/태블릿 반응형 스타일 (1024px 이하) */
-        @media (max-width: 1024px) {
-            /* 1. 상단 요소 숨기기 (광고 등) */
-            .header-ad-container, .auth-buttons { display: none; }
-            
-            /* 2. 햄버거 버튼 보이기 */
-            .menu-toggle { display: block; }
-
-            /* 3. 사이드바를 '숨김'에서 '화면 밖으로 이동'으로 변경 */
-            aside { 
-                position: fixed;
-                top: 0;
-                left: -300px; /* 화면 왼쪽 밖으로 숨김 */
-                width: 280px;
-                height: 100vh;
-                z-index: 1000;
-                transition: left 0.3s ease; /* 부드러운 애니메이션 */
-                box-shadow: 5px 0 15px rgba(0,0,0,0.5);
-                display: flex !important; /* display: none 해제 */
-            }
-
-            /* 4. active 클래스가 붙으면 화면 안으로 들어옴 */
-            aside.active { left: 0; }
-
-            /* 5. 사이드바 내부 닫기 버튼 보이기 */
-            .sidebar-close { display: block; }
-
-            /* 6. 메인 콘텐츠 여백 조정 */
-            main { padding: 20px; }
-            section { padding: 40px 20px; }
-        }
+     @media (max-width: 1024px) {
+    .spotlight-card { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .sl-left-section { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.1); width: 100%; padding-bottom: 20px; }
+    .name-group { flex-wrap: wrap; }
+    .sl-center-section { width: 100%; }
+    .sl-right-section { width: 100%; text-align: right; }
+    .visit-btn { width: 100%; justify-content: center; }
+}
 /* [수정] 상단 이동 버튼 메인 영역 중앙 배치 */
 #topBtn {
     display: none; 
@@ -387,6 +579,15 @@ margin: 0 !important;
 }
 
 /* [수정] 본문 대제목(h1)용 왕 배지 (큰 크기) - !important로 강제 적용 */
+/* [추가] 테두리 움직이는 애니메이션 (Marching Ants) */
+@keyframes border-dance {
+    0% {
+        background-position: 0 0, 100% 100%, 0 100%, 100% 0;
+    }
+    100% {
+        background-position: 30px 0, -30px 100%, 0 -30px, 100% 30px;
+    }
+}
     </style>
 </head>
 <body>
@@ -398,10 +599,7 @@ margin: 0 !important;
             <span>LEARN<span style="color: #FFFB03;">ROBOT</span></span>
         </div>
     </a>
-    
-    <div class="header-ad-container">
-        <a href="#" class="ad-banner"><span class="ad-company-name">&nbsp;</span></a>
-    </div>
+      
 <button class="menu-toggle" onclick="toggleSidebar()">
         <i class="fas fa-bars"></i>
     </button>
@@ -471,6 +669,45 @@ margin: 0 !important;
 
     <main id="main-scroll-area">
         <section id="intro">
+ <div class="spotlight-wrapper">
+ <div class="spotlight-card">
+    <div class="sl-main-info">
+        <div class="sl-text-content">
+            <div class="spotlight-header-row">
+                <i class="fas fa-star fa-spin"></i>
+                <span>TODAY'S PICK</span>
+                <span class="spotlight-badge" id="spotlight-date">2026.02.05</span>
+            </div>
+
+            <div class="company-identity-row">
+                <span id="sl-flag-large" class="country-flag"></span>
+                <h2 class="spotlight-company-name" id="sl-name">LOADING...</h2>
+            </div>
+
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <span class="spec-label">MODEL</span>
+                    <span class="spec-value" id="sl-model">-</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">CATEGORY</span>
+                    <span class="spec-value" id="sl-category">-</span>
+                </div>
+            </div>
+
+            <div class="tech-tags" id="sl-tags"></div>
+        </div>
+    </div>
+
+    <div class="sl-action-section">
+        <a href="#" id="sl-link" target="_blank" class="visit-btn">
+            Visit <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+</div>
+</div>
+    
+    <div class="content-header" style="border-bottom: 2px solid #FFFB03; padding-bottom: 10px; margin-bottom: 10px;">
             <div class="content-header" style="border-bottom: 2px solid #FFFB03; padding-bottom: 10px; margin-bottom: 10px;">
                 <h1 style="font-size: 2.5rem; color: #86D1D1; text-transform: none; letter-spacing: 1px;">The Essential Roadmap for Robotics Engineering</h1>
 
@@ -1046,7 +1283,58 @@ Services: On-Demand Interaction
     <i class="fas fa-arrow-up"></i>
 </button>
 <script>
-// [추가] 사이드바 열기/닫기 기능
+/* [수정] 오늘의 로봇 추천 로직 (디자인/내용 완벽 보정판) */
+/* [수정] 태그 자동 생성 기능이 추가된 최종 로직 */
+/* [수정] 원본 데이터 그대로 표시하는 로직 (No Magic) */
+/* [수정] 랜덤 로테이션 복구 + 모델명 괄호 제거 */
+function initSpotlight() {
+    if (typeof links === 'undefined' || links.length === 0) return;
+
+    // 1. 날짜 표시 (오늘 날짜는 그대로 표시)
+    const today = new Date();
+    document.getElementById('spotlight-date').innerText = today.toLocaleDateString();
+
+    // [수정] 날짜 계산 대신 '무작위(Random)' 선택으로 변경
+    // 이제 새로고침 할 때마다 로봇이 바뀝니다.
+    const dailyIndex = Math.floor(Math.random() * links.length); 
+    const robot = links[dailyIndex];
+
+    // 2. 데이터 준비
+    let rawTitle = robot.title || "Unknown Robotics";
+    let companyName = rawTitle;
+    let modelName = "-";
+
+    // <br> 태그 기준 분리
+    if (rawTitle.match(/<br>/i)) {
+        const parts = rawTitle.split(/<br>/i);
+        companyName = parts[0].trim(); 
+        
+        // [수정] 괄호 '(', ')' 문자만 찾아서 지움 (내용은 유지)
+        // 예: "(Jennie - emotional support)" -> "Jennie - emotional support"
+        modelName = parts[1].replace(/[()]/g, '').trim(); 
+    }
+
+    // 카테고리: 원본 그대로 대문자로
+    let displayCategory = robot.category ? robot.category.toUpperCase() : "-";
+
+    const countryCode = (robot.country || "us").toLowerCase();
+
+    // 3. HTML 업데이트
+    const flagElem = document.getElementById('sl-flag-large');
+    if(flagElem) flagElem.className = `country-flag fi fi-${countryCode}`;
+
+    document.getElementById('sl-name').innerHTML = companyName;
+    document.getElementById('sl-model').innerText = modelName;
+    document.getElementById('sl-category').innerText = displayCategory;
+    document.getElementById('sl-link').href = robot.url || "#";
+
+    // 4. 기술 태그: 원본 유지를 위해 비워둠
+    const tagsContainer = document.getElementById('sl-tags');
+    if(tagsContainer) {
+        tagsContainer.innerHTML = ""; 
+    }
+}
+document.addEventListener('DOMContentLoaded', initSpotlight);
 function toggleSidebar() {
     document.querySelector('aside').classList.toggle('active');
 }

@@ -200,7 +200,7 @@ let links = [
     { id: 1012, title: "Samsung Ballie<br>(Robot companion)", category: "Home", source: "Samsung", url: "https://news.samsung.com/us/samsung-ballie-ai-companion-robot-home-video-ces-2024", country: "kr" },
     { id: 1107, title: "Intuition Robotics<br>(AI care companion robot)", category: "Home", sub: "Social Companion AI", url: "https://www.intuitionrobotics.com/", country: "il" },
     { id: 1140, title: "Aiper<br>(Cordless Pool Cleaner)", category: "Home", source: "Cordless Pool Cleaner", url: "https://aiper.com/", country: "us" },
-    { id: 1150, title: "Tombot<br>(Jennie emotional support)", category: "Home & BLDG", source: "Emotional Support Robot Dog", url: "https://www.tombot.com/", country: "us" },
+    { id: 1150, title: "Tombot<br>(Jennie - emotional support)", category: "Home", source: "Emotional Support Robot Dog", url: "https://www.tombot.com/", country: "us" },
     { id: 1190, title: "Sentigent<br>(Rover X3 Outdoor Companion Robot)", category: "Home", source: "Outdoor Companion Robot", url: "https://www.sentigent.com/", country: "cn" },
     { id: 1200, title: "SwitchBot Onero H1<br>(Multitasking Housebot)", category: "Home", source: "AI Multitasking Housebot", url: "https://www.switch-bot.com/pages/onero-h1", country: "cn" },
     { id: 1301, title: "Husqvarna Automower<br>(Robot Lawn mowers)", category: "Home", source: "Robotic Lawn Mower", url: "https://www.husqvarna.com/us/robotic-lawn-mowers/", country: "se" },
