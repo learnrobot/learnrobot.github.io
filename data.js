@@ -142,7 +142,7 @@ let links = [
     { id: 1114, title: "Zebra Technologies<br>(Fetch Robotics AMRs & Smart Data Solutions)", category: "logistics", source: "Leader in Data-Driven Logistics Automation", url: "https://www.zebra.com/us/en/products/robotics.html", country: "us" },
     { id: 620, title: "Toyota (Autopilot Forklifts)", category: "logistics", source: "Toyota Material Handling", url: "https://www.toyotaforklift.com/", country: "jp" },
     { id: 621, title: "Linde (Automated Forklifts)", category: "logistics", source: "KION Group", url: "https://www.linde-mh.com/en/Solutions/Automation/", country: "de" }, 
-    { id: 622, title: "VisionNav (Driverless Forklift)", category: "logistics", source: "VisionNav", url: "https://www.visionnav.com/", country: "cn" },
+    { id: 622, title: "VisionNav<br> (Driverless Forklift)", category: "logistics", source: "VisionNav", url: "https://www.visionnav.com/", country: "cn" },
     { id: 623, title: "Vecna (Autonomous Pallet Handling)", category: "logistics", source: "Vecna Robotics", url: "https://www.vecnarobotics.com/", country: "us" },
     { id: 624, title: "Jungheinrich (Automated Warehouse)", category: "logistics", source: "Jungheinrich", url: "https://www.jungheinrich.com/en/solutions/automation", country: "de" },
     { id: 626, title: "Mobyus (Autonomous Fork Lift)", category: "logistics", source: "Mobyus NVC", url: "http://www.mobyus.com/afl", country: "kr" },
