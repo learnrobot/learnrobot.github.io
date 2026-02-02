@@ -675,8 +675,8 @@ margin: 0 !important;
         <div class="sl-text-content">
             <div class="spotlight-header-row">
                 <i class="fas fa-star fa-spin"></i>
-                <span>F5 for random pick</span>
-                <span class="spotlight-badge" id="spotlight-date">2026.02.05</span>
+                <span>Today's pick</span>
+                
             </div>
 
             <div class="company-identity-row">
@@ -1290,13 +1290,7 @@ Services: On-Demand Interaction
 function initSpotlight() {
     if (typeof links === 'undefined' || links.length === 0) return;
 
-    // 1. 날짜 표시 (오늘 날짜는 그대로 표시)
-    const today = new Date();
-    document.getElementById('spotlight-date').innerText = today.toLocaleDateString();
-
-    // [수정] 날짜 계산 대신 '무작위(Random)' 선택으로 변경
-    // 이제 새로고침 할 때마다 로봇이 바뀝니다.
-    const dailyIndex = Math.floor(Math.random() * links.length); 
+   const dailyIndex = Math.floor(Math.random() * links.length); 
     const robot = links[dailyIndex];
 
     // 2. 데이터 준비
