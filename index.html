@@ -179,7 +179,7 @@
 .spec-value {
     color: #fff;
     font-weight: 500;
-    font-size: 2.0rem;
+    font-size: 1.5rem;
 }
 
 /* 기술 태그 */
@@ -331,8 +331,24 @@
 
         /* SNS 버튼 (헤더 우측 유지) */
         .auth-buttons { display: flex; gap: 15px; align-items: center; }
-        .sns-icons a { color: #2C9999; font-size: 1.8rem; transition: 0.3s; }
-        .sns-icons a:hover { color: #FFFB03; }
+        /* SNS 아이콘 기본 상태 */
+.sns-icons a { 
+    color: #2C9999; /* 기본 청록색 */
+    font-size: 1.8rem; 
+    display: inline-block; 
+    transition: color 0.3s ease, transform 0.3s ease; /* 색상과 움직임만 부드럽게 */
+}
+
+/* 마우스를 올렸을 때 (Hover) */
+.sns-icons a:hover { 
+    color: #FFFB03; /* 네온 효과 없이 색상만 노란색으로 변경 */
+    transform: translateY(-5px); /* 위로 살짝 이동하는 효과만 유지 */
+}
+
+/* 인스타그램 전용: 원하신다면 브랜드 컬러(핑크/퍼플)로 개별 설정도 가능합니다 */
+.sns-icons a .fa-instagram:hover {
+    /* 특정 아이콘만 다른 색을 원하시면 여기에 추가 가능 */
+}
 
         /* 레이아웃 */
         .container { 
@@ -367,7 +383,7 @@ margin: 0 !important;
         .category-group:hover { border-color: rgba(255, 251, 3, 0.5); }
 
         .group-title {
-            color: #FFFB03; font-weight: 700; font-size: 0.95rem; margin-bottom: 8px;
+            color: #FFFB03; font-weight: 700; font-size: 1.2rem; margin-bottom: 8px;
             border-bottom: 1px solid rgba(44, 153, 153, 0.2); padding-bottom: 5px;
             display: flex; justify-content: space-between; cursor: default;
         }
@@ -646,7 +662,7 @@ margin: 0 !important;
         <div class="category-group">
             <div class="group-title">Who makes a robot</div>
             <a href="players_in_robotics.html" class="nav-link-btn">
-                <span>Curated 300+ companies</span>
+                <span>Find 300+ makers</span>
                 <i class="fas fa-arrow-right"></i>
             </a>
         </div>
