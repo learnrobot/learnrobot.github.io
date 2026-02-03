@@ -16,18 +16,23 @@
     <style>
 /* [신규] Today's Featured Robot 배너 스타일 */
 .spotlight-wrapper {
-    width: 100%;
-    margin-bottom: 60px; /* 타이틀과의 간격 */
-    position: relative;
-    z-index: 5;
+   width: 100%;
+    margin-bottom: 30px;
+    
+    display: grid;                  /* [핵심] Flex가 아닌 Grid 사용 */
+    grid-template-columns: 1fr 1fr; /* [핵심] 1:1 비율 (정확히 반반) */
+    gap: 20px;
 }
 
 /* [최종 수정] Today's Featured Robot 배너 (슬림한 비율 & 완벽한 테두리) */
 .spotlight-card {
-    /* 1. 배경 설정: 진한 회색 + 투명도 (뒤가 비침) */
-    background-color: rgba(20, 20, 20, 0.7); 
+display: flex !important;
+    flex-direction: row !important; /* 가로 방향 강제 */
+    justify-content: space-between !important; /* 양쪽 끝으로 벌리기 */
+    align-items: center !important; /* 수직 중앙 정렬 */
+    margin-bottom: 0; /* 래퍼가 간격을 담당하므로 제거 */
+    background-color: rgba(20, 20, 20, 0.7);    
     
-    /* 2. 모눈종이(Grid) 패턴: 아주 연한 청록색 실선 */
     background-image: 
         linear-gradient(rgba(134, 209, 209, 0.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(134, 209, 209, 0.05) 1px, transparent 1px);
@@ -46,12 +51,52 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 25px 35px;
-    gap: 30px;
+    padding: 20px 25px !important; /* 기존 25px 35px에서 축소 */
+    gap: 15px !important;
     border-radius: 12px;
     margin-bottom: 60px;
     position: relative;
     z-index: 1; /* 가상요소보다 위에 위치 */
+    background-image: 
+        linear-gradient(rgba(134, 209, 209, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(134, 209, 209, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.side-card {
+    height: 100%; /* 부모(wrapper) 높이에 꽉 차게 */
+    
+    background: rgba(30, 30, 30, 0.6);
+    border: 1px solid rgba(44, 153, 153, 0.3);
+    border-radius: 12px;
+    padding: 20px 25px !important; /* 기존 25px 35px에서 축소 */
+    gap: 15px !important;          /* 내부 요소 간격 축소 */
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 내용 수직 중앙 정렬 */
+    backdrop-filter: blur(5px);
+}
+
+.side-header {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    color: #86D1D1;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.side-content {
+    color: #ddd;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.side-footer {
+    margin-top: auto; /* 태그를 맨 아래로 밀기 */
+    display: flex;
+    gap: 8px;
 }
 
 /* 3. [핵심] 움직이는 점선 테두리 (설정값 고정) */
@@ -101,9 +146,11 @@
 
 /* 좌측 정보 영역 */
 .sl-main-info {
-    width: 100%;
-    display: flex; /* 기존 flex 속성 덮어쓰기 */
-    align-items: center;
+ flex: 1;       /* width: 100% 삭제 -> 남는 공간 유동적 차지 */
+    min-width: 0;  /* 텍스트가 너무 길어도 레이아웃 안 깨지게 함 */
+    display: flex;
+    flex-direction: column; /* 내용물은 세로로 쌓기 */
+    justify-content: center;
 }
 
 /* 국기 크기 줄임 (3.5rem -> 2.5rem) */
@@ -146,7 +193,9 @@
 
 /* 회사 이름 크기 줄임 (3.5rem -> 2.4rem) */
 .spotlight-company-name {
-    font-size: 3rem; /* 이름 크기 */
+    font-size: 2.7rem; /* 이름 크기 */
+    line-height: 1.1;
+    margin-bottom: 5px;
     font-weight: 900;
     margin: 0;
     line-height: 1;
@@ -156,20 +205,20 @@
 
 /* 스펙 그리드 */
 .spec-grid {
-    display: flex;
-    gap: 25px;
-    align-items: center;
-    margin-top: 5px;
+    gap: 5px !important;          /* 줄 간격 좁힘 */
+    margin-top: 10px !important;
 }
 .spec-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Chakra Petch', sans-serif;
-    font-size: 1.45rem;
+display: flex;
+    align-items: baseline; 
+    gap: 5px !important;   /* 라벨과 글자 사이 기본 간격 (기존 10px -> 20px) */
+    width: 100%;
 }
 
 .spec-label {
+min-width: 110px;       /* [핵심] 이 공간만큼은 무조건 라벨이 차지함 */
+    
+    /* 기존 스타일 유지 */
     color: #86D1D1;
     font-weight: 700;
     opacity: 0.8;
@@ -177,9 +226,7 @@
 }
 
 .spec-value {
-    color: #fff;
-    font-weight: 500;
-    font-size: 1.5rem;
+    font-size: 1.1rem !important; /* 내용 글자 크기 조절 */
 }
 
 /* 기술 태그 */
@@ -201,7 +248,9 @@
 
 /* 버튼 */
 .sl-action-section {
-    flex-shrink: 0;
+flex-shrink: 0;   /* 공간 부족해도 버튼 크기 줄이지 마 */
+    margin-left: 20px; /* 텍스트와 버튼 사이 간격 확보 */
+    align-self: center; /* 수직 중앙 정렬 */
 }
 .visit-btn {
     display: inline-flex;
@@ -209,12 +258,13 @@
     gap: 8px;
     background: #FFFB03;
     color: #000;
-    padding: 12px 24px; /* 버튼도 살짝 작게 */
-    font-size: 1rem;
+    padding: 10px 20px; /* 버튼 크기도 살짝 컴팩트하게 */
+    font-size: 0.95rem;
     font-weight: 900;
     text-decoration: none;
     border-radius: 6px;
     transition: all 0.3s ease;
+    white-space: nowrap; /* 글자 줄바꿈 금지 */
 }
 .visit-btn:hover {
     transform: scale(1.05);
@@ -511,6 +561,16 @@ margin: 0 !important;
 
         /* [수정] 모바일/태블릿 반응형 스타일 (1024px 이하) */
      @media (max-width: 1024px) {
+    .spotlight-card {
+        flex-direction: column !important;
+        align-items: flex-start;
+    }
+    .sl-action-section {
+        margin-left: 0;
+        margin-top: 15px;
+        align-self: flex-start;
+    }
+}
     .spotlight-card { flex-direction: column; align-items: flex-start; gap: 20px; }
     .sl-left-section { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.1); width: 100%; padding-bottom: 20px; }
     .name-group { flex-wrap: wrap; }
@@ -676,7 +736,9 @@ margin: 0 !important;
         </div>
 
         <div class="sidebar-contact-text-wrapper">
-            <p style="font-size: 0.8rem; color: #FFFB03; font-weight: 600;">Contact us</p>
+            <p style="font-size: 0.8rem; color: #FFFB03; font-weight: 600; margin-bottom: 5px;">
+        Contact us
+    </p>
             <a href="mailto:learnrobot@learnrobot.com" style="color: #2C9999; text-decoration: none; font-size: 0.95rem;">learnrobot@learnrobot.com</a>
         </div>
         
@@ -686,46 +748,44 @@ margin: 0 !important;
     <main id="main-scroll-area">
         <section id="intro">
  <div class="spotlight-wrapper">
- <div class="spotlight-card">
-    <div class="sl-main-info">
-        <div class="sl-text-content">
-            <div class="spotlight-header-row">
-                <i class="fas fa-star fa-spin"></i>
-                <span>Who's playing in Robotics</span>
-                
-            </div>
-
-            <div class="company-identity-row">
-                <span id="sl-flag-large" class="country-flag"></span>
-                <h2 class="spotlight-company-name" id="sl-name">LOADING...</h2>
-            </div>
-
-            <div class="spec-grid">
-                <div class="spec-item">
-                    <span class="spec-label">MODEL</span>
-                    <span class="spec-value" id="sl-model">-</span>
+    <div class="spotlight-card">
+        <div class="sl-main-info">
+            <div class="sl-text-content">
+                <div class="spotlight-header-row">
+                    <i class="fas fa-star fa-spin"></i>
+                    <span>Who's playing in Robotics</span>
                 </div>
-                <div class="spec-item">
-                    <span class="spec-label">CATEGORY</span>
-                    <span class="spec-value" id="sl-category">-</span>
+
+                <div class="company-identity-row">
+                    <span id="sl-flag-large" class="country-flag"></span>
+                    <h2 class="spotlight-company-name" id="sl-name">LOADING...</h2>
+                </div>
+
+                <div class="spec-grid">
+                    <div class="spec-item">
+                        <span class="spec-label">MODEL</span>
+                        <span class="spec-value" id="sl-model">-</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">CATEGORY</span>
+                        <span class="spec-value" id="sl-category">-</span>
+                    </div>
                 </div>
             </div>
-
-            <div class="tech-tags" id="sl-tags"></div>
         </div>
-    </div>
 
-    <div class="sl-action-section">
-        <a href="#" id="sl-link" target="_blank" class="visit-btn">
-            Visit <i class="fas fa-arrow-right"></i>
-        </a>
-    </div>
-</div>
+        <div class="sl-action-section">
+            <a href="#" id="sl-link" target="_blank" class="visit-btn">
+                Visit <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+   </div>
+   
 </div>
     
     <div class="content-header" style="border-bottom: 2px solid #FFFB03; padding-bottom: 10px; margin-bottom: 10px;">
             <div class="content-header" style="border-bottom: 2px solid #FFFB03; padding-bottom: 10px; margin-bottom: 10px;">
-                <h1 style="font-size: 2.5rem; color: #86D1D1; text-transform: none; letter-spacing: 1px;">The Essential Roadmap for Robotics Engineering</h1>
+                <h1 style="font-size: 2.5rem; color: #86D1D1; text-transform: none; letter-spacing: 1px;">Your Journey into Robotics Starts Here</h1>
 
             </div>
             <div class="main-split-layout" style="display: flex; gap: 30px; align-items: stretch; width: 100%;">
