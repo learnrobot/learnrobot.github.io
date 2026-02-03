@@ -851,7 +851,7 @@ margin: 0 !important;
    <div class="side-card news-card">
         <div class="side-header" style="display:flex; justify-content:space-between; align-items:center;">
             <span><i class="fas fa-newspaper" style="color: #FFFB03;"></i> ROBOTICS NEWS</span>
-            <span style="font-size:0.7rem; color:#888;">sources</span>
+            
         </div>
         
         <div id="robot-news-list" style="overflow-y: auto; height: 100%; display: flex; flex-direction: column; justify-content: center;">
@@ -1545,28 +1545,62 @@ function scrollToTop() {
 }
 /* [신규] 실시간 로봇 뉴스 가져오기 (RSS to JSON) */
 /* [수정] 뉴스 데이터: 날짜 삭제 + 출처 이동 + 개수 증가 */
+/* [최종] 4대 언론사에서 각각 최신 뉴스 1개씩 가져와서 한 번에 보여주기 */
 async function fetchRobotNews() {
     const newsContainer = document.getElementById('robot-news-list');
     if (!newsContainer) return;
 
-    const rssUrl = 'https://www.sciencedaily.com/rss/matter_energy/robotics.xml';
-    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+    // 1. 가져올 4개 사이트 정의
+    const rssSources = [
+        { name: "ScienceDaily", url: "https://www.sciencedaily.com/rss/matter_energy/robotics.xml" },
+        { name: "TechCrunch",   url: "https://techcrunch.com/category/robotics/feed/" },
+        { name: "The Robot Report", url: "https://www.therobotreport.com/feed/" }, // [교체] 더 안정적임
+        { name: "IEEE Spectrum", url: "https://spectrum.ieee.org/feeds/topic/robotics.rss" }
+    ];
+
+    newsContainer.innerHTML = '<p style="color: #666; text-align: center; font-size: 0.9rem;">Connecting to global news feeds...</p>';
 
     try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
+        // 2. [핵심] 4곳에 동시에 요청 보내기 (Promise.all 사용으로 속도 최적화)
+        const fetchPromises = rssSources.map(async (source) => {
+            const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}`;
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                
+                // 정상적으로 가져왔으면 '출처 이름'과 '첫 번째 뉴스(가장 최신)' 반환
+                if (data.status === 'ok' && data.items.length > 0) {
+                    return {
+                        sourceName: source.name,
+                        item: data.items[0] // 0번이 가장 최신 뉴스입니다
+                    };
+                }
+            } catch (e) {
+                console.warn(`Failed to fetch ${source.name}`); // 실패해도 다른 뉴스는 보여줘야 함
+            }
+            return null; // 실패 시 null 반환
+        });
 
-        if (data.status === 'ok' && data.items.length > 0) {
+        // 3. 모든 요청이 끝날 때까지 기다림
+        const results = await Promise.all(fetchPromises);
+        
+        // 성공한 뉴스만 골라내기
+        const validNews = results.filter(result => result !== null);
+
+        if (validNews.length > 0) {
             newsContainer.innerHTML = ""; 
             
-            // 뉴스를 5개로 늘려 화면을 꽉 채웁니다
-            data.items.slice(0, 4).forEach(item => {
+            // 4. 화면에 뿌리기
+            validNews.forEach(news => {
+                const item = news.item;
                 const html = `
                     <div class="news-item">
                         <a href="${item.link}" target="_blank" class="news-title" title="${item.title}">
                             ${item.title}
                         </a>
-                        <span class="news-source">ScienceDaily</span>
+                        <span class="news-source" style="color: #FFFB03; opacity: 0.9; font-weight: 600;">
+                            ${news.sourceName}
+                        </span>
                     </div>
                 `;
                 newsContainer.innerHTML += html;
@@ -1574,6 +1608,7 @@ async function fetchRobotNews() {
         } else {
             newsContainer.innerHTML = '<p style="color:#888; text-align:center; margin-top:20px;">No news available.</p>';
         }
+
     } catch (error) {
         console.error("News fetch error:", error);
         newsContainer.innerHTML = '<p style="color:#ff5555; text-align:center; margin-top:20px;">Failed to load news.</p>';
