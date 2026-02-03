@@ -1299,13 +1299,17 @@ function initSpotlight() {
     let modelName = "-";
 
     // <br> 태그 기준 분리
+// [수정] <br> 또는 괄호 '(' 기준으로 이름과 모델명 분리
     if (rawTitle.match(/<br>/i)) {
         const parts = rawTitle.split(/<br>/i);
         companyName = parts[0].trim(); 
-        
-        // [수정] 괄호 '(', ')' 문자만 찾아서 지움 (내용은 유지)
-        // 예: "(Jennie - emotional support)" -> "Jennie - emotional support"
         modelName = parts[1].replace(/[()]/g, '').trim(); 
+    } 
+    else if (rawTitle.includes('(')) {
+        // <br>은 없는데 괄호가 있는 경우 (예: Asensus Surgical (Senhance))
+        const parts = rawTitle.split('(');
+        companyName = parts[0].trim();
+        modelName = parts[1].replace(/[)]/g, '').trim(); // 닫는 괄호만 제거
     }
 
     // 카테고리: 원본 그대로 대문자로
