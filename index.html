@@ -646,7 +646,7 @@ margin: 0 !important;
         <div class="category-group">
             <div class="group-title">Who makes a robot</div>
             <a href="players_in_robotics.html" class="nav-link-btn">
-                <span>Players in Robotics</span>
+                <span>Curated 300+ companies</span>
                 <i class="fas fa-arrow-right"></i>
             </a>
         </div>
@@ -675,7 +675,7 @@ margin: 0 !important;
         <div class="sl-text-content">
             <div class="spotlight-header-row">
                 <i class="fas fa-star fa-spin"></i>
-                <span>Today's pick</span>
+                <span>Who's playing in Robotics</span>
                 
             </div>
 
@@ -1290,7 +1290,8 @@ Services: On-Demand Interaction
 function initSpotlight() {
     if (typeof links === 'undefined' || links.length === 0) return;
 
-   const dailyIndex = Math.floor(Math.random() * links.length); 
+   const currentHour = Math.floor(Date.now() / (1000 * 60 * 60)); 
+    const dailyIndex = currentHour % links.length; 
     const robot = links[dailyIndex];
 
     // 2. 데이터 준비
