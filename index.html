@@ -14,18 +14,54 @@
 
     <script src="data.js"></script>
     <style>
+/* 뉴스 리스트 스타일 */
+.news-item {
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(44, 153, 153, 0.2);
+    padding-bottom: 8px;
+}
+.news-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.news-title {
+    display: block;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 4px;
+    font-family: 'Roboto', sans-serif;
+    transition: color 0.2s;
+    line-height: 1.4;
+}
+.news-title:hover {
+    color: #FFFB03;
+    text-decoration: underline;
+}
+
+.news-meta {
+    font-size: 0.75rem;
+    color: #86D1D1;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
 /* [신규] Today's Featured Robot 배너 스타일 */
 .spotlight-wrapper {
-   width: 100%;
+width: 100%;
     margin-bottom: 30px;
     
-    display: grid;                  /* [핵심] Flex가 아닌 Grid 사용 */
-    grid-template-columns: 1fr 1fr; /* [핵심] 1:1 비율 (정확히 반반) */
+    display: grid;                  
+    grid-template-columns: 1fr 1fr; /* 1:1 비율 */
     gap: 20px;
 }
 
 /* [최종 수정] Today's Featured Robot 배너 (슬림한 비율 & 완벽한 테두리) */
 .spotlight-card {
+height: 100%;  /* [핵심] 오른쪽 카드와 높이 똑같이 맞춤 */
+    margin-bottom: 0 !important; /* 기존에 있던 60px 여백 제거 */
 display: flex !important;
     flex-direction: row !important; /* 가로 방향 강제 */
     justify-content: space-between !important; /* 양쪽 끝으로 벌리기 */
@@ -51,7 +87,7 @@ display: flex !important;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 25px !important; /* 기존 25px 35px에서 축소 */
+    padding: 20px 30px !important; 
     gap: 15px !important;
     border-radius: 12px;
     margin-bottom: 60px;
@@ -64,28 +100,68 @@ display: flex !important;
 }
 
 .side-card {
-    height: 100%; /* 부모(wrapper) 높이에 꽉 차게 */
-    
+    height: 100%;        /* [핵심] 옆 카드와 높이 맞춤 */
     background: rgba(30, 30, 30, 0.6);
     border: 1px solid rgba(44, 153, 153, 0.3);
     border-radius: 12px;
-    padding: 20px 25px !important; /* 기존 25px 35px에서 축소 */
-    gap: 15px !important;          /* 내부 요소 간격 축소 */
+    padding: 20px 25px;
+    backdrop-filter: blur(5px);
     
     display: flex;
-    flex-direction: column;
-    justify-content: center; /* 내용 수직 중앙 정렬 */
-    backdrop-filter: blur(5px);
+    flex-direction: column; /* 내용물 세로 정렬 */
 }
 
 .side-header {
     font-family: 'Chakra Petch', sans-serif;
     font-weight: 700;
     color: #86D1D1;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0; 
+}
+#robot-news-list {
+    flex: 1;             /* 높이 꽉 채움 */
+    overflow-y: auto;    /* 내용 많으면 스크롤 */
+    display: flex;
+    flex-direction: column;
+}
+.news-item {
+    display: flex;       /* 가로 배치 */
+    align-items: center; /* 수직 중앙 정렬 */
+    gap: 10px;           /* 제목과 출처 사이 간격 */
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(44, 153, 153, 0.2);
+    padding-bottom: 4px;
+}
+.news-item:last-child {
+    border-bottom: none;
 }
 
+/* [수정] 뉴스 제목 (말줄임표 ... 적용) */
+.news-title {
+    flex: 1;             /* 공간 차지 */
+    min-width: 0;        /* 말줄임 필수 설정 */
+    white-space: nowrap; /* 한 줄 강제 */
+    overflow: hidden;    /* 넘치면 숨김 */
+    text-overflow: ellipsis; /* ... 표시 */
+    
+    color: #fff;
+    font-size: 0.95rem;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+}
+.news-title:hover { color: #FFFB03; }
+
+/* [신규] 출처 스타일 (제목 오른쪽에 배치) */
+.news-source {
+    font-size: 0.75rem;
+    color: #86D1D1;
+    white-space: nowrap; /* 줄바꿈 금지 */
+    flex-shrink: 0;
+}
 .side-content {
     color: #ddd;
     font-size: 0.95rem;
@@ -167,7 +243,9 @@ display: flex !important;
 .sl-text-content {
     display: flex;
     flex-direction: column;
-    gap: 6px; /* 줄 사이 간격 */
+    justify-content: center;
+    gap: 15px; /* 줄 사이 간격 */
+height: 100%;
 }
 
 /* 상단 헤더 */
@@ -205,8 +283,10 @@ display: flex !important;
 
 /* 스펙 그리드 */
 .spec-grid {
-    gap: 5px !important;          /* 줄 간격 좁힘 */
-    margin-top: 10px !important;
+display: flex;
+    flex-direction: column;
+    gap: 8px !important;     /* 스펙 내부 줄간격 */
+    margin-top: 5px !important; /* 윗부분과의 거리 */
 }
 .spec-item {
 display: flex;
@@ -560,23 +640,10 @@ margin: 0 !important;
         }
 
         /* [수정] 모바일/태블릿 반응형 스타일 (1024px 이하) */
-     @media (max-width: 1024px) {
-    .spotlight-card {
-        flex-direction: column !important;
-        align-items: flex-start;
+  @media (max-width: 1024px) {
+    .spotlight-wrapper {
+        grid-template-columns: 1fr; 
     }
-    .sl-action-section {
-        margin-left: 0;
-        margin-top: 15px;
-        align-self: flex-start;
-    }
-}
-    .spotlight-card { flex-direction: column; align-items: flex-start; gap: 20px; }
-    .sl-left-section { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.1); width: 100%; padding-bottom: 20px; }
-    .name-group { flex-wrap: wrap; }
-    .sl-center-section { width: 100%; }
-    .sl-right-section { width: 100%; text-align: right; }
-    .visit-btn { width: 100%; justify-content: center; }
 }
 /* [수정] 상단 이동 버튼 메인 영역 중앙 배치 */
 #topBtn {
@@ -781,8 +848,17 @@ margin: 0 !important;
         </div>
    </div>
    
+   <div class="side-card news-card">
+        <div class="side-header" style="display:flex; justify-content:space-between; align-items:center;">
+            <span><i class="fas fa-newspaper" style="color: #FFFB03;"></i> ROBOTICS NEWS</span>
+            <span style="font-size:0.7rem; color:#888;">sources</span>
+        </div>
+        
+        <div id="robot-news-list" style="overflow-y: auto; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+            <p style="color: #666; text-align: center;">Fetching latest news...</p>
+        </div>
+    </div>
 </div>
-    
     <div class="content-header" style="border-bottom: 2px solid #FFFB03; padding-bottom: 10px; margin-bottom: 10px;">
             <div class="content-header" style="border-bottom: 2px solid #FFFB03; padding-bottom: 10px; margin-bottom: 10px;">
                 <h1 style="font-size: 2.5rem; color: #86D1D1; text-transform: none; letter-spacing: 1px;">Your Journey into Robotics Starts Here</h1>
@@ -1467,6 +1543,46 @@ function scrollToTop() {
         behavior: 'smooth'
     });
 }
+/* [신규] 실시간 로봇 뉴스 가져오기 (RSS to JSON) */
+/* [수정] 뉴스 데이터: 날짜 삭제 + 출처 이동 + 개수 증가 */
+async function fetchRobotNews() {
+    const newsContainer = document.getElementById('robot-news-list');
+    if (!newsContainer) return;
+
+    const rssUrl = 'https://www.sciencedaily.com/rss/matter_energy/robotics.xml';
+    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data.status === 'ok' && data.items.length > 0) {
+            newsContainer.innerHTML = ""; 
+            
+            // 뉴스를 5개로 늘려 화면을 꽉 채웁니다
+            data.items.slice(0, 4).forEach(item => {
+                const html = `
+                    <div class="news-item">
+                        <a href="${item.link}" target="_blank" class="news-title" title="${item.title}">
+                            ${item.title}
+                        </a>
+                        <span class="news-source">ScienceDaily</span>
+                    </div>
+                `;
+                newsContainer.innerHTML += html;
+            });
+        } else {
+            newsContainer.innerHTML = '<p style="color:#888; text-align:center; margin-top:20px;">No news available.</p>';
+        }
+    } catch (error) {
+        console.error("News fetch error:", error);
+        newsContainer.innerHTML = '<p style="color:#ff5555; text-align:center; margin-top:20px;">Failed to load news.</p>';
+    }
+}
+// 페이지 로드 시 실행
+document.addEventListener('DOMContentLoaded', fetchRobotNews);
+// [실행] 페이지 로드 시 뉴스 가져오기
+document.addEventListener('DOMContentLoaded', fetchRobotNews);
 </script>
 </body>
 </html>
