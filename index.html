@@ -358,7 +358,13 @@ flex-shrink: 0;   /* 공간 부족해도 버튼 크기 줄이지 마 */
     }
 }
 /* [추가] 심화 아코디언 스타일 */
-.deep-dive-container { margin-top: 40px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid rgba(134, 209, 209, 0.2); }
+.deep-dive-container { 
+    margin-top: 25px !important; /* 40px -> 25px */
+    padding: 15px !important;    /* 내부 패딩도 살짝 줄임 */
+    background: rgba(0,0,0,0.2); 
+    border-radius: 12px; 
+    border: 1px solid rgba(134, 209, 209, 0.2); 
+}
 .deep-dive-title { color: #86D1D1; font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
 .accordion { --bs-accordion-bg: #252525; --bs-accordion-color: #ccc; --bs-accordion-btn-color: #FFFB03; --bs-accordion-btn-bg: #2a2a2a; --bs-accordion-active-bg: #333; --bs-accordion-active-color: #FFFB03; border: 1px solid rgba(255,255,255,0.1); }
 /* [수정] 아코디언 아이콘을 왼쪽으로 이동 및 스타일 강화 */
@@ -556,18 +562,39 @@ margin: 0 !important;
         }
 
         /* 섹션 스타일 */
-        section { padding: 60px 50px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); scroll-margin-top: 80px; }
-        section:last-child { border-bottom: none; }
-        #intro { 
-    padding: 40px 50px; 
-    min-height: auto !important; /* [핵심] 80vh 삭제 -> 자동 높이 조절 */
+   section { 
+    padding: 30px 25px !important; /* 위아래, 좌우 여백을 반으로 줄임 */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    scroll-margin-top: 80px; 
+}
+section:last-child { border-bottom: none; }
+#intro { 
+    padding: 20px 25px !important; 
+    min-height: auto !important;
     display: flex; 
     flex-direction: column; 
-    justify-content: flex-start; /* [핵심] 중앙 정렬(center) -> 위쪽 정렬로 변경 */
-    gap: 20px; /* 요소 사이 적당한 간격 */
+    justify-content: flex-start;
+    gap: 10px;
 }
 
-        .content-header { margin-bottom: 30px; border-bottom: 2px solid #2C9999; padding-bottom: 15px; }
+      .content-header { 
+    margin-bottom: 15px !important; /* 30px -> 15px */
+    border-bottom: 2px solid rgba(44, 153, 153, 0.5) !important; 
+    padding-bottom: 10px !important; 
+    box-shadow: none;
+}
+/* [신규] 본문 소제목(h3) 위아래 여백 강제 축소 (가장 공간 낭비 심한 곳) */
+.article-content h3 {
+    margin-top: 25px !important; /* 40px -> 25px 로 강제 조정 */
+    margin-bottom: 10px !important;
+    font-size: 1.3rem; /* 글자 크기도 살짝 줄여서 비율 맞춤 */
+}
+
+/* [신규] 이미지 박스들의 과한 여백(40px)을 자동으로 줄임 */
+.article-content > div[style*="margin: 40px"], 
+.article-content > div[style*="margin: 30px"] {
+    margin: 20px 0 !important; /* 40px -> 20px */
+}
   /* [수정] 주제 제목의 과한 형광 효과를 은은한 광채로 완화 */
 .content-header h1 { 
     font-size: 2.6rem !important; 
@@ -602,7 +629,11 @@ margin: 0 !important;
         .content-header p { color: #aaa; font-size: 1.1rem; }
 
         /* 콘텐츠 텍스트 스타일 */
-        .article-content { line-height: 1.8; color: #ccc; font-family: 'Roboto', sans-serif; }
+      .article-content { 
+    line-height: 1.6 !important; /* 1.8 -> 1.6 */
+    color: #ccc; 
+    font-family: 'Roboto', sans-serif; 
+}
         .analogy-box { background: rgba(44, 153, 153, 0.1); border-left: 4px solid #2C9999; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
         .analogy-title { color: #FFFB03; font-weight: bold; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
         .fun-fact { background: rgba(255, 251, 3, 0.05); border: 1px dashed #FFFB03; border-radius: 12px; padding: 15px; margin-top: 20px; }
@@ -871,84 +902,73 @@ margin: 0 !important;
     </aside>
 
     <main id="main-scroll-area">
-        <section id="intro">
- <div class="spotlight-wrapper">
-    <div class="spotlight-card">
-        <div class="sl-main-info">
-            <div class="sl-text-content">
-                <div class="spotlight-header-row">
-                    <i class="fas fa-star fa-spin"></i>
-                    <span>Who's playing in Robotics</span>
-                </div>
-
-                <div class="company-identity-row">
-                    <span id="sl-flag-large" class="country-flag"></span>
-                    <h2 class="spotlight-company-name" id="sl-name">LOADING...</h2>
-                </div>
-
-                <div class="spec-grid">
-                    <div class="spec-item">
-                        <span class="spec-label">MODEL</span>
-                        <span class="spec-value" id="sl-model">-</span>
+<section id="intro" style="padding: 20px 50px; gap: 10px;"> <div class="spotlight-wrapper" style="margin-bottom: 15px;"> <div class="spotlight-card">
+            <div class="sl-main-info">
+                <div class="sl-text-content">
+                    <div class="spotlight-header-row">
+                        <i class="fas fa-star fa-spin"></i>
+                        <span>Who's playing in Robotics</span>
                     </div>
-                    <div class="spec-item">
-                        <span class="spec-label">CATEGORY</span>
-                        <span class="spec-value" id="sl-category">-</span>
+
+                    <div class="company-identity-row">
+                        <span id="sl-flag-large" class="country-flag"></span>
+                        <h2 class="spotlight-company-name" id="sl-name">LOADING...</h2>
+                    </div>
+
+                    <div class="spec-grid">
+                        <div class="spec-item">
+                            <span class="spec-label">MODEL</span>
+                            <span class="spec-value" id="sl-model">-</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">CATEGORY</span>
+                            <span class="spec-value" id="sl-category">-</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="sl-action-section">
-            <a href="#" id="sl-link" target="_blank" class="visit-btn">
-                Visit <i class="fas fa-arrow-right"></i>
-            </a>
+            <div class="sl-action-section">
+                <a href="#" id="sl-link" target="_blank" class="visit-btn">
+                    Visit <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
         </div>
-   </div>
    
-<div class="side-card news-card">
-    <div class="side-header" style="display:flex; justify-content:space-between; align-items:center;">
-        <span><i class="fas fa-newspaper" style="color: #FFFB03;"></i> ROBOTICS NEWS</span>
-    </div>
-    
-    <div id="news-window" style="overflow: hidden; height: 100%; position: relative;">
-        <div id="robot-news-track" class="news-track">
-            <p style="color: #666; text-align: center; padding-top: 20px;">Loading global feeds...</p>
+        <div class="side-card news-card">
+            <div class="side-header" style="display:flex; justify-content:space-between; align-items:center;">
+                <span><i class="fas fa-newspaper" style="color: #FFFB03;"></i> ROBOTICS NEWS</span>
+            </div>
+            
+            <div id="news-window" style="overflow: hidden; height: 100%; position: relative;">
+                <div id="robot-news-track" class="news-track">
+                    <p style="color: #666; text-align: center; padding-top: 20px;">Loading global feeds...</p>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-</div>
-<div class="content-header" style="border-bottom: 2px solid #FFFB03; padding-bottom: 5px; margin-bottom: 20px; display: flex; flex-direction: column; justify-content: flex-end;">
-    <h1 style="font-size: 2.5rem; color: #86D1D1; text-transform: none; letter-spacing: 1px; margin-bottom: 0 !important; line-height: 1.2;">
-        Robotics 101
-    </h1>
-</div>
+    </div> 
 
-<div class="main-split-layout" style="display: flex; gap: 30px; align-items: stretch; width: 100%;">
-    
-    <div class="guide-column" style="flex: 0 0 40%; display: flex; flex-direction: column; gap: 20px;">
-        
-        <div style="background: rgba(30, 30, 30, 0.6); border-left: 4px solid #FFFB03; padding: 30px 25px; flex: 1; display: flex; flex-direction: column; justify-content: center;">
-            <h2 style="color: #fff; font-size: 1.6rem; margin-bottom: 20px; font-weight: 700;">It's More Than Parts</h2>
-            <p style="color: #ccc; font-size: 1.1rem; line-height: 1.7; font-family: 'Roboto', sans-serif; margin: 0;">
-                Robotics is the intersection where <strong style="color: #86D1D1;">Mechanics</strong> provides the body, <strong style="color: #86D1D1;">Electronics</strong> builds the nervous system, and <strong style="color: #86D1D1;">Code</strong> breathes life into the machine.
-            </p>
-        </div>
 
-        <button onclick="scrollToId('mechanics')" 
-                style="padding: 15px 20px; background: transparent; border: 2px solid #2C9999; color: #2C9999; font-family: 'Chakra Petch', sans-serif; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: all 0.3s; border-radius: 5px; text-align:center; width: 100%;">
-            Start Your Journey <i class="fas fa-arrow-down" style="margin-left:8px;"></i>
-        </button>
+    <div class="content-header" style="border-bottom: 2px solid #FFFB03; padding-bottom: 5px; margin-bottom: 10px; margin-top: 5px;">
+        <h1 style="font-size: 2.5rem; color: #86D1D1; margin-bottom: 5px; line-height: 1.2;">
+            Robotics 101
+        </h1>
     </div>
 
-    <div class="image-column" style="flex: 1; display: flex; flex-direction: column; min-width: 0;">
-        <div style="width: 100%; height: 100%; border-radius: 15px; overflow: hidden; border: 1px solid rgba(255, 251, 3, 0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.8); background: #000; display: flex;">
-            <img src="4.h_parts.png" alt="Robotics Technical Infographic" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-        </div>
+    <div style="margin-bottom: 20px; padding: 0 5px;">
+        <h2 style="color: #fff; font-size: 1.5rem; margin-bottom: 8px; font-weight: 700;">It's More Than Parts</h2>
+        <p style="color: #ccc; font-size: 1.1rem; line-height: 1.5; font-family: 'Roboto', sans-serif; margin: 0;">
+            Robotics is the intersection where <strong style="color: #86D1D1;">Mechanics</strong> provides the body, 
+            <strong style="color: #86D1D1;">Electronics</strong> builds the nervous system, and 
+            <strong style="color: #86D1D1;">Code</strong> breathes life into the machine.
+        </p>
     </div>
 
-</div>
-        </section>
+    <div style="width: 100%; border-radius: 15px; overflow: hidden; border: 1px solid rgba(255, 251, 3, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.8); background: #000; margin-bottom: 30px;">
+        <img src="4.h_parts.png" alt="Robotics Technical Infographic" style="width: 100%; height: auto; display: block;">
+    </div>
+
+</section>
 
         <section id="mechanics">
             <div class="content-header">
