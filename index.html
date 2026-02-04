@@ -1130,33 +1130,45 @@ section:last-child { border-bottom: none; }
 
                 <h3 style="color: #FFFB03; margin-top: 40px;">1. The Brain (Microcontrollers)</h3>
                 <p>
-                    A robot needs a brain to think. We call this a <span class="highlight-term">Microcontroller (MCU)</span>. 
-                    It is a tiny computer that reads sensors and tells motors to move.
+                    A robot needs a brain to process information. Depending on the complexity of the task, we choose between two types of "brains":
                 </p>
                 
                 <div style="display: flex; gap: 20px; margin: 20px 0; flex-wrap: wrap;">
                     <div class="step-box" style="flex: 1; border-color: #2C9999;">
                         <strong style="color:#fff; font-size: 1.1rem;">Arduino (The Reflex Brain)</strong><br>
                         <p style="font-size: 0.9rem; margin-top: 5px;">
-                            Simple, fast, and rugged. It's perfect for moving motors and reading buttons. 
-                            Think of it like the part of your brain that pulls your hand away from fire.
+                            Arduino (The Reflex Brain): This is a Microcontroller (MCU). 
+		It is a simple, rugged chip built for one purpose: immediate action. 
+		Just like your body pulls your hand away from a fire before you even think about it, 
+		Arduino handles split-second reactions like stopping a motor when a sensor detects an obstacle.
                         </p>
                     </div>
                     <div class="step-box" style="flex: 1; border-color: #d63384;">
                         <strong style="color:#fff; font-size: 1.1rem;">Raspberry Pi (The Thinking Brain)</strong><br>
                         <p style="font-size: 0.9rem; margin-top: 5px;">
-                            A full mini-computer. It can run AI, process video, and connect to WiFi. 
-                            It is used when the robot needs to recognize faces or talk.
+                            Raspberry Pi (The Thinking Brain): This is a Single Board Computer (SBC). 
+		It is a full computer that can run software, connect to the internet, and "see" using AI. 
+		It is used when the robot needs to perform complex tasks like recognizing a face or planning a path through a room.
                         </p>
                     </div>
                 </div>
 
-                <div style="text-align: center; margin: 40px 0;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Arduino_Uno_-_R3.jpg/800px-Arduino_Uno_-_R3.jpg" 
-                         alt="Arduino Uno Microcontroller" 
-                         style="max-width: 500px; width: 100%; border-radius: 12px; border: 1px solid #444; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-                    <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">(Arduino Uno: The most popular robot brain for beginners)</p>
-                </div>
+                <div style="margin: 20px 0; text-align: center;">
+    <div style="background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 20px; border: 1px solid rgba(134, 209, 209, 0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: inline-block; width: 100%; max-width: 850px;">
+        
+        <img src="arduino_raspberry.jpg" alt="Arduino Uno vs Raspberry Pi 5" 
+             style="width: 100%; height: auto; border-radius: 10px; filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));">
+        
+        <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(134, 209, 209, 0.1);">
+            <p style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: #86D1D1; letter-spacing: 1px; margin: 0;">
+                Arduino Uno <span style="color: #FFFB03; margin: 0 10px;">VS.</span> Raspberry Pi 5
+            </p>
+            <p style="font-size: 0.85rem; color: #666; margin-top: 5px; font-family: 'Roboto', sans-serif;">
+                www.codeduino.com
+            </p>
+        </div>
+    </div>
+</div>
 
                 <h3 style="color: #FFFB03; margin-top: 40px;">2. The Senses (Sensors)</h3>
                 <p>
