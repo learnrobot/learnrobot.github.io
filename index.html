@@ -1689,7 +1689,8 @@ async function fetchRobotNews() {
         { name: "Hackaday",        url: "https://hackaday.com/blog/feed/?tag=robotics" },
         { name: "NVIDIA Robotics", url: "https://blogs.nvidia.com/blog/category/robotics/feed/" },
         { name: "Robotics & Auto", url: "https://roboticsandautomationnews.com/feed/" },
-        { name: "Arduino Blog",    url: "https://blog.arduino.cc/feed/" }
+        { name: "Arduino Blog",    url: "https://blog.arduino.cc/feed/" },
+        { name: "RBR",    url: "https://www.roboticsbusinessreview.com/feed/" }
     ];
 
     try {
@@ -1739,9 +1740,7 @@ async function fetchRobotNews() {
         track.innerHTML = '<p style="padding:20px; text-align:center; color:#ff5555;">Failed to load.</p>';
     }
 }
-// 페이지 로드 시 실행
-document.addEventListener('DOMContentLoaded', fetchRobotNews);
-// [실행] 페이지 로드 시 뉴스 가져오기
+
 document.addEventListener('DOMContentLoaded', fetchRobotNews);
 </script>
 <button onclick="scrollToTop()" id="topBtn" title="Go to top">
