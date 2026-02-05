@@ -165,8 +165,8 @@ display: flex !important;
 
 /* [신규] 출처 스타일 (제목 오른쪽에 배치) */
 .news-source {
-    font-size: 0.75rem;
-    color: #86D1D1;
+    font-size: 0.8rem;
+    color: #86D1D1 !important;
     white-space: nowrap; /* 줄바꿈 금지 */
     flex-shrink: 0;
 }
@@ -378,7 +378,7 @@ flex-shrink: 0;   /* 공간 부족해도 버튼 크기 줄이지 마 */
 /* [수정] 아코디언 아이콘을 왼쪽으로 이동 및 스타일 강화 */
 .accordion-button {
     background-color: rgba(44, 153, 153, 0.1) !important;
-    color: #FFFB03 !important;
+    color: #ccc !important;
     flex-direction: row-reverse; 
     justify-content: flex-end; 
     gap: 15px;
@@ -526,7 +526,7 @@ margin: 0 !important;
         .category-group:hover { border-color: rgba(255, 251, 3, 0.5); }
 
         .group-title {
-            color: #FFFB03; font-weight: 700; font-size: 1.2rem; margin-bottom: 8px;
+            color: #2C9999; font-weight: 700; font-size: 1.2rem; margin-bottom: 8px;
             border-bottom: 1px solid rgba(44, 153, 153, 0.2); padding-bottom: 5px;
             display: flex; justify-content: space-between; cursor: default;
         }
@@ -593,9 +593,12 @@ section:last-child { border-bottom: none; }
 }
 /* [신규] 본문 소제목(h3) 위아래 여백 강제 축소 (가장 공간 낭비 심한 곳) */
 .article-content h3 {
-    margin-top: 25px !important; /* 40px -> 25px 로 강제 조정 */
+    margin-top: 25px !important; 
     margin-bottom: 10px !important;
-    font-size: 1.3rem; /* 글자 크기도 살짝 줄여서 비율 맞춤 */
+    font-size: 1.3rem; 
+    
+    /* ▼ 본문(#ccc)과 똑같은 색으로 변경하여 통일감을 줍니다 ▼ */
+    color: #ccc !important; 
 }
 
 /* [신규] 이미지 박스들의 과한 여백(40px)을 자동으로 줄임 */
@@ -605,23 +608,26 @@ section:last-child { border-bottom: none; }
 }
   /* [수정] 주제 제목의 과한 형광 효과를 은은한 광채로 완화 */
 .content-header h1 { 
-    font-size: 2.6rem !important; 
-    color: #86D1D1 !important; 
+    font-size: 1.9rem !important;  /* 적당한 크기 (원하는대로 조절 가능) */
+    color: #86D1D1 !important;     /* 청록색 */
     font-weight: 700 !important;
-    letter-spacing: 1.2px !important;
-    
-    /* 그림자 레이어를 줄이고 투명도를 높여 빛을 억제 */
-    text-shadow: 
-        0 0 8px rgba(134, 209, 209, 0.4), /* 아주 옅은 청록색 번짐 */
-        0 0 15px rgba(44, 153, 153, 0.2); /* 배경에 살짝 묻어나는 정도 */
-    
+    letter-spacing: 1px !important;
     margin-bottom: 15px !important;
+    text-shadow: 0 0 10px rgba(44, 153, 153, 0.2);
     transition: all 0.3s ease;
+}
+#main-hero-title {
+    font-size: 2.9rem !important;  /* ▲ 여기서 Robotics 101 크기만 따로 조절! */
+    color: #FFFB03 !important;     /* 노란색 강조 */
+    font-weight: 900 !important;   /* 더 굵게 */
+    line-height: 1.1 !important;
+    text-shadow: 3px 3px 0px #000, 0 0 20px rgba(255, 251, 3, 0.5) !important;
+    margin: 0 !important;
 }
 
 /* 마우스를 올렸을 때만 살짝 더 밝아지게 설정 */
 .content-header h1:hover {
-    color: #fff !important;
+    color: #FFFB03 !important;
     text-shadow: 0 0 12px rgba(134, 209, 209, 0.6);
     transform: none; /* 움직임 제거로 차분함 유지 */
 }
@@ -851,7 +857,7 @@ section:last-child { border-bottom: none; }
     </button>
 
        <div class="category-group">
-    <div class="group-title" onclick="scrollToId('intro')" style="cursor: pointer;">What makes a Robot</div>
+    <div class="group-title" onclick="scrollToId('intro')" style="cursor: pointer;">Robotics 101</div>
     
     <button class="category-btn cat-topic" onclick="scrollToId('mechanics')">
         <span class="num-badge">❶&nbsp; </span> Robot Mechanics
@@ -891,13 +897,18 @@ section:last-child { border-bottom: none; }
         </div>
 
         <div class="sidebar-contact-text-wrapper">
-            <p style="font-size: 0.8rem; color: #FFFB03; font-weight: 600; margin-bottom: 5px;">
+    <p style="font-size: 0.8rem; color: #FFFB03; font-weight: 600; margin-bottom: 2px;">
         Contact us
     </p>
-            <a href="mailto:learnrobot@learnrobot.com" style="color: #2C9999; text-decoration: none; font-size: 0.95rem;">learnrobot@learnrobot.com</a>
-        </div>
-        
-        <div style="margin-top: 10px; color: #666; font-size: 0.8rem;">&copy; 2026 LearnRobot.com</div>
+    
+    <a href="mailto:learnrobot@learnrobot.com" style="color: #2C9999; text-decoration: none; font-size: 0.85rem; display: block; margin-bottom: 8px;">
+        learnrobot@learnrobot.com
+    </a>
+    
+    <div style="color: #666; font-size: 0.75rem; line-height: 1;">
+        &copy; 2026 LearnRobot.com
+    </div>
+</div>
     </aside>
 
     <main id="main-scroll-area">
@@ -945,11 +956,13 @@ section:last-child { border-bottom: none; }
                 </div>
             </div>
         </div>
-    </div> <div class="content-header" style="border-bottom: 2px solid #FFFB03; padding-bottom: 0px; margin-bottom: -15px; margin-top: 60px;">
-        <h1 style="font-size: 2.5rem; color: #FFFB03; margin: 0; line-height: 0.0;">
-            Robotics 101
-        </h1>
-    </div>
+    </div> 
+<div class="content-header" style="border-bottom: 2px solid #FFFB03; 
+padding-bottom: 0px; margin-bottom: -15px; margin-top: 60px;">
+    <h1 id="main-hero-title">
+        Robotics 101
+    </h1>
+</div>
 
     <div style="margin-bottom: 20px; padding: 0 5px;">
         <h2 style="color: #fff; font-size: 1.5rem; margin-bottom: 8px; font-weight: 700;">It's More Than Parts</h2>
