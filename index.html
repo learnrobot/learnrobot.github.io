@@ -506,9 +506,9 @@ margin: 0 !important;
 }
 
         /* 사이드바 */
-  aside {
+aside {
     width: var(--sidebar-width) !important;
-    background-color: #1E1E1E !important; /* var(--bg-dark) 직접 입력으로 확실하게 적용 */
+    background-color: #1E1E1E !important;
     padding: 15px 1.5rem !important;
     display: flex !important;
     flex-direction: column !important;
@@ -516,6 +516,27 @@ margin: 0 !important;
     flex-shrink: 0 !important;
     gap: 15px !important;
     z-index: 100 !important;
+    
+    /* 스크롤 설정 */
+    overflow-y: auto; /* 내용이 길면 스크롤 생김 */
+    height: 100%;     /* 높이 가득 채움 */
+    
+    /* 파이어폭스용 스크롤바 색상 */
+    scrollbar-width: thin;
+    scrollbar-color: #333 #1E1E1E;
+}
+aside::-webkit-scrollbar {
+    width: 6px; /* 얇게 */
+}
+aside::-webkit-scrollbar-track {
+    background: #1E1E1E; /* 배경색과 동일하게 */
+}
+aside::-webkit-scrollbar-thumb {
+    background-color: #333; /* 어두운 회색 손잡이 */
+    border-radius: 3px;
+}
+aside::-webkit-scrollbar-thumb:hover {
+    background-color: #2C9999; /* 마우스 올리면 살짝 청록색 */
 }
         
         .category-group {
@@ -636,7 +657,7 @@ font-family: 'Chakra Petch', sans-serif !important;
 /* 제목 하단 선(Underline)도 빛을 줄임 */
 .content-header { 
     margin-bottom: 30px; 
-    border-bottom: 2px solid rgba(44, 153, 153, 0.5) !important; 
+    border-bottom: 2px solid #FFFB03; 
     padding-bottom: 15px; 
     box-shadow: none; /* 하단 선의 그림자 제거 */
 }
@@ -844,8 +865,12 @@ font-family: 'Chakra Petch', sans-serif !important;
     
     <div class="auth-buttons">
         <div class="sns-icons" style="display: flex; gap: 15px;">
-            <a href="https://www.instagram.com/learnrobot" target="_blank"><i class="fab fa-instagram" style="color:#2C9999; font-size:1.8rem;"></i></a>
-            <a href="https://x.com/learnrobot" target="_blank"><i class="fab fa-x-twitter" style="color:#2C9999; font-size:1.8rem;"></i></a>
+            <a href="https://www.instagram.com/learnrobot" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://x.com/learnrobot" target="_blank">
+                <i class="fab fa-x-twitter"></i>
+            </a>
         </div>
     </div>
 </header>
@@ -881,21 +906,38 @@ font-family: 'Chakra Petch', sans-serif !important;
     </button>
 </div>
 
-        <div class="category-group">
-            <div class="group-title">Who makes a robot</div>
-            <a href="players_in_robotics.html" class="nav-link-btn">
-                <span>Find 300+ makers</span>
-                <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
+<div class="category-group">
+    <div class="group-title" style="display:flex; justify-content:space-between; align-items:center;">
+        <span>Robotics in stock</span>
+        <i class="fas fa-globe-americas" style="color: #FFFB03;"></i>
+    </div>
+    
+    <div id="stock-widget-container" style="
+    margin-top: 10px; 
+    height: 250px; 
+    transform: scale(0.9); 
+    width: 111%; 
+    transform-origin: top left; 
+    overflow: hidden;">
+</div>
+    
+    
 
-        <div class="category-group">
+    <div style="font-size: 0.65rem; text-align: right; margin-top: 5px; color: #666; line-height: 1.2;">
+        <span style="color:#FF7777;">* Data delayed</span> / Not investment advice<br>
+        Source: <a href="https://www.tradingview.com/" target="_blank" style="color: #86D1D1; text-decoration: none;">TradingView</a>
+    </div>
+</div>
+
+           <div class="category-group">
             <div class="group-title">How you think</div>
             <a href="insights.html" class="nav-link-btn">
                 <span>Insights</span>
                 <i class="fas fa-arrow-right"></i>
             </a>
         </div>
+
+
 
         <div class="sidebar-contact-text-wrapper">
     <p style="font-size: 0.8rem; color: #FFFB03; font-weight: 600; margin-bottom: 2px;">
@@ -939,16 +981,35 @@ font-family: 'Chakra Petch', sans-serif !important;
                 </div>
             </div>
 
-            <div class="sl-action-section">
-                <a href="#" id="sl-link" target="_blank" class="visit-btn">
-                    Visit <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
+            <div class="sl-action-section" style="display: flex; flex-direction: column; gap: 10px; min-width: 150px;">
+    
+    <a href="#" id="sl-link" target="_blank" class="visit-btn" style="justify-content: center; width: 100%; text-align: center;">
+        Visit <i class="fas fa-arrow-right"></i>
+    </a>
+
+    <a href="players_in_robotics.html" class="find-btn" style="
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        width: 100%; 
+        padding: 8px 0; 
+        background: transparent; 
+        border: 1px solid #2C9999; 
+        color: #2C9999; 
+        border-radius: 6px; 
+        text-decoration: none; 
+        font-weight: 700; 
+        font-size: 0.85rem; 
+        transition: all 0.3s ease;">
+        and find 300+ List
+    </a>
+
+</div>
         </div>
    
 <div class="side-card news-card">
             <div class="side-header" style="display:flex; justify-content:space-between; align-items:center;">
-                <span><i class="fas fa-newspaper" style="color: #FFFB03;"></i> ROBOTICS NEWS</span>
+                <span><i class="fas fa-bullhorn" style="color: #FFFB03;"></i> ROBOTICS NEWS</span>
             </div>
             
             <div id="news-window" style="overflow: hidden; height: 100%; position: relative;">
@@ -958,7 +1019,7 @@ font-family: 'Chakra Petch', sans-serif !important;
             </div>
         </div>
     </div> 
-<div class="content-header" style="border-bottom: 2px solid #FFFB03; 
+<div class="content-header" style="border-bottom: 2px solid #FFFB03 !important; 
 padding-bottom: 0px; margin-bottom: -15px; margin-top: 60px;">
     <h1 id="main-hero-title">
         Robotics 101
@@ -1576,27 +1637,121 @@ Services: On-Demand Interaction
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+// 1. 주식 위젯 데이터 (데이터 100% 뜨는 종목만 엄선)
+const stockGroups = [
+    {
+        title: "1. Global Titans (US)",
+        symbols: [
+            { s: "NASDAQ:TSLA", d: "Tesla (Optimus)" },
+            { s: "NASDAQ:NVDA", d: "NVIDIA (AI)" },
+            { s: "NASDAQ:GOOGL", d: "Google (Robot)" },
+            { s: "NASDAQ:AMZN", d: "Amazon (Logis)" }
+        ]
+    },
+    {
+        title: "2. Industrial & Medical",
+        symbols: [
+            { s: "NASDAQ:ISRG", d: "Intuitive (Med)" }, // 수술로봇 1위 (데이터 확실함)
+            { s: "NASDAQ:TER", d: "Teradyne (UR)" },   // 협동로봇 1위 (확실함)
+            { s: "NASDAQ:SYM", d: "Symbotic (Ware)" }, // 물류 자동화 (확실함)
+            { s: "NYSE:ROK", d: "Rockwell Auto" }
+        ]
+    },
+    {
+        title: "3. Field & Software",
+        symbols: [
+            { s: "NYSE:DE", d: "John Deere (Ag)" },    // 자율주행 트랙터 (지멘스 대체)
+            { s: "NASDAQ:ZBRA", d: "Zebra (Fetch)" },  // 물류 로봇 (오토스토어 대체)
+            { s: "NYSE:CAT", d: "Caterpillar (Mining)" }, // [수정] PATH -> CAT (광산 자율주행)
+            { s: "NASDAQ:TRMB", d: "Trimble (Spot)" }  // 보스턴다이내믹스 파트너
+        ]
+    },
+    {
+        title: "4. Asia Tech (US List)",
+        symbols: [
+            { s: "NASDAQ:BIDU", d: "Baidu (Apollo)" }, // 중국 자율주행
+            { s: "NYSE:XPEV", d: "XPeng (Bot)" },      // 중국 휴머노이드
+            { s: "NASDAQ:JD", d: "JD.com (Logis)" },   // 중국 물류 로봇 (현대차 대체)
+            { s: "NASDAQ:BOTZ", d: "Global Robot ETF" } // 안 뜨는 주식들 대신 ETF
+        ]
+    },
+    {
+        title: "5. Japan & Chips",
+        symbols: [
+            { s: "NYSE:TM", d: "Toyota (TRI)" },       // 도요타 로봇연구소 (화낙 대체)
+            { s: "NYSE:HMC", d: "Honda (Asimo)" },     // 원조 휴머노이드 (야스카와 대체)
+            { s: "NYSE:SONY", d: "Sony (Sensor)" },    // 로봇의 눈 (확실함)
+            { s: "NASDAQ:QCOM", d: "Qualcomm (RB5)" }  // 로봇 두뇌 칩
+        ]
+    }
+];
+let currentGroupIndex = 0;
 
-/* [수정] 5분마다 자동으로 로봇이 바뀌는 로직 */
+// 주가 위젯 업데이트 함수
+function updateStockWidget() {
+    const container = document.getElementById('stock-widget-container');
+    const progressBar = document.getElementById('stock-progress-bar');
+    if (!container) return;
+
+    const group = stockGroups[currentGroupIndex];
+    
+const widgetConfig = {
+        "colorTheme": "dark",
+        "dateRange": "12M",
+        "showChart": false,
+        "locale": "en",
+        "largeChartUrl": "",
+        "isTransparent": true,
+        "showSymbolLogo": false,      // [핵심] 로고를 없애서 글자 공간 확보
+        "showFloatingTooltip": false,
+        "width": "100%",
+        "height": "360",              // [핵심] 높이를 250으로 늘려 스크롤바 제거
+        "tabs": [
+            {
+                "title": group.title,
+                "symbols": group.symbols
+            }
+        ]
+    };
+
+    container.innerHTML = ''; // 초기화
+    
+    const widgetDiv = document.createElement('div');
+    widgetDiv.className = 'tradingview-widget-container';
+    
+    const widgetBody = document.createElement('div');
+    widgetBody.className = 'tradingview-widget-container__widget';
+    
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js';
+    script.innerHTML = JSON.stringify(widgetConfig);
+
+    widgetDiv.appendChild(widgetBody);
+    widgetDiv.appendChild(script);
+    container.appendChild(widgetDiv);
+
+    if (progressBar) {
+        const progress = ((currentGroupIndex + 1) / stockGroups.length) * 100;
+        progressBar.style.width = `${progress}%`;
+    }
+
+    currentGroupIndex = (currentGroupIndex + 1) % stockGroups.length;
+}
+
+// 2. 로봇 배너 (initSpotlight)
 function initSpotlight() {
     if (typeof links === 'undefined' || links.length === 0) return;
 
-    // 1. [핵심 변경] 현재 시간을 '5분' 덩어리로 나눕니다.
-    // 1000ms * 60s * 5m = 300,000ms (5분)
-    // 결과값은 5분마다 1씩 증가하는 정수가 됩니다.
     const currentFiveMinBlock = Math.floor(Date.now() / (1000 * 60 * 5)); 
-
-    // 2. 전체 데이터 개수로 나눠서 순서 결정 (순환)
     const index = currentFiveMinBlock % links.length; 
     const robot = links[index];
-
-    // --- 이하 기존 DOM 업데이트 로직과 동일 ---
     
     let rawTitle = robot.title || "Unknown Robotics";
     let companyName = rawTitle;
     let modelName = "-";
 
-    // 이름 분리 로직 (<br> 또는 괄호 기준)
     if (rawTitle.match(/<br>/i)) {
         const parts = rawTitle.split(/<br>/i);
         companyName = parts[0].trim(); 
@@ -1611,7 +1766,6 @@ function initSpotlight() {
     let displayCategory = robot.category ? robot.category.toUpperCase() : "-";
     const countryCode = (robot.country || "us").toLowerCase();
 
-    // HTML 요소 업데이트
     const flagElem = document.getElementById('sl-flag-large');
     if(flagElem) flagElem.className = `country-flag fi fi-${countryCode}`;
 
@@ -1628,113 +1782,11 @@ function initSpotlight() {
     if(linkElem) linkElem.href = robot.url || "#";
 }
 
-// [실행 설정]
-/* [신규] 스크롤 감지 및 상단 이동 기능 */
-/* [수정] 실행 설정 통합 (로봇 소개 + 스크롤 버튼) */
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. [핵심] 로봇 소개 기능 즉시 실행 (이게 빠져서 LOADING...만 떴던 것!)
-    initSpotlight(); 
-    
-    // 5초마다 자동으로 바뀌게 타이머 설정
-    setInterval(initSpotlight, 5000); 
-
-    // 2. 스크롤 버튼 설정
-    const mainArea = document.getElementById("main-scroll-area");
-    const topBtn = document.getElementById("topBtn");
-
-    if (mainArea && topBtn) {
-        mainArea.onscroll = function() {
-            if (mainArea.scrollTop > 300) {
-                topBtn.style.display = "flex"; // 스크롤 내리면 보임
-            } else {
-                topBtn.style.display = "none"; // 맨 위면 숨김
-            }
-        };
-    }
-});
-// 버튼 누르면 부드럽게 위로
-function scrollToTop() {
-    const mainArea = document.getElementById("main-scroll-area");
-    if (mainArea) {
-        mainArea.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-}
-function toggleSidebar() {
-    document.querySelector('aside').classList.toggle('active');
-}
-
-function closeSidebar() {
-    document.querySelector('aside').classList.remove('active');
-}
-
-// (선택사항) 메뉴를 클릭하면 자동으로 사이드바 닫기
-document.querySelectorAll('.category-btn, .nav-link-btn, .group-title').forEach(btn => {
-    btn.addEventListener('click', () => {
-        if (window.innerWidth <= 1024) {
-            closeSidebar();
-        }
-    });
-});
-// 부드러운 스크롤 이동 함수
-function scrollToId(id) {
-    const element = document.getElementById(id);
-    if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-}
-
-// 상단 배너 로테이션
-function startAdRotation() {
-    const showNextAd = () => {
-        if (typeof links === 'undefined' || links.length === 0) return;
-        const randomLink = links[Math.floor(Math.random() * links.length)];
-        const adText = document.querySelector('.ad-banner .ad-company-name');
-        const adAnchor = document.querySelector('.ad-banner');
-        if (adText && adAnchor) {
-            adText.innerHTML = randomLink.title.replace(/<br>/g, ' ');
-            adAnchor.href = randomLink.url;
-            adAnchor.target = "_blank";
-        }
-    };
-    showNextAd();
-    setInterval(showNextAd, 10000);
-}
-document.addEventListener('DOMContentLoaded', startAdRotation);
-// 스크롤 감지하여 버튼 보이기/숨기기
-const topBtn = document.getElementById("topBtn");
-const mainArea = document.getElementById("main-scroll-area");
-
-mainArea.onscroll = function() {
-    const topBtn = document.getElementById("topBtn");
-    if (topBtn) {
-        if (mainArea.scrollTop > 300) {
-            // 버튼을 나타낼 때 "flex"로 설정해야 아이콘 중앙 정렬이 유지됩니다.
-            topBtn.style.display = "flex"; 
-        } else {
-            topBtn.style.display = "none";
-        }
-    }
-};
-// 최상단으로 부드럽게 이동
-function scrollToTop() {
-    mainArea.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-}
-/* [신규] 실시간 로봇 뉴스 가져오기 (RSS to JSON) */
-/* [수정] 뉴스 데이터: 날짜 삭제 + 출처 이동 + 개수 증가 */
-/* [최종] 4대 언론사에서 각각 최신 뉴스 1개씩 가져와서 한 번에 보여주기 */
-/* [최종] 10개 뉴스 무한 스크롤 (끊김 없는 티커) */
+// 3. 뉴스 가져오기
 async function fetchRobotNews() {
-    const track = document.getElementById('robot-news-track'); // 트랙 요소
+    const track = document.getElementById('robot-news-track');
     if (!track) return;
 
-    // 10개 소스 전체
     const allRssSources = [
         { name: "ScienceDaily",    url: "https://www.sciencedaily.com/rss/matter_energy/robotics.xml" },
         { name: "TechCrunch",      url: "https://techcrunch.com/category/robotics/feed/" },
@@ -1750,7 +1802,6 @@ async function fetchRobotNews() {
     ];
 
     try {
-        // 1. 10개 사이트 동시 요청
         const fetchPromises = allRssSources.map(async (source) => {
             const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}`;
             try {
@@ -1764,10 +1815,9 @@ async function fetchRobotNews() {
         });
 
         const results = await Promise.all(fetchPromises);
-        const validNews = results.filter(r => r !== null); // 성공한 뉴스만 골라냄
+        const validNews = results.filter(r => r !== null);
 
         if (validNews.length > 0) {
-            // 2. HTML 생성
             let newsHTML = "";
             validNews.forEach(news => {
                 newsHTML += `
@@ -1781,23 +1831,90 @@ async function fetchRobotNews() {
                     </div>
                 `;
             });
-
-            // 3. [핵심] 무한 루프를 위해 내용을 두 번 반복해서 넣음 (A B C -> A B C A B C)
-            // CSS 애니메이션이 50% 지점(절반)까지 갔을 때 0%로 순간이동하면,
-            // 사용자 눈에는 계속 이어지는 것처럼 보입니다.
             track.innerHTML = newsHTML + newsHTML; 
-
         } else {
             track.innerHTML = '<p style="padding:20px; text-align:center; color:#888;">No news available.</p>';
         }
-
     } catch (error) {
         console.error(error);
         track.innerHTML = '<p style="padding:20px; text-align:center; color:#ff5555;">Failed to load.</p>';
     }
 }
 
-document.addEventListener('DOMContentLoaded', fetchRobotNews);
+// 4. 광고 로테이션
+function startAdRotation() {
+    const showNextAd = () => {
+        if (typeof links === 'undefined' || links.length === 0) return;
+        const randomLink = links[Math.floor(Math.random() * links.length)];
+        const adText = document.querySelector('.ad-banner .ad-company-name');
+        const adAnchor = document.querySelector('.ad-banner');
+        if (adText && adAnchor) {
+            adText.innerHTML = randomLink.title.replace(/<br>/g, ' ');
+            adAnchor.href = randomLink.url;
+            adAnchor.target = "_blank";
+        }
+    };
+    showNextAd();
+    setInterval(showNextAd, 10000);
+}
+
+// 5. 사이드바 및 스크롤 UI 기능
+function toggleSidebar() {
+    document.querySelector('aside').classList.toggle('active');
+}
+function closeSidebar() {
+    document.querySelector('aside').classList.remove('active');
+}
+function scrollToId(id) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+function scrollToTop() {
+    const mainArea = document.getElementById("main-scroll-area");
+    if (mainArea) {
+        mainArea.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+// 6. [최종 실행] DOM 로드 시 모든 기능 시작
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // 로봇 배너
+    initSpotlight();
+    setInterval(initSpotlight, 5000); 
+
+    // 주식 위젯 (8초마다 변경)
+    updateStockWidget();
+    setInterval(updateStockWidget, 15000);
+
+    // 뉴스 가져오기
+    fetchRobotNews();
+
+    // 광고
+    startAdRotation();
+
+    // 모바일 사이드바 자동 닫기
+    document.querySelectorAll('.category-btn, .nav-link-btn, .group-title').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (window.innerWidth <= 1024) { closeSidebar(); }
+        });
+    });
+
+    // 스크롤 버튼 표시 로직
+    const mainArea = document.getElementById("main-scroll-area");
+    const topBtn = document.getElementById("topBtn");
+    if (mainArea && topBtn) {
+        mainArea.onscroll = function() {
+            if (mainArea.scrollTop > 300) {
+                topBtn.style.display = "flex";
+            } else {
+                topBtn.style.display = "none";
+            }
+        };
+    }
+});
 </script>
 <button onclick="scrollToTop()" id="topBtn" title="Go to top">
     <i class="fas fa-arrow-up"></i>
