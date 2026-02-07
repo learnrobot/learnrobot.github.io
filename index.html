@@ -14,6 +14,15 @@
 
     <script src="data.js"></script>
     <style>
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
+html, body { 
+    overflow-x: hidden; /* 가로 스크롤 방지 */
+    width: 100%;
+}
 /* [필수] 기본 변수 설정 (이게 없으면 화살표 위치 계산이 고장납니다!) */
 :root {
     --bg-dark: #1a1a1a;
@@ -1010,7 +1019,7 @@ font-family: 'Chakra Petch', sans-serif !important;
     margin-top: 10px; 
     height: 240px; 
     transform: scale(0.9); 
-    width: 118%; 
+    width: 100%; 
     transform-origin: top left; 
     overflow: hidden;">
 </div>
@@ -1047,7 +1056,7 @@ font-family: 'Chakra Petch', sans-serif !important;
     </aside>
 
     <main id="main-scroll-area">
-<section id="intro" style="padding: 20px 50px; gap: 10px;"> <div class="spotlight-wrapper" style="margin-bottom: 15px;"> <div class="spotlight-card">
+<section id="intro" > <div class="spotlight-wrapper" style="margin-bottom: 15px;"> <div class="spotlight-card">
             <div class="sl-main-info">
                 <div class="sl-text-content">
                     <div class="spotlight-header-row">
