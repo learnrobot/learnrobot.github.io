@@ -700,12 +700,80 @@ font-family: 'Chakra Petch', sans-serif !important;
         }
 
         /* [수정] 모바일/태블릿 반응형 스타일 (1024px 이하) */
-  @media (max-width: 1024px) {
-    .spotlight-wrapper {
-        grid-template-columns: 1fr;
-        height: auto !important; /* 모바일은 높이 풀기 */
-        overflow: visible;
+  /* --- 모바일 및 태블릿 반응형 최종 수정 (1024px 이하) --- */
+@media (max-width: 1024px) {
+    /* 1. 사이드바를 왼쪽으로 숨기고 필요할 때만 노출 */
+    aside {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        width: 280px !important; /* 사이드바 너비 유지 */
+        height: 100vh !important;
+        transform: translateX(-100%); /* 기본 상태: 왼쪽으로 숨김 */
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000 !important;
+        display: flex !important; /* 내부 구조 유지 */
+        box-shadow: 10px 0 30px rgba(0,0,0,0.5);
     }
+
+    /* 햄버거 메뉴 클릭 시 나타나는 클래스 */
+    aside.active {
+        transform: translateX(0);
+    }
+
+    /* 2. 본문 영역이 사이드바 자리를 메우고 전체 화면 사용 */
+    .container {
+        flex-direction: column !important; /* 세로 배치로 변경 */
+    }
+
+    main {
+        width: 100% !important;
+        height: calc(100vh - 80px) !important; /* 헤더 제외 전체 높이 */
+    }
+
+    /* 3. 상단 햄버거 메뉴 활성화 */
+    .menu-toggle {
+        display: block !important;
+        order: -1; /* 로고 왼쪽으로 배치 (취향에 따라 삭제 가능) */
+    }
+
+    .sidebar-close {
+        display: block !important; /* 사이드바 내부 닫기 버튼 표시 */
+    }
+
+    /* 4. 본문 상단 배너(로봇 배너 + 뉴스) 세로 나열 */
+    .spotlight-wrapper {
+        grid-template-columns: 1fr !important; /* 2열에서 1열로 변경 */
+        height: auto !important;
+        gap: 15px;
+    }
+
+    .spotlight-card, .side-card.news-card {
+        height: auto !important;
+        min-height: 250px;
+    }
+
+    /* 5. 텍스트 및 이미지 크기 최적화 */
+    #main-hero-title {
+        font-size: 2.2rem !important;
+    }
+
+    .spotlight-company-name {
+        font-size: 1.8rem !important;
+    }
+
+    header {
+        padding: 0 1rem !important;
+    }
+
+    /* 광고 배너가 너무 크면 모바일에서 로고와 겹치므로 크기 제한 */
+    .header-ad-container {
+        margin-left: 10px;
+    }
+    .ad-banner {
+        padding: 5px 10px !important;
+    }
+}
     .side-card.news-card {
         height: 280px !important; /* 모바일에서도 뉴스 박스 높이는 고정 */
     }
