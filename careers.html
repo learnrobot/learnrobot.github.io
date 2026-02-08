@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Careers - LearnRobot.com</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <style>
+        :root {
+            --bg-dark: #1a1a1a;
+            --sidebar-bg: #1E1E1E;
+            --primary-color: #2C9999; /* 청록색 */
+            --accent-color: #FFFB03;  /* 노란색 */
+            --text-main: #e0e0e0;
+        }
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Chakra Petch', sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative; /* 가상 요소의 기준점이 됨 */
+    min-height: 100vh;
+}
+body::before {
+    content: "";
+    position: fixed; /* 스크롤해도 배경 고정 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('3.future_world.png'); /* 이미지 확장자(png, jpg 등)를 확인하세요 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.15; /* 0.0 ~ 1.0 사이에서 투명도 조절 (낮을수록 투명함) */
+    z-index: -1; /* 콘텐츠 뒤로 보냄 */
+}
+
+        /* 헤더 스타일 유지 */
+        header {
+            background: rgba(30, 30, 30, 0.95);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo { font-size: 1.8rem; font-weight: 900; color: #f1f5f9; text-decoration: none; }
+
+        /* 상단 채용 등록 배너 */
+        .careers-hero {
+            padding: 10px 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary-color);
+            background: rgba(44, 153, 153, 0.05);
+        }
+
+        .post-job-btn {
+            background: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 12px 24px;
+            font-weight: 700;
+            border-radius: 8px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .post-job-btn:hover {
+            background: var(--accent-color);
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 251, 3, 0.4);
+        }
+
+        /* 채용 카드 리스트 */
+        .jobs-container { padding: 40px 2.5rem; }
+        .job-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+      .job-card {
+    /* 기존: background: var(--sidebar-bg); */
+    background: rgba(15, 15, 15, 0.35);
+    backdrop-filter: none;  
+    border: 1.2px solid rgba(134, 209, 209, 0.2);
+    border-radius: 12px;
+    padding: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+        .job-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            background: #333;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .job-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .company-name {
+            color: var(--primary-color);
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tech-badge {
+            font-size: 0.75rem;
+            background: rgba(44, 153, 153, 0.1);
+            color: var(--primary-color);
+            border: 1px solid rgba(44, 153, 153, 0.3);
+            padding: 3px 10px;
+            border-radius: 4px;
+        }
+
+        .job-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #333;
+            padding-top: 15px;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .deadline { color: #FF7777; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo" style="text-decoration: none;">
+        LEARN<span style="color: var(--accent-color);">ROBOT</span>
+    </a>
+</header>
+
+<section class="careers-hero">
+    <div>
+        <h1 style="color: var(--primary-color); font-weight: 700; margin: 0;">Robot Careers</h1>
+        <p style="color: #888; margin-top: 5px;">Find your next challenge in the robotics industry.</p>
+    </div>
+    <button class="post-job-btn" data-bs-toggle="modal" data-bs-target="#postJobModal">
+        <i class="fas fa-plus-circle me-2"></i>Post a Job
+    </button>
+</section>
+
+<div class="jobs-container">
+    <div class="job-grid">
+        <div class="job-card">
+            <div class="company-logo"><i class="fas fa-robot text-white"></i></div>
+            <div class="job-title">Senior SLAM Engineer</div>
+            <div class="company-name">Visionary Robotics Co.</div>
+            <div class="tech-stack">
+                <span class="tech-badge">C++</span>
+                <span class="tech-badge">ROS2</span>
+                <span class="tech-badge">LiDAR</span>
+            </div>
+            <div class="job-footer">
+                <span><i class="fas fa-map-marker-alt me-1"></i> Silicon Valley</span>
+                <span class="deadline">D-14</span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="company-logo"><i class="fas fa-microchip text-white"></i></div>
+            <div class="job-title">Embedded Systems Developer</div>
+            <div class="company-name">CoreDrive Systems</div>
+            <div class="tech-stack">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">Arduino</span>
+                <span class="tech-badge">Firmware</span>
+            </div>
+            <div class="job-footer">
+                <span><i class="fas fa-map-marker-alt me-1"></i> Seoul, KR</span>
+                <span class="deadline">D-7</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<div class="modal fade" id="postJobModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background-color: #252525; border: 2px solid var(--primary-color); color: #fff;">
+            <div class="modal-header" style="border-bottom: 1px solid #444;">
+                <h5 class="modal-title font-bold" style="color: var(--accent-color);">Post a New Robot Job</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="jobForm">
+                    <div class="mb-3">
+                        <label class="form-label text-sm" style="color: var(--primary-color);">Company Name</label>
+                        <input type="text" class="form-control" style="background: #1a1a1a; border: 1px solid #444; color: #fff;" placeholder="e.g. Tesla Optimus Team">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-sm" style="color: var(--primary-color);">Job Title</label>
+                        <input type="text" class="form-control" style="background: #1a1a1a; border: 1px solid #444; color: #fff;" placeholder="e.g. Control Systems Engineer">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-sm" style="color: var(--primary-color);">Required Tech Stack (comma separated)</label>
+                        <input type="text" class="form-control" style="background: #1a1a1a; border: 1px solid #444; color: #fff;" placeholder="ROS2, C++, Python">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-sm" style="color: var(--primary-color);">Location</label>
+                            <input type="text" class="form-control" style="background: #1a1a1a; border: 1px solid #444; color: #fff;" placeholder="Remote / City">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-sm" style="color: var(--primary-color);">Deadline</label>
+                            <input type="date" class="form-control" style="background: #1a1a1a; border: 1px solid #444; color: #fff;">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="border-top: 1px solid #444;">
+                <button type="button" class="btn btn-outline-secondary text-white" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn" style="background-color: var(--primary-color); color: #fff; font-weight: 700;">Submit Inquiry</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
