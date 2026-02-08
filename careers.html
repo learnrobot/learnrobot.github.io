@@ -159,6 +159,8 @@ body::before {
 
         .deadline { color: #FF7777; font-weight: 600; }
     </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
 </head>
 <body>
 
@@ -190,32 +192,8 @@ body::before {
 
 <div class="job-container">
     <div class="job-grid">
-        <div class="job-card">
-            <div class="job-title">Senior SLAM Engineer</div>
-            <div class="company-name">Visionary Robotics Co.</div>
-            <div class="tech-stack">
-                <span class="tech-badge">C++</span>
-                <span class="tech-badge">ROS2</span>
-                <span class="tech-badge">LiDAR</span>
-            </div>
-            <div class="job-footer">
-                <span><i class="fas fa-map-marker-alt me-1"></i> Silicon Valley</span>
-                <span class="deadline">D-14</span>
-            </div>
-        </div>
-
-        <div class="job-card">
-            <div class="job-title">Embedded Systems Developer</div>
-            <div class="company-name">CoreDrive Systems</div>
-            <div class="tech-stack">
-                <span class="tech-badge">Python</span>
-                <span class="tech-badge">Arduino</span>
-                <span class="tech-badge">Firmware</span>
-            </div>
-            <div class="job-footer">
-                <span><i class="fas fa-map-marker-alt me-1"></i> Seoul, KR</span>
-                <span class="deadline">D-7</span>
-            </div>
+        
+          
         </div>
     </div>
 </div>
@@ -243,14 +221,14 @@ body::before {
                         <input type="text" class="form-control" style="background: #1a1a1a; border: 1px solid #444; color: #fff;" placeholder="ROS2, C++, Python">
                     </div>
                     <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label text-sm" style="color: var(--primary-color);">Location</label>
-                            <input type="text" class="form-control" style="background: #1a1a1a; border: 1px solid #444; color: #fff;" placeholder="Remote / City">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label text-sm" style="color: var(--primary-color);">Deadline</label>
-                            <input type="date" class="form-control" style="background: #1a1a1a; border: 1px solid #444; color: #fff;">
-                        </div>
+                  <div class="col-md-6 mb-3">
+    <label class="form-label text-sm" style="color: var(--primary-color);">Deadline</label>
+    <input type="text" id="eng-datepicker" class="form-control" placeholder="Select Date" style="background: #1a1a1a; border: 1px solid #444; color: #fff;">
+</div>
+                    <div class="col-md-6 mb-3">
+    <label class="form-label text-sm" style="color: var(--primary-color);">Deadline</label>
+    <input type="date" class="form-control" lang="en-US" style="background: #1a1a1a; border: 1px solid #444; color: #fff;">
+</div>
                     </div>
                 </form>
             </div>
@@ -261,5 +239,41 @@ body::before {
         </div>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 'Submit Inquiry' 버튼을 찾습니다.
+    const submitBtn = document.querySelector('#postJobModal .modal-footer .btn:last-child');
+    
+    submitBtn.addEventListener('click', function() {
+        // 폼 입력값들을 가져옵니다.
+        const company = document.querySelector('input[placeholder="e.g. Tesla Optimus Team"]').value;
+        const title = document.querySelector('input[placeholder="e.g. Control Systems Engineer"]').value;
+
+        if(!company || !title) {
+            alert("Please fill in the required fields.");
+            return;
+        }
+
+        // 실제 작동하는 것처럼 메시지를 보여줍니다.
+        alert(`Thank you! Your job post inquiry for "${title}" at "${company}" has been submitted.`);
+        
+        // 모달창을 닫습니다.
+        const modal = bootstrap.Modal.getInstance(document.getElementById('postJobModal'));
+        modal.hide();
+        
+        // 폼 초기화
+        document.getElementById('jobForm').reset();
+    });
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    flatpickr("#eng-datepicker", {
+        locale: "en", // 영문 고정
+        dateFormat: "Y-m-d",
+        disableMobile: "true", // 모바일에서도 커스텀 달력 유지
+        theme: "dark" // 다크 모드 테마 적용
+    });
+</script>
 </body>
 </html>
