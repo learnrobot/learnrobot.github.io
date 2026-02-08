@@ -11,10 +11,11 @@
         :root {
             --bg-dark: #1a1a1a;
             --sidebar-bg: #1E1E1E;
-            --primary-color: #2C9999; /* 청록색 */
+            --primary-color: #86D1D1;
             --accent-color: #FFFB03;  /* 노란색 */
             --text-main: #e0e0e0;
         }
+
 
 body {
     background-color: var(--bg-dark);
@@ -54,25 +55,28 @@ body::before {
         .logo { font-size: 1.8rem; font-weight: 900; color: #f1f5f9; text-decoration: none; }
 
         /* 상단 채용 등록 배너 */
-        .careers-hero {
-            padding: 10px 2.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--primary-color);
-            background: rgba(44, 153, 153, 0.05);
-        }
+  .careers-hero {
+    padding: 15px 2.5rem;    /* 👈 상하 패딩을 10px에서 15px로 조절 (균형 유지) */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--primary-color);
+    background: rgba(44, 153, 153, 0.05);
+    height: 100px;           /* 👈 높이를 100px로 고정하여 밑줄을 위로 바짝 붙임 */
+}
 
-        .post-job-btn {
-            background: transparent;
-            border: 2px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 12px 24px;
-            font-weight: 700;
-            border-radius: 8px;
-            transition: all 0.3s;
-            text-transform: uppercase;
-        }
+.post-job-btn {
+    background: transparent;
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 8px 20px;       /* 👈 상하 패딩을 12px -> 8px로 줄여 슬림하게 변경 */
+    font-size: 0.9rem;       /* 👈 글자 크기도 살짝 줄임 */
+    font-weight: 700;
+    border-radius: 6px;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    white-space: nowrap;     /* 글자가 두 줄로 깨지는 것 방지 */
+}
 
         .post-job-btn:hover {
             background: var(--accent-color);
@@ -81,80 +85,77 @@ body::before {
         }
 
         /* 채용 카드 리스트 */
-        .jobs-container { padding: 40px 2.5rem; }
-        .job-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
-        }
-
-      .job-card {
-    /* 기존: background: var(--sidebar-bg); */
-    background: rgba(15, 15, 15, 0.35);
-    backdrop-filter: none;  
-    border: 1.2px solid rgba(134, 209, 209, 0.2);
-    border-radius: 12px;
-    padding: 25px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+/* 1. 컨테이너: 좌우 여백을 줄여 왼쪽으로 더 붙게 함 (82~86라인) */
+.job-container { 
+    padding: 40px 5%;     /* 좌우 여백을 10%에서 5%로 줄임 */
+    max-width: 100%;      /* 가로 폭 제한 없음 */
+    margin: 0;            /* margin: 0 auto를 지우고 0으로 설정해 왼쪽 밀착 */
 }
 
-        .job-card:hover {
-            border-color: var(--primary-color);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+/* 2. 그리드: 카드 크기를 고정하고 빈틈없이 배치 (88~93라인) */
+.job-grid {
+    display: grid;
+    /* 카드의 너비를 320px 정도로 고정하여 균일하게 만듦 */
+    grid-template-columns: repeat(auto-fill, 320px); 
+    gap: 20px;            /* 카드 사이 간격 */
+    justify-content: start; /* 👈 가장 중요: 카드를 왼쪽부터 배치 */
+}
 
-        .company-logo {
-            width: 50px;
-            height: 50px;
-            background: #333;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+/* 2. 카드 디자인: 아이콘 제거 및 높이 대폭 축소 */
+.job-card {
+    background: rgba(10, 10, 10, 0.4); /* 맑은 투명도 */
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(134, 209, 209, 0.3);
+    border-radius: 10px;
+    padding: 15px; /* 내부 여백 축소 */
+    display: flex;
+    flex-direction: column;
+    min-height: 180px; /* 불필요한 세로 공간 삭제 */
+    transition: all 0.3s ease;
+}
 
-        .job-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 5px;
-        }
+/* 3. 내부 텍스트 스타일 조절 */
+.job-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 4px;
+    line-height: 1.2;
+}
 
-        .company-name {
-            color: var(--primary-color);
-            font-size: 1rem;
-            margin-bottom: 15px;
-        }
+.company-name {
+    color: var(--primary-color);
+    font-size: 0.85rem;
+    margin-bottom: 15px; /* 키워드와의 간격 */
+}
 
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
+/* 4. 키워드 영역: 3개 정도 들어갈 공간으로 최적화 */
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+}
 
-        .tech-badge {
-            font-size: 0.75rem;
-            background: rgba(44, 153, 153, 0.1);
-            color: var(--primary-color);
-            border: 1px solid rgba(44, 153, 153, 0.3);
-            padding: 3px 10px;
-            border-radius: 4px;
-        }
+.tech-badge {
+    background: rgba(44, 153, 153, 0.1);
+    border: 1px solid rgba(44, 153, 153, 0.3);
+    color: #86D1D1;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+}
 
-        .job-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid #333;
-            padding-top: 15px;
-            font-size: 0.85rem;
-            color: #888;
-        }
+/* 5. 푸터 영역 밀착 */
+.job-footer {
+    margin-top: auto; /* 남은 공간 없이 맨 아래로 */
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #777;
+}
 
         .deadline { color: #FF7777; font-weight: 600; }
     </style>
@@ -162,25 +163,34 @@ body::before {
 <body>
 
 <header>
-    <a href="index.html" class="logo" style="text-decoration: none;">
+ <a href="index.html" class="logo" style="display: flex; align-items: center; text-decoration: none; gap: 10px;">
+    <img src="favicon.png" alt="LearnRobot Logo" 
+         style="height: 60px; width: 60px; border-radius: 50%; object-fit: cover; display: block; border: 1px solid rgba(255,255,255,0.2);">
+    <span style="font-family: 'Chakra Petch', sans-serif; font-weight: 900; color: #ffffff; letter-spacing: 1px; font-size: 1.8rem;">
         LEARN<span style="color: var(--accent-color);">ROBOT</span>
-    </a>
+    </span>
+</a>
+    
+    <nav class="nav-links">
+        <a href="index.html" style="color: #fff; text-decoration: none; margin-left: 20px;">Home</a>
+        <a href="careers.html" class="active" style="color: var(--accent-color); text-decoration: none; margin-left: 20px; font-weight: bold;">Careers</a>
+    </nav>
 </header>
+        
 
 <section class="careers-hero">
     <div>
-        <h1 style="color: var(--primary-color); font-weight: 700; margin: 0;">Robot Careers</h1>
-        <p style="color: #888; margin-top: 5px;">Find your next challenge in the robotics industry.</p>
+        <h1 style="color: #FFFB03; font-weight: 700; margin: 0;">Robot Careers</h1>
+        <p style="color: #86D1D1; margin-top: 5px;">Find your next challenge in the robotics industry.</p>
     </div>
     <button class="post-job-btn" data-bs-toggle="modal" data-bs-target="#postJobModal">
         <i class="fas fa-plus-circle me-2"></i>Post a Job
     </button>
 </section>
 
-<div class="jobs-container">
+<div class="job-container">
     <div class="job-grid">
         <div class="job-card">
-            <div class="company-logo"><i class="fas fa-robot text-white"></i></div>
             <div class="job-title">Senior SLAM Engineer</div>
             <div class="company-name">Visionary Robotics Co.</div>
             <div class="tech-stack">
@@ -195,7 +205,6 @@ body::before {
         </div>
 
         <div class="job-card">
-            <div class="company-logo"><i class="fas fa-microchip text-white"></i></div>
             <div class="job-title">Embedded Systems Developer</div>
             <div class="company-name">CoreDrive Systems</div>
             <div class="tech-stack">
