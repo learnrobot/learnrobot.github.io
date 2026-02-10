@@ -14,6 +14,28 @@
 
     <script src="data.js"></script>
     <style>
+/* [신규] 긴 글 읽기 전용 스타일 (Roboto 폰트 적용) */
+.reading-text {
+    font-family: 'Roboto', sans-serif !important; /* 가독성 좋은 폰트 */
+    color: #ccc;           /* 눈이 편한 회색 */
+    font-size: 1.05rem;    /* 글자 크기 살짝 키움 */
+    line-height: 1.7;      /* 줄 간격 넓게 (읽기 편하게) */
+    margin-bottom: 30px;   /* 문단 아래 여백 */
+}
+
+/* [신규] 소제목 (1. How to...) 스타일 꾸미기 */
+.reading-text h4 {
+    font-family: 'Chakra Petch', sans-serif !important; /* 제목은 로봇 폰트 유지 */
+    color: #FFFB03;        /* 노란색 강조 */
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 8px;   /* 본문과 간격 */
+    margin-top: 30px;
+    
+    /* 왼쪽에 포인트 선 추가 */
+    border-left: 4px solid #2C9999;
+    padding-left: 12px;
+}
 /* 모든 요소의 테두리와 패딩을 너비에 포함시킴 (화면 삐져나감 방지) */
 *, *::before, *::after {
     box-sizing: border-box;
@@ -630,6 +652,20 @@ section:last-child { border-bottom: none; }
 font-family: 'Chakra Petch', sans-serif !important;
 }
 
+.article-content h4 {
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-size: 1.6rem !important;
+    color: #86D1D1 !important;      /* 청록색 */
+    
+    margin-top: 35px !important;
+    margin-bottom: 15px !important;
+    padding-bottom: 10px;           /* 글자와 밑줄 사이 간격 */
+    
+    /* 아래쪽 점선 테두리 */
+    border-bottom: 1px dashed rgba(134, 209, 209, 0.5);
+    display: block; /* 줄 전체를 차지하게 함 */
+}
+
 /* [신규] 이미지 박스들의 과한 여백(40px)을 자동으로 줄임 */
 .article-content > div[style*="margin: 40px"], 
 .article-content > div[style*="margin: 30px"] {
@@ -1118,11 +1154,53 @@ padding-bottom: 0px; margin-bottom: -15px; margin-top: 60px;">
 </div>
 
     <div style="margin-bottom: 20px; padding: 0 5px;">
-        <h2 style="color: #fff; font-size: 1.5rem; margin-bottom: 8px; font-weight: 700;">It's More Than Parts</h2>
+        <h2 style="color: #fff; font-size: 1.5rem; margin-bottom: 15px; font-weight: 700;">It's More Than Parts</h2>
         <p style="color: #ccc; font-size: 1.1rem; line-height: 1.5; font-family: 'Roboto', sans-serif; margin: 0;">
-            Robotics is the intersection where <strong style="color: #86D1D1;">Mechanics</strong> provides the body, 
-            <strong style="color: #86D1D1;">Electronics</strong> builds the nervous system, and 
-            <strong style="color: #86D1D1;">Code</strong> breathes life into the machine.
+Robotics is built from mechanics, electronics, and code, but mastering it isn’t about collecting parts—it’s about learning these foundations in the right order.
+
+<div class="reading-text">
+<h4>1. How to Self-Study Robotics in the Right Order</h4>Many people fail at learning robotics not because robotics is too difficult, but because they start in the wrong place. Robotics is a combination of multiple disciplines, and learning them in the wrong order creates confusion and frustration. A practical and sustainable learning path is mechanics first, then electronics, followed by programming, control, and finally AI.
+Mechanics comes first because robots exist in the physical world. You do not need advanced mechanical design or CAD skills at the beginning. What matters is understanding joints, links, degrees of freedom, torque, and how motion is physically generated. Without this foundation, software concepts feel abstract and disconnected.
+Electronics comes next. At this stage, you only need practical knowledge: how sensors connect to microcontrollers, how motors are driven, and how power is supplied safely. Robotics electronics is not about designing PCBs early on, but about understanding how signals flow between components.
+Programming should follow once you can visualize hardware behavior. Learning Python or C++ becomes much easier when you can see code directly affect movement. This is the point where robotics becomes rewarding, because software finally interacts with reality.
+Control theory and AI come later. Control teaches robots how to move accurately and stably. AI adds perception and decision-making. Starting with AI too early is a common mistake that leads to shallow understanding and eventual burnout.
+The key to self-studying robotics is not speed, but order. Build intuition first, intelligence later.
+</div>
+
+<div class="reading-text">
+<h4>2. Python vs C++ for Robotics Beginners</h4>
+One of the most common beginner questions in robotics is whether to learn Python or C++. The correct answer is not choosing one over the other, but choosing the right sequence.
+Python is ideal for beginners. Its syntax is simple, and it allows fast experimentation. Python is excellent for testing algorithms, processing sensor data, and building early robotics prototypes. Many robotics beginners gain confidence by seeing immediate results with Python.
+C++, however, dominates performance-critical robotics systems. Real-time control, embedded systems, and ROS-based applications often rely on C++. C++ gives developers control over memory, execution speed, and system behavior, which is essential in production environments.
+Beginners who start with C++ often struggle unnecessarily. The language complexity distracts from understanding robotics concepts. Starting with Python allows learners to focus on logic and system behavior. Transitioning to C++ later feels natural once robotics fundamentals are clear.
+In professional robotics development, both languages coexist. Python is often used for high-level logic and testing, while C++ handles low-level control and performance-critical tasks. Understanding both is a long-term advantage, but Python should come first.
+</div>
+
+<div class="reading-text">
+<h4>3. ROS vs ROS2: What’s the Real Difference?</h4>
+ROS (Robot Operating System) and ROS2 are often discussed as competing platforms, but their difference lies mainly in purpose and design philosophy. ROS was created for research and academic environments, while ROS2 was built with real-world deployment in mind.
+ROS excels in simplicity and learning resources. Its ecosystem is large, and tutorials are abundant. However, it lacks native support for real-time systems, security, and reliable communication across distributed robots.
+ROS2 addresses these limitations. It introduces DDS-based communication, real-time support, improved security, and better multi-robot scalability. These features make ROS2 suitable for industrial and commercial applications.
+The downside is complexity. ROS2 has a steeper learning curve, and its documentation often assumes prior ROS knowledge. Beginners frequently struggle with concepts like QoS and middleware configuration.
+A practical learning approach is to understand ROS concepts first, then apply them in ROS2. ROS teaches structure; ROS2 teaches robustness. Treating them as complementary rather than competing leads to better understanding and fewer frustrations.
+</div>
+
+<div class="reading-text">
+<h4>4. SLAM Explained Simply</h4>>
+SLAM stands for Simultaneous Localization and Mapping. It allows a robot to build a map of an unknown environment while determining its own position within that map. The challenge of SLAM is not complexity, but uncertainty.
+Robots do not know where they are initially. Sensors provide noisy and incomplete information. SLAM algorithms continuously estimate position while updating the map, correcting errors over time.
+Many beginners believe SLAM is purely a math problem. In reality, understanding the concept is more important than understanding the equations. SLAM combines sensor data, motion estimation, and probabilistic reasoning.
+Modern SLAM systems use LiDAR, cameras, IMUs, or combinations of sensors. Sensor fusion improves accuracy but increases complexity. For learning purposes, starting with basic 2D LiDAR SLAM provides the clearest intuition.
+SLAM is fundamental to autonomous robots because navigation without maps is unreliable. Once the concept is understood, the mathematics becomes meaningful instead of intimidating.
+</div>
+
+<div class="reading-text">
+<h4>5. Camera vs LiDAR vs Radar in Robotics</h4>
+No single sensor is perfect for robotics. Cameras, LiDAR, and radar each solve different problems and introduce different limitations.
+Cameras provide rich visual information. They are inexpensive and useful for object recognition and classification. However, cameras depend heavily on lighting conditions and struggle in darkness or glare.
+LiDAR provides accurate depth measurements and reliable geometry. It works well in low-light environments and is widely used for mapping and navigation. The main disadvantages are cost and mechanical complexity.
+Radar excels in harsh conditions such as rain, fog, and dust. It has long range and strong robustness, but its spatial resolution is low compared to cameras and LiDAR.
+Real robots rarely rely on a single sensor. Sensor fusion combines strengths while compensating for weaknesses. Choosing sensors is not about specifications alone, but about understanding the operating environment and task requirements.
         </p>
     </div>
 
