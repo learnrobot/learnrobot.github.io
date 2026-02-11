@@ -1048,34 +1048,31 @@ font-family: 'Chakra Petch', sans-serif !important;
     </button>
 </div>
 
-<div class="category-group">
-    <div class="group-title" style="display:flex; justify-content:space-between; align-items:center;">
-        <span>Robotics in stock</span>
+<div class="category-group" style="margin-top: 15px;">
+    <div class="group-title" style="font-size: 1rem; margin-bottom: 5px; padding-bottom: 3px;">
+        <span><i class="fas fa-gamepad" style="color: #FFFB03;"></i> Robo Quiz (50 Qs)</span>
+    </div>
+    
+    <div id="quiz-container" style="padding: 5px 2px;">
+        <p id="q-text" style="color: #ddd; font-size: 0.85rem; margin-bottom: 8px; min-height: 40px; line-height: 1.35; font-weight: 500;">
+            Loading Quiz...
+        </p>
         
-    </div>
-    
-    <div id="stock-widget-container" style="
-    margin-top: 10px; 
-    height: 150px; 
-    transform: scale(0.9); 
-    width: 118%; 
-    transform-origin: top left; 
-    overflow: hidden;">
-</div>
-    
-    
-
-    <div style="font-size: 0.65rem; text-align: right; margin-top: 5px; color: #666; line-height: 1.2;">
-        <span style="color:#FF7777;">* Data delayed</span> / Not investment advice<br>
-        Source: <a href="https://www.tradingview.com/" target="_blank" style="color: #86D1D1; text-decoration: none;">TradingView</a>
+        <button id="q-btn-a" onclick="checkAnswer('A')" 
+            style="width: 100%; padding: 8px 10px; margin-bottom: 6px; background: rgba(255,255,255,0.05); border: 1px solid #444; color: #aaa; border-radius: 6px; cursor: pointer; text-align: left; transition: all 0.2s; font-size: 0.85rem;">
+            A. ...
+        </button>
+        
+        <button id="q-btn-b" onclick="checkAnswer('B')" 
+            style="width: 100%; padding: 8px 10px; margin-bottom: 4px; background: rgba(255,255,255,0.05); border: 1px solid #444; color: #aaa; border-radius: 6px; cursor: pointer; text-align: left; transition: all 0.2s; font-size: 0.85rem;">
+            B. ...
+        </button>
+        
+        <div style="width: 100%; height: 3px; background: #333; margin-top: 8px; border-radius: 2px; overflow: hidden;">
+             <div id="q-progress" style="width: 0%; height: 100%; background: #FFFB03; transition: width 0.3s;"></div>
+        </div>
     </div>
 </div>
-
-                <a href="insights.html" class="nav-link-btn" style="color: #2C9999 !important;">
-    <span>Insights</span>
-    <i class="fas fa-arrow-right"></i>
-</a>
-       
 
 
 
@@ -1806,100 +1803,122 @@ Services: On-Demand Interaction
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-// 1. 주식 위젯 데이터 (데이터 100% 뜨는 종목만 엄선)
-/* [수정] 모든 종목을 하나로 통합하고 3개씩 자동 분할 */
-const allRoboStocks = [
-    { s: "NASDAQ:TSLA", d: "Tesla (Optimus)" },
-    { s: "NASDAQ:NVDA", d: "NVIDIA (AI)" },
-    { s: "NASDAQ:GOOGL", d: "Google (Robot)" },
-    { s: "NASDAQ:AMZN", d: "Amazon (Logis)" },
-    { s: "NASDAQ:ISRG", d: "Intuitive (Med)" },
-    { s: "NASDAQ:TER", d: "Teradyne (UR)" },
-    { s: "NASDAQ:SYM", d: "Symbotic (Ware)" },
-    { s: "NYSE:ROK", d: "Rockwell Auto" },
-    { s: "NYSE:DE", d: "John Deere (Ag)" },
-    { s: "NASDAQ:ZBRA", d: "Zebra (Fetch)" },
-    { s: "NYSE:CAT", d: "Caterpillar (Mining)" },
-    { s: "NASDAQ:TRMB", d: "Trimble (Spot)" },
-    { s: "NASDAQ:BIDU", d: "Baidu (Apollo)" },
-    { s: "NYSE:XPEV", d: "XPeng (Bot)" },
-    { s: "NASDAQ:JD", d: "JD.com (Logis)" },
-    { s: "NASDAQ:BOTZ", d: "Global Robot ETF" },
-    { s: "NYSE:TM", d: "Toyota (TRI)" },
-    { s: "NYSE:HMC", d: "Honda (Avatar)" },
-    { s: "NYSE:SONY", d: "Sony (Sensor)" },
-    { s: "NASDAQ:QCOM", d: "Qualcomm (RB5)" }
+
+// ▼▼▼▼▼▼ [신규] 로봇 퀴즈 50문제 데이터뱅크 ▼▼▼▼▼▼
+const quizData = [
+    // 1. Sensors
+    { q: "Which sensor is best for mapping a room?", a: "LiDAR", b: "Thermometer", ans: "A" },
+    { q: "What does an IMU measure?", a: "Temperature", b: "Motion & Gravity", ans: "B" },
+    { q: "Ultrasonic sensors use...?", a: "Sound waves", b: "Lasers", ans: "A" },
+    { q: "Which sensor mimics human eyes?", a: "Lidar", b: "Camera", ans: "B" },
+    { q: "To detect a magnet, use a...?", a: "Hall Effect Sensor", b: "Gyroscope", ans: "A" },
+    { q: "GPS is used for...?", a: "Indoor Navigation", b: "Outdoor Location", ans: "B" },
+    { q: "What measures rotation speed?", a: "Accelerometer", b: "Gyroscope", ans: "B" },
+    { q: "A microphone is a sensor for...?", a: "Light", b: "Sound", ans: "B" },
+    { q: "Which sensor is cheapest for distance?", a: "Ultrasonic", b: "3D LiDAR", ans: "A" },
+    { q: "What does 'ToF' stand for?", a: "Time of Flight", b: "Time of Fall", ans: "A" },
+
+    // 2. Mechanics
+    { q: "What acts as the 'Muscle' of a robot?", a: "Sensor", b: "Actuator", ans: "B" },
+    { q: "What connects two robot links?", a: "Joint", b: "Glue", ans: "A" },
+    { q: "Which material is light but strong?", a: "Lead", b: "Carbon Fiber", ans: "B" },
+    { q: "A 'Servo Motor' controls...?", a: "Exact Angle", b: "Just Speed", ans: "A" },
+    { q: "What is 'Torque'?", a: "Speed", b: "Turning Force", ans: "B" },
+    { q: "Stepper motors move in...?", a: "Discrete Steps", b: "Continuous Flow", ans: "A" },
+    { q: "Hydraulics use...?", a: "Air", b: "Liquid (Oil)", ans: "B" },
+    { q: "Pneumatics use...?", a: "Compressed Air", b: "Electricity", ans: "A" },
+    { q: "What is an End Effector?", a: "Robot Hand/Tool", b: "Robot Foot", ans: "A" },
+    { q: "6 DoF means...?", a: "6 Dead Fans", b: "6 Degrees of Freedom", ans: "B" },
+
+    // 3. Electronics
+    { q: "What protects the brain from voltage?", a: "Motor Driver", b: "USB Cable", ans: "A" },
+    { q: "Common robot battery type?", a: "LiPo", b: "AA Alkaline", ans: "A" },
+    { q: "Arduino is a...?", a: "Microcontroller", b: "Microprocessor", ans: "A" },
+    { q: "Raspberry Pi is a...?", a: "Simple Chip", b: "Mini Computer", ans: "B" },
+    { q: "PWM is used to control...?", a: "Motor Speed", b: "WiFi", ans: "A" },
+    { q: "What is a PCB?", a: "Printed Circuit Board", b: "Plastic Car Body", ans: "A" },
+    { q: "Ohm's Law formula?", a: "V = I * R", b: "F = m * a", ans: "A" },
+    { q: "What stores energy temporarily?", a: "Resistor", b: "Capacitor", ans: "B" },
+    { q: "LED stands for...?", a: "Light Emitting Diode", b: "Low Energy Drive", ans: "A" },
+    { q: "GND usually means...?", a: "Grand", b: "Ground (0V)", ans: "B" },
+
+    // 4. Programming & AI
+    { q: "Infinite loop syntax?", a: "while(true)", b: "if(true)", ans: "A" },
+    { q: "Python is known for...?", a: "Readability", b: "Speed", ans: "A" },
+    { q: "C++ is preferred for...?", a: "Real-time Control", b: "Websites", ans: "A" },
+    { q: "How do AI robots learn?", a: "Magic", b: "Training Data", ans: "B" },
+    { q: "Computer Vision uses...?", a: "Pixels", b: "Audio", ans: "A" },
+    { q: "SLAM stands for...?", a: "Simultaneous Localization & Mapping", b: "Simple Logic & Math", ans: "A" },
+    { q: "What is a Neural Network?", a: "AI Model", b: "Internet Cable", ans: "A" },
+    { q: "Linux command to list files?", a: "ls", b: "cd", ans: "A" },
+    { q: "GitHub is for...?", a: "Code Hosting", b: "Video Streaming", ans: "A" },
+    { q: "Binary code uses...?", a: "0 and 1", b: "A to Z", ans: "A" },
+
+    // 5. ROS & Trivia
+    { q: "ROS stands for?", a: "Robot Operating System", b: "Real Organic System", ans: "A" },
+    { q: "In ROS, a 'Node' is...?", a: "Hardware", b: "Software Process", ans: "B" },
+    { q: "ROS messaging system?", a: "Pub/Sub", b: "Call/SMS", ans: "A" },
+    { q: "Who makes 'Spot'?", a: "Boston Dynamics", b: "Tesla", ans: "A" },
+    { q: "Tesla's humanoid name?", a: "Optimus", b: "Prime", ans: "A" },
+    { q: "Asimov's 1st Law protects?", a: "Humans", b: "Robots", ans: "A" },
+    { q: "What is a 'Cobot'?", a: "Collaborative Robot", b: "Cold Robot", ans: "A" },
+    { q: "First industrial robot?", a: "Unimate", b: "Terminator", ans: "A" },
+    { q: "Roomba is a...?", a: "Vacuum Robot", b: "Chef Robot", ans: "A" },
+    { q: "Sophia is a...?", a: "Humanoid", b: "Drone", ans: "A" }
 ];
 
-// 3개씩 잘라서 그룹 만들기
-const stockGroups = [];
-const chunkSize = 3; // 한 화면에 보여줄 개수
+let currentQ = null;
 
-for (let i = 0; i < allRoboStocks.length; i += chunkSize) {
-    const pageNum = Math.floor(i / chunkSize) + 1;
-    const totalPages = Math.ceil(allRoboStocks.length / chunkSize);
+function loadRandomQuiz() {
+    currentQ = quizData[Math.floor(Math.random() * quizData.length)];
+    const qText = document.getElementById('q-text');
+    if(qText) qText.innerText = currentQ.q;
     
-    stockGroups.push({
-        title: `Watch List (${pageNum}/${totalPages})`, // 예: Watch List (1/7)
-        symbols: allRoboStocks.slice(i, i + chunkSize)
-    });
-}
-
-let currentGroupIndex = 0;
-
-// 주가 위젯 업데이트 함수
-function updateStockWidget() {
-    const container = document.getElementById('stock-widget-container');
-    const progressBar = document.getElementById('stock-progress-bar');
-    if (!container) return;
-
-    const group = stockGroups[currentGroupIndex];
+    const btnA = document.getElementById('q-btn-a');
+    const btnB = document.getElementById('q-btn-b');
+    const prog = document.getElementById('q-progress');
     
-const widgetConfig = {
-        "colorTheme": "dark",
-        "dateRange": "12M",
-        "showChart": false,
-        "locale": "en",
-        "largeChartUrl": "",
-        "isTransparent": true,
-        "showSymbolLogo": false,      // [핵심] 로고를 없애서 글자 공간 확보
-        "showFloatingTooltip": false,
-        "width": "100%",
-        "height": "360",              // [핵심] 높이를 250으로 늘려 스크롤바 제거
-        "tabs": [
-            {
-                "title": group.title,
-                "symbols": group.symbols
-            }
-        ]
-    };
-
-    container.innerHTML = ''; // 초기화
-    
-    const widgetDiv = document.createElement('div');
-    widgetDiv.className = 'tradingview-widget-container';
-    
-    const widgetBody = document.createElement('div');
-    widgetBody.className = 'tradingview-widget-container__widget';
-    
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.async = true;
-    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js';
-    script.innerHTML = JSON.stringify(widgetConfig);
-
-    widgetDiv.appendChild(widgetBody);
-    widgetDiv.appendChild(script);
-    container.appendChild(widgetDiv);
-
-    if (progressBar) {
-        const progress = ((currentGroupIndex + 1) / stockGroups.length) * 100;
-        progressBar.style.width = `${progress}%`;
+    if(btnA && btnB) {
+        resetBtn(btnA);
+        resetBtn(btnB);
+        btnA.innerText = "A. " + currentQ.a;
+        btnB.innerText = "B. " + currentQ.b;
+        btnA.disabled = false;
+        btnB.disabled = false;
     }
-
-    currentGroupIndex = (currentGroupIndex + 1) % stockGroups.length;
+    if(prog) prog.style.width = "0%";
 }
 
+function resetBtn(btn) {
+    btn.style.borderColor = "#444";
+    btn.style.color = "#aaa";
+    btn.style.background = "rgba(255,255,255,0.05)";
+}
+
+function checkAnswer(userChoice) {
+    const btnA = document.getElementById('q-btn-a');
+    const btnB = document.getElementById('q-btn-b');
+    
+    btnA.disabled = true;
+    btnB.disabled = true;
+
+    const isCorrect = (userChoice === currentQ.ans);
+    const selectedBtn = (userChoice === 'A') ? btnA : btnB;
+
+    if (isCorrect) {
+        selectedBtn.innerHTML += " ✅";
+        selectedBtn.style.borderColor = "#FFFB03";
+        selectedBtn.style.color = "#FFFB03";
+        selectedBtn.style.background = "rgba(255, 251, 3, 0.1)";
+        document.getElementById('q-progress').style.width = "100%";
+    } else {
+        selectedBtn.innerHTML += " ❌";
+        selectedBtn.style.borderColor = "#FF5555";
+        selectedBtn.style.color = "#FF5555";
+        selectedBtn.style.background = "rgba(255, 85, 85, 0.1)";
+    }
+    setTimeout(loadRandomQuiz, 1500); // 1.5초 후 다음 문제
+}
 // 2. 로봇 배너 (initSpotlight)
 function initSpotlight() {
     if (typeof links === 'undefined' || links.length === 0) return;
@@ -2045,9 +2064,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSpotlight();
     setInterval(initSpotlight, 5000); 
 
-    // 주식 위젯 (8초마다 변경)
-    updateStockWidget();
-    setInterval(updateStockWidget, 15000);
+ loadRandomQuiz();
 
     // 뉴스 가져오기
     fetchRobotNews();
