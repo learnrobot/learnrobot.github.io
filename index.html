@@ -1164,17 +1164,31 @@ body {
 </head>
 <body>
 
-<header>
-    <a href="index.html" class="logo-link">
-        <div class="logo">
-            <img src="favicon.png" alt="Logo" class="logo-image"> 
-            <span>LEARN<span style="color: #FFFB03;">ROBOT</span></span>
+<header style="height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; background: rgba(30, 30, 30, 0.95); border-bottom: 1px solid rgba(255, 255, 255, 0.1); z-index: 10;">
+    
+    <a href="index.html" class="logo-link" style="text-decoration: none;">
+        <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+            <img src="favicon.png" alt="Logo" class="logo-image" style="height: 60px; width: auto; border-radius: 50%;"> 
+            <span style="font-family: 'Chakra Petch', sans-serif; font-size: 1.8rem; font-weight: 900; color: #f1f5f9; letter-spacing: 1px;">
+                LEARN<span style="color: #FFFB03;">ROBOT</span>
+            </span>
         </div>
     </a>
-      
+
+    <div class="header-ad-zone" style="flex-grow: 1; display: flex; justify-content: center; align-items: center; height: 90px; max-width: 728px; overflow: hidden; margin: 0 20px;">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936" crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+             style="display:inline-block; width:100%; max-width:728px; height:90px;"
+             data-ad-client="ca-pub-2674022896970936"
+             data-ad-slot="2262766753"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
     <div class="auth-buttons" style="display: flex; align-items: center; gap: 20px;">
         <div class="lang-wrapper" style="position: relative;">
-            <button class="lang-btn" onclick="toggleLanguageMenu()" title="Select Language">
+            <button class="lang-btn" onclick="toggleLanguageMenu()" title="Select Language" style="background: transparent; border: 2px solid #2C9999; color: #2C9999; padding: 5px 12px; border-radius: 20px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
                 <i class="fas fa-globe"></i>
                 <span class="lang-current">EN</span>
             </button>
@@ -1193,15 +1207,15 @@ body {
         </div>
 
         <div class="sns-icons" style="display: flex; gap: 15px;">
-            <a href="https://www.instagram.com/learnrobot" target="_blank">
+            <a href="https://www.instagram.com/learnrobot" target="_blank" style="color:#2C9999; font-size:1.8rem;">
                 <i class="fab fa-instagram"></i>
             </a>
-            <a href="https://x.com/learnrobot" target="_blank">
+            <a href="https://x.com/learnrobot" target="_blank" style="color:#2C9999; font-size:1.8rem;">
                 <i class="fab fa-x-twitter"></i>
             </a>
         </div>
         
-        <button class="menu-toggle" onclick="toggleSidebar()">
+        <button class="menu-toggle" onclick="toggleSidebar()" style="display: none; background: transparent; border: none; color: #FFFB03; font-size: 1.8rem; cursor: pointer;">
             <i class="fas fa-bars"></i>
         </button>
     </div>
