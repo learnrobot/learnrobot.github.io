@@ -2183,13 +2183,17 @@ function loadRandomQuiz() {
         btnB.style.display = "flex";
         btnB.style.justifyContent = "space-between";
 
-        // [수정됨] 정답 텍스트 영역과 O/X가 들어갈 빈 영역(span)을 분리
         btnA.innerHTML = `<span>A. ${currentQ.a}</span><span class="q-icon"></span>`;
         btnB.innerHTML = `<span>B. ${currentQ.b}</span><span class="q-icon"></span>`;
         btnA.disabled = false;
         btnB.disabled = false;
     }
-    if(prog) prog.style.width = "0%";
+    
+    // [수정됨] 새 문제가 나오면 게이지 바를 즉시 0%로 휙! 초기화
+    if(prog) {
+        prog.style.transition = "none"; 
+        prog.style.width = "0%";
+    }
 }
 
 function resetBtn(btn) {
@@ -2201,6 +2205,7 @@ function resetBtn(btn) {
 function checkAnswer(userChoice) {
     const btnA = document.getElementById('q-btn-a');
     const btnB = document.getElementById('q-btn-b');
+    const prog = document.getElementById('q-progress');
     
     // 중복 클릭 방지
     btnA.disabled = true;
@@ -2208,36 +2213,38 @@ function checkAnswer(userChoice) {
 
     const isCorrect = (userChoice === currentQ.ans);
     const selectedBtn = (userChoice === 'A') ? btnA : btnB;
-    const correctBtn = (currentQ.ans === 'A') ? btnA : btnB; // [추가] 진짜 정답 버튼 찾기
+    const correctBtn = (currentQ.ans === 'A') ? btnA : btnB;
 
     if (isCorrect) {
-        // [정답을 맞혔을 때]
+        // [정답]
         selectedBtn.querySelector('.q-icon').innerHTML = '<i class="fas fa-check-circle" style="font-size: 1.2rem;"></i>';
         selectedBtn.style.borderColor = "#FFFB03";
         selectedBtn.style.color = "#FFFB03";
         selectedBtn.style.background = "rgba(255, 251, 3, 0.1)";
-        document.getElementById('q-progress').style.width = "100%";
-        
-        // 맞혔으니 기분 좋게 2초 뒤에 다음 문제로!
-        setTimeout(loadRandomQuiz, 3000); 
-
     } else {
-        // [틀렸을 때]
-        // 1. 내가 누른 오답은 빨간색으로 표시
-        selectedBtn.innerHTML += " ❌";
+        // [오답]
+        selectedBtn.querySelector('.q-icon').innerHTML = '<i class="fas fa-times" style="font-size: 1.2rem;"></i>';
         selectedBtn.style.borderColor = "#FF5555";
         selectedBtn.style.color = "#FF5555";
         selectedBtn.style.background = "rgba(255, 85, 85, 0.1)";
 
-        // 2. [핵심] 진짜 정답이 무엇인지 청록색으로 알려줌
-        correctBtn.querySelector('.q-icon').innerHTML = '<i class="far fa-circle"></i>'; 
+        correctBtn.querySelector('.q-icon').innerHTML = '<i class="far fa-circle" style="font-size: 1.2rem;"></i>'; 
         correctBtn.style.borderColor = "#2C9999";
         correctBtn.style.color = "#2C9999";
         correctBtn.style.background = "rgba(44, 153, 153, 0.1)";
-
-        // 3. 왜 틀렸는지, 정답이 뭔지 읽을 수 있게 4초(4000ms) 대기 후 다음 문제로!
-        setTimeout(loadRandomQuiz, 4000); 
     }
+
+    // [수정됨] 정답/오답 공통: 5초 동안 노란색 바가 서서히 100%로 차오르는 타이머 효과
+    if(prog) {
+        // 약간의 딜레이를 주어야 브라우저가 transition 변경을 확실히 인식합니다.
+        setTimeout(() => {
+            prog.style.transition = "width 4s linear"; 
+            prog.style.width = "100%";
+        }, 10);
+    }
+
+    // [수정됨] 모두 똑같이 4초 대기 후 다음 문제로 넘어감
+    setTimeout(loadRandomQuiz, 4000); 
 }
 
 // 주식 위젯 데이터
