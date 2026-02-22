@@ -2178,8 +2178,14 @@ function loadRandomQuiz() {
     if(btnA && btnB) {
         resetBtn(btnA);
         resetBtn(btnB);
-        btnA.innerText = "A. " + currentQ.a;
-        btnB.innerText = "B. " + currentQ.b;
+        btnA.style.display = "flex";
+        btnA.style.justifyContent = "space-between";
+        btnB.style.display = "flex";
+        btnB.style.justifyContent = "space-between";
+
+        // [수정됨] 정답 텍스트 영역과 O/X가 들어갈 빈 영역(span)을 분리
+        btnA.innerHTML = `<span>A. ${currentQ.a}</span><span class="q-icon"></span>`;
+        btnB.innerHTML = `<span>B. ${currentQ.b}</span><span class="q-icon"></span>`;
         btnA.disabled = false;
         btnB.disabled = false;
     }
@@ -2206,7 +2212,7 @@ function checkAnswer(userChoice) {
 
     if (isCorrect) {
         // [정답을 맞혔을 때]
-        selectedBtn.innerHTML += " ✅";
+        selectedBtn.querySelector('.q-icon').innerHTML = '<i class="fas fa-check-circle" style="font-size: 1.2rem;"></i>';
         selectedBtn.style.borderColor = "#FFFB03";
         selectedBtn.style.color = "#FFFB03";
         selectedBtn.style.background = "rgba(255, 251, 3, 0.1)";
@@ -2224,7 +2230,7 @@ function checkAnswer(userChoice) {
         selectedBtn.style.background = "rgba(255, 85, 85, 0.1)";
 
         // 2. [핵심] 진짜 정답이 무엇인지 청록색으로 알려줌
-        correctBtn.innerHTML += " 👈 (Correct!)";
+        correctBtn.querySelector('.q-icon').innerHTML = '<i class="far fa-circle"></i>'; 
         correctBtn.style.borderColor = "#2C9999";
         correctBtn.style.color = "#2C9999";
         correctBtn.style.background = "rgba(44, 153, 153, 0.1)";
