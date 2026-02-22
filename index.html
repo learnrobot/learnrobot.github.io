@@ -542,7 +542,6 @@ flex-shrink: 0;   /* 공간 부족해도 버튼 크기 줄이지 마 */
 display: flex; 
 flex: 1; 
 overflow: hidden; 
-height: calc(100vh - 80px); 
 max-width: 100% !important; 
 padding-left: 0 !important;
 padding-right: 0 !important;
@@ -1173,33 +1172,54 @@ body {
         </div>
     </a>
       
-<button class="menu-toggle" onclick="toggleSidebar()">
-        <i class="fas fa-bars"></i>
-    </button>
-    
-<div class="auth-buttons" style="display: flex; align-items: center; gap: 20px;">
-    
-    <div class="header-ad-zone" style="
-        flex-grow: 1; 
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
-        height: 60px;            /* 헤더(80px)보다 작게 60px로 고정 */
-        max-height: 60px; 
-        margin: 0 20px; 
-        max-width: 728px;
-        overflow: hidden;        /* 삐져나오는 부분 무조건 숨김 */
-    ">
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936" crossorigin="anonymous"></script>
-        <ins class="adsbygoogle"
-             style="display:inline-block; width:100%; max-width:728px; height:60px;" 
-             data-ad-client="ca-pub-2674022896970936"
-             data-ad-slot="2262766753" 
-             </ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+    <div class="auth-buttons" style="display: flex; align-items: center; gap: 20px;">
+        <div class="lang-wrapper" style="position: relative;">
+            <button class="lang-btn" onclick="toggleLanguageMenu()" title="Select Language">
+                <i class="fas fa-globe"></i>
+                <span class="lang-current">EN</span>
+            </button>
+            <div id="lang-dropdown" class="lang-dropdown">
+                <a href="#" onclick="changeLanguage('en'); return false;"><span class="fi fi-us"></span> English</a>
+                <a href="#" onclick="changeLanguage('ko'); return false;"><span class="fi fi-kr"></span> Korean</a>
+                <a href="#" onclick="changeLanguage('ja'); return false;"><span class="fi fi-jp"></span> Japanese</a>
+                <a href="#" onclick="changeLanguage('zh-CN'); return false;"><span class="fi fi-cn"></span> Chinese</a>
+                <a href="#" onclick="changeLanguage('es'); return false;"><span class="fi fi-es"></span> Spanish</a>
+                <a href="#" onclick="changeLanguage('fr'); return false;"><span class="fi fi-fr"></span> French</a>
+                <a href="#" onclick="changeLanguage('de'); return false;"><span class="fi fi-de"></span> German</a>
+                <a href="#" onclick="changeLanguage('ru'); return false;"><span class="fi fi-ru"></span> Russian</a>
+                <a href="#" onclick="changeLanguage('pt'); return false;"><span class="fi fi-pt"></span> Portuguese</a>
+                <a href="#" onclick="changeLanguage('it'); return false;"><span class="fi fi-it"></span> Italian</a>
+            </div>
+        </div>
+
+        <div class="sns-icons" style="display: flex; gap: 15px;">
+            <a href="https://www.instagram.com/learnrobot" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://x.com/learnrobot" target="_blank">
+                <i class="fab fa-x-twitter"></i>
+            </a>
+        </div>
+        
+        <button class="menu-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
     </div>
+</header>
+<div style="width: 100%; background: #151515; border-bottom: 1px solid rgba(44, 153, 153, 0.3); text-align: center; padding: 10px 0; z-index: 5;">
+    <div style="font-size: 0.7rem; color: #666; margin-bottom: 5px; font-family: 'Chakra Petch', sans-serif;">Advertisement</div>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936" crossorigin="anonymous"></script>
+    <ins class="adsbygoogle"
+         style="display:block;"
+         data-ad-client="ca-pub-2674022896970936"
+         data-ad-slot="2262766753"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
 
     <button class="menu-toggle" onclick="toggleSidebar()">
         <i class="fas fa-bars"></i>
