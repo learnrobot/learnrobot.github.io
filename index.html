@@ -14,6 +14,21 @@
 
     <script src="data.js"></script>
     <style>
+/* 헤더 광고 영역 스타일 */
+.header-ad-zone {
+    flex-grow: 1;             /* 빈 공간을 가득 채움 */
+    display: flex; 
+    justify-content: center;  /* 가운데 정렬 */
+    align-items: center; 
+    height: 100%; 
+    margin: 0 20px;           /* 좌우 여백 */
+    max-width: 728px;         /* 너무 넓어지지 않게 제한 */
+}
+
+/* 모바일/태블릿(화면 좁을 때)에서는 헤더 광고 숨김 (공간 부족) */
+@media (max-width: 1024px) {
+    .header-ad-zone { display: none !important; }
+}
 /* [신규] 긴 글 읽기 전용 스타일 (Roboto 폰트 적용) */
 .reading-text {
     font-family: 'Roboto', sans-serif !important; /* 가독성 좋은 폰트 */
@@ -925,7 +940,7 @@ font-family: 'Chakra Petch', sans-serif !important;
     
     /* 2. 위치: 화면 정중앙 하단 */
     left: 50%;
-    bottom: 30px;
+    bottom: 120px;
     transform: translateX(-50%); /* 정확한 센터 정렬의 핵심 */
     
     /* 3. 디자인: 투명 배경에 청록색 테두리 */
@@ -1164,7 +1179,25 @@ body {
     
 <div class="auth-buttons" style="display: flex; align-items: center; gap: 20px;">
     
+    <div class="header-ad-zone">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936" crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:728px;height:90px" 
+             data-ad-client="ca-pub-2674022896970936"
+             data-ad-slot="2262766753"
+             data-ad-format="horizontal"
+             data-full-width-responsive="false"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+        </div>
+
+    <button class="menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
     
+    <div class="auth-buttons" style="display: flex; align-items: center; gap: 20px;">
+        </div>
 
     <div class="lang-wrapper" style="position: relative;">
         <button class="lang-btn" onclick="toggleLanguageMenu()" title="Select Language">
