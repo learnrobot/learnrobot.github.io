@@ -109,7 +109,7 @@ html, body {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 20px;
-    height: 210px !important;
+    height: 170px !important;
     overflow: visible;       
 }
 /* [최종 수정] Today's Featured Robot 배너 (슬림한 비율 & 완벽한 테두리) */
@@ -320,17 +320,18 @@ height: 100%;
 }
 
 /* 회사 이름 크기 줄임 (3.5rem -> 2.4rem) */
+/* 회사 이름 1줄 고정 & 반응형 텍스트 축소 */
 .spotlight-company-name {
-    font-size: clamp(1.8rem, 2.5vw, 2.7rem) !important;
-    line-height: 1.1;
-    margin-bottom: 5px;
     font-weight: 900;
     margin: 0;
-    line-height: 1;
+    line-height: 1.2;
     color: #fff !important;
     text-transform: uppercase;
-white-space: normal; 
-    word-break: break-word;
+    
+    white-space: nowrap; 
+    overflow: hidden;
+    /* text-overflow: ellipsis; <-- 이 줄을 지워서 말줄임표를 없앱니다 */
+    /* font-size 설정도 지워주세요 (JS에서 자동 처리함) */
 }
 
 /* 스펙 그리드 */
@@ -1402,9 +1403,13 @@ body {
 <section id="intro" style="padding: 20px 50px; gap: 10px;"> <div class="spotlight-wrapper" style="margin-bottom: 80px;"> <div class="spotlight-card">
             <div class="sl-main-info">
                 <div class="sl-text-content">
-                    <div class="spotlight-header-row">
+                  <div class="spotlight-header-row" style="width: 100%;">
                         <i class="fas fa-star fa-spin"></i>
                         <span>Who's playing in Robotics</span>
+                        
+                        <i class="fas fa-sync-alt" id="spotlight-refresh-icon" onclick="nextSpotlight()" 
+                           style="margin-left: 10px ; margin-right: 15px; color: #FFFB03; cursor: pointer; transition: transform 0.4s ease; padding: 5px;" 
+                           title="Next Company"></i>
                     </div>
 
                     <div class="company-identity-row">
@@ -2354,11 +2359,29 @@ function updateStockWidget() {
 }
 
 // 로봇 배너
+// 로봇 배너
+let spotlightOffset = 0; // 수동으로 넘긴 횟수를 기억하는 변수
+
+// 새로고침 버튼 클릭 시 실행되는 함수
+function nextSpotlight() {
+    spotlightOffset++; // 다음 인덱스로 +1
+    
+    // 버튼 회전 애니메이션
+    const icon = document.getElementById('spotlight-refresh-icon');
+    if (icon) {
+        icon.style.transform = `rotate(${spotlightOffset * 180}deg)`; 
+    }
+    
+    // 즉시 배너 업데이트
+    initSpotlight();
+}
+
 function initSpotlight() {
     if (typeof links === 'undefined' || links.length === 0) return;
 
+    // 현재 5분 블록 시간 + 사용자가 넘긴 횟수(offset)를 더해서 보여줌
     const currentFiveMinBlock = Math.floor(Date.now() / (1000 * 60 * 5)); 
-    const index = currentFiveMinBlock % links.length; 
+    const index = (currentFiveMinBlock + spotlightOffset) % links.length; 
     const robot = links[index];
     
     let rawTitle = robot.title || "Unknown Robotics";
