@@ -2380,7 +2380,7 @@ function initSpotlight() {
     if (typeof links === 'undefined' || links.length === 0) return;
 
     // 현재 5분 블록 시간 + 사용자가 넘긴 횟수(offset)를 더해서 보여줌
-    const currentFiveMinBlock = Math.floor(Date.now() / (1000 * 60 * 5)); 
+    const currentFiveMinBlock = Math.floor(Date.now() / (1000 * 60 * 3)); 
     const index = (currentFiveMinBlock + spotlightOffset) % links.length; 
     const robot = links[index];
     
