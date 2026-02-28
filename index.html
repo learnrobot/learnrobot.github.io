@@ -1199,7 +1199,7 @@ body {
     height: 45px;
     
 
-background: #0a0a0a;
+background: #0A1118;
     
     /* 2. 본문과 확실히 떨어져 보이게 만드는 진한 그림자 */
     border: 1px solid rgba(134, 209, 209, 0.5); 
@@ -1270,8 +1270,16 @@ white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) *
     align-items: center;
 }
 .ticker-item:hover { color: #fff; text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); }
-.ticker-source { color: #86D1D1; font-size: 0.75rem; margin-left: 8px; opacity: 0.8; }
-
+/* 출처(매체명) 스타일: 괄호 없이 굵고 쨍하게! */
+.ticker-source { 
+    color: #86D1D1; 
+    font-size: 0.85rem; /* 글자 크기 살짝 키움 */
+    margin-left: 10px; /* 제목과 간격 띄우기 */
+    font-weight: 800; /* 👈 폰트를 아주 굵게! */
+    opacity: 1; /* 투명도 없애서 완전 선명하게 */
+    text-transform: uppercase; /* (선택) 전부 대문자로 만들어서 더 멋지게 */
+    letter-spacing: 0.5px;
+}
 /* 위로가기 버튼이 뉴스랑 겹치지 않게 더 위로 올림 */
 #topBtn { bottom: 90px !important; }
 
@@ -1420,7 +1428,7 @@ white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) *
     </div>
 </div>
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
-            <span id="sl-flag-large" class="country-flag" style="font-size: 1.8rem; line-height: 1;"></span>
+            <span id="sl-flag-large" class="country-flag" style="font-size: 1.3rem; line-height: 1;"></span>
             <h2 id="sl-name" style="color: #fff; font-weight: 900; font-size: 1.1rem; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">LOADING...</h2>
         </div>
         
@@ -2517,10 +2525,13 @@ async function fetchRobotNews() {
     const track = document.getElementById('robot-news-track');
     if (!track) return;
 
+    // 🌟 로봇 분야에서 가장 활발하고 유명한 탑 5 매체 RSS
     const allRssSources = [
+        { name: "The Robot Report", url: "https://www.therobotreport.com/feed/" },
+        { name: "IEEE Spectrum", url: "https://spectrum.ieee.org/feeds/topic/robotics.rss" },
         { name: "TechCrunch", url: "https://techcrunch.com/category/robotics/feed/" },
-        { name: "ScienceDaily", url: "https://www.sciencedaily.com/rss/matter_energy/robotics.xml" },
-        { name: "MIT News", url: "https://news.mit.edu/rss/topic/robotics" }
+        { name: "Robotics & Auto News", url: "https://roboticsandautomationnews.com/feed/" },
+        { name: "ScienceDaily", url: "https://www.sciencedaily.com/rss/matter_energy/robotics.xml" }
     ];
 
     try {
@@ -2542,9 +2553,9 @@ async function fetchRobotNews() {
         if (validNews.length > 0) {
             let newsHTML = "";
             validNews.forEach(news => {
-                newsHTML += `<a href="${news.item.link}" target="_blank" class="ticker-item">${news.item.title} <span class="ticker-source">[${news.sourceName}]</span></a>`;
+                // 🌟 여기서 괄호 [] 를 뺐습니다!
+                newsHTML += `<a href="${news.item.link}" target="_blank" class="ticker-item">${news.item.title} <span class="ticker-source">${news.sourceName}</span></a>`;
             });
-            // 무한 스크롤을 위해 똑같은 내용을 두 번 이어붙임
             track.innerHTML = newsHTML + newsHTML; 
         } else {
             track.innerHTML = '<span class="ticker-item">No news available today.</span>';
