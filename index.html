@@ -14,6 +14,33 @@
 
     <script src="data.js"></script>
     <style>
+/* [신규] 로봇 초기화(Reset) 버튼 스타일 */
+#reset-robot-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background: rgba(20, 20, 20, 0.8);
+    border: 1px solid #86D1D1;
+    color: #86D1D1;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    display: none; /* 처음엔 숨김 처리 */
+    align-items: center;
+    gap: 6px;
+    backdrop-filter: blur(5px);
+}
+
+#reset-robot-btn:hover {
+    background: rgba(44, 153, 153, 0.2);
+    color: #FFFB03;
+    border-color: #FFFB03;
+    box-shadow: 0 0 10px rgba(255, 251, 3, 0.3);
+}
 /* 헤더 광고 영역 스타일 */
 .header-ad-zone {
     flex-grow: 1;             /* 빈 공간을 가득 채움 */
@@ -1161,28 +1188,118 @@ font {
 body {
     top: 0px !important;
 }
-/* --- [신규] 1. 인터랙티브 로봇 해부도 --- */
+/* --- [최종] 3단 인터랙티브 휴머노이드 해부도 --- */
 .interactive-playground { 
-    display: flex; gap: 30px; align-items: center; justify-content: center; 
-    margin-bottom: 30px; flex-wrap: wrap; 
-}
-.robot-svg-container { 
-    flex: 1; min-width: 300px; max-width: 450px; position: relative; 
-}
-.robot-svg { width: 100%; height: auto; filter: drop-shadow(0 0 15px rgba(44,153,153,0.2)); }
-.hotspot { cursor: pointer; transition: all 0.3s ease; }
-.hotspot:hover { 
-    filter: brightness(1.3) drop-shadow(0 0 15px #FFFB03); 
-    transform: scale(1.03); transform-origin: center; 
-}
-.robot-info-panel { 
-    flex: 1; min-width: 300px; max-width: 450px;
-    background: rgba(20, 20, 20, 0.85); border: 2px solid #2C9999; 
-    border-radius: 12px; padding: 30px; color: #fff; 
-    box-shadow: 0 0 20px rgba(0,0,0,0.5); height: 280px; 
-    display: flex; flex-direction: column; justify-content: center; 
+    display: flex; 
+    gap: 20px; 
+    align-items: center; 
+    justify-content: center; 
+    margin-bottom: 50px; 
+    flex-wrap: wrap; 
+    padding: 20px;
 }
 
+/* 좌/우 정보 패널 공통 스타일 */
+.robot-info-panel { 
+    flex: 1; 
+    min-width: 280px; 
+    max-width: 350px;
+    background: rgba(10, 15, 20, 0.85); 
+    border-radius: 12px; 
+    padding: 25px; 
+    color: #fff; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+    height: 350px; /* 높이 고정으로 안정감 부여 */
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    transition: all 0.4s ease; 
+}
+
+/* 좌측 패널 (하드웨어 중심) */
+#panel-left { border-left: 4px solid #FFFB03; border-top: 1px solid rgba(255,251,3,0.3); border-bottom: 1px solid rgba(255,251,3,0.3); }
+/* 우측 패널 (소프트웨어 중심) */
+#panel-right { border-right: 4px solid #2C9999; border-top: 1px solid rgba(44,153,153,0.3); border-bottom: 1px solid rgba(44,153,153,0.3); }
+
+/* 중앙 로봇 컨테이너 */
+.robot-svg-container { 
+    flex: 1.5; 
+    min-width: 320px; 
+    max-width: 450px; 
+    position: relative; 
+    display: flex;
+    justify-content: center;
+}
+
+/* 휴머노이드 SVG 애니메이션 및 디자인 */
+.robot-svg { 
+    width: 100%; 
+    height: auto; 
+    max-height: 400px;
+    filter: drop-shadow(0 0 20px rgba(44,153,153,0.15)); 
+}
+.hotspot { cursor: pointer; transition: all 0.3s ease; transform-origin: center; }
+.hotspot { 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+    transform-origin: center; 
+}
+
+/* 그룹 전체에 호버 시 내부의 모든 path, circle, rect가 동시에 빛남 */
+.hotspot { 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+    transform-origin: center; 
+}
+
+.hotspot { 
+    cursor: pointer; 
+    transition: transform 0.3s ease; 
+    transform-origin: center; 
+}
+
+/* 1. 마우스 올렸을 때(Hover) - line 태그 추가! */
+.hotspot:hover path, 
+.hotspot:hover circle, 
+.hotspot:hover rect,
+.hotspot:hover line {
+    filter: brightness(1.4) drop-shadow(0 0 15px #39CCCC) !important; 
+}
+
+/* 2. 클릭된 상태(Active) - line 태그 추가! */
+.hotspot.active path, 
+.hotspot.active circle, 
+.hotspot.active rect,
+.hotspot.active line {
+    animation: neon-pulse 1.5s ease-in-out infinite alternate !important; 
+}
+
+/* 네온 불빛 깜빡임 키프레임 */
+@keyframes neon-pulse {
+    0% { filter: brightness(1.2) drop-shadow(0 0 10px #2C9999); }
+    100% { filter: brightness(1.8) drop-shadow(0 0 35px #86D1D1); }
+}
+
+/* 3. 호버하거나 클릭 시 약간 튀어나오는 효과 */
+.hotspot:hover,
+.hotspot.active {
+    transform: scale(1.03);
+}
+
+
+
+/* 소제목 스타일 */
+.panel-title { font-family: 'Chakra Petch', sans-serif; font-size: 1.5rem; margin-bottom: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px;}
+.panel-desc { color: #ccc; line-height: 1.6; font-family: 'Roboto', sans-serif; font-size: 0.95rem; }
+.tech-list { margin-top: 15px; padding-left: 0; list-style: none; }
+.tech-list li { margin-bottom: 8px; font-size: 0.85rem; color: #aaa; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px;}
+.tech-list li strong { color: #fff; }
+
+/* 모바일 화면에서는 세로로 배치 */
+@media (max-width: 1024px) {
+    .interactive-playground { flex-direction: column; }
+    .robot-svg-container { order: -1; } /* 로봇이 가장 위로 올라감 */
+}
 /* --- [신규] 2. 작아진 Spotlight & 전광판 뉴스 --- */
 .compact-bottom-row { 
     display: flex; justify-content: flex-start; margin-bottom: 20px; 
@@ -1342,7 +1459,15 @@ white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) *
             </div>
         </div>
 
-        <div class="sns-icons" style="display: flex; gap: 15px;">
+      <div class="sns-icons" style="display: flex; gap: 15px; align-items: center;">
+            
+            <div class="email-hover-wrap">
+                <a href="mailto:learnrobot@learnrobot.com" style="color:#2C9999; font-size:1.8rem;">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <div class="email-tooltip">learnrobot@learnrobot.com</div>
+            </div>
+
             <a href="https://www.instagram.com/learnrobot" target="_blank" style="color:#2C9999; font-size:1.8rem;">
                 <i class="fab fa-instagram"></i>
             </a>
@@ -1350,6 +1475,7 @@ white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) *
                 <i class="fab fa-x-twitter"></i>
             </a>
         </div>
+        
         
         <button class="menu-toggle" onclick="toggleSidebar()" style="display: none; background: transparent; border: none; color: #FFFB03; font-size: 1.8rem; cursor: pointer;">
             <i class="fas fa-bars"></i>
@@ -1449,32 +1575,45 @@ white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) *
         </div>
     </div>
 </div>
-    
-
-        <div class="sidebar-contact-text-wrapper">
-    <p style="font-size: 0.8rem; color: #FFFB03; font-weight: 600; margin-bottom: 2px;">
-        Contact us
-    </p>
-    
-    <a href="mailto:learnrobot@learnrobot.com" style="color: #2C9999; text-decoration: none; font-size: 0.85rem; display: block; margin-bottom: 8px;">
-        learnrobot@learnrobot.com
-    </a>
-    
-    <div style="color: #666; font-size: 0.75rem; line-height: 1;">
-        &copy; 2026 LearnRobot.com
-    </div>
-</div>
     </aside>
-
     <main id="main-scroll-area">
 <style>
+/* [신규] 헤더 이메일 아이콘 툴팁 효과 */
+.email-hover-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.email-tooltip {
+    position: absolute;
+    top: 40px; /* 아이콘 아래로 위치 */
+    right: 50%;
+    transform: translateX(50%) translateY(10px); /* 살짝 아래로 내려가 있음 */
+    background: rgba(10, 15, 20, 0.95);
+    border: 1px solid #FFFB03;
+    color: #FFFB03;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    opacity: 0; /* 평소엔 투명해서 안 보임 */
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.8), 0 0 10px rgba(255, 251, 3, 0.2);
+    pointer-events: none; /* 툴팁이 마우스 클릭을 방해하지 않게 함 */
+    z-index: 100;
+}
+
+/* 마우스를 올리면 위로 살짝 올라오면서 나타남 */
+.email-hover-wrap:hover .email-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(50%) translateY(0);
+}
 /* 신규 메인화면 디자인 요소 */
-.interactive-playground { display: flex; gap: 30px; align-items: center; justify-content: center; margin-bottom: 40px; flex-wrap: wrap; }
-.robot-svg-container { flex: 1; min-width: 300px; max-width: 450px; position: relative; }
-.robot-svg { width: 100%; height: auto; filter: drop-shadow(0 0 15px rgba(44,153,153,0.2)); }
-.hotspot { cursor: pointer; transition: all 0.3s ease; }
-.hotspot:hover { filter: brightness(1.3) drop-shadow(0 0 15px #FFFB03); transform: scale(1.03); transform-origin: center; }
-.robot-info-panel { flex: 1; min-width: 300px; max-width: 450px; background: rgba(20, 20, 20, 0.85); border: 2px solid #2C9999; border-radius: 12px; padding: 30px; color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.5); height: 280px; display: flex; flex-direction: column; justify-content: center; transition: opacity 0.3s ease; }
 .news-ticker-wrapper { width: 100%; background: #111; border-top: 2px solid #2C9999; border-bottom: 2px solid #2C9999; display: flex; align-items: center; height: 50px; overflow: hidden; margin-bottom: 50px; position: relative; }
 .news-ticker-track-h { display: flex; white-space: nowrap; animation: tickerScroll 30s linear infinite; padding-left: 20px; align-items: center; }
 .news-ticker-track-h:hover { animation-play-state: paused; }
@@ -1508,49 +1647,112 @@ white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) *
 </style>
 
 <section id="intro" style="padding: 20px 25px !important;">
-    <div class="interactive-playground">
+<div class="interactive-playground">
+        
+        <div class="robot-info-panel" id="panel-left">
+            <h2 class="panel-title" style="color: #86D1D1;">
+                <i class="fas fa-microchip"></i> Hardware
+            </h2>
+            <p class="panel-desc">
+                Select a part of the humanoid robot to explore its physical components and mechanics.
+            </p>
+            <div style="text-align: center; margin-top: 20px;">
+                <i class="fas fa-hand-point-right fa-2x fa-fade" style="color: #86D1D1;"></i>
+            </div>
+        </div>
+
         <div class="robot-svg-container">
-            <svg class="robot-svg" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
-                <g class="hotspot" onclick="showRobotInfo('head')">
-                    <rect x="150" y="50" width="100" height="80" rx="15" fill="#252525" stroke="#86D1D1" stroke-width="4"/>
-                    <circle cx="200" cy="90" r="20" fill="#111" stroke="#FFFB03" stroke-width="3"/>
-                    <circle cx="200" cy="90" r="8" fill="#FFFB03"/>
+            
+            <button id="reset-robot-btn" onclick="resetRobotInfo()">
+                <i class="fas fa-undo"></i> Reset
+            </button>
+
+            <svg class="robot-svg" viewBox="0 0 500 800" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#A3FFFF;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#39CCCC;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                
+                <circle cx="250" cy="400" r="300" fill="rgba(44,153,153,0.03)" filter="blur(40px)"/>
+
+                <g class="hotspot" onclick="showRobotInfo('base', this)">
+                    <line x1="210" y1="410" x2="210" y2="650" stroke="#39CCCC" stroke-width="48" stroke-linecap="round"/>
+                    <line x1="210" y1="410" x2="210" y2="650" stroke="#1E3A3A" stroke-width="40" stroke-linecap="round"/>
+                    <rect x="180" y="650" width="60" height="20" rx="8" fill="#1E3A3A" stroke="#39CCCC" stroke-width="4"/>
+                    
+                    <line x1="290" y1="410" x2="290" y2="650" stroke="#39CCCC" stroke-width="48" stroke-linecap="round"/>
+                    <line x1="290" y1="410" x2="290" y2="650" stroke="#1E3A3A" stroke-width="40" stroke-linecap="round"/>
+                    <rect x="260" y="650" width="60" height="20" rx="8" fill="#1E3A3A" stroke="#39CCCC" stroke-width="4"/>
                 </g>
-                <g class="hotspot" onclick="showRobotInfo('arm')">
-                    <path d="M120 180 L50 250 L50 320" fill="none" stroke="#86D1D1" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
-                    <circle cx="50" cy="250" r="12" fill="#FFFB03"/>
-                    <path d="M30 320 h40 v30 h-40 z" fill="#252525" stroke="#FFFB03" stroke-width="3"/>
-                    <path d="M280 180 L350 250 L350 320" fill="none" stroke="#86D1D1" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
-                    <circle cx="350" cy="250" r="12" fill="#FFFB03"/>
-                    <path d="M330 320 h40 v30 h-40 z" fill="#252525" stroke="#FFFB03" stroke-width="3"/>
-                </g>
-                <g class="hotspot" onclick="showRobotInfo('body')">
-                    <rect x="120" y="150" width="160" height="180" rx="20" fill="#252525" stroke="#86D1D1" stroke-width="4"/>
-                    <path d="M150 200 h100 v80 h-100 z" fill="#111" stroke="#2C9999" stroke-width="2"/>
-                    <circle cx="200" cy="240" r="15" fill="#FFFB03">
-                        <animate attributeName="r" values="12;16;12" dur="2s" repeatCount="indefinite" />
+
+                <g class="hotspot" onclick="showRobotInfo('body', this)">
+                    <rect x="160" y="190" width="180" height="240" rx="30" fill="#1E3A3A" stroke="#39CCCC" stroke-width="4"/>
+                    
+                    <rect x="180" y="215" width="140" height="190" rx="20" fill="#0A1118" stroke="#2C9999" stroke-width="3"/>
+                    
+                    <line x1="210" y1="240" x2="290" y2="240" stroke="#2C9999" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="210" y1="260" x2="290" y2="260" stroke="#2C9999" stroke-width="3" stroke-linecap="round"/>
+                    
+                    <circle cx="250" cy="330" r="35" fill="#0A1118" stroke="#39CCCC" stroke-width="4"/>
+                    <circle cx="250" cy="330" r="16" fill="url(#glow)">
+                        <animate attributeName="r" values="12;18;12" dur="1.5s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" repeatCount="indefinite" />
                     </circle>
                 </g>
-                <g class="hotspot" onclick="showRobotInfo('base')">
-                    <rect x="100" y="350" width="200" height="50" rx="25" fill="#252525" stroke="#86D1D1" stroke-width="4"/>
-                    <circle cx="140" cy="400" r="30" fill="#111" stroke="#FFFB03" stroke-width="5"/>
-                    <circle cx="260" cy="400" r="30" fill="#111" stroke="#FFFB03" stroke-width="5"/>
+
+                <g class="hotspot" onclick="showRobotInfo('arm', this)">
+                    <line x1="120" y1="230" x2="120" y2="390" stroke="#39CCCC" stroke-width="44" stroke-linecap="round"/>
+                    <line x1="120" y1="230" x2="120" y2="390" stroke="#1E3A3A" stroke-width="36" stroke-linecap="round"/>
+                    
+                    <line x1="380" y1="230" x2="380" y2="450" stroke="#39CCCC" stroke-width="44" stroke-linecap="round"/>
+                    <line x1="380" y1="230" x2="380" y2="450" stroke="#1E3A3A" stroke-width="36" stroke-linecap="round"/>
+                </g>
+
+            <g class="hotspot" onclick="showRobotInfo('endeffector', this)">
+                    
+                    <polygon points="80,390 160,390 160,490 80,490" fill="transparent" />
+                    <polygon points="340,390 420,390 420,490 340,490" fill="transparent" />
+
+                    <rect x="95" y="400" width="50" height="30" rx="8" fill="#1E3A3A" stroke="#39CCCC" stroke-width="4"/>
+                    <path d="M 95 430 L 110 430 L 110 470 A 10 10 0 0 0 130 470 L 130 430 L 145 430 L 145 470 A 25 25 0 0 1 95 470 Z" fill="#1E3A3A" stroke="#39CCCC" stroke-width="4"/>
+                    
+                    <rect x="355" y="400" width="50" height="30" rx="8" fill="#1E3A3A" stroke="#39CCCC" stroke-width="4"/>
+                    <path d="M 355 430 L 370 430 L 370 470 A 10 10 0 0 0 390 470 L 390 430 L 405 430 L 405 470 A 25 25 0 0 1 355 470 Z" fill="#1E3A3A" stroke="#39CCCC" stroke-width="4"/>
+                </g>
+                <g class="hotspot" onclick="showRobotInfo('head', this)">
+                    <path d="M 170 175 A 80 80 0 0 1 330 175 Z" fill="#1E3A3A" stroke="#39CCCC" stroke-width="4"/>
+                    
+                    <line x1="210" y1="100" x2="185" y2="50" stroke="#39CCCC" stroke-width="6" stroke-linecap="round"/>
+                    <circle cx="185" cy="50" r="6" fill="#39CCCC"/>
+                    
+                    <line x1="290" y1="100" x2="315" y2="50" stroke="#39CCCC" stroke-width="6" stroke-linecap="round"/>
+                    <circle cx="315" cy="50" r="6" fill="#39CCCC"/>
+
+                    <rect x="195" y="120" width="110" height="30" rx="15" fill="#0A1118" stroke="#39CCCC" stroke-width="3"/>
+                    <circle cx="225" cy="135" r="7" fill="#A3FFFF"><animate attributeName="opacity" values="1;0.1;1" dur="2s" repeatCount="indefinite"/></circle>
+                    <circle cx="275" cy="135" r="7" fill="#A3FFFF"><animate attributeName="opacity" values="0.1;1;0.1" dur="2s" repeatCount="indefinite"/></circle>
                 </g>
             </svg>
+
+
         </div>
-        <div class="robot-info-panel" id="robot-info-panel">
-            <h2 style="color: #FFFB03; margin-bottom: 15px; font-family: 'Chakra Petch', sans-serif;">
-                <i class="fas fa-hand-pointer"></i> Click the Robot!
+
+        <div class="robot-info-panel" id="panel-right">
+            <h2 class="panel-title" style="color: #2C9999;">
+                <i class="fas fa-brain"></i> Software & AI
             </h2>
-            <p style="font-size: 1.05rem; color: #ccc; line-height: 1.6; font-family: 'Roboto', sans-serif;">
-                Welcome to the world of robotics.<br><br>
-                Click on the <strong>Head, Body, Arms, or Wheels</strong> of the robot on the left to discover how the different parts work together!
+            <p class="panel-desc">
+                Discover the algorithms, code, and intelligence that bring the hardware to life.
             </p>
+            <div style="text-align: center; margin-top: 20px;">
+                <i class="fas fa-hand-point-left fa-2x fa-fade" style="color: #2C9999;"></i>
+            </div>
         </div>
+
     </div>
-
-
-  
+    
 
     <div class="content-header" style="border-bottom: 2px solid #FFFB03 !important; padding-bottom: 0px; margin-bottom: -15px;">
         <h1 id="main-hero-title">Robotics 101</h1>
@@ -2491,34 +2693,178 @@ function initSpotlight() {
     if(linkElem) linkElem.href = robot.url || "#";
 }
 
-// 뉴스 가져오기
-// --- [신규] 로봇 부위 클릭 시 패널 내용 변경 함수 ---
-function showRobotInfo(part) {
-    const panel = document.getElementById('robot-info-panel');
-    let content = "";
+
+// --- [수정] 로봇 부위 클릭 시 좌/우 패널 동시 업데이트 함수 ---
+// ▼▼▼ 기존 showRobotInfo 함수를 지우고 아래로 덮어씌우세요 ▼▼▼
+function showRobotInfo(part, element) {
+    
+    // [신규] 먼저 모든 핫스팟 부위의 네온 불빛(active)을 끕니다.
+    document.querySelectorAll('.hotspot').forEach(el => el.classList.remove('active'));
+    
+    // [신규] 방금 클릭한 부위에만 네온 불빛(active)을 켭니다.
+    if (element) {
+        element.classList.add('active');
+    }
+    const leftPanel = document.getElementById('panel-left');
+    const rightPanel = document.getElementById('panel-right');
+    
+    let leftHTML = "";
+    let rightHTML = "";
     
     if (part === 'head') {
-        content = `<h2 style="color: #86D1D1; margin-bottom: 10px;"><i class="fas fa-eye"></i> Sensors & Camera</h2>
-                   <p style="color: #ccc; line-height: 1.6;">The "Eyes" of the robot. It uses LiDAR and Cameras to see the world, measure distances, and recognize objects like a human does.</p>`;
+        leftHTML = `
+            <h2 class="panel-title" style="color: #FFFB03;"><i class="fas fa-eye"></i> Sensory Hardware</h2>
+            <p class="panel-desc">The physical organs that collect high-fidelity environmental data.</p>
+            <ul class="tech-list">
+                <li><strong>RGB-D Cameras:</strong> Provides true 3D depth perception and color data.</li>
+                <li><strong>3D LiDAR:</strong> Emits millions of lasers to map the exact geometry of the room.</li>
+                <li><strong>Microphone Array:</strong> Detects voice commands and the precise direction of sounds.</li>
+            </ul>`;
+            
+        rightHTML = `
+            <h2 class="panel-title" style="color: #2C9999;"><i class="fas fa-network-wired"></i> Visual Perception</h2>
+            <p class="panel-desc">The Deep Learning models interpreting raw sensor data.</p>
+            <ul class="tech-list">
+                <li><strong>Computer Vision (CNN):</strong> Identifies objects instantly (e.g., "That's a coffee mug").</li>
+                <li><strong>V-SLAM:</strong> Builds a 3D map while tracking the robot's exact location inside it.</li>
+                <li><strong>NLP (Natural Language):</strong> Processes human speech into executable code.</li>
+            </ul>`;
     } else if (part === 'body') {
-        content = `<h2 style="color: #86D1D1; margin-bottom: 10px;"><i class="fas fa-microchip"></i> Microcontroller</h2>
-                   <p style="color: #ccc; line-height: 1.6;">The "Brain" (like Arduino or Raspberry Pi). It receives data from sensors, processes it with AI, and sends commands to the motors.</p>`;
+        leftHTML = `
+            <h2 class="panel-title" style="color: #FFFB03;"><i class="fas fa-battery-full"></i> Power & Core</h2>
+            <p class="panel-desc">The heart and robust central nervous system.</p>
+            <ul class="tech-list">
+                <li><strong>Solid-State Battery:</strong> Ultra-safe, high-density power source preventing fires.</li>
+                <li><strong>Power Distribution Board:</strong> Regulates and safely routes 24V/48V to the actuators.</li>
+                <li><strong>Liquid Cooling System:</strong> Prevents the main AI chips from thermal throttling.</li>
+            </ul>`;
+            
+        rightHTML = `
+            <h2 class="panel-title" style="color: #2C9999;"><i class="fas fa-microchip"></i> Main Controller</h2>
+            <p class="panel-desc">The decision-making hub running the primary OS.</p>
+            <ul class="tech-list">
+                <li><strong>ROS 2 Middleware:</strong> Coordinates real-time data between 50+ different nodes.</li>
+                <li><strong>Finite State Machine:</strong> Determines the robot's overall mode (Idle, Walking, Grasping).</li>
+                <li><strong>Task Planning Algorithm:</strong> Breaks down a complex goal ("Get a drink") into micro-steps.</li>
+            </ul>`;
     } else if (part === 'arm') {
-        content = `<h2 style="color: #86D1D1; margin-bottom: 10px;"><i class="fas fa-robot"></i> Actuators & Joints</h2>
-                   <p style="color: #ccc; line-height: 1.6;">The "Muscles". Servo motors and gears give the robot the strength and precision to lift, bend, and manipulate objects.</p>`;
+        leftHTML = `
+            <h2 class="panel-title" style="color: #FFFB03;"><i class="fas fa-cogs"></i> Arm Mechanics</h2>
+            <p class="panel-desc">The robust joints built for industrial precision and strength.</p>
+            <ul class="tech-list">
+                <li><strong>BLDC Servo Motors:</strong> Delivers high torque and absolute angular positioning.</li>
+                <li><strong>Harmonic Drives:</strong> Specialized zero-backlash gears for flawlessly smooth movement.</li>
+                <li><strong>Carbon Fiber Links:</strong> Keeps the arms lightweight so motors don't waste energy.</li>
+            </ul>`;
+            
+        rightHTML = `
+            <h2 class="panel-title" style="color: #2C9999;"><i class="fas fa-project-diagram"></i> Motion Control</h2>
+            <p class="panel-desc">The mathematical logic required to move elegantly.</p>
+            <ul class="tech-list">
+                <li><strong>Inverse Kinematics (IK):</strong> Calculates the exact joint angles needed to reach an X,Y,Z coordinate.</li>
+                <li><strong>Trajectory Planning:</strong> Calculates the fastest, smoothest path without jerky movements.</li>
+                <li><strong>Collision Avoidance:</strong> Predicts and avoids hitting its own body or humans.</li>
+            </ul>`;
+    } else if (part === 'endeffector') {
+        leftHTML = `
+            <h2 class="panel-title" style="color: #FFFB03;"><i class="fas fa-hand-paper"></i> End Effectors</h2>
+            <p class="panel-desc">The highly specialized hands interacting with the world.</p>
+            <ul class="tech-list">
+                <li><strong>Tactile Sensors:</strong> Electronic skin that feels texture, temperature, and slip.</li>
+                <li><strong>Force/Torque Sensors:</strong> Measures exact pressure so it doesn't crush a fragile egg.</li>
+                <li><strong>Adaptive Grippers:</strong> Soft robotic fingers that mold around irregular objects.</li>
+            </ul>`;
+            
+        rightHTML = `
+            <h2 class="panel-title" style="color: #2C9999;"><i class="fas fa-hand-holding"></i> Grasp Intelligence</h2>
+            <p class="panel-desc">The software determining how to hold objects safely.</p>
+            <ul class="tech-list">
+                <li><strong>Grasp Planning:</strong> Uses AI to analyze object shape and find the best gripping point.</li>
+                <li><strong>Haptic Feedback Loop:</strong> Adjusts motor strength dynamically if an object starts slipping.</li>
+                <li><strong>Compliance Control:</strong> Acts like a "spring" to safely interact with humans without stiffness.</li>
+            </ul>`;
     } else if (part === 'base') {
-        content = `<h2 style="color: #86D1D1; margin-bottom: 10px;"><i class="fas fa-car-side"></i> Chassis & Mobility</h2>
-                   <p style="color: #ccc; line-height: 1.6;">The "Legs". Wheels, tracks, or mechanical legs allow the robot to navigate and move smoothly across different environments.</p>`;
+        leftHTML = `
+            <h2 class="panel-title" style="color: #FFFB03;"><i class="fas fa-walking"></i> Locomotion Hardware</h2>
+            <p class="panel-desc">The dynamic leg structures carrying the entire payload.</p>
+            <ul class="tech-list">
+                <li><strong>Linear Actuators:</strong> Acts like human thigh muscles, perfect for jumping and squatting.</li>
+                <li><strong>6-Axis IMU Sensor:</strong> The "inner ear" detecting tilt, pitch, and gravity.</li>
+                <li><strong>Ankle Force Sensors:</strong> Detects whether the ground is flat, sloped, or uneven.</li>
+            </ul>`;
+            
+        rightHTML = `
+            <h2 class="panel-title" style="color: #2C9999;"><i class="fas fa-balance-scale"></i> Dynamic Balance</h2>
+            <p class="panel-desc">The extreme physics engines keeping the robot upright.</p>
+            <ul class="tech-list">
+                <li><strong>Zero Moment Point (ZMP):</strong> Constantly calculates the center of mass to prevent falling over.</li>
+                <li><strong>Reinforcement Learning (RL):</strong> AI that taught itself to walk through millions of digital simulations.</li>
+                <li><strong>Gait Generation:</strong> Creating natural, energy-efficient walking and running patterns.</li>
+            </ul>`;
     }
 
+    // 애니메이션 효과
+leftPanel.style.opacity = 0;
+    rightPanel.style.opacity = 0;
     
-    // 부드러운 전환 효과
-    panel.style.opacity = 0;
     setTimeout(() => {
-        panel.innerHTML = content;
-        panel.style.opacity = 1;
+        leftPanel.innerHTML = leftHTML;
+        rightPanel.innerHTML = rightHTML;
+        leftPanel.style.opacity = 1;
+        rightPanel.style.opacity = 1;
+        
+        // [신규 추가] 부위를 클릭하면 숨어있던 리셋 버튼이 나타납니다.
+        const resetBtn = document.getElementById('reset-robot-btn');
+        if (resetBtn) resetBtn.style.display = 'flex';
     }, 200);
 }
+
+function resetRobotInfo() {
+    // 1. 모든 핫스팟 부위의 네온 불빛(active) 끄기
+    document.querySelectorAll('.hotspot').forEach(el => el.classList.remove('active'));
+    
+    const leftPanel = document.getElementById('panel-left');
+    const rightPanel = document.getElementById('panel-right');
+    
+    // 2. 초기 환영 메시지 원본 데이터
+    const initLeftHTML = `
+        <h2 class="panel-title" style="color: #FFFB03;">
+            <i class="fas fa-microchip"></i> Hardware
+        </h2>
+        <p class="panel-desc">
+            Select a part of the humanoid robot to explore its physical components and mechanics.
+        </p>
+        <div style="text-align: center; margin-top: 20px;">
+            <i class="fas fa-hand-point-right fa-2x fa-fade" style="color: #FFFB03;"></i>
+        </div>`;
+        
+    const initRightHTML = `
+        <h2 class="panel-title" style="color: #2C9999;">
+            <i class="fas fa-brain"></i> Software & AI
+        </h2>
+        <p class="panel-desc">
+            Discover the algorithms, code, and intelligence that bring the hardware to life.
+        </p>
+        <div style="text-align: center; margin-top: 20px;">
+            <i class="fas fa-hand-point-left fa-2x fa-fade" style="color: #2C9999;"></i>
+        </div>`;
+
+    // 부드러운 전환 효과
+    leftPanel.style.opacity = 0;
+    rightPanel.style.opacity = 0;
+    
+    setTimeout(() => {
+        leftPanel.innerHTML = initLeftHTML;
+        rightPanel.innerHTML = initRightHTML;
+        leftPanel.style.opacity = 1;
+        rightPanel.style.opacity = 1;
+    }, 200);
+
+    // 3. 리셋 버튼 할 일 다 했으니 다시 숨기기
+    const resetBtn = document.getElementById('reset-robot-btn');
+    if (resetBtn) resetBtn.style.display = 'none';
+}
+// ▲▲▲ 여기까지 덮어씌우세요 ▲▲▲
 
 // --- [수정] 전광판 가로 스크롤을 위한 뉴스 함수 ---
 async function fetchRobotNews() {
