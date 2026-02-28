@@ -716,7 +716,7 @@ font-family: 'Chakra Petch', sans-serif !important;
   /* [수정] 주제 제목의 과한 형광 효과를 은은한 광채로 완화 */
 .content-header h1 { 
     font-size: 1.9rem !important;  /* 적당한 크기 (원하는대로 조절 가능) */
-    color: #86D1D1 !important;     /* 청록색 */
+    color: #2C9999 !important;     /* 청록색 */
     font-weight: 700 !important;
     letter-spacing: 1px !important;
     margin-bottom: 15px !important;
@@ -725,16 +725,16 @@ font-family: 'Chakra Petch', sans-serif !important;
 }
 #main-hero-title {
     font-size: 2.9rem !important;  /* ▲ 여기서 Robotics 101 크기만 따로 조절! */
-    color: #FFFB03 !important;     /* 노란색 강조 */
+    color: #2C9999 !important;     
     font-weight: 900 !important;   /* 더 굵게 */
     line-height: 1.1 !important;
-    text-shadow: 3px 3px 0px #000, 0 0 20px rgba(255, 251, 3, 0.5) !important;
+    text-shadow: none !important;
     margin: 0 !important;
 }
 
 /* 마우스를 올렸을 때만 살짝 더 밝아지게 설정 */
 .content-header h1:hover {
-    color: #FFFB03 !important;
+    color: #2C9999 !important;
     text-shadow: 0 0 12px rgba(134, 209, 209, 0.6);
     transform: none; /* 움직임 제거로 차분함 유지 */
 }
@@ -1209,12 +1209,17 @@ body {
     padding: 25px; 
     color: #fff; 
     box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
-    height: 350px; /* 높이 고정으로 안정감 부여 */
+    
+    /* [핵심 수정] 텍스트가 많아도 제목이 밖으로 튕겨 나가지 않게 하는 마법 */
+    min-height: 450px; /* 고정 높이 350px을 지우고 최소 높이를 넉넉하게 줌 */
+    height: auto;      /* 내용이 길어지면 박스가 밑으로 자연스럽게 늘어남 */
     display: flex; 
     flex-direction: column; 
-    justify-content: center; 
+    justify-content: flex-start; /* 중앙 정렬을 해제하여 제목을 맨 위에 완벽히 고정! */
+    
     transition: all 0.4s ease; 
 }
+/* ▲▲▲ 여기까지 교체 완료 ▲▲▲ */
 
 /* 좌측 패널 (하드웨어 중심) */
 #panel-left { border-left: 4px solid #FFFB03; border-top: 1px solid rgba(255,251,3,0.3); border-bottom: 1px solid rgba(255,251,3,0.3); }
@@ -1546,7 +1551,7 @@ white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) *
 
 <div class="category-group">
     <div class="group-title" style="font-size: 1rem; margin-bottom: 5px; padding-bottom: 3px;">
-        <span><i class="fas fa-gamepad" style="color: #FFFB03;"></i> Robo Quiz</span>
+        <span>Robo Quiz</span>
     </div>
     
     <div id="quiz-container" style="padding: 5px 2px;">
@@ -1687,7 +1692,7 @@ white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) *
     width: 100%;
     padding: 4px 0; /* Visit보다 더 얇게 */
     margin-top: 5px; /* Visit 버튼과의 간격 */
-    background: transparent; /* 튀지 않게 투명 배경 */
+    background: #111;
     border: 1px solid rgba(134, 209, 209, 0.3); /* 은은한 청록색 테두리 */
     color: #86D1D1; /* 차분한 텍스트 색상 */
     font-size: 0.8rem; /* Visit보다 작은 글씨 */
@@ -1699,29 +1704,17 @@ white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) *
 
 /* 마우스 올렸을 때 살짝 밝아지는 효과 */
 .sub-find-btn:hover {
-    background: rgba(44, 153, 153, 0.1);
+    background: #1E3A3A;
     border-color: #86D1D1;
     color: #fff;
 }
 </style>
 
 <section id="intro" style="padding: 20px 25px !important;">
-<div class="interactive-playground" style="position: relative; overflow: hidden; border-radius: 20px;">
+<div class="interactive-playground" style="position: relative; overflow: hidden; border-radius: 20px; display: flex; flex-wrap: wrap; gap: 40px; justify-content: flex-start; align-items: stretch;">
     
-    <div class="robot-info-panel" id="panel-left">
-        <div class="panel-master-header">
-            <h2 class="panel-master-title" style="color: #FFFB03;">Hardware</h2>
-        </div>
-        <div id="content-left">
-            <p class="panel-desc">Select a part of the humanoid robot to explore its physical components and mechanics.</p>
-            <div style="text-align: center; margin-top: 20px;">
-                <i class="fas fa-hand-point-right fa-2x fa-fade" style="color: #FFFB03;"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="robot-svg-container">
-        <button id="reset-robot-btn" onclick="resetRobotInfo()">
+    <div class="robot-svg-container" style="flex: 1; min-width: 300px; max-width: 400px; display: flex; justify-content: center; align-items: flex-start; margin-top: 20px;">
+        <button id="reset-robot-btn" onclick="resetRobotInfo()" style="display: none;">
             <i class="fas fa-undo"></i> Reset
         </button>
 
@@ -1763,22 +1756,13 @@ white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) *
             </g>
 
             <g class="hotspot" onclick="showRobotInfo('endeffector', this)">
-                
                 <polygon points="85,390 155,390 155,480 85,480" fill="transparent" />
                 <polygon points="345,390 415,390 415,480 345,480" fill="transparent" />
-
                 <rect x="95" y="400" width="50" height="30" rx="8" fill="#1E3A3A" stroke="#39CCCC" stroke-width="4"/>
                 <path d="M 95 430 L 110 430 L 110 470 A 10 10 0 0 0 130 470 L 130 430 L 145 430 L 145 470 A 25 25 0 0 1 95 470 Z" fill="#1E3A3A" stroke="#39CCCC" stroke-width="4"/>
-                
                 <rect x="355" y="400" width="50" height="30" rx="8" fill="#1E3A3A" stroke="#39CCCC" stroke-width="4"/>
                 <path d="M 355 430 L 370 430 L 370 470 A 10 10 0 0 0 390 470 L 390 430 L 405 430 L 405 470 A 25 25 0 0 1 355 470 Z" fill="#1E3A3A" stroke="#39CCCC" stroke-width="4"/>
             </g>
-            ```
-
-### ✅ 확인해 보세요
-저장하고 다시 마우스를 가져가 보시면, 이제 집게발 사이의 허공을 찔러도 툭툭 끊기는 현상 없이 한 번에 시원하게 빛나고 클릭도 잘 될 것입니다! 
-
-더 수정하거나 다듬고 싶은 디테일이 있으신가요?
 
             <g class="hotspot" onclick="showRobotInfo('head', this)">
                 <path d="M 170 175 A 80 80 0 0 1 330 175 Z" fill="#1E3A3A" stroke="#39CCCC" stroke-width="4"/>
@@ -1793,14 +1777,18 @@ white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) *
         </svg>
     </div>
 
-    <div class="robot-info-panel" id="panel-right">
-        <div class="panel-master-header">
-            <h2 class="panel-master-title" style="color: #2C9999;">Software & AI</h2>
-        </div>
-        <div id="content-right">
-            <p class="panel-desc">Discover the algorithms, code, and intelligence that bring the hardware to life.</p>
-            <div style="text-align: center; margin-top: 20px;">
+    <div class="robot-info-panel" id="main-info-panel" style="flex: 2; min-width: 320px; max-width: none; border-top: 2px solid #2C9999;">
+        <div id="content-main">
+            <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-size: 1.8rem; margin-bottom: 20px;">
+                Meet the Robot
+            </h2>
+            <p class="panel-desc" style="font-size: 1.1rem; line-height: 1.7;">
+                Click on any glowing part of the robot to discover how it works! <br><br>
+                Robots might look complicated with all their wires and metal, but they are actually designed just like us. They have a body, senses, muscles, and a brain. Let's explore them one by one.
+            </p>
+            <div style="text-align: left; margin-top: 30px;">
                 <i class="fas fa-hand-point-left fa-2x fa-fade" style="color: #2C9999;"></i>
+                <span style="color: #86D1D1; margin-left: 10px; font-weight: bold; font-size: 1.1rem;">Click a part to start!</span>
             </div>
         </div>
     </div>
@@ -1808,7 +1796,7 @@ white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) *
 </div>
     
 
-    <div class="content-header" style="border-bottom: 2px solid #FFFB03 !important; padding-bottom: 0px; margin-bottom: -15px;">
+    <div class="content-header" style="border-bottom: 2px solid #2C9999 !important; padding-bottom: 0px; margin-bottom: -15px;">
         <h1 id="main-hero-title">Robotics 101</h1>
     </div>
 
@@ -2749,162 +2737,246 @@ function initSpotlight() {
 
 
 
-// --- [최종 수정] 로봇 부위 클릭 시 좌/우 패널 동시 업데이트 함수 ---
+// --- [최종 수정] 로봇 부위 클릭 시 우측 넓은 패널 통합 업데이트 ---
+// --- [최종 진화형] 로봇 부위 클릭 시 우측 넓은 패널 풍부한 대시보드 업데이트 ---
 function showRobotInfo(part, element) {
     document.querySelectorAll('.hotspot').forEach(el => el.classList.remove('active'));
     if (element) element.classList.add('active');
 
-    const leftContent = document.getElementById('content-left');
-    const rightContent = document.getElementById('content-right');
-    
-    if (!leftContent || !rightContent) return;
+    const mainContent = document.getElementById('content-main');
+    if (!mainContent) return;
 
-    leftContent.style.transition = "opacity 0.2s ease";
-    rightContent.style.transition = "opacity 0.2s ease";
+    mainContent.style.transition = "opacity 0.2s ease";
+    mainContent.style.opacity = 0;
     
-    let leftHTML = "";
-    let rightHTML = "";
+    let htmlContext = "";
     
     if (part === 'head') {
-        leftHTML = `
-            <h3 class="panel-sub-title" style="color: #FFFB03;"><i class="fas fa-eye"></i> Sensory Hardware</h3>
-            <p class="panel-desc" style="font-size: 0.9rem; margin-bottom: 12px; opacity: 0.9;">The sensory hub of the robot, packed with high-fidelity components to capture environmental data.</p>
-            <ul class="tech-list">
-                <li><strong style="color: #fff;">RGB-D Cameras:</strong> Captures 3D depth & high-res color data.</li>
-                <li><strong style="color: #fff;">3D LiDAR:</strong> Fires laser pulses for precise room mapping.</li>
-                <li><strong style="color: #fff;">Microphone Array:</strong> Detects voice commands and sound direction.</li>
-            </ul>`;
-        rightHTML = `
-            <h3 class="panel-sub-title" style="color: #2C9999;"><i class="fas fa-network-wired"></i> Visual Perception</h3>
-            <p class="panel-desc" style="font-size: 0.9rem; margin-bottom: 12px; opacity: 0.9;">The Deep Learning models interpreting raw sensor data into actionable intelligence.</p>
-            <ul class="tech-list">
-                <li><strong style="color: #fff;">Computer Vision (CNN):</strong> Identifies objects instantly (e.g., "That's a coffee mug").</li>
-                <li><strong style="color: #fff;">V-SLAM:</strong> Builds a 3D map while tracking the robot's exact location inside it.</li>
-                <li><strong style="color: #fff;">NLP (Natural Language):</strong> Processes human speech into executable code.</li>
-            </ul>`;
+        htmlContext = `
+            <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-size: 1.8rem; margin-bottom: 15px; border-bottom: 2px solid rgba(255,251,3,0.3); padding-bottom: 10px;">
+                <i class="fas fa-eye"></i> The Head: Senses & Perception
+            </h2>
+            
+            <div style="background: rgba(44, 153, 153, 0.1); border-left: 4px solid #2C9999; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+                <strong style="color: #86D1D1; font-size: 1.1rem;"><i class="fas fa-lightbulb"></i> Analogy: The Eyes, Ears, and Brain</strong>
+                <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #ddd; line-height: 1.5;">Just like you use your eyes to see and your brain to understand what you're looking at, a robot uses cameras to capture light and AI to process it into meaning.</p>
+            </div>
+
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+                <div style="flex: 1; min-width: 200px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px solid rgba(255, 251, 3, 0.2);">
+                    <h4 style="color: #FFFB03; margin-top: 0; margin-bottom: 10px; font-size: 1.1rem;"><i class="fas fa-microchip"></i> Hardware Sensors</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #ccc; line-height: 1.6;">
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>RGB-D Cameras:</strong> Captures color and 3D depth.</li>
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>3D LiDAR:</strong> Fires lasers for precise room mapping.</li>
+                        <li><strong>Mic Arrays:</strong> Detects voice & sound direction.</li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 200px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px solid rgba(44, 153, 153, 0.3);">
+                    <h4 style="color: #2C9999; margin-top: 0; margin-bottom: 10px; font-size: 1.1rem;"><i class="fas fa-brain"></i> Software & AI</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #ccc; line-height: 1.6;">
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>Computer Vision:</strong> Identifies objects instantly.</li>
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>V-SLAM:</strong> Builds maps while tracking location.</li>
+                        <li><strong>NLP:</strong> Converts human speech to code.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: rgba(255, 251, 3, 0.05); border: 1px dashed rgba(255, 251, 3, 0.5); padding: 12px 15px; border-radius: 8px;">
+                <strong style="color: #FFFB03; font-size: 0.95rem;"><i class="fas fa-rocket"></i> Real-World Fact:</strong>
+                <span style="font-size: 0.9rem; color: #ccc;">Modern autonomous robots process over 1 terabyte of sensor data per hour just to 'see' their surroundings without crashing!</span>
+            </div>`;
     } else if (part === 'body') {
-        leftHTML = `
-            <h3 class="panel-sub-title" style="color: #FFFB03;"><i class="fas fa-battery-full"></i> Power & Core</h3>
-            <p class="panel-desc" style="font-size: 0.9rem; margin-bottom: 12px; opacity: 0.9;">The heart and robust central nervous system supplying stable energy.</p>
-            <ul class="tech-list">
-                <li><strong style="color: #fff;">Solid-State Battery:</strong> Ultra-safe, high-density power source preventing fires.</li>
-                <li><strong style="color: #fff;">Power Distribution Board:</strong> Regulates and safely routes 24V/48V to the actuators.</li>
-                <li><strong style="color: #fff;">Liquid Cooling System:</strong> Prevents the main AI chips from thermal throttling.</li>
-            </ul>`;
-        rightHTML = `
-            <h3 class="panel-sub-title" style="color: #2C9999;"><i class="fas fa-microchip"></i> Main Compute</h3>
-            <p class="panel-desc" style="font-size: 0.9rem; margin-bottom: 12px; opacity: 0.9;">The decision-making hub running the primary OS.</p>
-            <ul class="tech-list">
-                <li><strong style="color: #fff;">ROS 2 Middleware:</strong> Coordinates real-time data between 50+ different nodes.</li>
-                <li><strong style="color: #fff;">Finite State Machine:</strong> Determines the robot's overall mode (Idle, Walking, Grasping).</li>
-                <li><strong style="color: #fff;">Task Planning Algorithm:</strong> Breaks down a complex goal ("Get a drink") into micro-steps.</li>
-            </ul>`;
+        htmlContext = `
+            <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-size: 1.8rem; margin-bottom: 15px; border-bottom: 2px solid rgba(255,251,3,0.3); padding-bottom: 10px;">
+                <i class="fas fa-battery-full"></i> The Body: Power & Core
+            </h2>
+            
+            <div style="background: rgba(44, 153, 153, 0.1); border-left: 4px solid #2C9999; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+                <strong style="color: #86D1D1; font-size: 1.1rem;"><i class="fas fa-lightbulb"></i> Analogy: The Heart and Nervous System</strong>
+                <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #ddd; line-height: 1.5;">Your heart pumps blood to give you energy. The robot's body holds the battery and the central computer that sends instructions to every limb.</p>
+            </div>
+
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+                <div style="flex: 1; min-width: 200px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px solid rgba(255, 251, 3, 0.2);">
+                    <h4 style="color: #FFFB03; margin-top: 0; margin-bottom: 10px; font-size: 1.1rem;"><i class="fas fa-bolt"></i> Power Hardware</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #ccc; line-height: 1.6;">
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>Solid-State Battery:</strong> Ultra-safe, fire-resistant.</li>
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>Power Board:</strong> Routes 48V to the actuators safely.</li>
+                        <li><strong>Liquid Cooling:</strong> Stops AI chips from melting.</li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 200px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px solid rgba(44, 153, 153, 0.3);">
+                    <h4 style="color: #2C9999; margin-top: 0; margin-bottom: 10px; font-size: 1.1rem;"><i class="fas fa-server"></i> Main Controller</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #ccc; line-height: 1.6;">
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>ROS 2 Middleware:</strong> Coordinates all nodes.</li>
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>State Machine:</strong> Manages overall modes (Idle, Work).</li>
+                        <li><strong>Task Planning:</strong> Breaks goals into micro-steps.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: rgba(255, 251, 3, 0.05); border: 1px dashed rgba(255, 251, 3, 0.5); padding: 12px 15px; border-radius: 8px;">
+                <strong style="color: #FFFB03; font-size: 0.95rem;"><i class="fas fa-rocket"></i> Real-World Fact:</strong>
+                <span style="font-size: 0.9rem; color: #ccc;">Advanced humanoids use liquid cooling systems—just like high-end gaming PCs—because their AI processing generates massive amounts of heat!</span>
+            </div>`;
     } else if (part === 'arm') {
-        leftHTML = `
-            <h3 class="panel-sub-title" style="color: #FFFB03;"><i class="fas fa-cogs"></i> Arm Mechanics</h3>
-            <p class="panel-desc" style="font-size: 0.9rem; margin-bottom: 12px; opacity: 0.9;">The highly articulated links designed for flexibility and superhuman strength.</p>
-            <ul class="tech-list">
-                <li><strong style="color: #fff;">BLDC Servo Motors:</strong> Delivers high torque and precise joint positioning.</li>
-                <li><strong style="color: #fff;">Harmonic Drives:</strong> Zero-backlash gears for millimeter-perfect accuracy.</li>
-                <li><strong style="color: #fff;">Carbon Fiber Links:</strong> Lightweight rigidity allowing faster, safer movements.</li>
-            </ul>`;
-        rightHTML = `
-            <h3 class="panel-sub-title" style="color: #2C9999;"><i class="fas fa-project-diagram"></i> Motion Control</h3>
-            <p class="panel-desc" style="font-size: 0.9rem; margin-bottom: 12px; opacity: 0.9;">The physics engines calculating the perfect path through 3D space.</p>
-            <ul class="tech-list">
-                <li><strong style="color: #fff;">Inverse Kinematics:</strong> Calculates exact joint angles needed to reach a target.</li>
-                <li><strong style="color: #fff;">Trajectory Planning:</strong> Generates smooth, human-like motion paths avoiding jerks.</li>
-                <li><strong style="color: #fff;">Collision Avoidance:</strong> Real-time safety protocols to protect humans from impact.</li>
-            </ul>`;
+        htmlContext = `
+            <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-size: 1.8rem; margin-bottom: 15px; border-bottom: 2px solid rgba(255,251,3,0.3); padding-bottom: 10px;">
+                <i class="fas fa-cogs"></i> The Arm: Motion & Mechanics
+            </h2>
+            
+            <div style="background: rgba(44, 153, 153, 0.1); border-left: 4px solid #2C9999; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+                <strong style="color: #86D1D1; font-size: 1.1rem;"><i class="fas fa-lightbulb"></i> Analogy: Muscles and Bones</strong>
+                <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #ddd; line-height: 1.5;">When you reach for a cup, your brain automatically calculates how to bend your shoulder and elbow. A robot needs physics equations to do the exact same thing.</p>
+            </div>
+
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+                <div style="flex: 1; min-width: 200px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px solid rgba(255, 251, 3, 0.2);">
+                    <h4 style="color: #FFFB03; margin-top: 0; margin-bottom: 10px; font-size: 1.1rem;"><i class="fas fa-wrench"></i> Mechanics</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #ccc; line-height: 1.6;">
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>Servo Motors:</strong> Delivers high torque positioning.</li>
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>Harmonic Drives:</strong> Zero-backlash gears for accuracy.</li>
+                        <li><strong>Carbon Fiber:</strong> Lightweight rigidity for safety.</li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 200px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px solid rgba(44, 153, 153, 0.3);">
+                    <h4 style="color: #2C9999; margin-top: 0; margin-bottom: 10px; font-size: 1.1rem;"><i class="fas fa-laptop-code"></i> Motion Logic</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #ccc; line-height: 1.6;">
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>Inverse Kinematics:</strong> Joint angle calculation.</li>
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>Trajectory Planning:</strong> Smooth, human-like pathing.</li>
+                        <li><strong>Collision Avoidance:</strong> Self/human protection.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: rgba(255, 251, 3, 0.05); border: 1px dashed rgba(255, 251, 3, 0.5); padding: 12px 15px; border-radius: 8px;">
+                <strong style="color: #FFFB03; font-size: 0.95rem;"><i class="fas fa-rocket"></i> Real-World Fact:</strong>
+                <span style="font-size: 0.9rem; color: #ccc;">Industrial robot arms are so precise they can thread a needle blindfolded, relying purely on mathematical coordinates (Kinematics).</span>
+            </div>`;
     } else if (part === 'endeffector') {
-        leftHTML = `
-            <h3 class="panel-sub-title" style="color: #FFFB03;"><i class="fas fa-hand-paper"></i> End Effectors</h3>
-            <p class="panel-desc" style="font-size: 0.9rem; margin-bottom: 12px; opacity: 0.9;">The highly specialized hands interacting with the physical world.</p>
-            <ul class="tech-list">
-                <li><strong style="color: #fff;">Tactile Sensors:</strong> Electronic skin that feels texture, temperature, and slip.</li>
-                <li><strong style="color: #fff;">Force/Torque Sensors:</strong> Measures exact pressure so it doesn't crush a fragile egg.</li>
-                <li><strong style="color: #fff;">Adaptive Grippers:</strong> Soft robotic fingers that mold around irregular objects.</li>
-            </ul>`;
-        rightHTML = `
-            <h3 class="panel-sub-title" style="color: #2C9999;"><i class="fas fa-hand-holding"></i> Grasp Intelligence</h3>
-            <p class="panel-desc" style="font-size: 0.9rem; margin-bottom: 12px; opacity: 0.9;">The software determining exactly how to hold objects safely.</p>
-            <ul class="tech-list">
-                <li><strong style="color: #fff;">Grasp Planning:</strong> Uses AI to analyze object shape and find the best gripping point.</li>
-                <li><strong style="color: #fff;">Haptic Feedback Loop:</strong> Adjusts motor strength dynamically if an object starts slipping.</li>
-                <li><strong style="color: #fff;">Compliance Control:</strong> Acts like a "spring" to safely interact with humans without stiffness.</li>
-            </ul>`;
+        htmlContext = `
+            <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-size: 1.8rem; margin-bottom: 15px; border-bottom: 2px solid rgba(255,251,3,0.3); padding-bottom: 10px;">
+                <i class="fas fa-hand-paper"></i> End Effectors: Touch & Grasp
+            </h2>
+            
+            <div style="background: rgba(44, 153, 153, 0.1); border-left: 4px solid #2C9999; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+                <strong style="color: #86D1D1; font-size: 1.1rem;"><i class="fas fa-lightbulb"></i> Analogy: Fingers and Sense of Touch</strong>
+                <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #ddd; line-height: 1.5;">Holding an egg requires a soft touch, but holding a hammer requires a strong grip. The robot's hands must feel and adjust instantly.</p>
+            </div>
+
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+                <div style="flex: 1; min-width: 200px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px solid rgba(255, 251, 3, 0.2);">
+                    <h4 style="color: #FFFB03; margin-top: 0; margin-bottom: 10px; font-size: 1.1rem;"><i class="fas fa-hand-holding"></i> Gripper Hardware</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #ccc; line-height: 1.6;">
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>Tactile Sensors:</strong> Electronic skin feeling texture.</li>
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>Torque Sensors:</strong> Measures exact crush pressure.</li>
+                        <li><strong>Soft Grippers:</strong> Silicon fingers for delicate items.</li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 200px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px solid rgba(44, 153, 153, 0.3);">
+                    <h4 style="color: #2C9999; margin-top: 0; margin-bottom: 10px; font-size: 1.1rem;"><i class="fas fa-code-branch"></i> Grasp Intelligence</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #ccc; line-height: 1.6;">
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>Grasp Planning:</strong> AI finds the best gripping point.</li>
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>Haptic Feedback:</strong> Adjusts instantly if slipping.</li>
+                        <li><strong>Compliance Control:</strong> Acts like a soft spring.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: rgba(255, 251, 3, 0.05); border: 1px dashed rgba(255, 251, 3, 0.5); padding: 12px 15px; border-radius: 8px;">
+                <strong style="color: #FFFB03; font-size: 0.95rem;"><i class="fas fa-rocket"></i> Real-World Fact:</strong>
+                <span style="font-size: 0.9rem; color: #ccc;">Some warehouse robots use "Soft Robotics"—fingers made of balloons filled with coffee grounds—to pick up fragile items like strawberries!</span>
+            </div>`;
     } else if (part === 'base') {
-        leftHTML = `
-            <h3 class="panel-sub-title" style="color: #FFFB03;"><i class="fas fa-walking"></i> Locomotion Hardware</h3>
-            <p class="panel-desc" style="font-size: 0.9rem; margin-bottom: 12px; opacity: 0.9;">The dynamic leg structures carrying the entire payload.</p>
-            <ul class="tech-list">
-                <li><strong style="color: #fff;">Linear Actuators:</strong> Acts like human thigh muscles, perfect for jumping and squatting.</li>
-                <li><strong style="color: #fff;">6-Axis IMU Sensor:</strong> The "inner ear" detecting tilt, pitch, and gravity.</li>
-                <li><strong style="color: #fff;">Ankle Force Sensors:</strong> Detects whether the ground is flat, sloped, or uneven.</li>
-            </ul>`;
-        rightHTML = `
-            <h3 class="panel-sub-title" style="color: #2C9999;"><i class="fas fa-balance-scale"></i> Dynamic Balance</h3>
-            <p class="panel-desc" style="font-size: 0.9rem; margin-bottom: 12px; opacity: 0.9;">The extreme physics engines keeping the robot upright.</p>
-            <ul class="tech-list">
-                <li><strong style="color: #fff;">Zero Moment Point (ZMP):</strong> Constantly calculates the center of mass to prevent falling over.</li>
-                <li><strong style="color: #fff;">Reinforcement Learning (RL):</strong> AI that taught itself to walk through millions of digital simulations.</li>
-                <li><strong style="color: #fff;">Gait Generation:</strong> Creating natural, energy-efficient walking and running patterns.</li>
-            </ul>`;
+        htmlContext = `
+            <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-size: 1.8rem; margin-bottom: 15px; border-bottom: 2px solid rgba(255,251,3,0.3); padding-bottom: 10px;">
+                <i class="fas fa-walking"></i> Locomotion: Legs & Balance
+            </h2>
+            
+            <div style="background: rgba(44, 153, 153, 0.1); border-left: 4px solid #2C9999; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+                <strong style="color: #86D1D1; font-size: 1.1rem;"><i class="fas fa-lightbulb"></i> Analogy: The Inner Ear and Legs</strong>
+                <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #ddd; line-height: 1.5;">Walking is essentially falling forward and catching yourself. To not fall over, a robot must constantly calculate its center of gravity.</p>
+            </div>
+
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+                <div style="flex: 1; min-width: 200px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px solid rgba(255, 251, 3, 0.2);">
+                    <h4 style="color: #FFFB03; margin-top: 0; margin-bottom: 10px; font-size: 1.1rem;"><i class="fas fa-shoe-prints"></i> Hardware Base</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #ccc; line-height: 1.6;">
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>Linear Actuators:</strong> Perfect for jumping/squatting.</li>
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>6-Axis IMU:</strong> Detects tilt, pitch, and gravity.</li>
+                        <li><strong>Ankle Sensors:</strong> Detects uneven terrain slops.</li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 200px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px solid rgba(44, 153, 153, 0.3);">
+                    <h4 style="color: #2C9999; margin-top: 0; margin-bottom: 10px; font-size: 1.1rem;"><i class="fas fa-balance-scale"></i> Dynamic Balance</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #ccc; line-height: 1.6;">
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>ZMP (Zero Moment Point):</strong> Tracks center of mass.</li>
+                        <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 6px;"><strong>Reinforcement Learning:</strong> Self-taught walking AI.</li>
+                        <li><strong>Gait Generation:</strong> Energy-efficient run patterns.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: rgba(255, 251, 3, 0.05); border: 1px dashed rgba(255, 251, 3, 0.5); padding: 12px 15px; border-radius: 8px;">
+                <strong style="color: #FFFB03; font-size: 0.95rem;"><i class="fas fa-rocket"></i> Real-World Fact:</strong>
+                <span style="font-size: 0.9rem; color: #ccc;">Boston Dynamics' robots learn to do backflips by failing millions of times inside a digital simulation before ever trying it in the real world!</span>
+            </div>`;
     }
 
-    leftContent.style.opacity = 0;
-    rightContent.style.opacity = 0;
-    
     setTimeout(() => {
-        leftContent.innerHTML = leftHTML;
-        rightContent.innerHTML = rightHTML;
-        leftContent.style.opacity = 1;
-        rightContent.style.opacity = 1;
+        mainContent.innerHTML = htmlContext;
+        mainContent.style.opacity = 1;
         
         const resetBtn = document.getElementById('reset-robot-btn');
         if (resetBtn) resetBtn.style.display = 'flex';
     }, 200);
 }
 
-// --- [버그 완벽 수정] 로봇 초기화(Reset) 함수 ---
+// --- 로봇 초기화(Reset) 함수 리디자인 (빈 공간 채우기) ---
 function resetRobotInfo() {
-    // 모든 불빛 끄기
     document.querySelectorAll('.hotspot').forEach(el => el.classList.remove('active'));
     
-    // 🚨 패널 전체가 아닌 내용물(content) 상자만 타겟팅 하도록 수정됨!
-    const leftContent = document.getElementById('content-left');
-    const rightContent = document.getElementById('content-right');
+    const mainContent = document.getElementById('content-main');
+    if (!mainContent) return;
     
-    if (!leftContent || !rightContent) return;
-    
-    const initLeftHTML = `
-        <p class="panel-desc">Select a part of the humanoid robot to explore its physical components and mechanics.</p>
-        <div style="text-align: center; margin-top: 20px;">
-            <i class="fas fa-hand-point-right fa-2x fa-fade" style="color: #FFFB03;"></i>
-        </div>`;
+    const initHTML = `
+        <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-size: 2.2rem; margin-bottom: 15px;">
+            Meet the Robot
+        </h2>
         
-    const initRightHTML = `
-        <p class="panel-desc">Discover the algorithms, code, and intelligence that bring the hardware to life.</p>
-        <div style="text-align: center; margin-top: 20px;">
-            <i class="fas fa-hand-point-left fa-2x fa-fade" style="color: #2C9999;"></i>
+        <p class="panel-desc" style="font-size: 1.15rem; line-height: 1.7; color: #ddd; margin-bottom: 30px;">
+            Click on any glowing part of the robot to discover how it works! <br><br>
+            Robots might look complicated with all their wires and metal, but they are actually designed just like us. They have a body, senses, muscles, and a brain. Let's explore them one by one.
+        </p>
+
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 150px; text-align: center; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; border: 1px solid rgba(134, 209, 209, 0.2);">
+                <i class="fas fa-microchip" style="font-size: 2.5rem; color: #86D1D1; margin-bottom: 15px;"></i>
+                <h4 style="color: #fff; margin: 0 0 5px 0;">Hardware</h4>
+                <p style="font-size: 0.85rem; color: #aaa; margin: 0;">The physical body</p>
+            </div>
+            <div style="flex: 1; min-width: 150px; text-align: center; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; border: 1px solid rgba(134, 209, 209, 0.2);">
+                <i class="fas fa-brain" style="font-size: 2.5rem; color: #FFFB03; margin-bottom: 15px;"></i>
+                <h4 style="color: #fff; margin: 0 0 5px 0;">Software & AI</h4>
+                <p style="font-size: 0.85rem; color: #aaa; margin: 0;">The intelligence</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; background: rgba(44, 153, 153, 0.1); padding: 15px; border-radius: 30px; border: 1px solid rgba(44, 153, 153, 0.4);">
+            <i class="fas fa-hand-point-left fa-2x fa-fade" style="color: #2C9999; vertical-align: middle;"></i>
+            <span style="color: #86D1D1; margin-left: 15px; font-weight: bold; font-size: 1.2rem; letter-spacing: 1px; vertical-align: middle;">Select a glowing part to start!</span>
         </div>`;
 
-    // 초기 화면으로 복귀 애니메이션
-    leftContent.style.opacity = 0;
-    rightContent.style.opacity = 0;
+    mainContent.style.opacity = 0;
     
     setTimeout(() => {
-        leftContent.innerHTML = initLeftHTML;
-        rightContent.innerHTML = initRightHTML;
-        leftContent.style.opacity = 1;
-        rightContent.style.opacity = 1;
+        mainContent.innerHTML = initHTML;
+        mainContent.style.opacity = 1;
     }, 200);
 
-    // 리셋 버튼 다시 숨기기
     const resetBtn = document.getElementById('reset-robot-btn');
     if (resetBtn) resetBtn.style.display = 'none';
 }
-// ▲▲▲ 여기까지 덮어씌우세요 ▲▲▲
 
 // --- [수정] 전광판 가로 스크롤을 위한 뉴스 함수 ---
 async function fetchRobotNews() {
