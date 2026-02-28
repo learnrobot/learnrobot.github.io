@@ -1161,6 +1161,128 @@ font {
 body {
     top: 0px !important;
 }
+/* --- [신규] 1. 인터랙티브 로봇 해부도 --- */
+.interactive-playground { 
+    display: flex; gap: 30px; align-items: center; justify-content: center; 
+    margin-bottom: 30px; flex-wrap: wrap; 
+}
+.robot-svg-container { 
+    flex: 1; min-width: 300px; max-width: 450px; position: relative; 
+}
+.robot-svg { width: 100%; height: auto; filter: drop-shadow(0 0 15px rgba(44,153,153,0.2)); }
+.hotspot { cursor: pointer; transition: all 0.3s ease; }
+.hotspot:hover { 
+    filter: brightness(1.3) drop-shadow(0 0 15px #FFFB03); 
+    transform: scale(1.03); transform-origin: center; 
+}
+.robot-info-panel { 
+    flex: 1; min-width: 300px; max-width: 450px;
+    background: rgba(20, 20, 20, 0.85); border: 2px solid #2C9999; 
+    border-radius: 12px; padding: 30px; color: #fff; 
+    box-shadow: 0 0 20px rgba(0,0,0,0.5); height: 280px; 
+    display: flex; flex-direction: column; justify-content: center; 
+}
+
+/* --- [신규] 2. 작아진 Spotlight & 전광판 뉴스 --- */
+.compact-bottom-row { 
+    display: flex; justify-content: flex-start; margin-bottom: 20px; 
+}
+.compact-spotlight { width: 350px; margin-bottom: 0 !important; }
+
+
+/* --- [수정] 본문 집중을 위한 스마트 플로팅 뉴스 티커 --- */
+.news-ticker-floating {
+    position: fixed;
+    bottom: 25px; 
+    left: calc(var(--sidebar-width) + 30px); 
+    right: 30px; 
+    height: 45px;
+    
+
+background: #0a0a0a;
+    
+    /* 2. 본문과 확실히 떨어져 보이게 만드는 진한 그림자 */
+    border: 1px solid rgba(134, 209, 209, 0.5); 
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.9), 0 0 15px rgba(44, 153, 153, 0.15);
+    
+    border-radius: 6px; /* 직각형 모서리 유지 */
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    z-index: 9999; 
+    
+    /* 3. 평소에는 시선이 가지 않게 50% 투명하게 흐려짐 */
+    opacity: 1; 
+    transition: all 0.4s ease; /* 부드러운 전환 효과 */
+}
+
+/* 🎯 마우스를 올렸을 때만 100% 뚜렷하게 빛남 */
+.news-ticker-floating:hover {
+    opacity: 1;
+    border-color: #86D1D1;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.9), 0 0 20px rgba(44, 153, 153, 0.4);
+}
+
+/* LATEST 라벨 영역 (글자 겹침 방지 수정) */
+.news-ticker-label {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    background: #172222; /* 👈 투명도를 없애고 불투명한 다크 청록색으로 변경 */
+    height: 100%;
+    border-right: 1px solid rgba(134, 209, 209, 0.3);
+    z-index: 10;
+    position: relative; /* 👈 뉴스 글자가 무조건 라벨 뒤로 숨도록 층(Layer) 고정 */
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    color: #86D1D1;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) */
+    flex-shrink: 0;       /* 브라우저 창이 좁아져도 라벨 영역이 찌그러지지 않게 방어 */
+}
+
+/* 맥박처럼 뛰는 네온 닷(Dot) 애니메이션 */
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #FFFB03;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 0 0 10px #FFFB03;
+    animation: pulse-neon 1.5s infinite;
+}
+
+@keyframes pulse-neon {
+    0% { box-shadow: 0 0 0 0 rgba(255, 251, 3, 0.7); }
+    70% { box-shadow: 0 0 0 6px rgba(255, 251, 3, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 251, 3, 0); }
+}
+
+/* 뉴스 글자 스타일 변경 */
+.ticker-item {
+    color: #ddd;
+    margin-right: 50px;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+}
+.ticker-item:hover { color: #fff; text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); }
+.ticker-source { color: #86D1D1; font-size: 0.75rem; margin-left: 8px; opacity: 0.8; }
+
+/* 위로가기 버튼이 뉴스랑 겹치지 않게 더 위로 올림 */
+#topBtn { bottom: 90px !important; }
+
+/* 모바일 반응형 (화면이 좁아지면 캡슐이 꽉 차게) */
+@media (max-width: 1024px) {
+    .news-ticker-floating {
+        left: 15px;
+        right: 15px;
+        bottom: 20px;
+    }
+}
     </style>
 </head>
 <body>
@@ -1195,19 +1317,20 @@ body {
         <div class="lang-wrapper" style="position: relative;">
             <button class="lang-btn" onclick="toggleLanguageMenu()" title="Select Language" style="background: transparent; border: 2px solid #2C9999; color: #2C9999; padding: 5px 12px; border-radius: 20px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
                 <i class="fas fa-globe"></i>
-                <span class="lang-current">EN</span>
+                <span class="lang-current notranslate">EN</span>
             </button>
             <div id="lang-dropdown" class="lang-dropdown">
                 <a href="#" onclick="changeLanguage('en'); return false;"><span class="fi fi-us"></span> English</a>
-                <a href="#" onclick="changeLanguage('ko'); return false;"><span class="fi fi-kr"></span> Korean</a>
+<a href="#" onclick="changeLanguage('zh-CN'); return false;"><span class="fi fi-cn"></span> Chinese</a>                
+<a href="#" onclick="changeLanguage('ko'); return false;"><span class="fi fi-kr"></span> Korean</a>
                 <a href="#" onclick="changeLanguage('ja'); return false;"><span class="fi fi-jp"></span> Japanese</a>
-                <a href="#" onclick="changeLanguage('zh-CN'); return false;"><span class="fi fi-cn"></span> Chinese</a>
+                
                 <a href="#" onclick="changeLanguage('es'); return false;"><span class="fi fi-es"></span> Spanish</a>
                 <a href="#" onclick="changeLanguage('fr'); return false;"><span class="fi fi-fr"></span> French</a>
                 <a href="#" onclick="changeLanguage('de'); return false;"><span class="fi fi-de"></span> German</a>
-                <a href="#" onclick="changeLanguage('ru'); return false;"><span class="fi fi-ru"></span> Russian</a>
                 <a href="#" onclick="changeLanguage('pt'); return false;"><span class="fi fi-pt"></span> Portuguese</a>
                 <a href="#" onclick="changeLanguage('it'); return false;"><span class="fi fi-it"></span> Italian</a>
+                <a href="#" onclick="changeLanguage('ru'); return false;"><span class="fi fi-ru"></span> Russian</a>
             </div>
         </div>
 
@@ -1286,103 +1409,39 @@ body {
     </div>
 </div>
 
-<div class="category-group">
-    <div class="group-title" style="font-size: 1rem; margin-bottom: 5px; padding-bottom: 3px; display: flex; justify-content: space-between; align-items: center;">
-        <span><i class="fas fa-book" style="color: #FFFB03;"></i> Word of the Day</span>
-        <i id="refresh-btn" class="fas fa-sync-alt" onclick="refreshWord()" 
-           style="cursor: pointer; color: #86D1D1; font-size: 0.9rem; transition: transform 0.5s ease;" 
-           title="Next Word"></i>
-    </div>
+<div class="category-group" style="padding: 0; border: none; background: transparent;">
+    <div class="spotlight-card" style="width: 100%; padding: 15px; border-radius: 10px; display: block !important;">
+        <div style="color: #86D1D1; font-weight: 700; font-size: 0.9rem; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;">
+    <i class="fas fa-star" style="color: #FFFB03;"></i> Players in Robotics
     
-    <div id="term-box" style="padding: 8px 5px; transition: opacity 0.3s ease;">
-        <strong id="term-title" style="color: #86D1D1; font-size: 0.95rem; display:block; margin-bottom:5px; font-family: 'Chakra Petch', sans-serif;">
-            Loading...
-        </strong>
-        <p id="term-desc" style="color: #bbb; font-size: 0.85rem; line-height: 1.4; margin: 0; font-family: 'Roboto', sans-serif;">
-            Click the icon to learn a new term!
-        </p>
-    </div>
-
-    <script>
-        // 1. 50개 용어 데이터뱅크
-        const robotTerms = [
-            { t: "Actuator", d: "A component responsible for moving or controlling a mechanism. The 'muscle' of the robot." },
-            { t: "End Effector", d: "The device at the end of a robotic arm, designed to interact with the environment (e.g., gripper, welder)." },
-            { t: "Degrees of Freedom (DoF)", d: "The number of independent movements a robot can make. A human arm has 7 DoF." },
-            { t: "Torque", d: "A measure of the force that can cause an object to rotate. High torque means strong lifting power." },
-            { t: "Joint", d: "The connection point between two links that allows motion (e.g., Revolute, Prismatic)." },
-            { t: "Link", d: "The rigid physical part of a robot arm structure, connected by joints." },
-            { t: "Kinematics", d: "The branch of mechanics that describes the motion of points and bodies without considering mass or forces." },
-            { t: "Inverse Kinematics", d: "Calculating the joint angles needed to place the robot's hand at a specific point in space." },
-            { t: "Payload", d: "The maximum weight a robot can carry and manipulate safely." },
-            { t: "Chassis", d: "The internal frame that supports the body and parts of a mobile robot." },
-            { t: "Omni-wheel", d: "A wheel with small rollers that allows a robot to move in any direction without turning." },
-            { t: "Singularity", d: "A position where a robot arm loses a degree of freedom and cannot move properly. Ideally avoided!" },
-            { t: "Microcontroller (MCU)", d: "A small computer on a single chip. It acts as the 'reflex brain' of a robot (e.g., Arduino)." },
-            { t: "Sensor", d: "A device that detects changes in the environment and sends the information to the robot's brain." },
-            { t: "LiDAR", d: "Light Detection and Ranging. Uses lasers to create a precise 3D map of the surroundings." },
-            { t: "IMU", d: "Inertial Measurement Unit. Measures velocity and orientation using accelerometers and gyroscopes." },
-            { t: "Encoder", d: "A sensor attached to a motor that tells the robot exactly how much the wheel has turned." },
-            { t: "PWM", d: "Pulse Width Modulation. A technique to control the speed of motors or brightness of LEDs by turning power on/off fast." },
-            { t: "Servo Motor", d: "A motor that can rotate to a precise angle. Essential for robot arms and legs." },
-            { t: "DC Motor", d: "A simple electric motor that rotates continuously. Used for wheels and fans." },
-            { t: "Stepper Motor", d: "A motor that moves in discrete steps. Used in 3D printers for high precision." },
-            { t: "H-Bridge", d: "A circuit that allows a motor to spin in both forward and backward directions." },
-            { t: "PCB", d: "Printed Circuit Board. The green board that connects all electronic components together." },
-            { t: "Voltage", d: "The 'pressure' pushing electricity through a wire. Measured in Volts (V)." },
-            { t: "Current", d: "The flow of electricity. Measured in Amps (A)." },
-            { t: "LiPo Battery", d: "Lithium Polymer battery. Lightweight and powerful, commonly used in drones and mobile robots." },
-            { t: "Algorithm", d: "A step-by-step set of instructions for a computer to solve a problem." },
-            { t: "Neural Network", d: "An AI system inspired by the human brain, used for recognizing patterns and learning." },
-            { t: "Computer Vision", d: "A field of AI that enables robots to 'see' and understand images from cameras." },
-            { t: "SLAM", d: "Simultaneous Localization and Mapping. How a robot maps a room while figuring out where it is." },
-            { t: "ROS (Robot Operating System)", d: "A set of software libraries and tools that help build robot applications." },
-            { t: "Feedback Loop", d: "A process where the robot checks its actual status against its goal and corrects errors." },
-            { t: "Python", d: "A popular programming language in robotics for AI and high-level control." },
-            { t: "C++", d: "A fast programming language used for real-time control and hardware interaction." },
-            { t: "Debugging", d: "The process of finding and fixing errors (bugs) in software code." },
-            { t: "Latency", d: "The delay between a command being sent and the robot actually reacting." },
-            { t: "Machine Learning", d: "Teaching a computer to learn from data instead of explicitly programming every rule." },
-            { t: "Cobot", d: "Collaborative Robot. Designed to work safely alongside humans without safety cages." },
-            { t: "Haptics", d: "Technology that simulates the sense of touch, allowing operators to 'feel' remote objects." },
-            { t: "Humanoid", d: "A robot with a body shape built to resemble the human body." },
-            { t: "Android", d: "A humanoid robot designed to look and act exactly like a real human." },
-            { t: "Cyborg", d: "A being with both organic and biomechatronic body parts." },
-            { t: "Swarm Robotics", d: "Coordinating large numbers of simple robots to work together like ants or bees." },
-            { t: "Telerobotics", d: "Controlling a robot from a distance, often used in surgery or space exploration." },
-            { t: "Soft Robotics", d: "Robots made from soft, flexible materials to handle delicate objects." },
-            { t: "Uncanny Valley", d: "The creepy feeling humans get when a robot looks almost, but not quite, like a real human." },
-            { t: "Autonomous", d: "The ability of a robot to operate and make decisions without human intervention." },
-            { t: "Exoskeleton", d: "A wearable mobile machine that allows for limb movement with increased strength and endurance." },
-            { t: "Telepresence", d: "Using a robot to be 'present' in another location, seeing and hearing through it." }
-        ];
+    <div style="margin-left: auto; display: flex; align-items: center; gap: 10px;">
         
-        // 2. 단어 새로고침 함수
-        function refreshWord() {
-            // 버튼 회전 애니메이션
-            const btn = document.getElementById('refresh-btn');
-            btn.style.transform = "rotate(180deg)";
-            setTimeout(() => { btn.style.transform = "rotate(0deg)"; }, 500);
-
-            // 텍스트 페이드 아웃 효과
-            const box = document.getElementById('term-box');
-            box.style.opacity = 0;
-
-            setTimeout(() => {
-                // 랜덤 선택 및 내용 교체
-                const randomTerm = robotTerms[Math.floor(Math.random() * robotTerms.length)];
-                document.getElementById('term-title').innerText = randomTerm.t;
-                document.getElementById('term-desc').innerText = randomTerm.d;
-                
-                // 텍스트 페이드 인
-                box.style.opacity = 1;
-            }, 300);
-        }
-
-        // 3. 페이지 로드 시 최초 1회 실행
-        refreshWord();
-    </script>
+        <i class="fas fa-sync-alt" id="spotlight-refresh-icon" onclick="nextSpotlight()" style="color: #FFFB03; cursor: pointer; font-size: 0.9rem;"></i>
+    </div>
 </div>
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <span id="sl-flag-large" class="country-flag" style="font-size: 1.8rem; line-height: 1;"></span>
+            <h2 id="sl-name" style="color: #fff; font-weight: 900; font-size: 1.1rem; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">LOADING...</h2>
+        </div>
+        
+        <div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px; margin-bottom: 12px;">
+  <div style="font-size: 1rem; color: #ccc; display: flex; justify-content: flex-start; align-items: center; gap: 8px;">
+    <span style="color: #86D1D1; font-weight: bold;">Field:</span>
+    <span id="sl-category" style="color: #fff; font-weight: 500;">-</span>
+</div>
+           
+        </div>
+        
+<div style="display: flex; flex-direction: column; width: 100%;">
+            <a href="#" id="sl-link" target="_blank" class="visit-btn" style="padding: 5px 0; font-size: 0.95rem; width: 100%; justify-content: center; border-radius: 6px;">Visit</a>
+            
+            <a href="players_in_robotics.html" class="sub-find-btn">
+                Find 300+ More
+            </a>
+        </div>
+    </div>
+</div>
+    
 
         <div class="sidebar-contact-text-wrapper">
     <p style="font-size: 0.8rem; color: #FFFB03; font-weight: 600; margin-bottom: 2px;">
@@ -1400,125 +1459,131 @@ body {
     </aside>
 
     <main id="main-scroll-area">
-<section id="intro" style="padding: 20px 50px; gap: 10px;"> <div class="spotlight-wrapper" style="margin-bottom: 80px;"> <div class="spotlight-card">
-            <div class="sl-main-info">
-                <div class="sl-text-content">
-                  <div class="spotlight-header-row" style="width: 100%;">
-                        <i class="fas fa-star fa-spin"></i>
-                        <span>Who's playing in Robotics</span>
-                        
-                        <i class="fas fa-sync-alt" id="spotlight-refresh-icon" onclick="nextSpotlight()" 
-                           style="margin-left: 10px ; margin-right: 15px; color: #FFFB03; cursor: pointer; transition: transform 0.4s ease; padding: 5px;" 
-                           title="Next Company"></i>
-                    </div>
+<style>
+/* 신규 메인화면 디자인 요소 */
+.interactive-playground { display: flex; gap: 30px; align-items: center; justify-content: center; margin-bottom: 40px; flex-wrap: wrap; }
+.robot-svg-container { flex: 1; min-width: 300px; max-width: 450px; position: relative; }
+.robot-svg { width: 100%; height: auto; filter: drop-shadow(0 0 15px rgba(44,153,153,0.2)); }
+.hotspot { cursor: pointer; transition: all 0.3s ease; }
+.hotspot:hover { filter: brightness(1.3) drop-shadow(0 0 15px #FFFB03); transform: scale(1.03); transform-origin: center; }
+.robot-info-panel { flex: 1; min-width: 300px; max-width: 450px; background: rgba(20, 20, 20, 0.85); border: 2px solid #2C9999; border-radius: 12px; padding: 30px; color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.5); height: 280px; display: flex; flex-direction: column; justify-content: center; transition: opacity 0.3s ease; }
+.news-ticker-wrapper { width: 100%; background: #111; border-top: 2px solid #2C9999; border-bottom: 2px solid #2C9999; display: flex; align-items: center; height: 50px; overflow: hidden; margin-bottom: 50px; position: relative; }
+.news-ticker-track-h { display: flex; white-space: nowrap; animation: tickerScroll 30s linear infinite; padding-left: 20px; align-items: center; }
+.news-ticker-track-h:hover { animation-play-state: paused; }
+.ticker-item { color: #fff; margin-right: 50px; font-family: 'Roboto', sans-serif; text-decoration: none; font-size: 0.95rem; display: inline-flex; align-items: center; }
+.ticker-item:hover { color: #FFFB03; }
+@keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+/* --- [신규] 사이드바 서브 버튼 (Find 300+) --- */
+.sub-find-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 4px 0; /* Visit보다 더 얇게 */
+    margin-top: 5px; /* Visit 버튼과의 간격 */
+    background: transparent; /* 튀지 않게 투명 배경 */
+    border: 1px solid rgba(134, 209, 209, 0.3); /* 은은한 청록색 테두리 */
+    color: #86D1D1; /* 차분한 텍스트 색상 */
+    font-size: 0.8rem; /* Visit보다 작은 글씨 */
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
 
-                    <div class="company-identity-row">
-                        <span id="sl-flag-large" class="country-flag"></span>
-                        <h2 class="spotlight-company-name" id="sl-name">LOADING...</h2>
-                    </div>
+/* 마우스 올렸을 때 살짝 밝아지는 효과 */
+.sub-find-btn:hover {
+    background: rgba(44, 153, 153, 0.1);
+    border-color: #86D1D1;
+    color: #fff;
+}
+</style>
 
-                    <div class="spec-grid">
-                        <div class="spec-item">
-                            <span class="spec-label">MODEL</span>
-                            <span class="spec-value" id="sl-model">-</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-label">CATEGORY</span>
-                            <span class="spec-value" id="sl-category">-</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="sl-action-section" style="display: flex; flex-direction: column; gap: 10px; min-width: 150px;">
-    
-    <a href="#" id="sl-link" target="_blank" class="visit-btn" style="justify-content: center; width: 100%; text-align: center;">
-        Visit <i class="fas fa-arrow-right"></i>
-    </a>
-
- <a href="players_in_robotics.html" class="find-btn">
-    and find 300+ List
-</a>
-
-</div>
+<section id="intro" style="padding: 20px 25px !important;">
+    <div class="interactive-playground">
+        <div class="robot-svg-container">
+            <svg class="robot-svg" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+                <g class="hotspot" onclick="showRobotInfo('head')">
+                    <rect x="150" y="50" width="100" height="80" rx="15" fill="#252525" stroke="#86D1D1" stroke-width="4"/>
+                    <circle cx="200" cy="90" r="20" fill="#111" stroke="#FFFB03" stroke-width="3"/>
+                    <circle cx="200" cy="90" r="8" fill="#FFFB03"/>
+                </g>
+                <g class="hotspot" onclick="showRobotInfo('arm')">
+                    <path d="M120 180 L50 250 L50 320" fill="none" stroke="#86D1D1" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="50" cy="250" r="12" fill="#FFFB03"/>
+                    <path d="M30 320 h40 v30 h-40 z" fill="#252525" stroke="#FFFB03" stroke-width="3"/>
+                    <path d="M280 180 L350 250 L350 320" fill="none" stroke="#86D1D1" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="350" cy="250" r="12" fill="#FFFB03"/>
+                    <path d="M330 320 h40 v30 h-40 z" fill="#252525" stroke="#FFFB03" stroke-width="3"/>
+                </g>
+                <g class="hotspot" onclick="showRobotInfo('body')">
+                    <rect x="120" y="150" width="160" height="180" rx="20" fill="#252525" stroke="#86D1D1" stroke-width="4"/>
+                    <path d="M150 200 h100 v80 h-100 z" fill="#111" stroke="#2C9999" stroke-width="2"/>
+                    <circle cx="200" cy="240" r="15" fill="#FFFB03">
+                        <animate attributeName="r" values="12;16;12" dur="2s" repeatCount="indefinite" />
+                    </circle>
+                </g>
+                <g class="hotspot" onclick="showRobotInfo('base')">
+                    <rect x="100" y="350" width="200" height="50" rx="25" fill="#252525" stroke="#86D1D1" stroke-width="4"/>
+                    <circle cx="140" cy="400" r="30" fill="#111" stroke="#FFFB03" stroke-width="5"/>
+                    <circle cx="260" cy="400" r="30" fill="#111" stroke="#FFFB03" stroke-width="5"/>
+                </g>
+            </svg>
         </div>
-   
-<div class="side-card news-card">
-            <div class="side-header" style="display:flex; justify-content:space-between; align-items:center;">
-                <span><i class="fas fa-bullhorn" style="color: #FFFB03;"></i> ROBOTICS NEWS</span>
-            </div>
-            
-            <div id="news-window" style="overflow: hidden; height: 100%; position: relative;">
-                <div id="robot-news-track" class="news-track">
-                    <p style="color: #666; text-align: center; padding-top: 20px;">Loading global feeds...</p>
-                </div>
-            </div>
+        <div class="robot-info-panel" id="robot-info-panel">
+            <h2 style="color: #FFFB03; margin-bottom: 15px; font-family: 'Chakra Petch', sans-serif;">
+                <i class="fas fa-hand-pointer"></i> Click the Robot!
+            </h2>
+            <p style="font-size: 1.05rem; color: #ccc; line-height: 1.6; font-family: 'Roboto', sans-serif;">
+                Welcome to the world of robotics.<br><br>
+                Click on the <strong>Head, Body, Arms, or Wheels</strong> of the robot on the left to discover how the different parts work together!
+            </p>
         </div>
-    </div> 
-<div class="content-header" style="border-bottom: 2px solid #FFFB03 !important; 
-padding-bottom: 0px; margin-bottom: -15px; margin-top: 60px;">
-    <h1 id="main-hero-title">
-        Robotics 101
-    </h1>
-</div>
+    </div>
 
-    <div style="margin-bottom: 20px; padding: 0 5px;">
+
+  
+
+    <div class="content-header" style="border-bottom: 2px solid #FFFB03 !important; padding-bottom: 0px; margin-bottom: -15px;">
+        <h1 id="main-hero-title">Robotics 101</h1>
+    </div>
+
+    <div style="margin-bottom: 20px; padding: 0 5px; margin-top: 35px;">
         <h2 style="color: #fff; font-size: 1.5rem; margin-bottom: 15px; font-weight: 700;">It's More Than Parts</h2>
         <p style="color: #ccc; font-size: 1.1rem; line-height: 1.5; font-family: 'Roboto', sans-serif; margin: 0;">
-Robotics is built from mechanics, electronics, and code, but mastering it isn’t about collecting parts—it’s about learning these foundations in the right order.
-
-<div class="reading-text">
-<h4>1. How to Self-Study Robotics in the Right Order</h4>Many people fail at learning robotics not because robotics is too difficult, but because they start in the wrong place. Robotics is a combination of multiple disciplines, and learning them in the wrong order creates confusion and frustration. A practical and sustainable learning path is mechanics first, then electronics, followed by programming, control, and finally AI.
-Mechanics comes first because robots exist in the physical world. You do not need advanced mechanical design or CAD skills at the beginning. What matters is understanding joints, links, degrees of freedom, torque, and how motion is physically generated. Without this foundation, software concepts feel abstract and disconnected.
-Electronics comes next. At this stage, you only need practical knowledge: how sensors connect to microcontrollers, how motors are driven, and how power is supplied safely. Robotics electronics is not about designing PCBs early on, but about understanding how signals flow between components.
-Programming should follow once you can visualize hardware behavior. Learning Python or C++ becomes much easier when you can see code directly affect movement. This is the point where robotics becomes rewarding, because software finally interacts with reality.
-Control theory and AI come later. Control teaches robots how to move accurately and stably. AI adds perception and decision-making. Starting with AI too early is a common mistake that leads to shallow understanding and eventual burnout.
-The key to self-studying robotics is not speed, but order. Build intuition first, intelligence later.
-</div>
-
-<div class="reading-text">
-<h4>2. Python vs C++ for Robotics Beginners</h4>
-One of the most common beginner questions in robotics is whether to learn Python or C++. The correct answer is not choosing one over the other, but choosing the right sequence.
-Python is ideal for beginners. Its syntax is simple, and it allows fast experimentation. Python is excellent for testing algorithms, processing sensor data, and building early robotics prototypes. Many robotics beginners gain confidence by seeing immediate results with Python.
-C++, however, dominates performance-critical robotics systems. Real-time control, embedded systems, and ROS-based applications often rely on C++. C++ gives developers control over memory, execution speed, and system behavior, which is essential in production environments.
-Beginners who start with C++ often struggle unnecessarily. The language complexity distracts from understanding robotics concepts. Starting with Python allows learners to focus on logic and system behavior. Transitioning to C++ later feels natural once robotics fundamentals are clear.
-In professional robotics development, both languages coexist. Python is often used for high-level logic and testing, while C++ handles low-level control and performance-critical tasks. Understanding both is a long-term advantage, but Python should come first.
-</div>
-
-<div class="reading-text">
-<h4>3. ROS vs ROS2: What’s the Real Difference?</h4>
-ROS (Robot Operating System) and ROS2 are often discussed as competing platforms, but their difference lies mainly in purpose and design philosophy. ROS was created for research and academic environments, while ROS2 was built with real-world deployment in mind.
-ROS excels in simplicity and learning resources. Its ecosystem is large, and tutorials are abundant. However, it lacks native support for real-time systems, security, and reliable communication across distributed robots.
-ROS2 addresses these limitations. It introduces DDS-based communication, real-time support, improved security, and better multi-robot scalability. These features make ROS2 suitable for industrial and commercial applications.
-The downside is complexity. ROS2 has a steeper learning curve, and its documentation often assumes prior ROS knowledge. Beginners frequently struggle with concepts like QoS and middleware configuration.
-A practical learning approach is to understand ROS concepts first, then apply them in ROS2. ROS teaches structure; ROS2 teaches robustness. Treating them as complementary rather than competing leads to better understanding and fewer frustrations.
-</div>
-
-<div class="reading-text">
-<h4>4. SLAM Explained Simply</h4>>
-SLAM stands for Simultaneous Localization and Mapping. It allows a robot to build a map of an unknown environment while determining its own position within that map. The challenge of SLAM is not complexity, but uncertainty.
-Robots do not know where they are initially. Sensors provide noisy and incomplete information. SLAM algorithms continuously estimate position while updating the map, correcting errors over time.
-Many beginners believe SLAM is purely a math problem. In reality, understanding the concept is more important than understanding the equations. SLAM combines sensor data, motion estimation, and probabilistic reasoning.
-Modern SLAM systems use LiDAR, cameras, IMUs, or combinations of sensors. Sensor fusion improves accuracy but increases complexity. For learning purposes, starting with basic 2D LiDAR SLAM provides the clearest intuition.
-SLAM is fundamental to autonomous robots because navigation without maps is unreliable. Once the concept is understood, the mathematics becomes meaningful instead of intimidating.
-</div>
-
-<div class="reading-text">
-<h4>5. Camera vs LiDAR vs Radar in Robotics</h4>
-No single sensor is perfect for robotics. Cameras, LiDAR, and radar each solve different problems and introduce different limitations.
-Cameras provide rich visual information. They are inexpensive and useful for object recognition and classification. However, cameras depend heavily on lighting conditions and struggle in darkness or glare.
-LiDAR provides accurate depth measurements and reliable geometry. It works well in low-light environments and is widely used for mapping and navigation. The main disadvantages are cost and mechanical complexity.
-Radar excels in harsh conditions such as rain, fog, and dust. It has long range and strong robustness, but its spatial resolution is low compared to cameras and LiDAR.
-Real robots rarely rely on a single sensor. Sensor fusion combines strengths while compensating for weaknesses. Choosing sensors is not about specifications alone, but about understanding the operating environment and task requirements.
+            Robotics is built from mechanics, electronics, and code, but mastering it isn’t about collecting parts—it’s about learning these foundations in the right order.
         </p>
+
+        <div class="reading-text">
+            <h4>1. How to Self-Study Robotics in the Right Order</h4>
+            Many people fail at learning robotics not because robotics is too difficult, but because they start in the wrong place. Robotics is a combination of multiple disciplines, and learning them in the wrong order creates confusion and frustration. A practical and sustainable learning path is mechanics first, then electronics, followed by programming, control, and finally AI. Mechanics comes first because robots exist in the physical world. You do not need advanced mechanical design or CAD skills at the beginning. What matters is understanding joints, links, degrees of freedom, torque, and how motion is physically generated. Without this foundation, software concepts feel abstract and disconnected. Electronics comes next. At this stage, you only need practical knowledge: how sensors connect to microcontrollers, how motors are driven, and how power is supplied safely. Robotics electronics is not about designing PCBs early on, but about understanding how signals flow between components. Programming should follow once you can visualize hardware behavior. Learning Python or C++ becomes much easier when you can see code directly affect movement. This is the point where robotics becomes rewarding, because software finally interacts with reality. Control theory and AI come later. Control teaches robots how to move accurately and stably. AI adds perception and decision-making. Starting with AI too early is a common mistake that leads to shallow understanding and eventual burnout. The key to self-studying robotics is not speed, but order. Build intuition first, intelligence later.
+        </div>
+
+        <div class="reading-text">
+            <h4>2. Python vs C++ for Robotics Beginners</h4>
+            One of the most common beginner questions in robotics is whether to learn Python or C++. The correct answer is not choosing one over the other, but choosing the right sequence. Python is ideal for beginners. Its syntax is simple, and it allows fast experimentation. Python is excellent for testing algorithms, processing sensor data, and building early robotics prototypes. Many robotics beginners gain confidence by seeing immediate results with Python. C++, however, dominates performance-critical robotics systems. Real-time control, embedded systems, and ROS-based applications often rely on C++. C++ gives developers control over memory, execution speed, and system behavior, which is essential in production environments. Beginners who start with C++ often struggle unnecessarily. The language complexity distracts from understanding robotics concepts. Starting with Python allows learners to focus on logic and system behavior. Transitioning to C++ later feels natural once robotics fundamentals are clear. In professional robotics development, both languages coexist. Python is often used for high-level logic and testing, while C++ handles low-level control and performance-critical tasks. Understanding both is a long-term advantage, but Python should come first.
+        </div>
+
+        <div class="reading-text">
+            <h4>3. ROS vs ROS2: What’s the Real Difference?</h4>
+            ROS (Robot Operating System) and ROS2 are often discussed as competing platforms, but their difference lies mainly in purpose and design philosophy. ROS was created for research and academic environments, while ROS2 was built with real-world deployment in mind. ROS excels in simplicity and learning resources. Its ecosystem is large, and tutorials are abundant. However, it lacks native support for real-time systems, security, and reliable communication across distributed robots. ROS2 addresses these limitations. It introduces DDS-based communication, real-time support, improved security, and better multi-robot scalability. These features make ROS2 suitable for industrial and commercial applications. The downside is complexity. ROS2 has a steeper learning curve, and its documentation often assumes prior ROS knowledge. Beginners frequently struggle with concepts like QoS and middleware configuration. A practical learning approach is to understand ROS concepts first, then apply them in ROS2. ROS teaches structure; ROS2 teaches robustness. Treating them as complementary rather than competing leads to better understanding and fewer frustrations.
+        </div>
+
+        <div class="reading-text">
+            <h4>4. SLAM Explained Simply</h4>
+            SLAM stands for Simultaneous Localization and Mapping. It allows a robot to build a map of an unknown environment while determining its own position within that map. The challenge of SLAM is not complexity, but uncertainty. Robots do not know where they are initially. Sensors provide noisy and incomplete information. SLAM algorithms continuously estimate position while updating the map, correcting errors over time. Many beginners believe SLAM is purely a math problem. In reality, understanding the concept is more important than understanding the equations. SLAM combines sensor data, motion estimation, and probabilistic reasoning. Modern SLAM systems use LiDAR, cameras, IMUs, or combinations of sensors. Sensor fusion improves accuracy but increases complexity. For learning purposes, starting with basic 2D LiDAR SLAM provides the clearest intuition. SLAM is fundamental to autonomous robots because navigation without maps is unreliable. Once the concept is understood, the mathematics becomes meaningful instead of intimidating.
+        </div>
+
+        <div class="reading-text">
+            <h4>5. Camera vs LiDAR vs Radar in Robotics</h4>
+            No single sensor is perfect for robotics. Cameras, LiDAR, and radar each solve different problems and introduce different limitations. Cameras provide rich visual information. They are inexpensive and useful for object recognition and classification. However, cameras depend heavily on lighting conditions and struggle in darkness or glare. LiDAR provides accurate depth measurements and reliable geometry. It works well in low-light environments and is widely used for mapping and navigation. The main disadvantages are cost and mechanical complexity. Radar excels in harsh conditions such as rain, fog, and dust. It has long range and strong robustness, but its spatial resolution is low compared to cameras and LiDAR. Real robots rarely rely on a single sensor. Sensor fusion combines strengths while compensating for weaknesses. Choosing sensors is not about specifications alone, but about understanding the operating environment and task requirements.
+        </div>
     </div>
 
     <div style="width: 100%; border-radius: 15px; overflow: hidden; border: 1px solid rgba(255, 251, 3, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.8); background: #000; margin-bottom: 30px;">
         <img src="4.h_parts.png" alt="Robotics Technical Infographic" style="width: 100%; height: auto; display: block;">
     </div>
-
 </section>
-
         <section id="mechanics">
             <div class="content-header">
     <h1>❶ Robot Mechanics: The Body, Muscles & Secrets</h1>
@@ -2419,22 +2484,43 @@ function initSpotlight() {
 }
 
 // 뉴스 가져오기
+// --- [신규] 로봇 부위 클릭 시 패널 내용 변경 함수 ---
+function showRobotInfo(part) {
+    const panel = document.getElementById('robot-info-panel');
+    let content = "";
+    
+    if (part === 'head') {
+        content = `<h2 style="color: #86D1D1; margin-bottom: 10px;"><i class="fas fa-eye"></i> Sensors & Camera</h2>
+                   <p style="color: #ccc; line-height: 1.6;">The "Eyes" of the robot. It uses LiDAR and Cameras to see the world, measure distances, and recognize objects like a human does.</p>`;
+    } else if (part === 'body') {
+        content = `<h2 style="color: #86D1D1; margin-bottom: 10px;"><i class="fas fa-microchip"></i> Microcontroller</h2>
+                   <p style="color: #ccc; line-height: 1.6;">The "Brain" (like Arduino or Raspberry Pi). It receives data from sensors, processes it with AI, and sends commands to the motors.</p>`;
+    } else if (part === 'arm') {
+        content = `<h2 style="color: #86D1D1; margin-bottom: 10px;"><i class="fas fa-robot"></i> Actuators & Joints</h2>
+                   <p style="color: #ccc; line-height: 1.6;">The "Muscles". Servo motors and gears give the robot the strength and precision to lift, bend, and manipulate objects.</p>`;
+    } else if (part === 'base') {
+        content = `<h2 style="color: #86D1D1; margin-bottom: 10px;"><i class="fas fa-car-side"></i> Chassis & Mobility</h2>
+                   <p style="color: #ccc; line-height: 1.6;">The "Legs". Wheels, tracks, or mechanical legs allow the robot to navigate and move smoothly across different environments.</p>`;
+    }
+
+    
+    // 부드러운 전환 효과
+    panel.style.opacity = 0;
+    setTimeout(() => {
+        panel.innerHTML = content;
+        panel.style.opacity = 1;
+    }, 200);
+}
+
+// --- [수정] 전광판 가로 스크롤을 위한 뉴스 함수 ---
 async function fetchRobotNews() {
     const track = document.getElementById('robot-news-track');
     if (!track) return;
 
     const allRssSources = [
-        { name: "ScienceDaily",    url: "https://www.sciencedaily.com/rss/matter_energy/robotics.xml" },
-        { name: "TechCrunch",      url: "https://techcrunch.com/category/robotics/feed/" },
-        { name: "The Robot Report", url: "https://www.therobotreport.com/feed/" },
-        { name: "IEEE Spectrum",   url: "https://spectrum.ieee.org/feeds/topic/robotics.rss" },
-        { name: "MIT News",        url: "https://news.mit.edu/rss/topic/robotics" }, 
-        { name: "NASA Robotics",   url: "https://www.nasa.gov/rss/dyn/robotics.rss" },
-        { name: "Hackaday",        url: "https://hackaday.com/blog/feed/?tag=robotics" },
-        { name: "NVIDIA Robotics", url: "https://blogs.nvidia.com/blog/category/robotics/feed/" },
-        { name: "Robotics & Auto", url: "https://roboticsandautomationnews.com/feed/" },
-        { name: "Arduino Blog",    url: "https://blog.arduino.cc/feed/" },
-        { name: "RBR",    url: "https://www.roboticsbusinessreview.com/feed/" }
+        { name: "TechCrunch", url: "https://techcrunch.com/category/robotics/feed/" },
+        { name: "ScienceDaily", url: "https://www.sciencedaily.com/rss/matter_energy/robotics.xml" },
+        { name: "MIT News", url: "https://news.mit.edu/rss/topic/robotics" }
     ];
 
     try {
@@ -2456,27 +2542,17 @@ async function fetchRobotNews() {
         if (validNews.length > 0) {
             let newsHTML = "";
             validNews.forEach(news => {
-                newsHTML += `
-                    <div class="news-item">
-                        <a href="${news.item.link}" target="_blank" class="news-title" title="${news.item.title}">
-                            ${news.item.title}
-                        </a>
-                        <span class="news-source" style="color: #FFFB03; opacity: 0.9; font-weight: 600;">
-                            ${news.sourceName}
-                        </span>
-                    </div>
-                `;
+                newsHTML += `<a href="${news.item.link}" target="_blank" class="ticker-item">${news.item.title} <span class="ticker-source">[${news.sourceName}]</span></a>`;
             });
+            // 무한 스크롤을 위해 똑같은 내용을 두 번 이어붙임
             track.innerHTML = newsHTML + newsHTML; 
         } else {
-            track.innerHTML = '<p style="padding:20px; text-align:center; color:#888;">No news available.</p>';
+            track.innerHTML = '<span class="ticker-item">No news available today.</span>';
         }
     } catch (error) {
-        console.error(error);
-        track.innerHTML = '<p style="padding:20px; text-align:center; color:#ff5555;">Failed to load.</p>';
+        track.innerHTML = '<span class="ticker-item">Failed to load news feeds.</span>';
     }
 }
-
 // 광고 로테이션
 function startAdRotation() {
     const showNextAd = () => {
@@ -2644,6 +2720,15 @@ setInterval(() => {
 </button>
 <div id="google_translate_element" style="position: absolute; bottom: 0; left: 0; width: 1px !important; height: 1px !important; overflow: hidden !important; opacity: 0 !important; pointer-events: none !important;"></div>
 
+<div class="news-ticker-floating">
+    <div class="news-ticker-label">
+        <span class="pulse-dot"></span>
+        <span>ROBOTICS NEWS</span>
+    </div>
+    <div class="news-ticker-track-h" id="robot-news-track">
+        <span class="ticker-item">Loading global robotics news...</span>
+    </div>
+</div>
 
 </body>
 </html>
