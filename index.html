@@ -1200,26 +1200,28 @@ body {
 }
 
 /* 좌/우 정보 패널 공통 스타일 */
+/* 좌/우 정보 패널 공통 스타일 */
 .robot-info-panel { 
     flex: 1; 
     min-width: 280px; 
-    max-width: 350px;
+    max-width: 350px; /* (참고: 오른쪽 메인 패널은 HTML에서 넓게 덮어쓰고 있어서 상관없습니다) */
     background: rgba(10, 15, 20, 0.85); 
     border-radius: 12px; 
     padding: 25px; 
     color: #fff; 
     box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
     
-    /* [핵심 수정] 텍스트가 많아도 제목이 밖으로 튕겨 나가지 않게 하는 마법 */
-    min-height: 450px; /* 고정 높이 350px을 지우고 최소 높이를 넉넉하게 줌 */
-    height: auto;      /* 내용이 길어지면 박스가 밑으로 자연스럽게 늘어남 */
+    align-self: center;  
+    
+    /* 🚨 [핵심 수정] 글자량에 따라 변하는 fit-content를 지우고, 아예 높이를 고정해 버립니다! */
+    height: 540px; 
+    overflow-y: auto; /* 만약 화면이 작아져서 글자가 넘치면 예쁘게 스크롤이 생김 */
+    
     display: flex; 
     flex-direction: column; 
-    justify-content: flex-start; /* 중앙 정렬을 해제하여 제목을 맨 위에 완벽히 고정! */
-    
+    justify-content: flex-start; 
     transition: all 0.4s ease; 
 }
-/* ▲▲▲ 여기까지 교체 완료 ▲▲▲ */
 
 /* 좌측 패널 (하드웨어 중심) */
 #panel-left { border-left: 4px solid #FFFB03; border-top: 1px solid rgba(255,251,3,0.3); border-bottom: 1px solid rgba(255,251,3,0.3); }
@@ -1240,7 +1242,7 @@ body {
 .robot-svg { 
     width: 100%; 
     height: auto; 
-    max-height: 400px;
+    max-height: 550px;
     filter: drop-shadow(0 0 20px rgba(44,153,153,0.15)); 
 }
 .hotspot { cursor: pointer; transition: all 0.3s ease; transform-origin: center; }
@@ -1263,26 +1265,30 @@ body {
     transform-origin: center; 
 }
 
-/* 1. 마우스 올렸을 때(Hover) - line 태그 추가! */
+/* ▼ 1. 마우스 올렸을 때(Hover) - 살짝 노란색으로 물들기 ▼ */
 .hotspot:hover path, 
 .hotspot:hover circle, 
 .hotspot:hover rect,
 .hotspot:hover line {
-    filter: brightness(1.4) drop-shadow(0 0 15px #39CCCC) !important; 
+    stroke: #FFFB03 !important; /* 테두리를 노란색으로 */
+    fill: rgba(255, 251, 3, 0.15) !important; /* 면을 아주 옅은 노란색으로 채움 */
+    filter: brightness(1.4) drop-shadow(0 0 15px #FFFB03) !important; 
 }
 
-/* 2. 클릭된 상태(Active) - line 태그 추가! */
+/* ▼ 2. 클릭된 상태(Active) - 확실하게 노란색 부위로 변신 ▼ */
 .hotspot.active path, 
 .hotspot.active circle, 
 .hotspot.active rect,
 .hotspot.active line {
+    stroke: #FFFB03 !important; /* 테두리를 완벽한 노란색으로 */
+    fill: rgba(255, 251, 3, 0.4) !important; /* 면을 진한 반투명 노란색으로 채워서 색상을 완전히 바꿈 */
     animation: neon-pulse 1.5s ease-in-out infinite alternate !important; 
-}
+} 
 
-/* 네온 불빛 깜빡임 키프레임 */
+/* 네온 불빛 깜빡임 키프레임 (노란색 맥박 효과로 변경) */
 @keyframes neon-pulse {
-    0% { filter: brightness(1.2) drop-shadow(0 0 10px #2C9999); }
-    100% { filter: brightness(1.8) drop-shadow(0 0 35px #86D1D1); }
+    0% { filter: brightness(1.2) drop-shadow(0 0 10px rgba(255, 251, 3, 0.4)); }
+    100% { filter: brightness(1.8) drop-shadow(0 0 35px rgba(255, 251, 3, 1)); }
 }
 
 /* 3. 호버하거나 클릭 시 약간 튀어나오는 효과 */
@@ -1713,7 +1719,7 @@ white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) *
 <section id="intro" style="padding: 20px 25px !important;">
 <div class="interactive-playground" style="position: relative; overflow: hidden; border-radius: 20px; display: flex; flex-wrap: wrap; gap: 40px; justify-content: flex-start; align-items: stretch;">
     
-    <div class="robot-svg-container" style="flex: 1; min-width: 300px; max-width: 400px; display: flex; justify-content: center; align-items: flex-start; margin-top: 20px;">
+    <div class="robot-svg-container" style="flex: 1; min-width: 300px; max-width: 500px; display: flex; justify-content: center; align-items: flex-start; margin-top: 20px;">
         <button id="reset-robot-btn" onclick="resetRobotInfo()" style="display: none;">
             <i class="fas fa-undo"></i> Reset
         </button>
@@ -1778,17 +1784,32 @@ white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) *
     </div>
 
     <div class="robot-info-panel" id="main-info-panel" style="flex: 2; min-width: 320px; max-width: none; border-top: 2px solid #2C9999;">
-        <div id="content-main">
-            <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-size: 1.8rem; margin-bottom: 20px;">
+     <div id="content-main">
+            <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-weight: 700;font-size: 2.2rem; margin-bottom: 15px;">
                 Meet the Robot
             </h2>
-            <p class="panel-desc" style="font-size: 1.1rem; line-height: 1.7;">
+            
+            <p class="panel-desc" style="font-size: 1.15rem; line-height: 1.7; color: #ddd; margin-bottom: 30px;">
                 Click on any glowing part of the robot to discover how it works! <br><br>
                 Robots might look complicated with all their wires and metal, but they are actually designed just like us. They have a body, senses, muscles, and a brain. Let's explore them one by one.
             </p>
-            <div style="text-align: left; margin-top: 30px;">
-                <i class="fas fa-hand-point-left fa-2x fa-fade" style="color: #2C9999;"></i>
-                <span style="color: #86D1D1; margin-left: 10px; font-weight: bold; font-size: 1.1rem;">Click a part to start!</span>
+
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 150px; text-align: center; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; border: 1px solid rgba(134, 209, 209, 0.2);">
+                    <i class="fas fa-microchip" style="font-size: 2.5rem; color: #86D1D1; margin-bottom: 15px;"></i>
+                    <h4 style="color: #fff; margin: 0 0 5px 0;">Hardware</h4>
+                    <p style="font-size: 0.85rem; color: #aaa; margin: 0;">The physical body</p>
+                </div>
+                <div style="flex: 1; min-width: 150px; text-align: center; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; border: 1px solid rgba(134, 209, 209, 0.2);">
+                    <i class="fas fa-brain" style="font-size: 2.5rem; color: #FFFB03; margin-bottom: 15px;"></i>
+                    <h4 style="color: #fff; margin: 0 0 5px 0;">Software & AI</h4>
+                    <p style="font-size: 0.85rem; color: #aaa; margin: 0;">The intelligence</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; background: rgba(44, 153, 153, 0.1); padding: 15px; border-radius: 30px; border: 1px solid rgba(44, 153, 153, 0.4);">
+                <i class="fas fa-hand-point-left fa-2x fa-fade" style="color: #2C9999; vertical-align: middle;"></i>
+                <span style="color: #86D1D1; margin-left: 15px; font-weight: bold; font-size: 1.2rem; letter-spacing: 1px; vertical-align: middle;">Select a glowing part to start!</span>
             </div>
         </div>
     </div>
@@ -2940,7 +2961,7 @@ function resetRobotInfo() {
     if (!mainContent) return;
     
     const initHTML = `
-        <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-size: 2.2rem; margin-bottom: 15px;">
+        <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-weight:700; font-size: 2.2rem; margin-bottom: 15px;">
             Meet the Robot
         </h2>
         
