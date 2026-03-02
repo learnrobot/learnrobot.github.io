@@ -195,6 +195,7 @@
         .sub-find-btn { display: flex; justify-content: center; align-items: center; width: 100%; padding: 6px 0; margin-top: 5px; background: #111; border: 1px solid rgba(134, 209, 209, 0.3); color: #86D1D1; font-size: 0.85rem; font-weight: 600; border-radius: 6px; text-decoration: none; transition: all 0.3s ease; }
         .sub-find-btn:hover { background: #1E3A3A; border-color: #86D1D1; color: #fff; }    
     </style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -720,6 +721,8 @@
         initSpotlight();
         setInterval(initSpotlight, 10000); 
         renderQuiz();
+if (typeof startAdRotation === 'function') {
+            startAdRotation();
     });
 
     window.addEventListener('click', function(e) {
