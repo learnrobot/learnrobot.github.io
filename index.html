@@ -416,7 +416,10 @@
             <h1 class="section-title" style="text-align: center;">My Job & Robot Synergy</h1>
             <p class="section-subtitle" style="text-align: center;">Will AI take your job, or promote you? Type your job to find out.</p>
 
-            <div class="calc-result" id="calcResult">
+            <div class="job-calc-box">
+                <input type="text" id="jobInput" class="search-input-lg"  onkeypress="handleJobSearch(event)">
+                
+                <div class="calc-result" id="calcResult">
                     <h2 id="res-job" style="color: #fff; font-weight: 900; font-size: 2.2rem;">Job Title</h2>
                     
                     <p style="color: #86D1D1; margin: 20px 0 5px 0; font-weight: bold;">🤖 AI & Robot Automation Potential</p>
