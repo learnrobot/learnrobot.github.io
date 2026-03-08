@@ -188,7 +188,15 @@
             60% { transform: translateX(-50%) translateY(-5px); }
         }
         /* --- Interactive Lab Common --- */
-        section { min-height: 80vh; padding: 60px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); display: flex; flex-direction: column; justify-content: center; }
+        /* --- Interactive Lab Common --- */
+        section { 
+            min-height: 80vh; 
+            padding: 10px 0 60px 0; /* 위쪽 여백을 60px에서 10px로 대폭 축소 */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-start; /* 중앙 정렬을 해제하여 큰 패널의 아래쪽이 잘리는 현상 원천 차단 */
+        }
         .section-title { font-size: 2.8rem; font-weight: 900; color: var(--primary-color); margin-bottom: 10px; text-transform: uppercase; text-align: center; }
         .section-subtitle { font-family: 'Roboto', sans-serif; color: #ffffff; font-size: 1.2rem; margin-bottom: 40px; text-align: center; }
         .lab-card { background: rgba(0,0,0,0.4); border: 2px solid var(--primary-color); border-radius: 15px; padding: 40px; text-align: center; max-width: 800px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; width: 100%; }
@@ -209,8 +217,12 @@
         /* 3. Vision Lab */
 /* 3. Vision Lab */
         .vision-box { 
-            width: 100%; height: 350px; border-radius: 12px; position: relative; 
-            border: 3px solid #333; margin-bottom: 20px; overflow: hidden; 
+            width: 100%; 
+            height: 200px; /* 기존 350px에서 200px로 축소 */
+            border-radius: 12px; position: relative; 
+            border: 3px solid #333; 
+            margin-bottom: 10px; /* 여백 축소 */
+            overflow: hidden; 
             background: #000;
         }
         /* 필터가 글자에 안 먹히게 배경 이미지를 별도의 가상 층(::before)으로 분리 */
@@ -307,27 +319,24 @@
             0%   { transform: rotate(0deg); }
             100% { transform: rotate(90deg); } /* 오차 0.1mm 없이 정확히 타겟에 명중 */
         }
-       /* ▼ 기존 10번 패널 CSS 싹 지우고 이걸로 덮어씌우세요 ▼ */
-        /* ▼ 기존 10번 패널 CSS 싹 지우고 이걸로 덮어씌우세요 ▼ */
-       /* ▼ 기존 10번 패널 CSS 싹 지우고 이걸로 덮어씌우세요 ▼ */
-/* ▼ 기존 10번 패널 CSS 싹 지우고 이걸로 덮어씌우세요 ▼ */
-        .cobot-workspace { 
-            height: 180px; position: relative; border: 2px dashed #555; border-radius: 10px; 
-            margin: 20px auto; width: 90%; max-width: 450px; 
+    
+.cobot-workspace { 
+            height: 120px; /* 기존 180px에서 120px로 축소 */
+            position: relative; border: 2px dashed #555; border-radius: 10px; 
+            margin: 10px auto; /* 위아래 여백 축소 */
+            width: 90%; max-width: 450px; 
             display: flex; flex-direction: row; justify-content: flex-start; align-items: center; 
             padding-left: 50px; background: rgba(0,0,0,0.3); overflow: hidden; 
         }
         
         /* 사람(작업자) 영역: 직관적인 사람 아이콘 적용 */
         .worker-box { display: flex; flex-direction: column; align-items: center; z-index: 2; transition: all 0.3s ease; }
-        .worker-icon { font-size: 4rem; margin-bottom: 10px; transition: all 0.3s; color: #ccc; }
-        .worker-status { font-weight: 900; font-size: 1.1rem; padding: 5px 12px; border-radius: 5px; transition: all 0.3s; color: #ccc; background: rgba(255,255,255,0.1); }
+        .worker-icon { font-size: 3rem; margin-bottom: 5px; transition: all 0.3s; color: #ccc; } /* 기존 4rem -> 3rem 축소 */
+        .worker-status { font-weight: 900; font-size: 1rem; padding: 4px 10px; border-radius: 5px; transition: all 0.3s; color: #ccc; background: rgba(255,255,255,0.1); }
 
         /* 로봇 팔 영역: 진짜 로봇 팔 모양 적용 */
-        .robot-arm-box { position: absolute; right: 40px; font-size: 5rem; z-index: 2; transform-origin: center right; }
+        .robot-arm-box { position: absolute; right: 40px; font-size: 3.5rem; z-index: 2; transform-origin: center right; } /* 기존 5rem -> 3.5rem 축소 */
         
-        /* 1. 산업용 모드: 사람을 향해 멈추지 않고 돌진 (충돌) */
-  /* 1. 산업용 모드: 사람 코앞까지 위협적으로 다가옴 (완전히 겹치지 않게 거리 조절) */
         /* 1. 산업용 모드: 사람 코앞까지 위협적으로 다가옴 (완전히 겹치지 않게 거리 조절) */
         .attack-fast { animation: dashCrash 1s forwards cubic-bezier(0.5, 0, 1, 1); filter: drop-shadow(0 0 10px #FF5555); }
         @keyframes dashCrash {
