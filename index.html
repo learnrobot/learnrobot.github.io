@@ -91,22 +91,22 @@
 
         main {
             flex: 1; overflow-y: auto; scroll-behavior: smooth;
-            background: linear-gradient(rgba(26,26,26,0.9), rgba(26,26,26,0.95)), url('welcome.png') center/cover;
+            background: linear-gradient(rgba(26,26,26,0.9), rgba(26,26,26,0.85)), url('welcome.png') center/cover;
             padding: 40px;
         }
 
-        /* --- Sidebar UI --- */
+ /* --- Sidebar UI --- */
         .category-group {
             border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px;
-            padding: 10px; background: rgba(255, 255, 255, 0.03);
-            transition: border-color 0.3s; margin-bottom: 15px;
+            padding: 8px 10px; background: rgba(255, 255, 255, 0.03); /* 패딩 약간 줄임 */
+            transition: border-color 0.3s; margin-bottom: 10px; /* 아래 마진 줄임 */
         }
         .category-group:hover { border-color: rgba(255, 251, 3, 0.5); }
-        .group-title { color: var(--primary-color); font-weight: 700; border-bottom: 1px solid rgba(44,153,153,0.2); padding-bottom: 8px; margin-bottom: 12px; font-size: 1.1rem; }
+        .group-title { color: var(--primary-color); font-weight: 700; border-bottom: 1px solid rgba(44,153,153,0.2); padding-bottom: 5px; margin-bottom: 8px; font-size: 1.05rem; } /* 타이틀 여백/크기 조절 */
         
         .category-btn {
             width: 100%; text-align: left; background: transparent; border: none; color: #ccc;
-            padding: 8px 10px; font-family: 'Chakra Petch', sans-serif; font-size: 1.05rem;
+            padding: 5px 10px; font-family: 'Chakra Petch', sans-serif; font-size: 0.98rem; /* 위아래 패딩과 글자 크기를 다이어트! */
             cursor: pointer; border-radius: 6px; transition: all 0.2s; display: flex; align-items: center; gap: 10px;
         }
         .category-btn:hover { background: rgba(44, 153, 153, 0.1); color: #fff; }
@@ -154,7 +154,7 @@
         /* --- Interactive Lab Common --- */
         section { min-height: 80vh; padding: 60px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); display: flex; flex-direction: column; justify-content: center; }
         .section-title { font-size: 2.8rem; font-weight: 900; color: var(--primary-color); margin-bottom: 10px; text-transform: uppercase; text-align: center; }
-        .section-subtitle { font-family: 'Roboto', sans-serif; color: #aaa; font-size: 1.2rem; margin-bottom: 40px; text-align: center; }
+        .section-subtitle { font-family: 'Roboto', sans-serif; color: #ffffff; font-size: 1.2rem; margin-bottom: 40px; text-align: center; }
         .lab-card { background: rgba(0,0,0,0.4); border: 2px solid var(--primary-color); border-radius: 15px; padding: 40px; text-align: center; max-width: 800px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; width: 100%; }
         .lab-btn { background: transparent; border: 2px solid #555; color: #ddd; padding: 12px 20px; border-radius: 8px; margin: 10px; cursor: pointer; transition: all 0.3s; font-size: 1.1rem; font-weight: bold; font-family: 'Chakra Petch', sans-serif; }
         .lab-btn:hover { border-color: var(--accent-color); color: var(--accent-color); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255,251,3,0.2); }
@@ -202,17 +202,137 @@
         .vision-box.vision-robot-mode .bounding-box { display: block; animation: blinkBox 1s infinite alternate; }
         @keyframes blinkBox { from { border-color: rgba(255,251,3,0.3); } to { border-color: rgba(255,251,3,1); } }
 
-        /* 4. Etiquette Lab */
-        .etiquette-scene { font-size: 5rem; margin: 20px 0; transition: all 0.3s; display: flex; justify-content: center; gap: 20px; align-items: center; }
+ /* 4. Etiquette Lab */
+        .etiquette-scene { font-size: 5rem; margin: 20px 0; display: flex; justify-content: center; gap: 40px; align-items: center; position: relative; height: 120px; }
+        .etiq-actor { transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); z-index: 2; }
+        
+        /* 발로 찼을 때: 빨갛게 변하며 뒤로 넘어짐 */
+        .robot-knocked { transform: rotate(90deg) translateX(20px) translateY(20px); color: #FF5555 !important; }
+        
+        /* 기다렸을 때: 초록색으로 변하며 부드럽게 사람을 피해 지나감 */
+        /* 4. Etiquette Lab 개선 */
+.robot-pass { 
+    /* 3.5초 정도로 느리게 설정하여 '신중하게 돌아가는' 느낌을 강조합니다. */
+    animation: arc-move 3.5s ease-in-out forwards !important; 
+    opacity: 1; 
+    color: #2ecc71 !important; 
+}
+.etiq-wrong-x {
+    position: absolute; color: #FF5555; font-size: 4rem; font-weight: 900;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    animation: pulseX 0.5s infinite alternate; z-index: 10; display: none;
+}
+@keyframes pulseX { from { opacity: 0.5; transform: translate(-50%, -50%) scale(0.8); } to { opacity: 1; transform: translate(-50%, -50%) scale(1.2); } }
+        
+        /* 로딩(계산 중) 애니메이션 */
+        .spin-loading { animation: spinSync 1.5s linear infinite; }
+        @keyframes spinSync { 100% { transform: translateX(-50%) rotate(360deg); } }
+        
+/* --- 5~10번 패널 전용 애니메이션 --- */
+        .egg-icon { 
+    font-size: 6rem !important; /* !important를 추가하여 크기를 강제합니다 */
+    transition: all 0.3s; 
+    margin: 20px 0; 
+    display: inline-block; 
+    color: #fff; 
+}
+        .egg-crushed { color: #FF5555; transform: scale(1.2) scaleY(0.5); }
+        .egg-safe { color: #f1c40f; filter: drop-shadow(0 0 15px rgba(241, 196, 15, 0.5)); transform: scale(1.1); }
+        
+        .gym-bot { font-size: 6rem; transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); display: inline-block; color: #fff; margin: 20px 0; }
+        .gym-fail1 { transform: rotate(-90deg); color: #FF5555; }
+        .gym-fail2 { transform: rotate(180deg) translateY(20px); color: #e67e22; }
+        .gym-success { transform: rotate(360deg) translateY(-30px); color: #2ecc71; }
 
-        /* --- 5. Hero Section Animations (위치 정상화) --- */
-        .hero-btn { background: transparent; border: 2px solid var(--primary-color); color: var(--primary-color); padding: 15px 30px; font-size: 1.2rem; font-weight: bold; border-radius: 30px; font-family: 'Chakra Petch', sans-serif; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(44,153,153,0.2); }
-        .hero-btn:hover { background: var(--primary-color); color: #000; box-shadow: 0 0 25px rgba(44,153,153,0.6); transform: scale(1.05); }
-        @keyframes bounce-down {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-            40% { transform: translateY(-20px) translateX(-50%); }
-            60% { transform: translateY(-10px) translateX(-50%); }
+        .maze-area { position: relative; height: 100px; margin: 30px 0; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+        .maze-path { position: absolute; left: 60px; right: 60px; height: 4px; background: #3498db; top: 50%; transform: translateY(-50%); transition: all 0.4s; z-index: 1; }
+        .maze-obstacle { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: #e74c3c; display: none; z-index: 2; animation: popIn 0.3s ease; }
+        .path-detour { height: 80px; top: 10px; border: 4px solid #2ecc71; border-bottom: none; border-radius: 20px 20px 0 0; background: transparent; }
+        @keyframes popIn { 0% { transform: translate(-50%, -50%) scale(0); } 100% { transform: translate(-50%, -50%) scale(1); } }
+
+        .swarm-box { font-size: 7rem; color: #bdc3c7; transition: transform 0.5s ease; position: relative; z-index: 2; margin: 0 auto; display: inline-block; }
+        .swarm-ants { font-size: 2rem; color: #e67e22; display: flex; justify-content: center; gap: 10px; margin-top: -30px; opacity: 0; transition: opacity 0.3s; z-index: 1; }
+        
+        .muscle-canvas { width: 120px; height: 120px; border: 2px dashed #555; border-radius: 50%; margin: 20px auto; position: relative; display: flex; align-items: center; justify-content: center; }
+        .muscle-arm { font-size: 2.5rem; color: #95a5a6; position: absolute; transform-origin: center 60px; top: 0; }
+/* ▼ 기존 애니메이션 코드 싹 지우고 이걸로 덮어씌우세요 ▼ */
+        /* 1. 장난감 모터: 관성 때문에 타겟(90도)을 휙 지나쳐서 120도쯤에 미끄러져 멈춤 */
+        .spin-toy { animation: spinToy 1.2s ease-out forwards; color: #FF5555; }
+        @keyframes spinToy {
+            0%   { transform: rotate(0deg); }
+            50%  { transform: rotate(140deg); } /* 브레이크가 없어서 타겟을 한참 지나침 */
+            80%  { transform: rotate(110deg); } /* 흔들거림 */
+            100% { transform: rotate(120deg); } /* 엉뚱한 곳에 정지 */
         }
+
+        /* 2. 로봇 서보 모터: 센서가 각도를 읽고 90도 타겟에 자를 댄 듯 정확히 꽂히고 정지 */
+        .spin-servo { animation: spinServo 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; color: #2ecc71; }
+        @keyframes spinServo {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(90deg); } /* 오차 0.1mm 없이 정확히 타겟에 명중 */
+        }
+       /* ▼ 기존 10번 패널 CSS 싹 지우고 이걸로 덮어씌우세요 ▼ */
+        /* ▼ 기존 10번 패널 CSS 싹 지우고 이걸로 덮어씌우세요 ▼ */
+       /* ▼ 기존 10번 패널 CSS 싹 지우고 이걸로 덮어씌우세요 ▼ */
+/* ▼ 기존 10번 패널 CSS 싹 지우고 이걸로 덮어씌우세요 ▼ */
+        .cobot-workspace { 
+            height: 180px; position: relative; border: 2px dashed #555; border-radius: 10px; 
+            margin: 20px auto; width: 90%; max-width: 450px; 
+            display: flex; flex-direction: row; justify-content: flex-start; align-items: center; 
+            padding-left: 50px; background: rgba(0,0,0,0.3); overflow: hidden; 
+        }
+        
+        /* 사람(작업자) 영역: 직관적인 사람 아이콘 적용 */
+        .worker-box { display: flex; flex-direction: column; align-items: center; z-index: 2; transition: all 0.3s ease; }
+        .worker-icon { font-size: 4rem; margin-bottom: 10px; transition: all 0.3s; color: #ccc; }
+        .worker-status { font-weight: 900; font-size: 1.1rem; padding: 5px 12px; border-radius: 5px; transition: all 0.3s; color: #ccc; background: rgba(255,255,255,0.1); }
+
+        /* 로봇 팔 영역: 진짜 로봇 팔 모양 적용 */
+        .robot-arm-box { position: absolute; right: 40px; font-size: 5rem; z-index: 2; transform-origin: center right; }
+        
+        /* 1. 산업용 모드: 사람을 향해 멈추지 않고 돌진 (충돌) */
+  /* 1. 산업용 모드: 사람 코앞까지 위협적으로 다가옴 (완전히 겹치지 않게 거리 조절) */
+        /* 1. 산업용 모드: 사람 코앞까지 위협적으로 다가옴 (완전히 겹치지 않게 거리 조절) */
+        .attack-fast { animation: dashCrash 1s forwards cubic-bezier(0.5, 0, 1, 1); filter: drop-shadow(0 0 10px #FF5555); }
+        @keyframes dashCrash {
+            0%, 20% { transform: translateX(0); }
+            100% { transform: translateX(-160px); } /* 완전히 겹치지 않고 아슬아슬하게 정지 */
+        }
+        
+        /* 2. 협동 로봇 모드: 사람에게 다가가다가 더 멀리서 안전하게 딱 멈춤! */
+        .approach-safe { animation: dashSafe 2.5s infinite alternate ease-in-out; filter: drop-shadow(0 0 10px #2ecc71); }
+        @keyframes dashSafe {
+            0%, 10% { transform: translateX(0); }
+            40%, 100% { transform: translateX(-90px); } /* 충돌 지점보다 훨씬 앞에서 정지 */
+        }
+        /* 기존에 있던 불필요한 .human-shock (떨림 효과) 코드는 완전히 삭제했습니다. */
+/* 로봇이 가까워졌을 때 X 표시 네온 팝업 효과 */
+        .crash-x { display: inline-block; animation: xGlow 1s infinite alternate cubic-bezier(0.5, 0, 1, 1); }
+        @keyframes xGlow {
+            0%, 75% { filter: drop-shadow(0 0 0px transparent); transform: scale(1); }
+            100% { filter: drop-shadow(0 0 10px #FFFB03) drop-shadow(0 0 20px #FFFB03); transform: scale(1.6); }
+        }
+@keyframes arc-move {
+    0% { 
+        /* 출발 지점 */
+        transform: translateX(0) translateY(0) rotate(0deg); 
+    }
+    30% {
+        /* 사람에게 닿기 전, 미리 대각선 위로 크게 방향을 틈 */
+        transform: translateX(-50px) translateY(-100px) rotate(-35deg);
+    }
+    60% { 
+        /* 사람의 머리 위를 아슬아슬하지 않게 '멀리' 지나가는 정점 지점 */
+        transform: translateX(-150px) translateY(-110px) rotate(-15deg); 
+    } 
+    100% { 
+        /* 사람을 완전히 지나쳐서 왼쪽 먼 곳으로 안전하게 이동 완료 */
+        transform: translateX(-300px) translateY(-20px) rotate(0deg); 
+        opacity: 0.7; /* 지나가서 멀어지는 거리감 표현 */
+    }
+}
+
+
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936" crossorigin="anonymous"></script>
 </head>
@@ -275,20 +395,29 @@
 
 <div class="container-fluid">
     <aside>
-    <div class="category-group">
+
+<div class="category-group">
             <div class="group-title">Robot Secret Lab</div>
-            <button class="category-btn active" onclick="scrollToId('lab-balance', this)"><i class="fas fa-child" style="color:#86D1D1; width: 25px;"></i> 1. Standing Up</button>
-            <button class="category-btn" onclick="scrollToId('lab-battery', this)"><i class="fas fa-battery-quarter" style="color:#FFFB03; width: 25px;"></i> 2. Battery</button>
-            <button class="category-btn" onclick="scrollToId('lab-vision', this)"><i class="fas fa-eye" style="color:#2ecc71; width: 25px;"></i> 3. Vision</button>
-            <button class="category-btn" onclick="scrollToId('lab-etiquette', this)"><i class="fas fa-handshake" style="color:#FF7777; width: 25px;"></i> 4. Say Hello</button>
+            <button class="category-btn active" onclick="scrollToId('lab-balance', this)"><i class="fas fa-child" style="color:#86D1D1; width: 25px;"></i> 1. Robot Balance</button>
+            <button class="category-btn" onclick="scrollToId('lab-battery', this)"><i class="fas fa-battery-quarter" style="color:#FFFB03; width: 25px;"></i> 2. Battery & Power</button>
+            <button class="category-btn" onclick="scrollToId('lab-vision', this)"><i class="fas fa-eye" style="color:#2ecc71; width: 25px;"></i> 3. Robot Vision AI</button>
+            <button class="category-btn" onclick="scrollToId('lab-etiquette', this)"><i class="fas fa-handshake" style="color:#FF7777; width: 25px;"></i> 4. Robot Etiquette</button>
+            <button class="category-btn" onclick="scrollToId('lab-egg', this)"><i class="fas fa-egg" style="color:#f1c40f; width: 25px;"></i> 5. Soft Grippers</button> 
+            <button class="category-btn" onclick="scrollToId('lab-gym', this)"><i class="fas fa-brain" style="color:#9b59b6; width: 25px;"></i> 6. AI Machine Learning</button>
+            <button class="category-btn" onclick="scrollToId('lab-maze', this)"><i class="fas fa-route" style="color:#3498db; width: 25px;"></i> 7. Obstacle Avoidance</button>
+            <button class="category-btn" onclick="scrollToId('lab-swarm', this)"><i class="fas fa-users" style="color:#e67e22; width: 25px;"></i> 8. Swarm Robotics</button>
+            <button class="category-btn" onclick="scrollToId('lab-muscle', this)"><i class="fas fa-cogs" style="color:#95a5a6; width: 25px;"></i> 9. Precision Motors</button>
+            <button class="category-btn" onclick="scrollToId('lab-cobot', this)"><i class="fas fa-shield-alt" style="color:#1abc9c; width: 25px;"></i> 10. Safety Sensors</button>
+     
         </div>
 
-        <div style="margin-bottom: 20px;">
+        <div style="margin-bottom: 8px;">
             <a href="robotics_101.html" class="nav-link-btn">
-                <span>Go to Robotics 101</span>
+                <span>Go to advanced learning</span>
                 <i class="fas fa-arrow-right"></i>
             </a>
         </div>
+
 
         <div class="category-group" style="padding: 0; border: none; background: transparent; margin-top: auto;">
             <div class="spotlight-card" style="width: 100%; display: block !important;">
@@ -329,7 +458,7 @@
                 </h1>
                 
                 <p style="font-family: 'Roboto', sans-serif; color: #ccc; font-size: 1.25rem; line-height: 1.8; margin-bottom: 50px;">
-                    At <strong style="color: #fff;">LearnRobot.com</strong>, we don't read thick textbooks. <br>
+                    You don't need to read thick textbooks. <br>
                     We discover how robots see, think, and move by playing with them. <br>
                     Scroll down to enter the Secret Lab and uncover the truth behind the machines.
                 </p>
@@ -345,7 +474,7 @@
         </section>
 
         <section id="lab-balance">
-            <h1 class="section-title">1. Why Do Robots Fall?</h1>
+            <h1 class="section-title">1. Robot Balance</h1>
             <p class="section-subtitle">Robots easily lose balance. Equip sensors to keep it standing!</p>
             
             <div class="lab-card">
@@ -374,7 +503,7 @@
         </section>
 
         <section id="lab-battery">
-            <h1 class="section-title">2. The Battery Drainer</h1>
+            <h1 class="section-title">2. Battery & Power</h1>
             <p class="section-subtitle">Why do robots run out of power so fast? Try clicking the tasks.</p>
             
             <div class="lab-card">
@@ -401,7 +530,7 @@
         </section>
 
         <section id="lab-vision">
-            <h1 class="section-title">3. Robot Vision X-Ray</h1>
+            <h1 class="section-title">3. Robot Vision AI</h1>
             <p class="section-subtitle">Robots don't see pictures. They see data and math.</p>
             
             <div class="lab-card" style="max-width: 900px;">
@@ -426,13 +555,16 @@
         </section>
 
         <section id="lab-etiquette">
-            <h1 class="section-title">4. Say Hello</h1>
+            <h1 class="section-title">4. Robot Etiquette</h1>
             <p class="section-subtitle">A delivery robot suddenly stops in front of you. What do you do?</p>
             
             <div class="lab-card">
-                <div id="etiq-scene" class="etiquette-scene">
-                    🧑 <span style="font-size: 2rem;">🚶‍♂️</span> 🛑 <i class="fas fa-truck-pickup" style="color: #86D1D1;"></i>
-                </div>
+    <div id="etiq-scene" class="etiquette-scene">
+    <i id="etiq-person" class="fas fa-walking etiq-actor" style="color: #ccc;"></i>
+    <div style="position: relative;">
+        <div id="etiq-x" class="etiq-wrong-x">❌</div> <i id="etiq-robot" class="fas fa-robot etiq-actor" style="color: #86D1D1; transform: scaleX(-1);"></i>
+    </div>
+</div>
                 <div id="etiq-msg" style="height: 30px; margin-bottom: 20px; font-size: 1.2rem;"></div>
                 
                 <div style="margin-bottom: 15px;">
@@ -449,10 +581,168 @@
                     <strong>Robot Etiquette:</strong> Treat working robots just like you would treat a working human. Give them space!
                 </div>
             </div>
-        </section>
-        ```
+       </section>
+<section id="lab-egg">
+            <h1 class="section-title">5. Soft Grippers</h1>
+            <p class="section-subtitle">Robots have strong grips, but can they hold an egg without breaking it?</p>
+            <div class="lab-card">
+               <div style="height: 150px; display: flex; align-items: center; justify-content: center;">
+    <i id="egg-stage" class="fas fa-egg egg-icon"></i>
+</div>
+                <h3 id="egg-msg" style="position: relative; z-index: 10; background: rgba(15, 20, 25, 0.95); padding: 12px 25px; border-radius: 30px; display: inline-block; margin-bottom: 20px; color: #fff; border: 1px solid rgba(255,255,255,0.1);">Waiting for gripper...</h3>
+                
+                <div style="margin-bottom: 15px;">
+                    <button class="lab-btn" onclick="testGrip('steel')"><i class="fas fa-claw-marks"></i> Steel Gripper</button>
+                    <button class="lab-btn" onclick="testGrip('soft')"><i class="fas fa-mitten"></i> Soft Pneumatic Hand</button>
+                </div>
+                
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Choose a hand to grip the egg
+                </div>
 
-     
+                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                    <strong>Soft Robotics:</strong> Instead of rigid metal, robots are now using silicon and air pressure to safely handle fragile items in our daily lives.
+                </div>
+            </div>
+        </section>
+
+        <section id="lab-gym">
+            <h1 class="section-title">6. AI Machine Learning</h1>
+            <p class="section-subtitle">Robots aren't born smart. They learn by failing thousands of times.</p>
+            <div class="lab-card">
+                <div style="height: 150px; display: flex; align-items: center; justify-content: center;">
+                    <i id="gym-bot" class="fas fa-robot gym-bot"></i>
+                </div>
+                <h3 id="gym-msg" style="background: rgba(15, 20, 25, 0.95); padding: 12px 25px; border-radius: 30px; display: inline-block; margin-bottom: 20px; color: #fff; border: 1px solid rgba(255,255,255,0.1);">Ready to learn a backflip!</h3>
+                
+                <div style="margin-bottom: 15px;">
+                    <button class="lab-btn" onclick="trainBot(10)"><i class="fas fa-dumbbell"></i> Train: 10 tries</button>
+                    <button class="lab-btn" onclick="trainBot(100)"><i class="fas fa-dumbbell"></i> Train: 100 tries</button>
+                    <button class="lab-btn" onclick="trainBot(10000)" style="border-color: #9b59b6; color: #9b59b6;"><i class="fas fa-brain"></i> Train: 10,000 tries</button>
+                </div>
+
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Click buttons to train the AI
+                </div>
+
+                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                    <strong>Reinforcement Learning:</strong> The AI tries random movements in a simulation. It gets "points" for getting closer to the goal, eventually mastering the skill.
+                </div>
+            </div>
+        </section>
+
+        <section id="lab-maze">
+            <h1 class="section-title">7. Obstacle Avoidance</h1>
+            <p class="section-subtitle">What happens when a sudden obstacle blocks a robot's path?</p>
+            <div class="lab-card">
+                <div class="maze-area">
+                    <i class="fas fa-robot" style="font-size: 3rem; color: #fff; z-index: 3;"></i>
+                    <div id="maze-path" class="maze-path"></div>
+                    <i id="maze-obs" class="fas fa-box-open maze-obstacle"></i>
+                    <i class="fas fa-flag-checkered" style="font-size: 3rem; color: #2ecc71; z-index: 3;"></i>
+                </div>
+                <h3 id="maze-msg" style="background: rgba(15, 20, 25, 0.95); padding: 12px 25px; border-radius: 30px; display: inline-block; margin-bottom: 20px; color: #fff; border: 1px solid rgba(255,255,255,0.1);">Path is clear. Proceeding...</h3>
+                
+<div style="margin-bottom: 15px;">
+    <button id="maze-btn" class="lab-btn" onclick="dropObstacle()"><i class="fas fa-cube"></i> Drop Obstacle</button>
+</div>
+
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Click to disrupt the robot's path
+                </div>
+
+                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                    <strong>Dynamic Path Planning:</strong> Robots constantly scan their environment. If blocked, algorithms like A* (A-Star) instantly calculate a new optimal detour.
+                </div>
+            </div>
+        </section>
+
+        <section id="lab-swarm">
+            <h1 class="section-title">8. Swarm Robotics</h1>
+            <p class="section-subtitle">Sometimes, many simple robots are better than one complex robot.</p>
+            <div class="lab-card">
+                <div style="height: 160px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; margin-bottom: 10px;">
+                    <i id="swarm-box" class="fas fa-car-side swarm-box"></i>
+                    <div id="swarm-ants" class="swarm-ants">
+                        <i class="fas fa-robot"></i><i class="fas fa-robot"></i><i class="fas fa-robot"></i><i class="fas fa-robot"></i>
+                    </div>
+                </div>
+                <h3 id="swarm-msg" style="background: rgba(15, 20, 25, 0.95); padding: 12px 25px; border-radius: 30px; display: inline-block; margin-bottom: 20px; color: #fff; border: 1px solid rgba(255,255,255,0.1);">Target is extremely heavy.</h3>
+                
+                <div style="margin-bottom: 15px;">
+                    <button class="lab-btn" onclick="liftBox('alone')"><i class="fas fa-user"></i> Lift Alone</button>
+                    <button class="lab-btn" onclick="liftBox('swarm')" style="border-color: #e67e22; color: #e67e22;"><i class="fas fa-users"></i> Call the Swarm</button>
+                </div>
+
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Choose how to lift the box
+                </div>
+
+                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                    <strong>Swarm Robotics:</strong> Inspired by ants, hundreds of small robots communicate locally to perform massive tasks without a central brain. Used heavily in Amazon warehouses.
+                </div>
+            </div>
+        </section>
+
+        <section id="lab-muscle">
+            <h1 class="section-title">9. Precision Motors</h1>
+            <p class="section-subtitle">Why do robots move so precisely compared to toys?</p>
+            <div class="lab-card">
+                <div class="muscle-canvas">
+                    <i class="fas fa-bullseye" style="position: absolute; right: -15px; top: 50%; transform: translateY(-50%); color: #FF5555; font-size: 1.5rem; z-index: 2;"></i>
+                    <i id="muscle-arm" class="fas fa-robot muscle-arm"></i>
+                </div>
+                <h3 id="muscle-msg" style="background: rgba(15, 20, 25, 0.95); padding: 12px 25px; border-radius: 30px; display: inline-block; margin-bottom: 20px; color: #fff; border: 1px solid rgba(255,255,255,0.1);">Target: Exactly 90 Degrees</h3>
+                <div style="margin-bottom: 15px;">
+                    <button class="lab-btn" onclick="testMotor('toy')"><i class="fas fa-car-battery"></i> Toy Motor</button>
+                    <button class="lab-btn" onclick="testMotor('servo')"><i class="fas fa-cogs"></i> Precision Servo</button>
+                </div>
+
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Equip a motor to draw
+                </div>
+
+                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                    <strong>Actuators & Encoders:</strong> Robot joints don't just spin; they have sensors (Encoders) that tell the computer exactly how many degrees they have turned, allowing zero-error movements.
+                </div>
+            </div>
+        </section>
+
+<section id="lab-cobot">
+            <h1 class="section-title">10. Safety Sensors</h1>
+            <p class="section-subtitle">How did dangerous factory robots safely move into cafes?</p>
+            <div class="lab-card">
+                
+                <div class="cobot-workspace">
+                    <div class="worker-box">
+                        <i id="worker-icon" class="fas fa-user-gear worker-icon"></i>
+                        <div id="worker-status" class="worker-status">STANDBY</div>
+                    </div>
+                    <div id="robot-arm-box" class="robot-arm-box">🦾</div>
+                </div>
+                
+                <h3 id="cobot-msg" style="background: rgba(15, 20, 25, 0.95); padding: 12px 25px; border-radius: 30px; display: inline-block; margin-bottom: 20px; color: #fff; border: 1px solid rgba(255,255,255,0.1);">Select a mode to test safety!</h3>
+                
+                <div style="margin-bottom: 15px;">
+                    <button class="lab-btn" onclick="setCobotMode2('industrial')"><i class="fas fa-exclamation-triangle"></i> Old Industrial Mode</button>
+                    <button class="lab-btn" onclick="setCobotMode2('cobot')" style="border-color: #1abc9c; color: #1abc9c;"><i class="fas fa-shield-alt"></i> Modern Cobot Mode</button>
+                </div>
+
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Click modes to see how safety changes
+                </div>
+
+                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                    <strong>Collaborative Robots (Cobots):</strong> Equipped with ultra-sensitive torque sensors. If they feel even the slightest unexpected resistance (like bumping a human), they instantly freeze to prevent injury.
+                </div>
+            </div>
+        </section>
         
         <div style="text-align: center; padding: 50px; border-top: 1px solid #333;">
             <p style="color: #666; font-family: 'Roboto';">&copy; 2026 LearnRobot.com. Demystifying the future.</p>
@@ -462,6 +752,128 @@
 
 <div id="google_translate_element" style="position: absolute; bottom: 0; left: 0; width: 1px !important; height: 1px !important; overflow: hidden !important; opacity: 0 !important; pointer-events: none !important;"></div>
 <script>
+// --- 5~10번 패널 자바스크립트 기능 ---
+    function testGrip(type) {
+        const egg = document.getElementById('egg-stage');
+        const msg = document.getElementById('egg-msg');
+        if(type === 'steel') {
+            egg.className = 'fas fa-egg egg-icon egg-crushed';
+            msg.innerHTML = '<span style="color:#FF5555;">CRUSHED! Too much force!</span>';
+        } else {
+            egg.className = 'fas fa-egg egg-icon egg-safe';
+            msg.innerHTML = '<span style="color:#f1c40f;">SAFE! The gripper adapted to the shape.</span>';
+        }
+    }
+
+    function trainBot(tries) {
+        const bot = document.getElementById('gym-bot');
+        const msg = document.getElementById('gym-msg');
+        bot.className = 'fas fa-robot gym-bot'; 
+        setTimeout(() => {
+            if(tries === 10) { bot.classList.add('gym-fail1'); msg.innerHTML = '<span style="color:#FF5555;">Fail: Fell on back. Needs more data!</span>'; }
+            else if(tries === 100) { bot.classList.add('gym-fail2'); msg.innerHTML = '<span style="color:#e67e22;">Fail: Almost... landed on head.</span>'; }
+            else { bot.classList.add('gym-success'); msg.innerHTML = '<span style="color:#2ecc71;">SUCCESS! Perfect backflip learned!</span>'; }
+        }, 50);
+    }
+
+   function dropObstacle() {
+        const obs = document.getElementById('maze-obs');
+        const path = document.getElementById('maze-path');
+        const msg = document.getElementById('maze-msg');
+        const btn = document.getElementById('maze-btn');
+
+        // 이미 장애물이 떨어져 있는 상태라면 -> 리셋(제거)
+        if (obs.style.display === 'block') {
+            obs.style.display = 'none';
+            path.classList.remove('path-detour');
+            msg.innerHTML = '<span style="color:#fff;">Path is clear. Proceeding...</span>';
+            
+            // 버튼을 다시 원래 모습으로 복구
+            if (btn) {
+                btn.innerHTML = '<i class="fas fa-cube"></i> Drop Obstacle';
+                btn.style.borderColor = '#555'; 
+                btn.style.color = '#ddd';
+            }
+        } 
+        // 장애물이 없는 정상 상태라면 -> 장애물 투하
+        else {
+            obs.style.display = 'block';
+            path.classList.add('path-detour');
+            msg.innerHTML = '<span style="color:#FF5555;">Obstacle detected.</span> <span style="color:#2ecc71;">Path recalculated in 0.01s!</span>';
+            
+            // 버튼을 '제거(리셋)' 버튼으로 변신
+            if (btn) {
+                btn.innerHTML = '<i class="fas fa-undo"></i> Remove Obstacle';
+                btn.style.borderColor = '#e74c3c'; 
+                btn.style.color = '#e74c3c';
+            }
+        }
+    }
+
+    function liftBox(type) {
+        const box = document.getElementById('swarm-box');
+        const ants = document.getElementById('swarm-ants');
+        const msg = document.getElementById('swarm-msg');
+        if(type === 'alone') {
+            box.style.transform = 'translateX(5px)'; setTimeout(()=>box.style.transform='translateX(-5px)', 100); setTimeout(()=>box.style.transform='translateX(0)', 200);
+            ants.style.opacity = '0';
+            msg.innerHTML = '<span style="color:#FF5555;">Error: Target too heavy for 1 unit.</span>';
+        } else {
+            ants.style.opacity = '1';
+            box.style.transform = 'translateY(-30px)';
+            msg.innerHTML = '<span style="color:#2ecc71;">Swarm logic engaged. Lift successful!</span>';
+        }
+    }
+
+
+// ▼ 기존 testMotor 함수를 지우고 이걸로 덮어씌우세요 ▼
+    function testMotor(type) {
+        const arm = document.getElementById('muscle-arm');
+        const msg = document.getElementById('muscle-msg');
+        
+        // 버튼을 누를 때마다 애니메이션이 재시작되도록 초기화하는 마법의 코드
+        arm.className = 'fas fa-robot muscle-arm';
+        void arm.offsetWidth; 
+
+        if(type === 'toy') { 
+            arm.classList.add('spin-toy'); 
+            msg.innerHTML = '<span style="color:#FF5555;">Missed! It slides and stops at random angles.</span>'; 
+        }
+        else { 
+            arm.classList.add('spin-servo'); 
+            msg.innerHTML = '<span style="color:#2ecc71;">Perfect hit! Encoder stops it exactly at 90°.</span>'; 
+        }
+    }
+// ▼ 기존 10번 패널 JS를 지우고 이걸로 덮어씌우세요 ▼
+    function setCobotMode2(mode) {
+        const armBox = document.getElementById('robot-arm-box');
+        const workerIcon = document.getElementById('worker-icon');
+        const workerStatus = document.getElementById('worker-status');
+        const msg = document.getElementById('cobot-msg');
+
+        // 누를 때마다 초기화 (아이콘을 안전모 쓴 작업자로 고정)
+        armBox.className = 'robot-arm-box';
+        workerIcon.className = 'fas fa-user-gear worker-icon'; 
+        void armBox.offsetWidth;
+
+        if (mode === 'industrial') {
+            // 산업용: 아슬아슬한 위치까지 다가오고 X 표시 띄움 (떨림 효과 삭제)
+            armBox.classList.add('attack-fast');
+            workerIcon.style.color = '#FF5555';
+            workerStatus.innerHTML = '<span class="crash-x">❌</span> CRASH';
+            workerStatus.style.background = 'rgba(255, 85, 85, 0.2)';
+            workerStatus.style.color = '#FF5555';
+            msg.innerHTML = '<span style="color:#FF5555; font-size:1.1rem; font-weight:900;">[Industrial Mode] Warning! The arm does not stop!</span>';
+        } else {
+            // 협동 로봇: 훨씬 앞선 안전거리에서 멈춤
+            armBox.classList.add('approach-safe');
+            workerIcon.style.color = '#2ecc71';
+            workerStatus.innerHTML = 'SAFE 🛡️';
+            workerStatus.style.background = 'rgba(46, 204, 113, 0.2)';
+            workerStatus.style.color = '#2ecc71';
+            msg.innerHTML = '<span style="color:#2ecc71; font-size:1.1rem; font-weight:bold;">[Cobot Mode] Safe! It senses the human and stops halfway.</span>';
+        }
+    }
     function scrollToId(id, btnElement) {
         document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         const allBtns = document.querySelectorAll('.category-btn');
@@ -514,17 +926,30 @@
         }
     }
 
-    function answerEtiquette(type) {
-        const scene = document.getElementById('etiq-scene');
-        const msg = document.getElementById('etiq-msg');
-        if(type === 'kick') {
-            scene.innerHTML = '🧑💢 <i class="fas fa-truck-pickup" style="color: #FF5555; transform: rotate(15deg);"></i> 💥';
-            msg.innerHTML = '<span style="color:#FF5555; font-weight:bold;">WRONG! Robots are helping tools, not obstacles.</span>';
-        } else {
-            scene.innerHTML = '🧑👍 <i class="fas fa-truck-pickup" style="color: #2ecc71;"></i> 💨';
-            msg.innerHTML = '<span style="color:#2ecc71; font-weight:bold;">CORRECT! It is just recalculating a safe path.</span>';
-        }
+// ▼ 기존 answerEtiquette 함수를 지우고 이걸로 덮어씌우세요 ▼
+ function answerEtiquette(type) {
+    const msg = document.getElementById('etiq-msg');
+    const robot = document.getElementById('etiq-robot');
+    const xMark = document.getElementById('etiq-x');
+
+    // 초기화
+    robot.className = 'fas fa-robot etiq-actor';
+    robot.style.color = '#86D1D1';
+    robot.style.transform = 'scaleX(-1)';
+    xMark.style.display = 'none';
+    void robot.offsetWidth;
+
+    if(type === 'kick') {
+        robot.classList.add('robot-knocked');
+        xMark.style.display = 'block';
+        // 비원어민을 위해 짧고 강렬한 한 줄 메시지로 변경
+        msg.innerHTML = '<span style="color:#FF5555; font-weight:bold;">❌ WRONG: Don\'t push! It breaks the robot.</span>';
+    } else {
+        // 중간 "Wait" 단계를 없애고 바로 성공 결과 시현
+        robot.classList.add('robot-pass');
+        msg.innerHTML = '<span style="color:#2ecc71; font-weight:bold;">✅ CORRECT: It recalculated and passed safely!</span>';
     }
+}
 
     let spotlightOffset = 0;
     function nextSpotlight() {
@@ -537,13 +962,15 @@
         initSpotlight();
     }
     
-    function initSpotlight() {
+function initSpotlight() {
         if (typeof links === 'undefined' || links.length === 0) return;
-        const currentBlock = Math.floor(Date.now() / 1000); 
-        const index = (currentBlock + spotlightOffset) % links.length; 
+        
+        // ▼ 아래 두 줄을 무작위 추출 코드로 바꿨습니다! ▼
+        const index = Math.floor(Math.random() * links.length); 
         const randomLink = links[index] || links[0];
         
         let companyName = randomLink.title.split(/<br>|\(/)[0].trim();
+        // ... (이하 생략) ...
         let displayCategory = randomLink.category ? randomLink.category.toUpperCase() : "-";
         const countryCode = (randomLink.country || "us").toLowerCase();
 
