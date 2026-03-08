@@ -43,7 +43,11 @@
     z-index: 10; gap: 20px; flex-shrink: 0;
 }
         .logo-link { text-decoration: none; color: inherit; display: flex; align-items: center; gap: 15px; }
-        .logo-image { height: 40px; border-radius: 50%; }
+        .logo-image { 
+    height: 50px; /* 50px로 변경하여 크기를 맞춤 */
+    border-radius: 50%; 
+    transition: transform 0.3s ease; /* robotics_101.html과 동일한 애니메이션 효과 추가 */
+}
         .logo-text { 
     font-family: 'Orbitron', sans-serif; 
     font-size: 1.8rem; /* 기존 1.6rem에서 1.8rem으로 확대 */
