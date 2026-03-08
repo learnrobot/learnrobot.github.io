@@ -287,10 +287,23 @@
         .egg-crushed { color: #FF5555; transform: scale(1.2) scaleY(0.5); }
         .egg-safe { color: #f1c40f; filter: drop-shadow(0 0 15px rgba(241, 196, 15, 0.5)); transform: scale(1.1); }
         
-        .gym-bot { font-size: 6rem; transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); display: inline-block; color: #fff; margin: 20px 0; }
+        .gym-bot { font-size: 7.5rem; transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); display: inline-block; color: #fff; margin: 20px 0; }
         .gym-fail1 { transform: rotate(-90deg); color: #FF5555; }
         .gym-fail2 { transform: rotate(180deg) translateY(20px); color: #e67e22; }
-        .gym-success { transform: rotate(360deg) translateY(-30px); color: #2ecc71; }
+        
+        /* 👇 성공 시 360도 회전하며 네온 빛이 영구적으로 숨 쉬듯 깜빡이는 효과 */
+        .gym-success { 
+            transform: rotate(360deg) translateY(-30px); 
+            color: #2ecc71; 
+            /* 1.2초 주기로 무한 반복(infinite)되는 애니메이션 추가 */
+            animation: neonPulse 1.2s infinite alternate ease-in-out; 
+        }
+
+        /* 👇 네온 빛이 커졌다 작아졌다 하는 움직임 정의 (이 부분도 꼭 같이 복사해 주세요!) */
+        @keyframes neonPulse {
+            0% { filter: drop-shadow(0 0 5px #2ecc71) drop-shadow(0 0 10px rgba(46, 204, 113, 0.5)); }
+            100% { filter: drop-shadow(0 0 15px #2ecc71) drop-shadow(0 0 35px rgba(46, 204, 113, 1)); }
+        }
 
         .maze-area { position: relative; height: 100px; margin: 30px 0; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
         .maze-path { position: absolute; left: 60px; right: 60px; height: 4px; background: #3498db; top: 50%; transform: translateY(-50%); transition: all 0.4s; z-index: 1; }
@@ -814,25 +827,30 @@
 <div id="google_translate_element" style="position: absolute; bottom: 0; left: 0; width: 1px !important; height: 1px !important; overflow: hidden !important; opacity: 0 !important; pointer-events: none !important;"></div>
 <script>
 // ▼ 6번 패널: AI 백덤블링 학습 애니메이션 제어 코드 ▼
+// ▼ 6번 패널: AI 백덤블링 학습 애니메이션 제어 코드 (무한 반복 수정판) ▼
     function trainBot(tries) {
         const bot = document.getElementById('gym-bot');
         const msg = document.getElementById('gym-msg');
         
- 
-       // 폰트 아이콘 클래스를 빼고 순수하게 gym-bot 클래스만 남깁니다
-        bot.className = 'gym-bot';
-        void bot.offsetWidth;
+        // 1. 부드러운 애니메이션을 잠시 끄고, 
+        // SVG 전용 방식(setAttribute)으로 클래스를 초기화하여 즉시 제자리(0도)로 돌려놓습니다.
+        bot.style.transition = 'none';
+        bot.setAttribute('class', 'gym-bot');
+        
+        // 2. 브라우저가 "아, 로봇이 똑바로 섰구나"라고 인식하도록 강제 새로고침(Reflow)을 먹입니다.
+        void bot.offsetWidth; 
+        
+        // 3. 다시 부드러운 애니메이션을 켭니다.
+        bot.style.transition = '';
 
+        // 4. 버튼 횟수에 맞춰 작동!
         if (tries === 10) {
-            // 10번 훈련: 데이터 부족으로 뒤로 넘어짐
             bot.classList.add('gym-fail1');
             msg.innerHTML = '<span style="color:#FF5555; font-weight:bold;">FAIL! Not enough training data.</span>';
         } else if (tries === 100) {
-            // 100번 훈련: 머리로 떨어짐
             bot.classList.add('gym-fail2');
             msg.innerHTML = '<span style="color:#e67e22; font-weight:bold;">OUCH! Almost there, but landed on its head.</span>';
         } else {
-            // 10000번 훈련: 완벽한 360도 회전 착지 성공
             bot.classList.add('gym-success');
             msg.innerHTML = '<span style="color:#2ecc71; font-weight:bold;">SUCCESS! Perfect backflip after 10,000 simulations!</span>';
         }
