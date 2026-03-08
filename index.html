@@ -113,7 +113,6 @@
         .category-btn.active { color: var(--accent-color); font-weight: 700; background: rgba(255, 251, 3, 0.05); }
         .category-btn.active i { color: var(--accent-color) !important; }
 
-        /* 원래 스타일 완벽 유지: Go to Robotics 101 Button */
         .nav-link-btn {
             display: flex; justify-content: space-between; align-items: center;
             background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15);
@@ -124,7 +123,6 @@
             color: var(--accent-color); box-shadow: 0 0 15px rgba(255, 251, 3, 0.4); 
         }
 
-        /* 원래 스타일 완벽 유지: Spotlight Card */
         .spotlight-card {
             margin-bottom: 0 !important; padding: 15px 20px !important; border-radius: 12px;
             position: relative; z-index: 1; color: #fff;
@@ -148,7 +146,7 @@
             0% { background-position: 0 0, 0 100%, 0 0, 100% 0; }
             100% { background-position: 24px 0, -24px 100%, 0 -24px, 100% 24px; }
         }
-        .visit-btn { display: inline-flex; align-items: center; gap: 8px; background: #FFFB03; color: #000 !important; font-weight: 900; text-decoration: none; transition: all 0.3s ease; white-space: nowrap; }
+        .visit-btn { display: inline-flex; align-items: center; gap: 8px; background: #FFFB03; color: #000 !important; font-weight: 900; text-decoration: none; transition: all 0.3s ease; white-space: nowrap; justify-content: center; width: 100%; border-radius: 6px; padding: 5px 0;}
         .visit-btn:hover { transform: scale(1.03); background: #fff; }
         .sub-find-btn { display: flex; justify-content: center; align-items: center; width: 100%; padding: 6px 0; margin-top: 5px; background: #111; border: 1px solid rgba(134, 209, 209, 0.3); color: #86D1D1; font-size: 0.85rem; font-weight: 600; border-radius: 6px; text-decoration: none; transition: all 0.3s ease; }
         .sub-find-btn:hover { background: #1E3A3A; border-color: #86D1D1; color: #fff; }
@@ -173,14 +171,48 @@
         .battery-level { height: 100%; width: 100%; background: #2ecc71; border-radius: 6px; transition: all 0.5s ease; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.8rem; color: #000; font-family: 'Orbitron', sans-serif; }
 
         /* 3. Vision Lab */
-        .vision-box { width: 100%; height: 350px; background: url('https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=800') center/cover; border-radius: 12px; position: relative; transition: all 0.5s ease; border: 3px solid #333; margin-bottom: 20px; overflow: hidden; }
-        .vision-robot-mode { filter: grayscale(100%) contrast(150%) invert(1) hue-rotate(180deg); border-color: #FFFB03; box-shadow: 0 0 20px rgba(255, 251, 3, 0.4); }
-        .bounding-box { display: none; position: absolute; border: 2px solid #FFFB03; background: rgba(255, 251, 3, 0.1); color: #FFFB03; font-weight: bold; font-family: monospace; padding: 2px 5px; font-size: 1rem; }
-        .vision-robot-mode .bounding-box { display: block; animation: blinkBox 1s infinite alternate; }
+/* 3. Vision Lab */
+        .vision-box { 
+            width: 100%; height: 350px; border-radius: 12px; position: relative; 
+            border: 3px solid #333; margin-bottom: 20px; overflow: hidden; 
+            background: #000;
+        }
+        /* 필터가 글자에 안 먹히게 배경 이미지를 별도의 가상 층(::before)으로 분리 */
+        .vision-box::before { 
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
+            background: url('https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=800') center/cover; 
+            transition: all 0.5s ease; z-index: 1; 
+        }
+        .vision-box.vision-robot-mode { 
+            border-color: #FFFB03; box-shadow: 0 0 20px rgba(255, 251, 3, 0.4); 
+        }
+        /* 엑스레이 필터는 오직 배경 이미지에만 적용! */
+        .vision-box.vision-robot-mode::before { 
+            filter: grayscale(100%) contrast(150%) invert(1) hue-rotate(180deg); 
+        }
+        
+        .bounding-box { 
+            display: none; position: absolute; border: 2px solid #FFFB03; 
+            background: rgba(255, 251, 3, 0.1); 
+            color: #FFFB03; font-weight: bold; font-family: 'Chakra Petch', monospace; 
+            padding: 4px 8px; font-size: 1.1rem; z-index: 2; 
+            /* 흰 배경 위에서도 글자가 잘 보이도록 진한 검정 그림자 추가 */
+            text-shadow: 1px 1px 3px #000, -1px -1px 3px #000, 1px -1px 3px #000, -1px 1px 3px #000;
+        }
+        .vision-box.vision-robot-mode .bounding-box { display: block; animation: blinkBox 1s infinite alternate; }
         @keyframes blinkBox { from { border-color: rgba(255,251,3,0.3); } to { border-color: rgba(255,251,3,1); } }
 
         /* 4. Etiquette Lab */
         .etiquette-scene { font-size: 5rem; margin: 20px 0; transition: all 0.3s; display: flex; justify-content: center; gap: 20px; align-items: center; }
+
+        /* --- 5. Hero Section Animations (위치 정상화) --- */
+        .hero-btn { background: transparent; border: 2px solid var(--primary-color); color: var(--primary-color); padding: 15px 30px; font-size: 1.2rem; font-weight: bold; border-radius: 30px; font-family: 'Chakra Petch', sans-serif; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(44,153,153,0.2); }
+        .hero-btn:hover { background: var(--primary-color); color: #000; box-shadow: 0 0 25px rgba(44,153,153,0.6); transform: scale(1.05); }
+        @keyframes bounce-down {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-20px) translateX(-50%); }
+            60% { transform: translateY(-10px) translateX(-50%); }
+        }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936" crossorigin="anonymous"></script>
 </head>
@@ -188,7 +220,7 @@
 
 <header>
     <div style="flex: 1; display: flex; justify-content: flex-start;">
-        <a href="index.html" class="logo-link">
+        <a href="index.html?v=new" class="logo-link">
             <img src="favicon.png" alt="Logo" class="logo-image">
             <span class="logo-text">LEARN<span style="color: var(--accent-color);">ROBOT</span></span>
         </a>
@@ -243,12 +275,12 @@
 
 <div class="container-fluid">
     <aside>
-        <div class="category-group">
+    <div class="category-group">
             <div class="group-title">Robot Secret Lab</div>
-            <button class="category-btn active" onclick="scrollToId('lab-balance', this)"><i class="fas fa-child" style="color:#86D1D1; width: 25px;"></i> 1. Balance</button>
+            <button class="category-btn active" onclick="scrollToId('lab-balance', this)"><i class="fas fa-child" style="color:#86D1D1; width: 25px;"></i> 1. Standing Up</button>
             <button class="category-btn" onclick="scrollToId('lab-battery', this)"><i class="fas fa-battery-quarter" style="color:#FFFB03; width: 25px;"></i> 2. Battery</button>
             <button class="category-btn" onclick="scrollToId('lab-vision', this)"><i class="fas fa-eye" style="color:#2ecc71; width: 25px;"></i> 3. Vision</button>
-            <button class="category-btn" onclick="scrollToId('lab-etiquette', this)"><i class="fas fa-handshake" style="color:#FF7777; width: 25px;"></i> 4. Etiquette</button>
+            <button class="category-btn" onclick="scrollToId('lab-etiquette', this)"><i class="fas fa-handshake" style="color:#FF7777; width: 25px;"></i> 4. Say Hello</button>
         </div>
 
         <div style="margin-bottom: 20px;">
@@ -259,7 +291,7 @@
         </div>
 
         <div class="category-group" style="padding: 0; border: none; background: transparent; margin-top: auto;">
-            <div class="spotlight-card" style="width: 100%; padding: 15px; border-radius: 10px; display: block !important;">
+            <div class="spotlight-card" style="width: 100%; display: block !important;">
                 <div style="color: #86D1D1; font-weight: 700; font-size: 0.9rem; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;">
                     <i class="fas fa-star" style="color: #FFFB03;"></i> Players in Robotics
                     <div style="margin-left: auto; display: flex; align-items: center; gap: 10px;">
@@ -280,7 +312,7 @@
                 </div>
                 
                 <div style="display: flex; flex-direction: column; width: 100%;">
-                    <a href="#" id="sl-link" target="_blank" class="visit-btn" style="padding: 5px 0; font-size: 0.95rem; width: 100%; justify-content: center; border-radius: 6px;">Visit</a>
+                    <a href="#" id="sl-link" target="_blank" class="visit-btn" style="padding: 5px 0;">Visit</a>
                     <a href="players_in_robotics.html" class="sub-find-btn">Find 300+ More</a>
                 </div>
             </div>
@@ -289,6 +321,29 @@
 
     <main id="main-scroll-area">
         
+        <section id="hero-intro" style="min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; padding: 20px; border-bottom: none;">
+            <div style="max-width: 850px; z-index: 2;">
+                <h1 style="font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; color: #fff; text-transform: uppercase; margin-bottom: 25px; line-height: 1.2; text-shadow: 0 10px 30px rgba(0,0,0,0.8);">
+                    The World's Easiest <br>
+                    <span style="color: var(--accent-color); text-shadow: 0 0 25px rgba(255,251,3,0.5);">Robot Playground.</span>
+                </h1>
+                
+                <p style="font-family: 'Roboto', sans-serif; color: #ccc; font-size: 1.25rem; line-height: 1.8; margin-bottom: 50px;">
+                    At <strong style="color: #fff;">LearnRobot.com</strong>, we don't read thick textbooks. <br>
+                    We discover how robots see, think, and move by playing with them. <br>
+                    Scroll down to enter the Secret Lab and uncover the truth behind the machines.
+                </p>
+                
+                <button class="hero-btn" onclick="scrollToId('lab-balance', document.querySelector('.category-btn.active'))">
+                    Enter the Secret Lab <i class="fas fa-arrow-down" style="margin-left: 8px;"></i>
+                </button>
+            </div>
+            
+            <div style="position: absolute; bottom: 40px; left: 50%; animation: bounce-down 2s infinite; cursor: pointer;" onclick="scrollToId('lab-balance')">
+                <i class="fas fa-chevron-down" style="color: #86D1D1; font-size: 2.5rem; opacity: 0.7; transition: opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'"></i>
+            </div>
+        </section>
+
         <section id="lab-balance">
             <h1 class="section-title">1. Why Do Robots Fall?</h1>
             <p class="section-subtitle">Robots easily lose balance. Equip sensors to keep it standing!</p>
@@ -331,7 +386,7 @@
             <div class="lab-card" style="max-width: 900px;">
                 <div id="vision-box" class="vision-box">
                     <div class="bounding-box" style="top: 20%; left: 35%; width: 40%; height: 60%;">DOG: 98% MATCH</div>
-                    <div class="bounding-box" style="top: 70%; left: 15%; width: 20%; height: 20%;">SHOE: 85%</div>
+                    <div class="bounding-box" style="top: 70%; left: 15%; width: 20%; height: 20%;">HOODIE: 89%</div>
                 </div>
                 <button id="vision-btn" class="lab-btn" onclick="toggleVision()" style="background: #FFFB03; color: #000; border-color: #FFFB03;"><i class="fas fa-robot"></i> Switch to Robot Eye</button>
                 <p style="color: #aaa; margin-top: 20px; font-size: 0.95rem;">* AI and LiDAR map the world into grids, points, and probability boxes.</p>
@@ -339,7 +394,7 @@
         </section>
 
         <section id="lab-etiquette">
-            <h1 class="section-title">4. Robot Etiquette</h1>
+            <h1 class="section-title">4. Say Hello</h1>
             <p class="section-subtitle">A delivery robot suddenly stops in front of you. What do you do?</p>
             
             <div class="lab-card">
@@ -362,7 +417,6 @@
 </div>
 
 <script>
-    // --- 1. Scroll & Sidebar Logic ---
     function scrollToId(id, btnElement) {
         document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         const allBtns = document.querySelectorAll('.category-btn');
@@ -370,7 +424,6 @@
         if(btnElement) btnElement.classList.add('active');
     }
 
-    // --- 2. Lab 1: Balance Logic ---
     function equipIMU() {
         const bot = document.getElementById('balance-bot');
         const msg = document.getElementById('balance-msg');
@@ -384,7 +437,6 @@
         msg.innerHTML = '<span style="color:#FF5555;">Warning: IMU Sensor Missing!</span>';
     }
 
-    // --- 3. Lab 2: Battery Logic ---
     let battLvl = 100;
     function useBattery(amt) {
         battLvl -= amt;
@@ -404,7 +456,6 @@
         else { bar.style.background = '#e74c3c'; bar.style.color = '#fff'; }
     }
 
-    // --- 4. Lab 3: Vision Logic ---
     function toggleVision() {
         const box = document.getElementById('vision-box');
         const btn = document.getElementById('vision-btn');
@@ -418,7 +469,6 @@
         }
     }
 
-    // --- 5. Lab 4: Etiquette Logic ---
     function answerEtiquette(type) {
         const scene = document.getElementById('etiq-scene');
         const msg = document.getElementById('etiq-msg');
@@ -431,7 +481,6 @@
         }
     }
 
-    // --- 6. Spotlight Banner Logic (기존 완벽 복구) ---
     let spotlightOffset = 0;
     function nextSpotlight() {
         spotlightOffset++; 
@@ -466,7 +515,6 @@
         if(linkEl) linkEl.href = randomLink.url || "#";
     }
 
-    // --- 7. Lang Logic ---
     function toggleLanguageMenu() {
         const menu = document.getElementById('lang-dropdown');
         const btn = document.querySelector('.lang-btn');
@@ -500,7 +548,6 @@
         }, 'google_translate_element');
     }
 
-    // --- 8. Init ---
     document.addEventListener('DOMContentLoaded', () => {
         initSpotlight();
         setInterval(initSpotlight, 10000); 
