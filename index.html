@@ -34,14 +34,14 @@
         }
 
         /* --- Header Styles --- */
-        header {
-            background: rgba(30, 30, 30, 0.95); 
-            backdrop-filter: blur(10px);
-            height: 80px;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 2.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
-            z-index: 10; gap: 20px; flex-shrink: 0;
-        }
+   header {
+    background: rgba(30, 30, 30, 0.95); 
+    backdrop-filter: blur(10px);
+    height: 100px; /* 100px로 높여 배너(90px)를 수용 */
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 1.5rem; /* 좌우 여백을 줄여 가로 폭 확보 */
+    z-index: 10; gap: 20px; flex-shrink: 0;
+}
         .logo-link { text-decoration: none; color: inherit; display: flex; align-items: center; gap: 15px; }
         .logo-image { height: 40px; border-radius: 50%; }
         .logo-text { font-family: 'Orbitron', sans-serif; font-size: 1.6rem; font-weight: 900; letter-spacing: 2px; color: #fff; text-transform: uppercase; }
