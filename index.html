@@ -323,9 +323,9 @@
         
         <section id="hero-intro" style="min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; padding: 20px; border-bottom: none;">
             <div style="max-width: 850px; z-index: 2;">
-                <h1 style="font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; color: #fff; text-transform: uppercase; margin-bottom: 25px; line-height: 1.2; text-shadow: 0 10px 30px rgba(0,0,0,0.8);">
-                    The World's Easiest <br>
-                    <span style="color: var(--accent-color); text-shadow: 0 0 25px rgba(255,251,3,0.5);">Robot Playground.</span>
+                <h1 style="font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; color: #fff; text-transform: none ; margin-bottom: 25px; line-height: 1.2; text-shadow: 0 10px 30px rgba(0,0,0,0.8);">
+                    Robot Playground<br>
+                    <span style="color: var(--accent-color); text-shadow: 0 0 25px rgba(255,251,3,0.5);">for everyone</span>
                 </h1>
                 
                 <p style="font-family: 'Roboto', sans-serif; color: #ccc; font-size: 1.25rem; line-height: 1.8; margin-bottom: 50px;">
@@ -349,15 +349,27 @@
             <p class="section-subtitle">Robots easily lose balance. Equip sensors to keep it standing!</p>
             
             <div class="lab-card">
-                <div id="balance-bot" class="robot-character robot-falling">
-                    <i class="fas fa-robot"></i>
+                <div style="height: 180px; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+                    <div id="balance-bot" class="robot-character robot-falling" style="margin: 0; opacity: 0.6; position: relative; z-index: 1;">
+                        <i class="fas fa-robot"></i>
+                    </div>
                 </div>
-                <h3 id="balance-msg" style="color: #FF5555; margin-bottom: 20px;">Warning: IMU Sensor Missing!</h3>
-                <div>
+                
+                <h3 id="balance-msg" style="position: relative; z-index: 10; background: rgba(15, 20, 25, 0.95); padding: 12px 25px; border-radius: 30px; display: inline-block; margin-bottom: 20px; color: #FF5555; box-shadow: 0 5px 15px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1);">Warning: IMU Sensor Missing!</h3>
+                
+                <div style="margin-bottom: 15px;">
                     <button class="lab-btn" onclick="equipIMU()"><i class="fas fa-microchip"></i> Equip IMU Sensor</button>
                     <button class="lab-btn" onclick="removeIMU()"><i class="fas fa-hammer"></i> Remove Sensor</button>
                 </div>
-                <p style="color: #aaa; margin-top: 20px; font-size: 0.95rem;">* An IMU (Inertial Measurement Unit) acts like the human inner ear, detecting gravity and tilt.</p>
+                
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Click a button above to test
+                </div>
+
+                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                    An <strong>IMU (Inertial Measurement Unit)</strong> acts like the human inner ear, detecting gravity and tilt.
+                </div>
             </div>
         </section>
 
@@ -369,13 +381,22 @@
                 <div class="battery-container">
                     <div id="battery-level" class="battery-level">100%</div>
                 </div>
-                <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
+                
+                <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
                     <button class="lab-btn" onclick="useBattery(30)"><i class="fas fa-eye"></i> Run AI Vision (-30%)</button>
                     <button class="lab-btn" onclick="useBattery(40)"><i class="fas fa-box"></i> Lift Heavy Box (-40%)</button>
                     <button class="lab-btn" onclick="useBattery(20)"><i class="fas fa-running"></i> Walk 1km (-20%)</button>
+                    <button class="lab-btn" onclick="recharge()" style="border-color: #2ecc71; color: #2ecc71;"><i class="fas fa-bolt"></i> Recharge</button>
                 </div>
-                <button class="lab-btn" onclick="recharge()" style="margin-top: 20px; background: #2C9999; border-color: #2C9999; color: #000;"><i class="fas fa-plug"></i> Plug in Charger</button>
-                <p style="color: #aaa; margin-top: 20px; font-size: 0.95rem;">* Robots are walking supercomputers. Processing AI data consumes massive amounts of electricity!</p>
+
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Click buttons above to drain battery
+                </div>
+
+                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                    Robots are <strong>walking supercomputers</strong>. Processing AI data consumes massive amounts of electricity!
+                </div>
             </div>
         </section>
 
@@ -388,8 +409,19 @@
                     <div class="bounding-box" style="top: 20%; left: 35%; width: 40%; height: 60%;">DOG: 98% MATCH</div>
                     <div class="bounding-box" style="top: 70%; left: 15%; width: 20%; height: 20%;">HOODIE: 89%</div>
                 </div>
-                <button id="vision-btn" class="lab-btn" onclick="toggleVision()" style="background: #FFFB03; color: #000; border-color: #FFFB03;"><i class="fas fa-robot"></i> Switch to Robot Eye</button>
-                <p style="color: #aaa; margin-top: 20px; font-size: 0.95rem;">* AI and LiDAR map the world into grids, points, and probability boxes.</p>
+                
+                <div style="margin-top: 25px; margin-bottom: 15px;">
+                    <button id="vision-btn" class="lab-btn" onclick="toggleVision()"><i class="fas fa-robot"></i> Switch to Robot Eye</button>
+                </div>
+
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Click the button above to switch views
+                </div>
+
+                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                    <strong>AI and LiDAR</strong> map the world into grids, points, and probability boxes.
+                </div>
             </div>
         </section>
 
@@ -403,12 +435,24 @@
                 </div>
                 <div id="etiq-msg" style="height: 30px; margin-bottom: 20px; font-size: 1.2rem;"></div>
                 
-                <div>
+                <div style="margin-bottom: 15px;">
                     <button class="lab-btn" onclick="answerEtiquette('kick')">❌ Push it away</button>
                     <button class="lab-btn" onclick="answerEtiquette('wait')">⭕ Wait 3 seconds</button>
                 </div>
+
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Click your choice above
+                </div>
+
+                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                    <strong>Robot Etiquette:</strong> Treat working robots just like you would treat a working human. Give them space!
+                </div>
             </div>
         </section>
+        ```
+
+     
         
         <div style="text-align: center; padding: 50px; border-top: 1px solid #333;">
             <p style="color: #666; font-family: 'Roboto';">&copy; 2026 LearnRobot.com. Demystifying the future.</p>
@@ -416,6 +460,7 @@
     </main>
 </div>
 
+<div id="google_translate_element" style="position: absolute; bottom: 0; left: 0; width: 1px !important; height: 1px !important; overflow: hidden !important; opacity: 0 !important; pointer-events: none !important;"></div>
 <script>
     function scrollToId(id, btnElement) {
         document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
