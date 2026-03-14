@@ -440,7 +440,78 @@
     }
 }
 
+/* --- [신규] 상세 & 다음 버튼 통합 그룹 --- */
+        .nav-action-group {
+            position: absolute;
+            left: calc(100% + 20px); /* 패널 오른쪽 끝에서 20px 바깥으로 완전히 뺌 */
+            top: 50%;
+            transform: translateY(-50%); /* 세로 중앙 정렬 */
+            display: flex;
+            flex-direction: column; /* 세로로 스택 (Read Details가 위, 화살표가 아래) */
+            align-items: center; /* 두 버튼 가운데 정렬 */
+            gap: 15px; /* 버튼 사이 간격 */
+            z-index: 10;
+        }
+        
+        /* Read Details 버튼 디자인 */
+        .go-detail-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(44, 153, 153, 0.15);
+            color: #86D1D1;
+            border: 1px solid #2C9999;
+            padding: 10px 18px;
+            border-radius: 8px; 
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            white-space: nowrap; /* 글자 안 깨지게 고정 */
+        }
+        .go-detail-btn:hover {
+            background: #2C9999;
+            color: #1a1a1a;
+            box-shadow: 0 0 15px rgba(44, 153, 153, 0.5);
+            transform: scale(1.05); /* 아래 화살표랑 똑같이 커지는 효과 */
+        }
 
+        /* 그룹 안에 들어간 아래 화살표 버튼 위치 초기화 */
+        .nav-action-group .nav-side-btn {
+            position: static;
+            transform: none;
+            margin: 0;
+        }
+        .nav-action-group .nav-side-btn:hover {
+            transform: scale(1.1); 
+        }
+
+        /* 화면 좁아질 때 (모바일/태블릿) 패널 밑으로 쏙 들어오게 처리 */
+        @media (max-width: 1150px) {
+            .nav-action-group {
+                position: static;
+                transform: none;
+                flex-direction: row; /* 가로로 나란히 */
+                justify-content: space-between;
+                margin-top: 25px;
+                width: 100%;
+                gap: 15px;
+            }
+            .nav-action-group .go-detail-btn,
+            .nav-action-group .nav-side-btn {
+                flex: 1; /* 반반 나눠 갖기 */
+                height: 50px;
+                border-radius: 8px;
+                margin: 0;
+                width: auto;
+            }
+            .nav-action-group .nav-side-btn:hover,
+            .go-detail-btn:hover {
+                transform: scale(1.02);
+            }
+        }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936" crossorigin="anonymous"></script>
 </head>
@@ -620,15 +691,16 @@ Explore how robots work through interactive contents.</br>
                     <i class="fas fa-hand-point-up fa-bounce"></i> Click a button above to test
                 </div>
 
-                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
-                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
-                    An <strong>IMU (Inertial Measurement Unit)</strong> acts like the human inner ear, detecting gravity and tilt.
-                </div>
-<button class="nav-side-btn" onclick="scrollToNext('lab-battery')" title="Next: Battery & Power"><i class="fas fa-arrow-down"></i></button>
-
+<div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                An <strong>IMU (Inertial Measurement Unit)</strong> acts like the human inner ear, detecting gravity and tilt.
             </div>
 
-        </section>
+            <div class="nav-action-group">
+                <a href="detail_1.balance.html" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-battery')" title="Next: Battery & Power"><i class="fas fa-arrow-down"></i></button>
+            </div>
+            </div> </section>
 
         <section id="lab-battery">
             <h1 class="section-title">2. Battery & Power</h1>
@@ -654,9 +726,12 @@ Explore how robots work through interactive contents.</br>
                     <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
                     Robots are <strong>walking supercomputers</strong>. Processing AI data consumes massive amounts of electricity!
                 </div>
-<button class="nav-side-btn" onclick="scrollToNext('lab-vision')"><i class="fas fa-arrow-down"></i></button>
+<div class="nav-action-group">
+                <a href="detail_2.balance.html" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                 <button class="nav-side-btn" onclick="scrollToNext('lab-vision')" title="Next: Robot Vision AI"><i class="fas fa-arrow-down"></i></button>
             </div>
-        </section>
+            </div> </section>
+
 
         <section id="lab-vision">
             <h1 class="section-title">3. Robot Vision AI</h1>
@@ -676,12 +751,10 @@ Explore how robots work through interactive contents.</br>
                     <i class="fas fa-hand-point-up fa-bounce"></i> Click the button above to switch views
                 </div>
 
-                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
-                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
-                    <strong>AI and LiDAR</strong> map the world into grids, points, and probability boxes.
+<div class="nav-action-group">
+                    <a href="detail_3.vision.html" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                    <button class="nav-side-btn" onclick="scrollToNext('lab-etiquette')" title="Next: Robot Etiquette"><i class="fas fa-arrow-down"></i></button>
                 </div>
-<button class="nav-side-btn" onclick="scrollToNext('lab-etiquette')"><i class="fas fa-arrow-down"></i></button>
-            </div>
         </section>
 
         <section id="lab-etiquette">
@@ -710,8 +783,10 @@ Explore how robots work through interactive contents.</br>
                     <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
                     <strong>Robot Etiquette:</strong> Treat working robots just like you would treat a working human. Give them space!
                 </div>
-<button class="nav-side-btn" onclick="scrollToNext('lab-egg')"><i class="fas fa-arrow-down"></i></button>
-            </div>
+<div class="nav-action-group">
+                    <a href="detail_4.etiquette.html" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                    <button class="nav-side-btn" onclick="scrollToNext('lab-egg')" title="Next: Soft Grippers"><i class="fas fa-arrow-down"></i></button>
+                </div>
        </section>
 <section id="lab-egg">
             <h1 class="section-title">5. Soft Grippers</h1>
@@ -735,9 +810,10 @@ Explore how robots work through interactive contents.</br>
                     <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
                     <strong>Soft Robotics:</strong> Instead of rigid metal, robots are now using silicon and air pressure to safely handle fragile items in our daily lives.
                 </div>
-<button class="nav-side-btn" onclick="scrollToNext('lab-gym')"><i class="fas fa-arrow-down"></i></button>
-            </div>
-        </section>
+<div class="nav-action-group">
+                    <a href="detail_5.gripper.html" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                    <button class="nav-side-btn" onclick="scrollToNext('lab-gym')" title="Next: AI Training"><i class="fas fa-arrow-down"></i></button>
+                </div>        </section>
 
         <section id="lab-gym">
             <h1 class="section-title">6. AI Training</h1>
@@ -774,15 +850,10 @@ Explore how robots work through interactive contents.</br>
                     <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
                     <strong>Reinforcement Learning:</strong> The AI tries random movements in a simulation. It gets "points" for getting closer to the goal, eventually mastering the skill.
                 </div>
-<button 
-            class="nav-side-btn" 
-            onclick="scrollToNext('lab-maze')" 
-            title="Next: Robot Vision AI">
-            <i class="fas fa-arrow-down"></i>
-        </button>
-
-    </div>
-</section>
+<div class="nav-action-group">
+                    <a href="detail_6.training.html" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                    <button class="nav-side-btn" onclick="scrollToNext('lab-maze')" title="Next: Path Planning"><i class="fas fa-arrow-down"></i></button>
+                </div></section>
 
         <section id="lab-maze">
             <h1 class="section-title">7. Path Planning</h1>
@@ -848,9 +919,10 @@ Explore how robots work through interactive contents.</br>
         <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
         <strong>Dynamic Path Planning:</strong> Robots constantly scan their environment. If blocked, algorithms like A* (A-Star) instantly calculate a new optimal detour.
     </div>
-<button class="nav-side-btn" onclick="scrollToNext('lab-swarm')"><i class="fas fa-arrow-down"></i></button>
-</div>
-</section>
+<div class="nav-action-group">
+                    <a href="detail_7.path.html" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                    <button class="nav-side-btn" onclick="scrollToNext('lab-swarm')" title="Next: Swarm Robotics"><i class="fas fa-arrow-down"></i></button>
+                </div></section>
 
         <section id="lab-swarm">
             <h1 class="section-title">8. Swarm Robotics</h1>
@@ -877,9 +949,10 @@ Explore how robots work through interactive contents.</br>
                     <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
                     <strong>Swarm Robotics:</strong> Inspired by ants, hundreds of small robots communicate locally to perform massive tasks without a central brain. Used heavily in Amazon warehouses.
                 </div>
-<button class="nav-side-btn" onclick="scrollToNext('lab-muscle')"><i class="fas fa-arrow-down"></i></button>
-            </div>
-        </section>
+<div class="nav-action-group">
+                    <a href="detail_8.swarm.html" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                    <button class="nav-side-btn" onclick="scrollToNext('lab-muscle')" title="Next: Precision Motors"><i class="fas fa-arrow-down"></i></button>
+                </div>        </section>
 
         <section id="lab-muscle">
             <h1 class="section-title">9. Precision Motors</h1>
@@ -903,9 +976,10 @@ Explore how robots work through interactive contents.</br>
                     <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
                     <strong>Actuators & Encoders:</strong> Robot joints don't just spin; they have sensors (Encoders) that tell the computer exactly how many degrees they have turned, allowing zero-error movements.
                 </div>
-<button class="nav-side-btn" onclick="scrollToNext('lab-cobot')"><i class="fas fa-arrow-down"></i></button>
-</div>
-        </section>
+<div class="nav-action-group">
+                    <a href="detail_9.motors.html" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                    <button class="nav-side-btn" onclick="scrollToNext('lab-cobot')" title="Next: Safety Sensors"><i class="fas fa-arrow-down"></i></button>
+                </div>        </section>
 
 <section id="lab-cobot">
             <h1 class="section-title">10. Safety Sensors</h1>
@@ -935,10 +1009,10 @@ Explore how robots work through interactive contents.</br>
                     <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
                     <strong>Collaborative Robots (Cobots):</strong> Equipped with ultra-sensitive torque sensors. If they feel even the slightest unexpected resistance (like bumping a human), they instantly freeze to prevent injury.
                 </div>
-<button class="nav-side-btn" onclick="scrollToNext('hero-intro')" title="Back to Top"><i class="fas fa-arrow-up"></i></button>
-
-            </div>
-        </section>
+<div class="nav-action-group">
+                    <a href="detail_10.sensors.html" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                    <button class="nav-side-btn" onclick="scrollToNext('hero-intro')" title="Back to Top"><i class="fas fa-arrow-up"></i></button>
+                </div>        </section>
         
         <div style="text-align: center; padding: 50px; border-top: 1px solid #333;">
             <p style="color: #666; font-family: 'Roboto';">&copy; 2026 LearnRobot.com. Demystifying the future.</p>

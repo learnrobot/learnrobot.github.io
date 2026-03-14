@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Robot Balance Details - LearnRobot.com</title>
+
+    <link rel="icon" href="favicon.png?v=2" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700;900&family=Orbitron:wght@500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.2/css/flag-icons.min.css" />
+
+    <script src="data.js"></script>
+
+    <style>
+        /* 메인 페이지 기본 스타일 상속 */
+        :root {
+            --bg-dark: #1a1a1a;
+            --sidebar-bg: #1E1E1E;
+            --primary-color: #2C9999;
+            --accent-color: #FFFB03;
+            --text-main: #e0e0e0;
+            --sidebar-width: 280px;
+        }
+        body {
+            background-color: var(--bg-dark); color: var(--text-main); font-family: 'Chakra Petch', sans-serif;
+            margin: 0; padding: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden;
+        }
+
+        /* --- 기존 헤더 및 사이드바 스타일 압축 (index.html과 100% 동일) --- */
+        header { background: rgba(30, 30, 30, 0.95); backdrop-filter: blur(10px); height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; z-index: 10; gap: 20px; flex-shrink: 0; }
+        .logo-link { text-decoration: none; color: inherit; display: flex; align-items: center; gap: 15px; }
+        .logo-image { height: 60px; width: auto; object-fit: contain; border-radius: 50%; }
+        .logo-text { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; color: #fff; text-transform: uppercase; }
+        .auth-buttons { display: flex; gap: 15px; align-items: center; }
+        .lang-btn { background: transparent; border: 2px solid #2C9999; color: #2C9999; padding: 5px 12px; border-radius: 20px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+        .lang-dropdown { display: none; position: absolute; top: 45px; right: 0; background: rgba(20, 20, 20, 0.95); border: 1px solid #2C9999; border-radius: 8px; width: 160px; overflow: hidden; flex-direction: column; }
+        .lang-dropdown.show { display: flex; }
+        .lang-dropdown a { padding: 10px 15px; color: #ccc; text-decoration: none; font-size: 0.9rem; }
+        .container-fluid { display: flex; flex: 1; overflow: hidden; padding: 0; margin: 0; }
+        aside { width: var(--sidebar-width) !important; background-color: #1E1E1E !important; padding: 15px 1.5rem !important; display: flex !important; flex-direction: column !important; border-right: 1px solid rgba(255, 255, 255, 0.05) !important; flex-shrink: 0 !important; gap: 2px !important; z-index: 100 !important; overflow-y: auto; height: 100%; }
+        main { flex: 1; overflow-y: auto; scroll-behavior: smooth; background: #1a1a1a; padding: 40px; }
+        .category-group { border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 8px 10px; background: rgba(255, 255, 255, 0.03); margin-bottom: 4px; }
+        .group-title { color: var(--primary-color); font-weight: 700; border-bottom: 1px solid rgba(44,153,153,0.2); padding-bottom: 5px; margin-bottom: 8px; }
+        .category-btn { width: 100%; text-align: left; background: transparent; border: none; color: #ccc; padding: 5px 10px; font-size: 0.98rem; border-radius: 6px; display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .category-btn.active { color: var(--accent-color); font-weight: 700; background: rgba(255, 251, 3, 0.05); }
+
+        /* --- 상세 페이지 전용 본문 디자인 --- */
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .page-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+        .page-subtitle {
+            font-family: 'Roboto', sans-serif;
+            color: #aaa;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+        
+        /* 문단 스타일 (ESL 친화적인 큰 글씨와 넓은 줄간격) */
+        .section-box {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+        .section-box h2 {
+            font-size: 1.6rem;
+            color: #fff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-box p {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.15rem;
+            color: #ddd;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        /* 퀴즈 섹션 디자인 */
+        .quiz-area {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px dashed #444;
+        }
+        .quiz-card {
+            background: rgba(44, 153, 153, 0.1);
+            border: 1px solid rgba(44, 153, 153, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .quiz-card h4 {
+            color: #FFFB03;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        .quiz-options {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 15px;
+            font-family: 'Roboto', sans-serif;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        .quiz-options li {
+            margin-bottom: 8px;
+        }
+        .hint-btn {
+            background: #1a1a1a;
+            color: #86D1D1;
+            border: 1px solid #86D1D1;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        .hint-btn:hover {
+            background: #86D1D1;
+            color: #000;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #86D1D1;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-btn:hover { color: #FFFB03; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div style="flex: 1; display: flex; justify-content: flex-start;">
+        <a href="index.html" class="logo-link" style="text-decoration: none;">
+            <div class="logo" style="display: flex; align-items: center; gap: 15px;">
+                <img src="favicon.png" alt="Logo" class="logo-image" style="height: 65px; width: auto; border-radius: 50%;"> 
+                <div style="font-family: 'Chakra Petch', sans-serif; font-style: italic; display: flex; flex-direction: column; line-height: 0.8; margin-top: 5px;">
+                    <span style="color: #ffffff; font-size: 2.2rem; font-weight: 900; z-index: 2; letter-spacing: 1px;-webkit-text-stroke: 0.3px #000;">LEARN</span>
+                    <span style="color: #FFFB03; font-size: 3.6rem; font-weight: 900; z-index: 1; margin-left: 50px; margin-top: -5px;-webkit-text-stroke: 0.3px #000;">ROBOT</span>
+                </div>
+            </div> 
+        </a>
+    </div>
+    <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; height: 90px;">
+        </div>
+    <div class="auth-buttons" style="flex: 1; display: flex; justify-content: flex-end;">
+        </div>
+</header>
+
+<div class="container-fluid">
+ <aside>
+        <div class="category-group">
+            <div class="group-title">How Robot Works</div>
+            <a href="index.html#lab-balance" class="category-btn"><i class="fas fa-child" style="color:#86D1D1; width: 25px;"></i> 1. Robot Balance</a>
+            <a href="index.html#lab-battery" class="category-btn"><i class="fas fa-battery-quarter" style="color:#FFFB03; width: 25px;"></i> 2. Battery & Power</a>
+            <a href="index.html#lab-vision" class="category-btn"><i class="fas fa-eye" style="color:#2ecc71; width: 25px;"></i> 3. Robot Vision AI</a>
+            <a href="index.html#lab-etiquette" class="category-btn"><i class="fas fa-handshake" style="color:#FF7777; width: 25px;"></i> 4. Robot Etiquette</a>
+            <a href="index.html#lab-egg" class="category-btn"><i class="fas fa-egg" style="color:#f1c40f; width: 25px;"></i> 5. Soft Grippers</a> 
+            <a href="index.html#lab-gym" class="category-btn"><i class="fas fa-brain" style="color:#9b59b6; width: 25px;"></i> 6. AI Training</a>
+            <a href="index.html#lab-maze" class="category-btn"><i class="fas fa-route" style="color:#3498db; width: 25px;"></i> 7. Path Planning</a>
+            <a href="index.html#lab-swarm" class="category-btn"><i class="fas fa-users" style="color:#e67e22; width: 25px;"></i> 8. Swarm Robotics</a>
+            <a href="index.html#lab-muscle" class="category-btn"><i class="fas fa-cogs" style="color:#95a5a6; width: 25px;"></i> 9. Precision Motors</a>
+            <a href="index.html#lab-cobot" class="category-btn"><i class="fas fa-shield-alt" style="color:#1abc9c; width: 25px;"></i> 10. Safety Sensors</a>
+        </div>
+    </aside>
+
+    <main>
+        <div class="article-container">
+            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Interactive Lab</a>
+            
+            <h1 class="page-title">1. How Do Robots Stand Up?</h1>
+            <p class="page-subtitle">Understanding the simple science of Robot Balance.</p>
+
+            <div id="text-gravity" class="section-box">
+                <h2><i class="fas fa-apple-alt" style="color:#FF5555;"></i> The Problem: Gravity</h2>
+                <p>Humans stand up and walk easily. We do not even think about it. But for a robot, standing up is very hard. This is because of <strong>gravity</strong>.</p>
+                <p>Gravity is a force that always pulls things down to the ground. If a robot leans forward just a little bit, gravity will pull it down, and it will crash.</p>
+            </div>
+
+            <div id="text-imu" class="section-box">
+                <h2><i class="fas fa-microchip" style="color:#2ecc71;"></i> The Solution: What is an IMU?</h2>
+                <p>To fight gravity, robots need to know if they are falling. They use a special computer chip called an <strong>IMU (Inertial Measurement Unit)</strong>.</p>
+                <p>The IMU acts like the robot's "inner ear". Just like your ears help you keep your balance when you close your eyes, the IMU tells the robot its exact body position.</p>
+            </div>
+
+            <div id="text-sensors" class="section-box">
+                <h2><i class="fas fa-cogs" style="color:#9b59b6;"></i> Two Parts of the IMU</h2>
+                <p>The IMU chip has two very important sensors inside:</p>
+                <p><strong>1. Accelerometer:</strong> This measures straight speed and the direction of gravity. It tells the robot which way is "Down".</p>
+                <p><strong>2. Gyroscope:</strong> This measures turning and tilting. If the robot's body tilts left or right by just 1 degree, the gyroscope feels it immediately.</p>
+            </div>
+
+            <div id="text-brain" class="section-box">
+                <h2><i class="fas fa-bolt" style="color:#f1c40f;"></i> How They Work Together</h2>
+                <p>1. The IMU feels the robot tilting down.<br>
+                   2. It sends this data to the robot's main computer (the brain).<br>
+                   3. The brain calculates the numbers quickly.<br>
+                   4. The brain sends power to the motors in the robot's legs to push back.</p>
+                <p>This entire process happens very fast—more than <strong>100 times every second!</strong> That is how robots do not fall.</p>
+            </div>
+
+            <div class="quiz-area">
+                <h2 style="color: #fff; margin-bottom: 20px;"><i class="fas fa-question-circle" style="color:#FFFB03;"></i> Check Your Understanding</h2>
+                
+                <div class="quiz-card">
+                    <h4>Q1. Why is it hard for robots to stand up without falling?</h4>
+                    <ul class="quiz-options">
+                        <li>A) Because they are too heavy.</li>
+                        <li>B) Because gravity is always pulling them down.</li>
+                        <li>C) Because they do not have eyes.</li>
+                    </ul>
+                    <button class="hint-btn" onclick="document.getElementById('text-gravity').scrollIntoView({behavior:'smooth'})"><i class="fas fa-search"></i> Find Answer in Text</button>
+                </div>
+
+                <div class="quiz-card">
+                    <h4>Q2. What is the name of the chip that acts like the robot's inner ear?</h4>
+                    <ul class="quiz-options">
+                        <li>A) USB</li>
+                        <li>B) GPS</li>
+                        <li>C) IMU</li>
+                    </ul>
+                    <button class="hint-btn" onclick="document.getElementById('text-imu').scrollIntoView({behavior:'smooth'})"><i class="fas fa-search"></i> Find Answer in Text</button>
+                </div>
+
+                <div class="quiz-card">
+                    <h4>Q3. Which sensor measures the tilting angle (turning left or right)?</h4>
+                    <ul class="quiz-options">
+                        <li>A) Thermometer</li>
+                        <li>B) Gyroscope</li>
+                        <li>C) Accelerometer</li>
+                    </ul>
+                    <button class="hint-btn" onclick="document.getElementById('text-sensors').scrollIntoView({behavior:'smooth'})"><i class="fas fa-search"></i> Find Answer in Text</button>
+                </div>
+
+                <div class="quiz-card">
+                    <h4>Q4. Which sensor tells the robot which way is "Down" by feeling gravity?</h4>
+                    <ul class="quiz-options">
+                        <li>A) Accelerometer</li>
+                        <li>B) Microphone</li>
+                        <li>C) Gyroscope</li>
+                    </ul>
+                    <button class="hint-btn" onclick="document.getElementById('text-sensors').scrollIntoView({behavior:'smooth'})"><i class="fas fa-search"></i> Find Answer in Text</button>
+                </div>
+
+                <div class="quiz-card">
+                    <h4>Q5. How many times does the robot check its balance in one second?</h4>
+                    <ul class="quiz-options">
+                        <li>A) 1 time</li>
+                        <li>B) 10 times</li>
+                        <li>C) More than 100 times</li>
+                    </ul>
+                    <button class="hint-btn" onclick="document.getElementById('text-brain').scrollIntoView({behavior:'smooth'})"><i class="fas fa-search"></i> Find Answer in Text</button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>
