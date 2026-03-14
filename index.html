@@ -893,6 +893,61 @@ Explore how robots work through interactive contents.</br>
             0% { transform: translateX(-50%) scale(0); }
             100% { transform: translateX(-50%) scale(1); }
         }
+/* --- 모바일 및 태블릿 최종 통합 대응 (1024px 이하) --- */
+@media (max-width: 1024px) {
+    /* 1. 사이드바 내부 X 버튼 겹침 해결 */
+    aside {
+        padding-top: 60px !important; /* X 버튼 공간 확보 */
+    }
+
+    /* 2. 메인 화면 가로 잘림 방지 (세로 정렬 강제) */
+    .container-fluid {
+        flex-direction: column !important;
+    }
+
+    main {
+        padding: 20px 15px !important; /* 여백 축소 */
+        width: 100% !important;
+        overflow-x: hidden;
+    }
+
+    /* 3. "Who's playing in Robotics" 카드 잘림 해결 */
+    /* 그리드를 해제하고 세로로 나열합니다. */
+    .spotlight-wrapper {
+        display: flex !important;
+        flex-direction: column !important;
+        height: auto !important;
+        gap: 15px;
+    }
+
+    .spotlight-card {
+        flex-direction: column !important; /* 카드 내부도 세로 정렬 */
+        align-items: center !important;
+        padding: 20px 15px !important;
+        text-align: center !important;
+    }
+
+    .spotlight-company-name {
+        font-size: 1.5rem !important; /* 글자 크기 축소 */
+        word-break: break-all;
+    }
+
+    /* 4. 뉴스 카드 너비 최적화 */
+    .side-card.news-card {
+        width: 100% !important;
+        margin-top: 10px;
+    }
+
+    /* 5. 헤더 로고 크기 조절 */
+    .logo-text span {
+        font-size: 1.2rem !important;
+    }
+    
+    header {
+        height: 80px !important;
+        padding: 0 10px !important;
+    }
+}
     </style>
 
     <div class="maze-road">
