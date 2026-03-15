@@ -16,48 +16,86 @@
     <script src="data.js"></script>
 
     <style>
-/* --- [신규] 패널 우측 Next / Top 버튼 스타일 --- */
-        .nav-side-btn {
+/* --- [완성] 상세 & 다음 버튼 그룹 (패널 우측 바깥으로 원상복구) --- */
+        .nav-action-group {
             position: absolute;
-            right: -70px; /* 패널에서 오른쪽으로 70px 떨어진 위치 */
+            left: calc(100% + 20px); /* 패널 오른쪽 끝에서 20px 바깥으로 뺌 */
             top: 50%;
-            transform: translateY(-50%);
-            background: rgba(30, 30, 30, 0.8);
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            transform: translateY(-50%); /* 세로 중앙 정렬 */
             display: flex;
+            flex-direction: column; /* 위아래로 나란히 정렬 */
+            gap: 15px; /* 버튼 사이 간격 */
+            z-index: 10;
+        }
+        
+        /* Read Details 버튼 디자인 */
+        .go-detail-btn {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            gap: 8px;
+            background: rgba(44, 153, 153, 0.15);
+            color: #86D1D1;
+            border: 1px solid #2C9999;
+            padding: 12px 15px;
+            border-radius: 8px; 
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            white-space: nowrap; 
+            width: 145px; /* 두 버튼의 폭을 완벽하게 통일! */
+        }
+        .go-detail-btn:hover {
+            background: #2C9999;
+            color: #1a1a1a;
+            box-shadow: 0 0 15px rgba(44, 153, 153, 0.5);
+            transform: scale(1.05); /* 마우스 올리면 커짐 */
+        }
+
+        /* Next Topic 버튼 디자인 (글자 포함 둥근 사각형) */
+        .nav-side-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+background: rgba(44, 153, 153, 0.15);
+           border: 1px solid #2C9999;  /* 2px에서 1px로 변경하고 색상 고정 */
+            color: #86D1D1;
+            padding: 12px 15px; 
+            border-radius: 8px; 
+            font-size: 1rem;
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            white-space: nowrap;
             z-index: 10;
+            font-family: 'Chakra Petch', sans-serif;
+            width: 145px; /* 두 버튼의 폭을 완벽하게 통일! */
         }
-
         .nav-side-btn:hover {
             background: var(--accent-color);
             color: #000;
             border-color: var(--accent-color);
             box-shadow: 0 0 20px rgba(255, 251, 3, 0.6);
-            transform: translateY(-50%) scale(1.1);
+            transform: scale(1.05);
         }
 
-        /* 모바일/태블릿 화면에서는 버튼이 잘리지 않도록 패널 안쪽(아래)으로 이동 */
-        @media (max-width: 1100px) {
-            .nav-side-btn {
+        /* 화면이 좁아져서 버튼이 잘릴 위험이 있을 때만 패널 아래로 이동 */
+        @media (max-width: 1150px) {
+            .nav-action-group {
                 position: static;
                 transform: none;
-                margin: 20px auto 0 auto;
+                flex-direction: row; /* 가로로 나란히 */
+                margin-top: 25px;
                 width: 100%;
-                border-radius: 8px;
-                height: 45px;
             }
-            .nav-side-btn:hover {
-                transform: scale(1.02);
+            .nav-action-group .go-detail-btn,
+            .nav-action-group .nav-side-btn {
+                flex: 1; /* 너비를 반반씩 나눠 갖기 */
+                width: auto;
             }
         }
         :root {
@@ -698,7 +736,7 @@ Explore how robots work through interactive contents.</br>
 
             <div class="nav-action-group">
                 <a href="robot_details.html?id=1" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
-                <button class="nav-side-btn" onclick="scrollToNext('lab-battery')" title="Next: Battery & Power"><i class="fas fa-arrow-down"></i></button>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-battery')" title="Next: Battery & Power">Next Topic <i class="fas fa-arrow-down"></i></button>
             </div>
             </div> </section>
 
@@ -728,7 +766,7 @@ Explore how robots work through interactive contents.</br>
                 </div>
 <div class="nav-action-group">
                 <a href="robot_details.html?id=2" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
-                 <button class="nav-side-btn" onclick="scrollToNext('lab-vision')" title="Next: Robot Vision AI"><i class="fas fa-arrow-down"></i></button>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-vision')" title="Next: Robot Vision AI">Next Topic <i class="fas fa-arrow-down"></i></button>
             </div>
             </div> </section>
 
@@ -752,9 +790,9 @@ Explore how robots work through interactive contents.</br>
                 </div>
 
 <div class="nav-action-group">
-                    <a href="robot_details.html?id=3" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
-                    <button class="nav-side-btn" onclick="scrollToNext('lab-etiquette')" title="Next: Robot Etiquette"><i class="fas fa-arrow-down"></i></button>
-                </div>
+                <a href="robot_details.html?id=3" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-etiquette')" title="Next: Robot Etiquette">Next Topic <i class="fas fa-arrow-down"></i></button>
+            </div>
         </section>
 
         <section id="lab-etiquette">
@@ -784,10 +822,9 @@ Explore how robots work through interactive contents.</br>
                     <strong>Robot Etiquette:</strong> Treat working robots just like you would treat a working human. Give them space!
                 </div>
 <div class="nav-action-group">
-                    <a href="robot_details.html?id=4" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
-                    <button class="nav-side-btn" onclick="scrollToNext('lab-egg')" title="Next: Soft Grippers"><i class="fas fa-arrow-down"></i></button>
-                </div>
-       </section>
+                <a href="robot_details.html?id=4" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-egg')" title="Next: Soft Grippers">Next Topic <i class="fas fa-arrow-down"></i></button>
+            </div>       </section>
 <section id="lab-egg">
             <h1 class="section-title">5. Soft Grippers</h1>
             <p class="section-subtitle">Robots have strong grips, but can they hold an egg without breaking it?</p>
@@ -811,9 +848,9 @@ Explore how robots work through interactive contents.</br>
                     <strong>Soft Robotics:</strong> Instead of rigid metal, robots are now using silicon and air pressure to safely handle fragile items in our daily lives.
                 </div>
 <div class="nav-action-group">
-                    <a href="robot_details.html?id=5" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
-                    <button class="nav-side-btn" onclick="scrollToNext('lab-gym')" title="Next: AI Training"><i class="fas fa-arrow-down"></i></button>
-                </div>        </section>
+                <a href="robot_details.html?id=5" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-gym')" title="Next: AI Training">Next Topic <i class="fas fa-arrow-down"></i></button>
+            </div>        </section>
 
         <section id="lab-gym">
             <h1 class="section-title">6. AI Training</h1>
@@ -851,9 +888,9 @@ Explore how robots work through interactive contents.</br>
                     <strong>Reinforcement Learning:</strong> The AI tries random movements in a simulation. It gets "points" for getting closer to the goal, eventually mastering the skill.
                 </div>
 <div class="nav-action-group">
-                    <a href="robot_details.html?id=6" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
-                    <button class="nav-side-btn" onclick="scrollToNext('lab-maze')" title="Next: Path Planning"><i class="fas fa-arrow-down"></i></button>
-                </div></section>
+                <a href="robot_details.html?id=6" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-maze')" title="Next: Path Planning">Next Topic <i class="fas fa-arrow-down"></i></button>
+            </div></section>
 
         <section id="lab-maze">
             <h1 class="section-title">7. Path Planning</h1>
@@ -975,9 +1012,9 @@ Explore how robots work through interactive contents.</br>
         <strong>Dynamic Path Planning:</strong> Robots constantly scan their environment. If blocked, algorithms like A* (A-Star) instantly calculate a new optimal detour.
     </div>
 <div class="nav-action-group">
-                    <a href="robot_details.html?id=7" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
-                    <button class="nav-side-btn" onclick="scrollToNext('lab-swarm')" title="Next: Swarm Robotics"><i class="fas fa-arrow-down"></i></button>
-                </div></section>
+                <a href="robot_details.html?id=7" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-swarm')" title="Next: Swarm Robotics">Next Topic <i class="fas fa-arrow-down"></i></button>
+            </div></section>
 
         <section id="lab-swarm">
             <h1 class="section-title">8. Swarm Robotics</h1>
@@ -1005,9 +1042,9 @@ Explore how robots work through interactive contents.</br>
                     <strong>Swarm Robotics:</strong> Inspired by ants, hundreds of small robots communicate locally to perform massive tasks without a central brain. Used heavily in Amazon warehouses.
                 </div>
 <div class="nav-action-group">
-                    <a href="robot_details.html?id=8" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
-                    <button class="nav-side-btn" onclick="scrollToNext('lab-muscle')" title="Next: Precision Motors"><i class="fas fa-arrow-down"></i></button>
-                </div>        </section>
+                <a href="robot_details.html?id=8" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-muscle')" title="Next: Precision Motors">Next Topic <i class="fas fa-arrow-down"></i></button>
+            </div>       </section>
 
         <section id="lab-muscle">
             <h1 class="section-title">9. Precision Motors</h1>
@@ -1032,9 +1069,9 @@ Explore how robots work through interactive contents.</br>
                     <strong>Actuators & Encoders:</strong> Robot joints don't just spin; they have sensors (Encoders) that tell the computer exactly how many degrees they have turned, allowing zero-error movements.
                 </div>
 <div class="nav-action-group">
-                    <a href="robot_details.html?id=9" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
-                    <button class="nav-side-btn" onclick="scrollToNext('lab-cobot')" title="Next: Safety Sensors"><i class="fas fa-arrow-down"></i></button>
-                </div>        </section>
+                <a href="robot_details.html?id=9" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-cobot')" title="Next: Safety Sensors">Next Topic <i class="fas fa-arrow-down"></i></button>
+            </div>        </section>
 
 <section id="lab-cobot">
             <h1 class="section-title">10. Safety Sensors</h1>
@@ -1065,9 +1102,9 @@ Explore how robots work through interactive contents.</br>
                     <strong>Collaborative Robots (Cobots):</strong> Equipped with ultra-sensitive torque sensors. If they feel even the slightest unexpected resistance (like bumping a human), they instantly freeze to prevent injury.
                 </div>
 <div class="nav-action-group">
-                    <a href="robot_details.html?id=10" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
-                    <button class="nav-side-btn" onclick="scrollToNext('hero-intro')" title="Back to Top"><i class="fas fa-arrow-up"></i></button>
-                </div>        </section>
+                <a href="robot_details.html?id=10" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('hero-intro')" title="Back to Top">Back to Top <i class="fas fa-arrow-up"></i></button>
+            </div>      </section>
         
         <div style="text-align: center; padding: 50px; border-top: 1px solid #333;">
             <p style="color: #666; font-family: 'Roboto';">&copy; 2026 LearnRobot.com. Demystifying the future.</p>
