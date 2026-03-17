@@ -623,6 +623,7 @@ background: rgba(44, 153, 153, 0.15);
 <body>
 
 <header>
+<button class="menu-toggle-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
 <div style="flex: 1; display: flex; justify-content: flex-start;">
         <a href="index.html" class="logo-link" style="text-decoration: none;">
             <div class="logo" style="display: flex; align-items: center; gap: 15px;">
@@ -997,61 +998,34 @@ Explore how robots work through interactive contents.</br>
             0% { transform: translateX(-50%) scale(0); }
             100% { transform: translateX(-50%) scale(1); }
         }
-/* --- 모바일 및 태블릿 최종 통합 대응 (1024px 이하) --- */
-@media (max-width: 1024px) {
-    /* 1. 사이드바 내부 X 버튼 겹침 해결 */
-    aside {
-        padding-top: 60px !important; /* X 버튼 공간 확보 */
-    }
+/* 👇 모바일 햄버거 버튼 기본(숨김) 👇 */
+        .menu-toggle-btn {
+            display: none; background: transparent; border: none; color: #fff;
+            font-size: 1.8rem; cursor: pointer; z-index: 1001; padding: 10px; margin-right: 10px;
+        }
 
-    /* 2. 메인 화면 가로 잘림 방지 (세로 정렬 강제) */
-    .container-fluid {
-        flex-direction: column !important;
-    }
 
-    main {
-        padding: 20px 15px !important; /* 여백 축소 */
-        width: 100% !important;
-        overflow-x: hidden;
-    }
+        /* --- 모바일 햄버거 메뉴 및 최적화 (1024px 이하) --- */
+        @media (max-width: 1024px) {
+            .menu-toggle-btn { display: block; } /* 모바일에서만 버튼 표시 */
+            
+            /* 1. 사이드바를 서랍장(Drawer) 방식으로 왼쪽 밖에 대기 */
+            aside {
+                display: flex !important; position: fixed !important;
+                left: -320px; top: 100px; bottom: 0;
+                transition: left 0.3s ease; z-index: 1000 !important;
+                box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+            }
+            /* 버튼 누르면 스르륵 나옴 */
+            aside.mobile-open { left: 0 !important; } 
 
-    /* 3. "Who's playing in Robotics" 카드 잘림 해결 */
-    /* 그리드를 해제하고 세로로 나열합니다. */
-    .spotlight-wrapper {
-        display: flex !important;
-        flex-direction: column !important;
-        height: auto !important;
-        gap: 15px;
-    }
-
-    .spotlight-card {
-        flex-direction: column !important; /* 카드 내부도 세로 정렬 */
-        align-items: center !important;
-        padding: 20px 15px !important;
-        text-align: center !important;
-    }
-
-    .spotlight-company-name {
-        font-size: 1.5rem !important; /* 글자 크기 축소 */
-        word-break: break-all;
-    }
-
-    /* 4. 뉴스 카드 너비 최적화 */
-    .side-card.news-card {
-        width: 100% !important;
-        margin-top: 10px;
-    }
-
-    /* 5. 헤더 로고 크기 조절 */
-    .logo-text span {
-        font-size: 1.2rem !important;
-    }
-    
-    header {
-        height: 80px !important;
-        padding: 0 10px !important;
-    }
-}
+            /* 2. 본문 꽉 차게 유지 */
+            .container-fluid { flex-direction: column !important; overflow-x: hidden !important; }
+            main { padding: 20px 15px !important; width: 100% !important; margin-left: 0 !important; overflow-x: hidden !important; }
+            .nav-action-group { position: static !important; transform: none !important; flex-direction: row !important; margin: 25px 0 10px 0 !important; width: 100% !important; gap: 10px; }
+            .nav-action-group .go-detail-btn, .nav-action-group .nav-side-btn { flex: 1; width: auto !important; min-width: 0; }
+            .logo-image { height: 45px !important; }
+        }
     </style>
 
     <div class="maze-road">
@@ -1557,7 +1531,28 @@ function initSpotlight() {
 </script>
 
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+    // 햄버거 메뉴 작동 로직
+    const menuBtn = document.getElementById('mobileMenuBtn');
+    const sidebar = document.getElementById('sidebarMenu');
 
+    menuBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        sidebar.classList.toggle('mobile-open');
+    });
+
+    document.addEventListener('click', function(e) {
+        if (sidebar.classList.contains('mobile-open') && !sidebar.contains(e.target) && e.target !== menuBtn) {
+            sidebar.classList.remove('mobile-open');
+        }
+    });
+
+    sidebar.querySelectorAll('a, button').forEach(item => {
+        item.addEventListener('click', () => {
+            if (window.innerWidth <= 1024) sidebar.classList.remove('mobile-open');
+        });
+    });
+</script>
 </body>
 
 </html>
