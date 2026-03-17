@@ -617,6 +617,47 @@ background: rgba(44, 153, 153, 0.15);
     /* 5. 로고가 너무 크면 헤더가 깨지므로 크기 축소 */
     .logo-image { height: 45px !important; }
 }
+/* 🚨 모바일 가로 튕김(오버플로우) 완벽 방어막 🚨 */
+        html, body {
+            max-width: 100vw !important;
+            overflow-x: hidden !important; /* 가로 스크롤과 튕김을 원천 차단 */
+            width: 100% !important;
+        }
+
+        @media (max-width: 1024px) {
+            /* 1. 헤더 가로폭 폭발 방지 (상단 중앙 광고 & SNS 아이콘 숨김) */
+            header > div:nth-child(3), .sns-icons {
+                display: none !important; /* 모바일 헤더를 찢고 나가는 주범들 숨김 */
+            }
+            .auth-buttons { gap: 0 !important; }
+            
+            /* 2. 로고 텍스트 여백 축소 */
+            .logo-link span:last-child { margin-left: 10px !important; }
+
+            /* 3. 본문 박스가 화면 밖으로 나가는 것 방지 */
+            .lab-card, .article-container {
+                width: 100% !important;
+                max-width: 100vw !important;
+                box-sizing: border-box !important;
+                padding: 20px 15px !important;
+                margin: 0 auto !important;
+            }
+
+            /* 4. 두 개의 버튼이 가로로 화면을 찢는 것 방지 (세로로 꽉 차게 쌓음) */
+            .nav-action-group {
+                flex-direction: column !important; /* 좁은 폰에서는 위아래로 배치 */
+                width: 100% !important;
+                margin: 20px 0 0 0 !important;
+                gap: 10px !important;
+                box-sizing: border-box !important;
+            }
+            .nav-action-group .go-detail-btn,
+            .nav-action-group .nav-side-btn {
+                width: 100% !important; /* 버튼이 화면 가로폭을 100% 알차게 씀 */
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+            }
+        }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936" crossorigin="anonymous"></script>
 </head>
@@ -1192,8 +1233,7 @@ Explore how robots work through interactive contents.</br>
         // 기본 상태 달걀 HTML (똑같음)
         const cleanEggHTML = `<i id="egg-stage" class="fas fa-egg egg-icon"></i>`;
         
-        // ▼ 폭발 효과를 지우고 realistic cracks 및 yolk 효과 적용 ▼
-        // ▼ testGrip 함수 내부의 shatteredEggHTML 변수를 이 코드로 교체하세요 ▼
+       
     // ▼ testGrip 함수 내부의 shatteredEggHTML 변수를 이 코드로 교체하세요 ▼
     const shatteredEggHTML = `<div class="egg-icon shattered-raw" style="position: relative; width: 100px; height: 120px; display: flex; align-items: center; justify-content: center;">
                                 <div style="position: absolute; bottom: 0px; width: 90px; height: 35px; background: rgba(255,255,255,0.8); border-radius: 50%; z-index: 1; animation: splat 0.2s forwards;"></div>
