@@ -56,6 +56,36 @@
             margin: -2px -4px;
             font-weight: bold;
         }
+/* 👇 모바일 햄버거 버튼 기본(숨김) 👇 */
+        .menu-toggle-btn {
+            display: none; background: transparent; border: none; color: #fff;
+            font-size: 1.8rem; cursor: pointer; z-index: 1001; padding: 10px; margin-right: 10px;
+        }
+
+        /* --- 모바일 햄버거 메뉴 및 최적화 (1024px 이하) --- */
+        @media (max-width: 1024px) {
+            .menu-toggle-btn { display: block; } /* 모바일에서만 버튼 표시 */
+            
+            /* 1. 사이드바를 서랍장(Drawer) 방식으로 왼쪽 밖에 대기 */
+            aside {
+                display: flex !important; position: fixed !important;
+                left: -320px; top: 100px; bottom: 0;
+                transition: left 0.3s ease; z-index: 1000 !important;
+                box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+            }
+            /* 버튼 누르면 스르륵 나옴 */
+            aside.mobile-open { left: 0 !important; } 
+
+            /* 2. 본문 꽉 차게 유지 및 여백 축소 */
+            .container-fluid { flex-direction: column !important; overflow-x: hidden !important; }
+            main { padding: 20px 15px !important; width: 100% !important; margin-left: 0 !important; overflow-x: hidden !important; }
+            
+            .article-container { padding: 20px !important; border-radius: 8px !important; }
+            .page-title { font-size: 1.8rem !important; }
+            .quiz-card { padding: 15px !important; }
+            
+            .logo-image { height: 45px !important; }
+        }
     </style>
 </head>
 <body>
