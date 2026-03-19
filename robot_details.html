@@ -751,52 +751,69 @@ html { margin-top: 0px !important; }
 
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 <script>
-    // ▼ 정답 형광펜 및 페이지 전환 함수 ▼
+    // ▼ 1. 구글 번역기 초기화 ▼
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,ko,ja,zh-CN,es,fr,de,ru,pt,it',
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+
+    // ▼ 2. 페이지 로드 시 실행 (메인 페이지 언어 이어받기 & 탭 열기) ▼
+    window.onload = function() {
+        // (1) 메인에서 누른 탭 번호 열기
+        const urlParams = new URLSearchParams(window.location.search);
+        let currentId = urlParams.get('id') || '1'; 
+        showTopic(currentId);
+
+        // (2) 메인에서 설정한 언어 쿠키를 읽어와서 버튼 글자 자동 업데이트
+        setTimeout(() => {
+            const cookies = document.cookie.split(';');
+            let currentLang = 'EN'; // 기본값
+            for (let i = 0; i < cookies.length; i++) {
+                let c = cookies[i].trim();
+                if (c.startsWith("googtrans=")) {
+                    // 예: googtrans=/en/ko -> 'ko' 추출
+                    let parts = c.split('/');
+                    if (parts.length > 2) {
+                        currentLang = parts[2].toUpperCase().split('-')[0]; // ko -> KO, zh-CN -> ZH
+                    }
+                }
+            }
+            const langCurrentSpan = document.querySelector('.lang-current');
+            if (langCurrentSpan) langCurrentSpan.innerText = currentLang;
+        }, 500); // 번역기 로딩 시간 0.5초 대기
+    };
+
+    // ▼ 3. 퀴즈 정답 형광펜 및 탭 전환 로직 ▼
     function showAnswer(paraId, targetId) {
         document.getElementById(paraId).scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-        document.querySelectorAll('.ans-target').forEach(el => {
-            el.classList.remove('highlight-active');
-        });
-
+        document.querySelectorAll('.ans-target').forEach(el => el.classList.remove('highlight-active'));
         setTimeout(() => {
             const target = document.getElementById(targetId);
-            if(target) {
-                target.classList.add('highlight-active');
-            }
+            if(target) target.classList.add('highlight-active');
         }, 400); 
     }
 
     function showTopic(id) {
-        document.querySelectorAll('.topic-content').forEach(el => {
-            el.classList.remove('active-topic');
-        });
-        
+        document.querySelectorAll('.topic-content').forEach(el => el.classList.remove('active-topic'));
         const targetContent = document.getElementById('content-' + id);
-        if(targetContent) {
-            targetContent.classList.add('active-topic');
-        }
+        if(targetContent) targetContent.classList.add('active-topic');
 
-        document.querySelectorAll('.category-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
+        document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
         const targetBtn = document.getElementById('side-btn-' + id);
-        if(targetBtn) {
-            targetBtn.classList.add('active');
-        }
+        if(targetBtn) targetBtn.classList.add('active');
 
         window.history.replaceState(null, null, "?id=" + id);
         document.getElementById('main-scroll').scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    window.onload = function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        let currentId = urlParams.get('id') || '1'; 
-        showTopic(currentId);
-    };
-
-    // ▼ 햄버거 메뉴 작동 로직 ▼
+    // ▼ 4. 모바일 햄버거 메뉴 작동 로직 ▼
     const menuBtn = document.getElementById('mobileMenuBtn');
     const sidebar = document.getElementById('sidebarMenu');
 
@@ -821,50 +838,13 @@ html { margin-top: 0px !important; }
         });
     }
 
-    // ▼ 구글 번역기 함수 ▼
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'en',
-            includedLanguages: 'en,ko,ja,zh-CN,es,fr,de,ru,pt,it',
-            autoDisplay: false
-        }, 'google_translate_element');
-    }
-
+    // ▼ 5. 언어 드롭다운 메뉴 열기/닫기 (details 안에서 직접 바꾸는 로직은 삭제) ▼
     function toggleLanguageMenu() {
         const dropdown = document.getElementById('lang-dropdown');
         if (dropdown) dropdown.classList.toggle('show');
     }
 
-function changeLanguage(langCode) {
-        // 1. 구글 번역 쿠키를 사용자가 선택한 언어로 강제 덮어씌웁니다.
-        document.cookie = `googtrans=/en/${langCode}; path=/`;
-        
-        // 로컬 테스트(file://) 환경이나 특정 도메인에서도 확실히 먹히도록 한 번 더 세팅
-        if (location.hostname) {
-            document.cookie = `googtrans=/en/${langCode}; domain=.${location.hostname}; path=/`;
-        }
-
-        const select = document.querySelector('.goog-te-combo');
-        
-        if (select) {
-            // 2. 번역 상자가 정상 작동하는 상태라면 즉시 언어 변경 (깜빡임 없음)
-            select.value = langCode;
-            select.dispatchEvent(new Event('change', { bubbles: true })); 
-            
-            const langCurrent = document.querySelector('.lang-current');
-            if (langCurrent) langCurrent.innerText = langCode.toUpperCase().split('-')[0];
-            
-            const dropdown = document.getElementById('lang-dropdown');
-            if (dropdown) dropdown.classList.remove('show');
-        } else {
-            // 3. 메인에서 넘어와서 번역 상자가 꼬인 상태라면, 
-            // 쿠키는 이미 바꿨으니 현재 보고 있는 페이지 번호(?id=1)를 유지한 채로 새로고침하여 번역 완벽 적용
-            window.location.reload();
-        }
-    }
-
-    // 구글 번역기 상단 배너 강제 숨김
-   // 구글 번역기 상단 배너 강제 숨김 및 화면 밀림 방지
+    // ▼ 6. 구글 번역기 상단 배너 강제 숨김 및 화면 밀림 방지 ▼
     setInterval(() => {
         const bannerFrame = document.querySelector('.goog-te-banner-frame');
         if (bannerFrame) bannerFrame.remove();
