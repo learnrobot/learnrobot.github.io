@@ -22,7 +22,25 @@
 /* 구글 번역 배너 완벽 차단용 CSS */
 .goog-te-banner-frame, .goog-te-banner-frame.skiptranslate { display: none !important; }
 body > .skiptranslate { display: none !important; }
-body { top: 0px !important; position: static !important; margin-top: 0px !important; }
+/* 36라인 근처 수정 */
+/* 기존에 넣었던 배경 이미지 코드를 지우고 아래처럼 되돌려주세요 */
+body { 
+    color: #e0e0e0; 
+    font-family: 'Chakra Petch', sans-serif; 
+    margin: 0; 
+    padding: 0; 
+    display: flex; 
+    flex-direction: column; 
+    height: 100vh; 
+    overflow: hidden; 
+    
+    /* 전체 화면 배경 지정 (이곳으로 다시 옮김) */
+    background-image: url('3.future_world.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
 html { margin-top: 0px !important; }
 .goog-tooltip { display: none !important; }
 .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
@@ -55,20 +73,39 @@ html { margin-top: 0px !important; }
 .lang-select:hover { transform: scale(1.2); }
         :root { --bg-dark: #1a1a1a; --primary-color: #2C9999; --accent-color: #FFFB03; --sidebar-width: 280px; }
         body { background-color: var(--bg-dark); color: #e0e0e0; font-family: 'Chakra Petch', sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-        header { 
-    background: rgba(30, 30, 30, 0.95); 
-    height: 80px; /* 높이 고정 */
+header { 
+    background: rgba(15, 15, 15, 0.75); /* 투명도 75%의 검은색 */
+    backdrop-filter: blur(4px);        /* 배경을 살짝 흐리게 하는 유리 효과 */
+    -webkit-backdrop-filter: blur(4px);
+    height: 80px; 
     display: flex; 
     align-items: center; 
-    justify-content: space-between; /* 양끝 정렬 핵심 */
+    justify-content: space-between; 
     padding: 0 2.5rem; 
     z-index: 100; 
-    border-bottom: 1px solid rgba(255,255,255,0.05); 
+    border-bottom: 1px solid rgba(255,255,255,0.1); 
     flex-shrink: 0;
 }
         .container-fluid { display: flex; flex: 1; overflow: hidden; padding: 0; margin: 0; }
-        aside { width: var(--sidebar-width); background-color: #1E1E1E; padding: 15px; border-right: 1px solid rgba(255, 255, 255, 0.05); overflow-y: auto; }
-        main { flex: 1; overflow-y: auto; scroll-behavior: smooth; background: #1a1a1a; padding: 40px; }
+        aside { 
+    width: var(--sidebar-width); 
+    background-color: rgba(15, 15, 15, 0.75); /* 투명도 적용 */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    padding: 15px; 
+    border-right: 1px solid rgba(255, 255, 255, 0.1); 
+    overflow-y: auto; 
+}
+        
+main { 
+    flex: 1; 
+    overflow-y: auto; 
+    scroll-behavior: smooth; 
+    padding: 40px; 
+    background: rgba(15, 15, 15, 0.75); /* 단색 반투명으로 통일 */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(10px);
+}
         .category-group { border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 8px 10px; background: rgba(255, 255, 255, 0.03); }
         .group-title { color: var(--primary-color); font-weight: 700; border-bottom: 1px solid rgba(44,153,153,0.2); padding-bottom: 5px; margin-bottom: 8px; }
         .category-btn { width: 100%; text-align: left; background: transparent; border: none; color: #ccc; padding: 8px 10px; font-size: 0.98rem; border-radius: 6px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.3s; }
