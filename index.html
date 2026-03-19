@@ -117,8 +117,10 @@ background: rgba(44, 153, 153, 0.15);
             --sidebar-width: 280px;
         }
 
-        body {
+      body {
             background-color: var(--bg-dark);
+            /* 👇 배경 이미지를 body 전체로 확장하여 깔아줍니다 */
+            background: url('welcome.png') center/cover no-repeat fixed !important; 
             color: var(--text-main);
             font-family: 'Chakra Petch', sans-serif;
             margin: 0; padding: 0;
@@ -127,13 +129,16 @@ background: rgba(44, 153, 153, 0.15);
 
         /* --- Header Styles --- */
    header {
-    background: rgba(30, 30, 30, 0.95); 
-    backdrop-filter: blur(10px);
-    height: 100px; /* 100px로 높여 배너(90px)를 수용 */
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 1.5rem; /* 좌우 여백을 줄여 가로 폭 확보 */
-    z-index: 10; gap: 20px; flex-shrink: 0;
-}
+            /* 👇 투명도를 0.95에서 0.4로 대폭 낮추고 블러(blur)를 강하게 줍니다 */
+            background: rgba(20, 20, 20, 0.75) !important; 
+            backdrop-filter: blur(7px) saturate(120%) !important;
+            -webkit-backdrop-filter: blur(7px) saturate(120%) !important; /* 아이폰 호환성 */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important; /* 반짝이는 유리 테두리 */
+            height: 100px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 1.5rem;
+            z-index: 10; gap: 20px; flex-shrink: 0;
+        }
         .logo-link { text-decoration: none; color: inherit; display: flex; align-items: center; gap: 15px; }
         .logo-image { height: 60px; width: auto; object-fit: contain; border-radius: 50%; }
         .logo-text { 
@@ -173,24 +178,32 @@ background: rgba(44, 153, 153, 0.15);
         .goog-tooltip { display: none !important; }
         .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
 
-        /* --- Layout --- */
+        /* --- Layout & Sidebar (글래스모피즘) --- */
         .container-fluid { display: flex; flex: 1; overflow: hidden; padding: 0; margin: 0; }
         
         aside {
-            width: var(--sidebar-width) !important; background-color: #1E1E1E !important;
+            width: var(--sidebar-width) !important; 
+            /* 👇 헤더와 동일하게 투명한 유리 질감 적용 */
+            background: rgba(20, 20, 20, 0.75) !important; 
+            backdrop-filter: blur(7px) saturate(120%) !important;
+            -webkit-backdrop-filter: blur(7px) saturate(120%) !important;
+            border-right: 1px solid rgba(255, 255, 255, 0.1) !important; /* 우측 유리 테두리 */
             padding: 15px 1.5rem !important; display: flex !important; flex-direction: column !important;
-            border-right: 1px solid rgba(255, 255, 255, 0.05) !important; flex-shrink: 0 !important;
-            gap: 2px !important; z-index: 100 !important; overflow-y: auto; height: 100%;
-            scrollbar-width: thin; scrollbar-color: #333 #1E1E1E;
+            flex-shrink: 0 !important; gap: 2px !important; z-index: 100 !important; 
+            overflow-y: auto; height: 100%;
+            scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent;
         }
+        
+        /* 투명한 사이드바에 어울리게 스크롤바 디자인 변경 */
         aside::-webkit-scrollbar { width: 6px; }
-        aside::-webkit-scrollbar-track { background: #1E1E1E; }
-        aside::-webkit-scrollbar-thumb { background-color: #333; border-radius: 3px; }
+        aside::-webkit-scrollbar-track { background: transparent; }
+        aside::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.2); border-radius: 3px; }
         aside::-webkit-scrollbar-thumb:hover { background-color: #2C9999; }
 
         main {
             flex: 1; overflow-y: auto; scroll-behavior: smooth;
-            background: linear-gradient(rgba(26,26,26,0.9), rgba(26,26,26,0.85)), url('welcome.png') center/cover;
+            /* 👇 글자가 잘 보이도록 메인 본문은 살짝만 어둡게 처리 (이미지는 뒤에서 비침) */
+            background: rgba(15, 15, 15, 0.75) !important; 
             padding: 40px;
         }
 
