@@ -1532,36 +1532,41 @@ function initSpotlight() {
         if(linkEl) linkEl.href = randomLink.url || "#";
     }
 
-    function toggleLanguageMenu() {
+   function toggleLanguageMenu() {
         const menu = document.getElementById('lang-dropdown');
-        const btn = document.querySelector('.lang-btn');
         if(menu) menu.classList.toggle('show');
-        if(btn) btn.classList.toggle('active');
     }
 
     function changeLanguage(langCode) {
-        const menu = document.getElementById('lang-dropdown');
-        const btn = document.querySelector('.lang-btn');
-        if (menu) menu.classList.remove('show');
-        if (btn) btn.classList.remove('active');
+        // 1. 선택한 언어로 쿠키 강제 덮어쓰기 (가장 확실하게 오작동을 막는 방법)
+        document.cookie = `googtrans=/en/${langCode}; path=/`;
+        if (location.hostname) {
+            document.cookie = `googtrans=/en/${langCode}; domain=.${location.hostname}; path=/`;
+        }
 
         const select = document.querySelector('.goog-te-combo');
         if (select) {
+            // 번역기가 켜져 있으면 즉시 변경
             select.value = langCode;
             select.dispatchEvent(new Event('change', { bubbles: true })); 
-            select.dispatchEvent(new Event('input', { bubbles: true }));
-            select.dispatchEvent(new Event('click', { bubbles: true }));
-            
-            const currentLangSpan = document.querySelector('.lang-current');
-            if(currentLangSpan) currentLangSpan.innerText = langCode.toUpperCase();
+        } else {
+            // 번역기가 꼬여있으면 새로고침하여 바뀐 쿠키 적용
+            window.location.reload();
+            return;
         }
+
+        // 2. 우측 상단 언어 텍스트 업데이트 (en -> EN)
+        const currentLangSpan = document.querySelector('.lang-current');
+        if(currentLangSpan) {
+            currentLangSpan.innerText = langCode.toUpperCase().split('-')[0];
+        }
+
+        // 3. 드롭다운 메뉴 닫기
+        const menu = document.getElementById('lang-dropdown');
+        if (menu) menu.classList.remove('show');
     }
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-<script>
-    /* --- 1. 구글 번역 관련 로직 --- */
+    // ▼ 구글 번역기 초기화 및 숨김 처리 ▼
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({
             pageLanguage: 'en',
@@ -1570,98 +1575,65 @@ function initSpotlight() {
         }, 'google_translate_element');
     }
 
-    function toggleLanguageMenu() {
-        document.getElementById('lang-dropdown').classList.toggle('show');
-    }
-
-    function changeLanguage(langCode) {
-        const select = document.querySelector('.goog-te-combo');
-        if (select) {
-            select.value = langCode;
-            select.dispatchEvent(new Event('change', { bubbles: true }));
-            document.querySelector('.lang-current').innerText = langCode.toUpperCase().split('-')[0];
-        }
-        document.getElementById('lang-dropdown').classList.remove('show');
-    }
-
-    // 구글 번역 배너 강제 숨김 처리
-    setInterval(() => {
-        const banner = document.querySelector('.goog-te-banner-frame');
-        if (banner) banner.remove();
-        document.body.style.top = '0px';
-    }, 500);
-
-    /* --- 2. 페이지 전환 및 퀴즈 로직 --- */
-    function showTopic(id) {
-        document.querySelectorAll('.topic-content').forEach(el => el.classList.remove('active-topic'));
-        const targetContent = document.getElementById('content-' + id);
-        if(targetContent) targetContent.classList.add('active-topic');
-
-        document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
-        const targetBtn = document.getElementById('side-btn-' + id);
-        if(targetBtn) targetBtn.classList.add('active');
-
-        window.history.replaceState(null, null, "?id=" + id);
-        document.getElementById('main-scroll').scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function showAnswer(paraId, targetId) {
-        document.getElementById(paraId).scrollIntoView({ behavior: 'smooth', block: 'center' });
-        document.querySelectorAll('.ans-target').forEach(el => el.classList.remove('highlight-active'));
+    // 메인 페이지 로드 시 언어 쿠키 읽어서 버튼 텍스트 맞추기
+    window.addEventListener('load', function() {
         setTimeout(() => {
-            const target = document.getElementById(targetId);
-            if(target) target.classList.add('highlight-active');
-        }, 400); 
-    }
+            const cookies = document.cookie.split(';');
+            let currentLang = 'EN'; 
+            for (let i = 0; i < cookies.length; i++) {
+                let c = cookies[i].trim();
+                if (c.startsWith("googtrans=")) {
+                    let parts = c.split('/');
+                    if (parts.length > 2) {
+                        currentLang = parts[2].toUpperCase().split('-')[0];
+                    }
+                }
+            }
+            const langCurrentSpan = document.querySelector('.lang-current');
+            if (langCurrentSpan) langCurrentSpan.innerText = currentLang;
+        }, 500);
+    });
 
-    /* --- 3. 모바일 햄버거 메뉴 로직 --- */
+    setInterval(() => {
+        const bannerFrame = document.querySelector('.goog-te-banner-frame');
+        if (bannerFrame) bannerFrame.remove();
+        
+        const topGhostDiv = document.querySelector('body > div.skiptranslate');
+        if (topGhostDiv) topGhostDiv.style.display = 'none';
+        
+        const body = document.body;
+        const html = document.documentElement;
+        if (body.style.position !== 'static') body.style.position = 'static';
+        if (body.style.top !== '0px') body.style.top = '0px';
+        if (body.style.marginTop !== '0px') body.style.marginTop = '0px';
+        if (html.style.marginTop !== '0px') html.style.marginTop = '0px';
+    }, 100);
+
+    // ▼ 모바일 햄버거 메뉴 작동 로직 ▼
     const menuBtn = document.getElementById('mobileMenuBtn');
     const sidebar = document.getElementById('sidebarMenu');
 
-    if(menuBtn) {
-        menuBtn.addEventListener('click', (e) => {
+    if (menuBtn && sidebar) {
+        menuBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             sidebar.classList.toggle('mobile-open');
         });
-    }
 
-    document.addEventListener('click', (e) => {
-        if (sidebar && sidebar.classList.contains('mobile-open') && !sidebar.contains(e.target) && e.target !== menuBtn) {
-            sidebar.classList.remove('mobile-open');
-        }
-    });
-
-    /* --- 초기 실행 --- */
-    window.onload = function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        let currentId = urlParams.get('id') || '1'; 
-        showTopic(currentId);
-    };
-</script>
-
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<script>
-    // 햄버거 메뉴 작동 로직
-    const menuBtn = document.getElementById('mobileMenuBtn');
-    const sidebar = document.getElementById('sidebarMenu');
-
-    menuBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        sidebar.classList.toggle('mobile-open');
-    });
-
-    document.addEventListener('click', function(e) {
-        if (sidebar.classList.contains('mobile-open') && !sidebar.contains(e.target) && e.target !== menuBtn) {
-            sidebar.classList.remove('mobile-open');
-        }
-    });
-
-    sidebar.querySelectorAll('a, button').forEach(item => {
-        item.addEventListener('click', () => {
-            if (window.innerWidth <= 1024) sidebar.classList.remove('mobile-open');
+        document.addEventListener('click', function(e) {
+            if (sidebar.classList.contains('mobile-open') && !sidebar.contains(e.target) && e.target !== menuBtn) {
+                sidebar.classList.remove('mobile-open');
+            }
         });
-    });
-</script>
-</body>
 
+        sidebar.querySelectorAll('a, button').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) sidebar.classList.remove('mobile-open');
+            });
+        });
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
 </html>
