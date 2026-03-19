@@ -835,31 +835,32 @@ html { margin-top: 0px !important; }
         if (dropdown) dropdown.classList.toggle('show');
     }
 
- function changeLanguage(langCode) {
+function changeLanguage(langCode) {
+        // 1. 구글 번역 쿠키를 사용자가 선택한 언어로 강제 덮어씌웁니다.
+        document.cookie = `googtrans=/en/${langCode}; path=/`;
+        
+        // 로컬 테스트(file://) 환경이나 특정 도메인에서도 확실히 먹히도록 한 번 더 세팅
+        if (location.hostname) {
+            document.cookie = `googtrans=/en/${langCode}; domain=.${location.hostname}; path=/`;
+        }
+
         const select = document.querySelector('.goog-te-combo');
         
         if (select) {
-            // 1. 구글 번역기 내부의 숨겨진 셀렉트 박스 값 변경
+            // 2. 번역 상자가 정상 작동하는 상태라면 즉시 언어 변경 (깜빡임 없음)
             select.value = langCode;
-            
-            // 2. 구글 번역기가 변경을 확실히 인식하도록 3가지 이벤트를 연속으로 강제 발생 (index.html의 핵심 로직)
             select.dispatchEvent(new Event('change', { bubbles: true })); 
-            select.dispatchEvent(new Event('input', { bubbles: true }));
-            select.dispatchEvent(new Event('click', { bubbles: true }));
             
-            // 3. 우측 상단 버튼의 현재 언어 텍스트 업데이트 (예: zh-CN -> ZH)
             const langCurrent = document.querySelector('.lang-current');
-            if (langCurrent) {
-                langCurrent.innerText = langCode.toUpperCase().split('-')[0];
-            }
+            if (langCurrent) langCurrent.innerText = langCode.toUpperCase().split('-')[0];
+            
+            const dropdown = document.getElementById('lang-dropdown');
+            if (dropdown) dropdown.classList.remove('show');
         } else {
-            // 인터넷 환경에 따라 구글 API 로딩이 1~2초 늦을 때를 대비한 로그
-            console.log("Google Translate is still loading...");
+            // 3. 메인에서 넘어와서 번역 상자가 꼬인 상태라면, 
+            // 쿠키는 이미 바꿨으니 현재 보고 있는 페이지 번호(?id=1)를 유지한 채로 새로고침하여 번역 완벽 적용
+            window.location.reload();
         }
-        
-        // 4. 드롭다운 닫기
-        const dropdown = document.getElementById('lang-dropdown');
-        if (dropdown) dropdown.classList.remove('show');
     }
 
     // 구글 번역기 상단 배너 강제 숨김
