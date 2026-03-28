@@ -684,6 +684,53 @@ background: rgba(44, 153, 153, 0.15);
             box-shadow: 0 0 15px rgba(44, 153, 153, 0.5) !important;
             transform: scale(1.05) !important;
         }
+/* --- [신규] 우측 Blueprint HUD (로봇 조립 설계도) --- */
+        #blueprint-hud {
+            position: fixed; left: 320px; top: 120px; width: 320px; bottom: 30px;
+            background: rgba(10, 15, 20, 0.7); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(44, 153, 153, 0.4); border-radius: 15px;
+            padding: 20px; z-index: 90; display: flex; flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(44, 153, 153, 0.1);
+            transition: all 0.3s;
+        }
+/* Blueprint HUD 리셋 버튼 (평소엔 숨김) */
+        #hud-reset-btn {
+            display: none; 
+            position: absolute; top: 55px; left: 50%; transform: translateX(-50%);
+            background: #FF5555; color: #fff; border: 2px solid #FF5555;
+            padding: 5px 15px; border-radius: 20px;
+            font-family: 'Orbitron', sans-serif; font-size: 0.8rem; font-weight: bold;
+            cursor: pointer; z-index: 100;
+            box-shadow: 0 0 10px rgba(255,85,85,0.5); transition: all 0.3s;
+        }
+        #hud-reset-btn:hover {
+            background: #fff; color: #FF5555; box-shadow: 0 0 20px rgba(255,85,85,0.8);
+        }
+        .hud-title {
+            color: #FFFB03; font-family: 'Orbitron', sans-serif; text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 10px;
+        }
+        .hud-svg-container { flex: 1; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        
+        /* 설계도 부품 애니메이션 디자인 */
+        .hud-part { opacity: 0.1; stroke: #2C9999; fill: none; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .hud-part rect[fill="currentColor"], .hud-part circle[fill="currentColor"] { fill: #2C9999; }
+        
+        .hud-part.unlocked { 
+            opacity: 1; stroke: #FFFB03; 
+            filter: drop-shadow(0 0 5px #FFFB03) drop-shadow(0 0 15px rgba(255,251,3,0.5)); 
+        }
+        .hud-part.unlocked rect[fill="currentColor"], .hud-part.unlocked circle[fill="currentColor"] { fill: #FFFB03; }
+
+        .hud-log {
+            height: 90px; overflow-y: auto; background: rgba(0,0,0,0.6); border-radius: 8px;
+            border: 1px dashed #2C9999; padding: 10px; font-size: 0.8rem;
+            color: #86D1D1; font-family: 'Chakra Petch', monospace; display: flex; flex-direction: column; gap: 5px;
+            scrollbar-width: none; /* 스크롤바 숨김 */
+        }
+        
+        /* 🚨 1400px 이하 화면에서는 본문을 가리지 않게 투명망토처럼 숨김 */
+        @media (max-width: 1400px) { #blueprint-hud { display: none !important; } }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936" crossorigin="anonymous"></script>
 </head>
@@ -904,7 +951,7 @@ Explore how robots work through interactive contents.</br>
             </div>
             </div> </section>
 
-<div style="margin: 30px auto; max-width: 800px; border: 1px solid rgba(44, 153, 153, 0.3); border-radius: 8px; background: rgba(20, 20, 20, 0.85); display: flex; align-items: center; padding: 12px 20px; gap: 15px; flex-wrap: wrap; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+<div style="margin: 30px auto; max-width: 800px; border: 1px solid rgba(44, 153, 153, 0.3); border-radius: 8px; background: rgba(100, 105, 110, 0.75); display: flex; align-items: center; padding: 12px 20px; gap: 15px; flex-wrap: wrap; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
     <div style="flex-shrink: 0; width: 45px; height: 45px; background: rgba(44, 153, 153, 0.1); border-radius: 6px; display: flex; justify-content: center; align-items: center;">
         <i class="fas fa-microchip" style="font-size: 1.6rem; color: #FFFB03;"></i>
     </div>
@@ -999,7 +1046,7 @@ Explore how robots work through interactive contents.</br>
                 <a href="robot_details.html?id=5" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
                 <button class="nav-side-btn" onclick="scrollToNext('lab-gym')" title="Next: AI Training">Next Topic <i class="fas fa-arrow-down"></i></button>
             </div>        </section>
-<div style="margin: 30px auto; max-width: 800px; border: 1px solid rgba(44, 153, 153, 0.3); border-radius: 8px; background: rgba(20, 20, 20, 0.85); display: flex; align-items: center; padding: 12px 20px; gap: 15px; flex-wrap: wrap; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+<div style="margin: 30px auto; max-width: 800px; border: 1px solid rgba(44, 153, 153, 0.3); border-radius: 8px; background: rgba(100, 105, 110, 0.75); display: flex; align-items: center; padding: 12px 20px; gap: 15px; flex-wrap: wrap; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
     <div style="flex-shrink: 0; width: 45px; height: 45px; background: rgba(44, 153, 153, 0.1); border-radius: 6px; display: flex; justify-content: center; align-items: center;">
         <i class="fas fa-cogs" style="font-size: 1.6rem; color: #FFFB03;"></i>
     </div>
@@ -1207,7 +1254,7 @@ Explore how robots work through interactive contents.</br>
                 <a href="robot_details.html?id=9" class="go-detail-btn">Read Details <i class="fas fa-arrow-right"></i></a>
                 <button class="nav-side-btn" onclick="scrollToNext('lab-cobot')" title="Next: Safety Sensors">Next Topic <i class="fas fa-arrow-down"></i></button>
             </div>        </section>
-<div style="margin: 30px auto; max-width: 800px; border: 1px solid rgba(44, 153, 153, 0.3); border-radius: 8px; background: rgba(20, 20, 20, 0.85); display: flex; align-items: center; padding: 12px 20px; gap: 15px; flex-wrap: wrap; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+<div style="margin: 30px auto; max-width: 800px; border: 1px solid rgba(44, 153, 153, 0.3); border-radius: 8px; background: rgba(100, 105, 110, 0.75); display: flex; align-items: center; padding: 12px 20px; gap: 15px; flex-wrap: wrap; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
     <div style="flex-shrink: 0; width: 45px; height: 45px; background: rgba(44, 153, 153, 0.1); border-radius: 6px; display: flex; justify-content: center; align-items: center;">
         <i class="fas fa-dog" style="font-size: 1.6rem; color: #FFFB03;"></i>
     </div>
@@ -1263,425 +1310,367 @@ Explore how robots work through interactive contents.</br>
             </p>
         </div>
     </main>
-</div>
+</main>
 
-<div id="google_translate_element" style="position: absolute; bottom: 0; left: 0; width: 1px !important; height: 1px !important; overflow: hidden !important; opacity: 0 !important; pointer-events: none !important;"></div>
+    <div id="blueprint-hud">
+<button id="hud-reset-btn" onclick="resetBlueprint()"><i class="fas fa-sync-alt"></i> Reset</button>
+        <div class="hud-title">
+            <i class="fas fa-cogs"></i> PROJECT: LEARNBOT<br>
+            <span style="font-size:0.85rem; color:#86D1D1;" id="hud-progress">0 / 10 Modules Online</span>
+        </div>
+        <div class="hud-svg-container">
+            <svg viewBox="0 0 200 400" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(44,153,153,0.15)" stroke-width="1"/></pattern></defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+
+                <g stroke="rgba(44,153,153,0.3)" stroke-width="2" fill="none">
+                    <rect x="70" y="40" width="60" height="50" rx="10"/> <rect x="50" y="110" width="100" height="120" rx="15"/> <path d="M 40 130 L 20 180 L 20 220" /> <path d="M 160 130 L 180 180 L 180 220" /> <path d="M 60 250 L 40 330 L 160 330 L 140 250 Z"/> </g>
+
+                <g id="hud-p8" class="hud-part"><path d="M 100 40 L 100 10 M 90 20 L 110 20" stroke-width="3"/><circle cx="100" cy="10" r="4" fill="currentColor"/></g>
+                <g id="hud-p6" class="hud-part"><path d="M 80 55 Q 100 45 120 55 Q 110 75 100 75 Q 90 75 80 55" stroke-dasharray="2 2" stroke-width="2"/></g>
+                <g id="hud-p3" class="hud-part"><rect x="75" y="65" width="50" height="15" rx="5" fill="rgba(0,0,0,0.5)"/><circle cx="90" cy="72.5" r="4" fill="currentColor"/><circle cx="110" cy="72.5" r="4" fill="currentColor"/></g>
+                <g id="hud-p2" class="hud-part"><rect x="70" y="140" width="60" height="40" rx="4" stroke-width="2"/><line x1="85" y1="140" x2="85" y2="180"/><line x1="115" y1="140" x2="115" y2="180"/></g>
+                <g id="hud-p1" class="hud-part"><rect x="90" y="190" width="20" height="20" fill="currentColor"/></g>
+                <g id="hud-p4" class="hud-part"><circle cx="100" cy="125" r="8" fill="currentColor"/><path d="M 90 125 A 10 10 0 0 1 110 125" stroke-width="2"/></g>
+                <g id="hud-p9" class="hud-part"><circle cx="40" cy="130" r="8" stroke-width="2"/><circle cx="160" cy="130" r="8" stroke-width="2"/><circle cx="20" cy="180" r="6" stroke-width="2"/><circle cx="180" cy="180" r="6" stroke-width="2"/></g>
+                <g id="hud-p5" class="hud-part"><path d="M 15 220 Q 5 240 15 250 M 25 220 Q 35 240 25 250" stroke-width="2"/><path d="M 175 220 Q 165 240 175 250 M 185 220 Q 195 240 185 250" stroke-width="2"/></g>
+                <g id="hud-p10" class="hud-part"><path d="M 45 125 L 10 180 L 10 220" stroke-dasharray="4 4" stroke-width="4"/><path d="M 155 125 L 190 180 L 190 220" stroke-dasharray="4 4" stroke-width="4"/></g>
+                <g id="hud-p7" class="hud-part"><rect x="50" y="310" width="100" height="20" rx="10" stroke-width="2"/><circle cx="65" cy="320" r="5" fill="currentColor"/><circle cx="100" cy="320" r="5" fill="currentColor"/><circle cx="135" cy="320" r="5" fill="currentColor"/></g>
+            </svg>
+        </div>
+        <div class="hud-log" id="hud-log">
+            <div>> System initialized.</div>
+            <div>> Awaiting module integration...</div>
+        </div>
+    </div>
+    </div>
 <script>
-// ▼ 6번 패널: AI 백덤블링 학습 애니메이션 제어 코드 ▼
-// ▼ 6번 패널: AI 백덤블링 학습 애니메이션 제어 코드 (무한 반복 수정판) ▼
-    function trainBot(tries) {
-        const bot = document.getElementById('gym-bot');
-        const msg = document.getElementById('gym-msg');
-        
-        // 1. 부드러운 애니메이션을 잠시 끄고, 
-        // SVG 전용 방식(setAttribute)으로 클래스를 초기화하여 즉시 제자리(0도)로 돌려놓습니다.
-        bot.style.transition = 'none';
-        bot.setAttribute('class', 'gym-bot');
-        
-        // 2. 브라우저가 "아, 로봇이 똑바로 섰구나"라고 인식하도록 강제 새로고침(Reflow)을 먹입니다.
-        void bot.offsetWidth; 
-        
-        // 3. 다시 부드러운 애니메이션을 켭니다.
-        bot.style.transition = '';
+    // ==========================================
+    // ▼ 1~10번 패널 작동 및 설계도 연동 함수들 ▼
+    // ==========================================
 
-        // 4. 버튼 횟수에 맞춰 작동!
-        if (tries === 10) {
-            bot.classList.add('gym-fail1');
-            msg.innerHTML = '<span style="color:#FF5555; font-weight:bold;">FAIL! Not enough training data.</span>';
-        } else if (tries === 100) {
-            bot.classList.add('gym-fail2');
-            msg.innerHTML = '<span style="color:#e67e22; font-weight:bold;">OUCH! Almost there, but landed on its head.</span>';
-        } else {
-            bot.classList.add('gym-success');
-            msg.innerHTML = '<span style="color:#2ecc71; font-weight:bold;">SUCCESS! Perfect backflip after 10,000 simulations!</span>';
+    let unlockedParts = new Set();
+    
+    // [기능 1] 정답 시 불 켜기
+    function unlockPart(partNum, partName) {
+        if(unlockedParts.has(partNum)) return;
+        unlockedParts.add(partNum);
+
+        const partEl = document.getElementById('hud-p' + partNum);
+        if(partEl) partEl.classList.add('unlocked');
+
+        const progressEl = document.getElementById('hud-progress');
+        if(progressEl) progressEl.innerText = `${unlockedParts.size} / 10 Modules Online`;
+
+        const logEl = document.getElementById('hud-log');
+        if(logEl) {
+            const entry = document.createElement('div');
+            entry.style.color = '#FFFB03';
+            entry.innerText = `> ${partName} INTEGRATED.`;
+            logEl.appendChild(entry);
+            logEl.scrollTop = logEl.scrollHeight;
+
+            // 10개가 모이면 축하 메시지와 리셋 버튼 등장!
+            if(unlockedParts.size === 10) {
+                setTimeout(() => {
+                    const finalEntry = document.createElement('div');
+                    finalEntry.style.color = '#2ecc71';
+                    finalEntry.style.fontWeight = 'bold';
+                    finalEntry.innerText = `> ROBOT BUILD COMPLETE!`;
+                    logEl.appendChild(finalEntry);
+                    logEl.scrollTop = logEl.scrollHeight;
+                    
+                    const resetBtn = document.getElementById('hud-reset-btn');
+                    if(resetBtn) resetBtn.style.display = 'block';
+                }, 1000);
+            }
         }
     }
-// ▼ testGrip 함수 내부의 shatteredEggHTML 변수를 이 코드로 교체하세요 ▼
+
+    // [기능 2] 오답 시 불 끄기
+    function lockPart(partNum, partName) {
+        if(!unlockedParts.has(partNum)) return;
+        unlockedParts.delete(partNum);
+
+        const partEl = document.getElementById('hud-p' + partNum);
+        if(partEl) partEl.classList.remove('unlocked');
+
+        const progressEl = document.getElementById('hud-progress');
+        if(progressEl) progressEl.innerText = `${unlockedParts.size} / 10 Modules Online`;
+
+        const logEl = document.getElementById('hud-log');
+        if(logEl) {
+            const entry = document.createElement('div');
+            entry.style.color = '#FF5555';
+            entry.innerText = `> [WARN] ${partName} DISCONNECTED.`;
+            logEl.appendChild(entry);
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+        
+        const resetBtn = document.getElementById('hud-reset-btn');
+        if(resetBtn) resetBtn.style.display = 'none';
+    }
+
+    // [기능 3] 전체 리셋
+    function resetBlueprint() {
+        unlockedParts.clear();
+        for(let i=1; i<=10; i++) {
+            const partEl = document.getElementById('hud-p' + i);
+            if(partEl) partEl.classList.remove('unlocked');
+        }
+        const progressEl = document.getElementById('hud-progress');
+        if(progressEl) progressEl.innerText = `0 / 10 Modules Online`;
+        
+        const logEl = document.getElementById('hud-log');
+        if(logEl) logEl.innerHTML = '<div>> System initialized.</div><div>> Awaiting module integration...</div>';
+        
+        const resetBtn = document.getElementById('hud-reset-btn');
+        if(resetBtn) resetBtn.style.display = 'none';
+
+        // 사용자 편의를 위해 맨 위로 스크롤
+        document.getElementById('main-scroll').scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- 패널 기능들 ---
+
+    function equipIMU() {
+        const bot = document.getElementById('balance-bot');
+        const msg = document.getElementById('balance-msg');
+        if(bot) bot.className = 'robot-character robot-standing';
+        if(msg) msg.innerHTML = '<span style="color:#2ecc71;">IMU Sensor Online! Balance restored.</span>';
+        unlockPart(1, 'IMU Sensor');
+    }
+    function removeIMU() {
+        const bot = document.getElementById('balance-bot');
+        const msg = document.getElementById('balance-msg');
+        if(bot) bot.className = 'robot-character robot-falling';
+        if(msg) msg.innerHTML = '<span style="color:#FF5555;">Warning: IMU Sensor Missing!</span>';
+        lockPart(1, 'IMU Sensor'); // 오답 시 꺼짐
+    }
+
+    let battLvl = 100;
+    function useBattery(amt) {
+        battLvl = Math.max(0, battLvl - amt);
+        updateBatteryUI();
+        lockPart(2, 'Battery System'); // 배터리 쓰면 꺼짐
+    }
+    function recharge() {
+        battLvl = 100;
+        updateBatteryUI();
+        unlockPart(2, 'Battery System');
+    }
+    function updateBatteryUI() {
+        const bar = document.getElementById('battery-level');
+        if(!bar) return;
+        bar.style.width = battLvl + '%';
+        bar.innerText = battLvl + '%';
+        bar.style.background = battLvl > 50 ? '#2ecc71' : (battLvl > 20 ? '#f1c40f' : '#e74c3c');
+        bar.style.color = battLvl > 20 ? '#000' : '#fff';
+    }
+
+    function toggleVision() {
+        const box = document.getElementById('vision-box');
+        const btn = document.getElementById('vision-btn');
+        if(!box || !btn) return;
+        box.classList.toggle('vision-robot-mode');
+        if(box.classList.contains('vision-robot-mode')) {
+            btn.innerHTML = '<i class="fas fa-eye"></i> Switch to Human Eye';
+            btn.style.cssText = 'background: transparent; color: #ddd; border-color: #555;';
+            unlockPart(3, 'Vision Camera');
+        } else {
+            btn.innerHTML = '<i class="fas fa-robot"></i> Switch to Robot Eye';
+            btn.style.cssText = 'background: #FFFB03; color: #000; border-color: #FFFB03;';
+            lockPart(3, 'Vision Camera'); // 오답 시 꺼짐
+        }
+    }
+
+    function answerEtiquette(type) {
+        const msg = document.getElementById('etiq-msg');
+        const robot = document.getElementById('etiq-robot');
+        const xMark = document.getElementById('etiq-x');
+        if(!robot || !msg) return;
+        
+        robot.className = 'fas fa-robot etiq-actor';
+        robot.style.cssText = 'color: #86D1D1; transform: scaleX(-1);';
+        if(xMark) xMark.style.display = 'none';
+        void robot.offsetWidth;
+
+        if(type === 'kick') {
+            robot.classList.add('robot-knocked');
+            if(xMark) xMark.style.display = 'block';
+            msg.innerHTML = '<span style="color:#FF5555; font-weight:bold;">❌ WRONG: Don\'t push! It breaks the robot.</span>';
+            lockPart(4, 'Etiquette Core'); // 오답 시 꺼짐
+        } else {
+            robot.classList.add('robot-pass');
+            msg.innerHTML = '<span style="color:#2ecc71; font-weight:bold;">✅ CORRECT: It recalculated and passed safely!</span>';
+            unlockPart(4, 'Etiquette Core');
+        }
+    }
+
     function testGrip(type) {
         const displayArea = document.getElementById('egg-display-area'); 
         const msg = document.getElementById('egg-msg');
+        if(!displayArea || !msg) return;
 
-        // 기본 상태 달걀 HTML (똑같음)
         const cleanEggHTML = `<i id="egg-stage" class="fas fa-egg egg-icon"></i>`;
-        
-       
-    // ▼ testGrip 함수 내부의 shatteredEggHTML 변수를 이 코드로 교체하세요 ▼
-    const shatteredEggHTML = `<div class="egg-icon shattered-raw" style="position: relative; width: 100px; height: 120px; display: flex; align-items: center; justify-content: center;">
-                                <div style="position: absolute; bottom: 0px; width: 90px; height: 35px; background: rgba(255,255,255,0.8); border-radius: 50%; z-index: 1; animation: splat 0.2s forwards;"></div>
-                                <div style="position: absolute; bottom: 5px; width: 45px; height: 30px; background: #FFCC00; border-radius: 50%; z-index: 2; box-shadow: inset -5px -5px 10px rgba(220,120,0,0.5); animation: splat 0.2s forwards;"></div>
-                                
-                                <i class="fas fa-egg" style="position: absolute; color: #F0F0F0; font-size: 6rem; z-index: 3; clip-path: polygon(0 0, 100% 0, 100% 50%, 75% 65%, 50% 45%, 25% 65%, 0 50%); animation: topShell 0.3s ease-out forwards;"></i>
-                                
-                                <i class="fas fa-egg" style="position: absolute; color: #E8E8E8; font-size: 6rem; z-index: 3; clip-path: polygon(0 50%, 25% 65%, 50% 45%, 75% 65%, 100% 50%, 100% 100%, 0 100%); animation: bottomShell 0.3s ease-out forwards;"></i>
-                             </div>
-                             <style> 
-                                 /* 껍질이 두 동강 나며 멀어지는 애니메이션 */
-                                 @keyframes topShell { 100% { transform: translateY(-25px) translateX(-15px) rotate(-25deg); } }
-                                 @keyframes bottomShell { 100% { transform: translateY(15px) translateX(10px) rotate(15deg); } }
-                                 /* 노른자가 바닥에 퍼지는 애니메이션 */
-                                 @keyframes splat { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-                             </style>`;
+        const shatteredEggHTML = `<div class="egg-icon shattered-raw" style="position: relative; width: 100px; height: 120px; display: flex; align-items: center; justify-content: center;">
+            <div style="position: absolute; bottom: 0px; width: 90px; height: 35px; background: rgba(255,255,255,0.8); border-radius: 50%; z-index: 1; animation: splat 0.2s forwards;"></div>
+            <div style="position: absolute; bottom: 5px; width: 45px; height: 30px; background: #FFCC00; border-radius: 50%; z-index: 2; box-shadow: inset -5px -5px 10px rgba(220,120,0,0.5); animation: splat 0.2s forwards;"></div>
+            <i class="fas fa-egg" style="position: absolute; color: #F0F0F0; font-size: 6rem; z-index: 3; clip-path: polygon(0 0, 100% 0, 100% 50%, 75% 65%, 50% 45%, 25% 65%, 0 50%); animation: topShell 0.3s ease-out forwards;"></i>
+            <i class="fas fa-egg" style="position: absolute; color: #E8E8E8; font-size: 6rem; z-index: 3; clip-path: polygon(0 50%, 25% 65%, 50% 45%, 75% 65%, 100% 50%, 100% 100%, 0 100%); animation: bottomShell 0.3s ease-out forwards;"></i>
+            </div>
+            <style>@keyframes topShell { 100% { transform: translateY(-25px) translateX(-15px) rotate(-25deg); } } @keyframes bottomShell { 100% { transform: translateY(15px) translateX(10px) rotate(15deg); } } @keyframes splat { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }</style>`;
 
         if(type === 'steel') {
-            // 강철 집게: 현실적인 깨진 달걀 시각 효과
             displayArea.innerHTML = shatteredEggHTML;
             msg.innerHTML = '<span style="color:#FF5555; font-weight:bold;">CRACKED! The gripper applied too much force.</span>';
+            lockPart(5, 'Soft Grippers'); // 오답 시 꺼짐
         } else {
-            // 소프트 집게: 달걀 복구 후 안전 효과
             displayArea.innerHTML = cleanEggHTML;
             const eggIcon = document.getElementById('egg-stage');
-            void eggIcon.offsetWidth; // 애니메이션 리셋
-            
-            eggIcon.className = 'fas fa-egg egg-icon egg-safe';
+            if(eggIcon) { void eggIcon.offsetWidth; eggIcon.className = 'fas fa-egg egg-icon egg-safe'; }
             msg.innerHTML = '<span style="color:#f1c40f; font-weight:bold;">SAFE! The gripper adapted to the shape.</span>';
+            unlockPart(5, 'Soft Grippers');
         }
     }
 
- // ▼ 기존 dropObstacle 함수를 이걸로 덮어씌우세요 ▼
-function dropObstacle() {
-    const obs = document.getElementById('maze-obs');
-    const bot = document.getElementById('maze-moving-bot');
-    const msg = document.getElementById('maze-msg');
-    const btn = document.getElementById('maze-btn');
+    function trainBot(tries) {
+        const bot = document.getElementById('gym-bot');
+        const msg = document.getElementById('gym-msg');
+        if(!bot || !msg) return;
+        
+        bot.style.transition = 'none';
+        bot.setAttribute('class', 'gym-bot');
+        void bot.offsetWidth; 
+        bot.style.transition = '';
 
-    if (obs.style.display === 'block') {
-        // [장애물 제거] 다시 직진 모드로
-        obs.style.display = 'none';
-        
-        // 로봇 애니메이션 초기화 후 다시 출발
-        bot.style.animation = 'none';
-        void bot.offsetWidth; 
-        bot.className = 'fas fa-robot path-straight'; 
-        bot.style.animation = '';
-        
-        msg.innerHTML = '<span style="color:#fff;">Path is clear. Driving straight...</span>';
-        if (btn) {
-            btn.innerHTML = '<i class="fas fa-cube"></i> Drop Obstacle';
-            btn.style.borderColor = '#555'; 
-            btn.style.color = '#ddd';
-        }
-    } else {
-        // [장애물 투하] 회피 모드 발동
-        obs.style.display = 'block';
-        
-        // 로봇 애니메이션을 즉시 회피 경로(노란색)로 변경
-        bot.style.animation = 'none';
-        void bot.offsetWidth; 
-        bot.className = 'fas fa-robot path-detour-anim'; 
-        bot.style.animation = '';
-        
-        msg.innerHTML = '<span style="color:#FF5555;">Obstacle!</span> <span style="color:#2ecc71;">Detour calculated instantly.</span>';
-        if (btn) {
-            btn.innerHTML = '<i class="fas fa-undo"></i> Remove Obstacle';
-            btn.style.borderColor = '#e74c3c'; 
-            btn.style.color = '#e74c3c';
+        if (tries === 10) {
+            bot.classList.add('gym-fail1');
+            msg.innerHTML = '<span style="color:#FF5555; font-weight:bold;">FAIL! Not enough training data.</span>';
+            lockPart(6, 'AI Neural Brain'); // 오답 시 꺼짐
+        } else if (tries === 100) {
+            bot.classList.add('gym-fail2');
+            msg.innerHTML = '<span style="color:#e67e22; font-weight:bold;">OUCH! Almost there, but landed on its head.</span>';
+            lockPart(6, 'AI Neural Brain'); // 오답 시 꺼짐
+        } else {
+            bot.classList.add('gym-success');
+            msg.innerHTML = '<span style="color:#2ecc71; font-weight:bold;">SUCCESS! Perfect backflip after 10,000 simulations!</span>';
+            unlockPart(6, 'AI Neural Brain');
         }
     }
-}
+
+    function dropObstacle() {
+        const obs = document.getElementById('maze-obs');
+        const bot = document.getElementById('maze-moving-bot');
+        const msg = document.getElementById('maze-msg');
+        const btn = document.getElementById('maze-btn');
+        if(!obs || !bot || !msg) return;
+
+        if (obs.style.display === 'block') {
+            obs.style.display = 'none';
+            bot.style.animation = 'none';
+            void bot.offsetWidth; 
+            bot.className = 'fas fa-robot path-straight'; 
+            bot.style.animation = '';
+            msg.innerHTML = '<span style="color:#fff;">Path is clear. Driving straight...</span>';
+            if (btn) { btn.innerHTML = '<i class="fas fa-cube"></i> Drop Obstacle'; btn.style.borderColor = '#555'; btn.style.color = '#ddd'; }
+            lockPart(7, 'Path Algorithm'); // 오답 시 꺼짐
+        } else {
+            obs.style.display = 'block';
+            bot.style.animation = 'none';
+            void bot.offsetWidth; 
+            bot.className = 'fas fa-robot path-detour-anim'; 
+            bot.style.animation = '';
+            msg.innerHTML = '<span style="color:#FF5555;">Obstacle!</span> <span style="color:#2ecc71;">Detour calculated instantly.</span>';
+            if (btn) { btn.innerHTML = '<i class="fas fa-undo"></i> Remove Obstacle'; btn.style.borderColor = '#e74c3c'; btn.style.color = '#e74c3c'; }
+            unlockPart(7, 'Path Algorithm');
+        }
+    }
 
     function liftBox(type) {
         const box = document.getElementById('swarm-box');
         const ants = document.getElementById('swarm-ants');
         const msg = document.getElementById('swarm-msg');
+        if(!box || !ants || !msg) return;
+
         if(type === 'alone') {
-            box.style.transform = 'translateX(5px)'; setTimeout(()=>box.style.transform='translateX(-5px)', 100); setTimeout(()=>box.style.transform='translateX(0)', 200);
+            box.style.transform = 'translateX(5px)'; 
+            setTimeout(()=>box.style.transform='translateX(-5px)', 100); 
+            setTimeout(()=>box.style.transform='translateX(0)', 200);
             ants.style.opacity = '0';
             msg.innerHTML = '<span style="color:#FF5555;">Error: Target too heavy for 1 unit.</span>';
+            lockPart(8, 'Swarm Antenna'); // 오답 시 꺼짐
         } else {
             ants.style.opacity = '1';
             box.style.transform = 'translateY(-30px)';
             msg.innerHTML = '<span style="color:#2ecc71;">Swarm logic engaged. Lift successful!</span>';
+            unlockPart(8, 'Swarm Antenna');
         }
     }
 
-
-// ▼ 기존 testMotor 함수를 지우고 이걸로 덮어씌우세요 ▼
     function testMotor(type) {
         const arm = document.getElementById('muscle-arm');
         const msg = document.getElementById('muscle-msg');
-        
-        // 버튼을 누를 때마다 애니메이션이 재시작되도록 초기화하는 마법의 코드
+        if(!arm || !msg) return;
+
         arm.className = 'fas fa-robot muscle-arm';
         void arm.offsetWidth; 
 
         if(type === 'toy') { 
             arm.classList.add('spin-toy'); 
             msg.innerHTML = '<span style="color:#FF5555;">Missed! It slides and stops at random angles.</span>'; 
-        }
-        else { 
+            lockPart(9, 'Precision Servos'); // 오답 시 꺼짐
+        } else { 
             arm.classList.add('spin-servo'); 
             msg.innerHTML = '<span style="color:#2ecc71;">Perfect hit! Encoder stops it exactly at 90°.</span>'; 
+            unlockPart(9, 'Precision Servos');
         }
     }
-// ▼ 기존 10번 패널 JS를 지우고 이걸로 덮어씌우세요 ▼
+
     function setCobotMode2(mode) {
         const armBox = document.getElementById('robot-arm-box');
         const workerIcon = document.getElementById('worker-icon');
         const workerStatus = document.getElementById('worker-status');
         const msg = document.getElementById('cobot-msg');
+        if(!armBox || !workerIcon || !workerStatus || !msg) return;
 
-        // 누를 때마다 초기화 (아이콘을 안전모 쓴 작업자로 고정)
         armBox.className = 'robot-arm-box';
         workerIcon.className = 'fas fa-user-gear worker-icon'; 
         void armBox.offsetWidth;
 
         if (mode === 'industrial') {
-            // 산업용: 아슬아슬한 위치까지 다가오고 X 표시 띄움 (떨림 효과 삭제)
             armBox.classList.add('attack-fast');
             workerIcon.style.color = '#FF5555';
             workerStatus.innerHTML = '<span class="crash-x">❌</span> CRASH';
-            workerStatus.style.background = 'rgba(255, 85, 85, 0.2)';
-            workerStatus.style.color = '#FF5555';
+            workerStatus.style.cssText = 'background: rgba(255, 85, 85, 0.2); color: #FF5555;';
             msg.innerHTML = '<span style="color:#FF5555; font-size:1.1rem; font-weight:900;">[Industrial Mode] Warning! The arm does not stop!</span>';
+            lockPart(10, 'Safety Skin'); // 오답 시 꺼짐
         } else {
-            // 협동 로봇: 훨씬 앞선 안전거리에서 멈춤
             armBox.classList.add('approach-safe');
             workerIcon.style.color = '#2ecc71';
             workerStatus.innerHTML = 'SAFE 🛡️';
-            workerStatus.style.background = 'rgba(46, 204, 113, 0.2)';
-            workerStatus.style.color = '#2ecc71';
+            workerStatus.style.cssText = 'background: rgba(46, 204, 113, 0.2); color: #2ecc71;';
             msg.innerHTML = '<span style="color:#2ecc71; font-size:1.1rem; font-weight:bold;">[Cobot Mode] Safe! It senses the human and stops halfway.</span>';
+            unlockPart(10, 'Safety Skin');
         }
     }
+
     function scrollToId(id, btnElement) {
-        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({ behavior: 'smooth' });
         const allBtns = document.querySelectorAll('.category-btn');
         allBtns.forEach(btn => btn.classList.remove('active'));
         if(btnElement) btnElement.classList.add('active');
     }
-// [신규] 다음 패널로 완벽하게 이동하는 함수
+
     function scrollToNext(id) {
         const target = document.getElementById(id);
-        if (target) {
-            // 화면 상단(start)에 오차 없이 완벽하게 맞춤
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-        
-        // 사이드바 메뉴 활성화(노란색) 상태 자동 업데이트
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         const allBtns = document.querySelectorAll('.category-btn');
         allBtns.forEach(btn => btn.classList.remove('active'));
-        
-        // 이동할 id와 연결된 사이드바 버튼을 찾아 active 부여
         const activeBtn = Array.from(allBtns).find(btn => btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(id));
-        if (activeBtn) {
-            activeBtn.classList.add('active');
-        }
+        if (activeBtn) activeBtn.classList.add('active');
     }
-    function equipIMU() {
-        const bot = document.getElementById('balance-bot');
-        const msg = document.getElementById('balance-msg');
-        bot.className = 'robot-character robot-standing';
-        msg.innerHTML = '<span style="color:#2ecc71;">IMU Sensor Online! Balance restored.</span>';
-    }
-    function removeIMU() {
-        const bot = document.getElementById('balance-bot');
-        const msg = document.getElementById('balance-msg');
-        bot.className = 'robot-character robot-falling';
-        msg.innerHTML = '<span style="color:#FF5555;">Warning: IMU Sensor Missing!</span>';
-    }
-
-    let battLvl = 100;
-    function useBattery(amt) {
-        battLvl -= amt;
-        if(battLvl < 0) battLvl = 0;
-        updateBatteryUI();
-    }
-    function recharge() {
-        battLvl = 100;
-        updateBatteryUI();
-    }
-    function updateBatteryUI() {
-        const bar = document.getElementById('battery-level');
-        bar.style.width = battLvl + '%';
-        bar.innerText = battLvl + '%';
-        if(battLvl > 50) { bar.style.background = '#2ecc71'; bar.style.color = '#000'; }
-        else if(battLvl > 20) { bar.style.background = '#f1c40f'; bar.style.color = '#000'; }
-        else { bar.style.background = '#e74c3c'; bar.style.color = '#fff'; }
-    }
-
-    function toggleVision() {
-        const box = document.getElementById('vision-box');
-        const btn = document.getElementById('vision-btn');
-        box.classList.toggle('vision-robot-mode');
-        if(box.classList.contains('vision-robot-mode')) {
-            btn.innerHTML = '<i class="fas fa-eye"></i> Switch to Human Eye';
-            btn.style.background = 'transparent'; btn.style.color = '#ddd'; btn.style.borderColor = '#555';
-        } else {
-            btn.innerHTML = '<i class="fas fa-robot"></i> Switch to Robot Eye';
-            btn.style.background = '#FFFB03'; btn.style.color = '#000'; btn.style.borderColor = '#FFFB03';
-        }
-    }
-
-// ▼ 기존 answerEtiquette 함수를 지우고 이걸로 덮어씌우세요 ▼
- function answerEtiquette(type) {
-    const msg = document.getElementById('etiq-msg');
-    const robot = document.getElementById('etiq-robot');
-    const xMark = document.getElementById('etiq-x');
-
-    // 초기화
-    robot.className = 'fas fa-robot etiq-actor';
-    robot.style.color = '#86D1D1';
-    robot.style.transform = 'scaleX(-1)';
-    xMark.style.display = 'none';
-    void robot.offsetWidth;
-
-    if(type === 'kick') {
-        robot.classList.add('robot-knocked');
-        xMark.style.display = 'block';
-        // 비원어민을 위해 짧고 강렬한 한 줄 메시지로 변경
-        msg.innerHTML = '<span style="color:#FF5555; font-weight:bold;">❌ WRONG: Don\'t push! It breaks the robot.</span>';
-    } else {
-        // 중간 "Wait" 단계를 없애고 바로 성공 결과 시현
-        robot.classList.add('robot-pass');
-        msg.innerHTML = '<span style="color:#2ecc71; font-weight:bold;">✅ CORRECT: It recalculated and passed safely!</span>';
-    }
-}
-
-    let spotlightOffset = 0;
-    function nextSpotlight() {
-        spotlightOffset++; 
-        const icon = document.getElementById('spotlight-refresh-icon');
-        if (icon) {
-            icon.style.transform = `rotate(${spotlightOffset * 180}deg)`; 
-            icon.style.transition = "transform 0.3s ease";
-        }
-        initSpotlight();
-    }
-    
-function initSpotlight() {
-        if (typeof links === 'undefined' || links.length === 0) return;
-        
-        // ▼ 아래 두 줄을 무작위 추출 코드로 바꿨습니다! ▼
-        const index = Math.floor(Math.random() * links.length); 
-        const randomLink = links[index] || links[0];
-        
-        let companyName = randomLink.title.split(/<br>|\(/)[0].trim();
-        // ... (이하 생략) ...
-        let displayCategory = randomLink.category ? randomLink.category.toUpperCase() : "-";
-        const countryCode = (randomLink.country || "us").toLowerCase();
-
-        const flagEl = document.getElementById('sl-flag-large');
-        if(flagEl) flagEl.className = `country-flag fi fi-${countryCode}`;
-        
-        const nameEl = document.getElementById('sl-name');
-        if(nameEl) nameEl.innerText = companyName;
-        
-        const catEl = document.getElementById('sl-category');
-        if(catEl) catEl.innerText = displayCategory;
-        
-        const linkEl = document.getElementById('sl-link');
-        if(linkEl) linkEl.href = randomLink.url || "#";
-    }
-
-   function toggleLanguageMenu() {
-        const menu = document.getElementById('lang-dropdown');
-        if(menu) menu.classList.toggle('show');
-    }
-
-    function changeLanguage(langCode) {
-        // 1. 선택한 언어로 쿠키 강제 덮어쓰기 (가장 확실하게 오작동을 막는 방법)
-        document.cookie = `googtrans=/en/${langCode}; path=/`;
-        if (location.hostname) {
-            document.cookie = `googtrans=/en/${langCode}; domain=.${location.hostname}; path=/`;
-        }
-
-        const select = document.querySelector('.goog-te-combo');
-        if (select) {
-            // 번역기가 켜져 있으면 즉시 변경
-            select.value = langCode;
-            select.dispatchEvent(new Event('change', { bubbles: true })); 
-        } else {
-            // 번역기가 꼬여있으면 새로고침하여 바뀐 쿠키 적용
-            window.location.reload();
-            return;
-        }
-
-        // 2. 우측 상단 언어 텍스트 업데이트 (en -> EN)
-        const currentLangSpan = document.querySelector('.lang-current');
-        if(currentLangSpan) {
-            currentLangSpan.innerText = langCode.toUpperCase().split('-')[0];
-        }
-
-        // 3. 드롭다운 메뉴 닫기
-        const menu = document.getElementById('lang-dropdown');
-        if (menu) menu.classList.remove('show');
-    }
-
-    // ▼ 구글 번역기 초기화 및 숨김 처리 ▼
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'en',
-            includedLanguages: 'en,ko,ja,zh-CN,es,fr,de,ru,pt,it',
-            autoDisplay: false
-        }, 'google_translate_element');
-    }
-
-    // 메인 페이지 로드 시 언어 쿠키 읽어서 버튼 텍스트 맞추기
-    window.addEventListener('load', function() {
-        setTimeout(() => {
-            const cookies = document.cookie.split(';');
-            let currentLang = 'EN'; 
-            for (let i = 0; i < cookies.length; i++) {
-                let c = cookies[i].trim();
-                if (c.startsWith("googtrans=")) {
-                    let parts = c.split('/');
-                    if (parts.length > 2) {
-                        currentLang = parts[2].toUpperCase().split('-')[0];
-                    }
-                }
-            }
-            const langCurrentSpan = document.querySelector('.lang-current');
-            if (langCurrentSpan) langCurrentSpan.innerText = currentLang;
-        }, 500);
-    });
-
-    setInterval(() => {
-        const bannerFrame = document.querySelector('.goog-te-banner-frame');
-        if (bannerFrame) bannerFrame.remove();
-        
-        const topGhostDiv = document.querySelector('body > div.skiptranslate');
-        if (topGhostDiv) topGhostDiv.style.display = 'none';
-        
-        const body = document.body;
-        const html = document.documentElement;
-        if (body.style.position !== 'static') body.style.position = 'static';
-        if (body.style.top !== '0px') body.style.top = '0px';
-        if (body.style.marginTop !== '0px') body.style.marginTop = '0px';
-        if (html.style.marginTop !== '0px') html.style.marginTop = '0px';
-    }, 100);
-
-    // ▼ 모바일 햄버거 메뉴 작동 로직 ▼
-    const menuBtn = document.getElementById('mobileMenuBtn');
-    const sidebar = document.getElementById('sidebarMenu');
-
-    if (menuBtn && sidebar) {
-        menuBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            sidebar.classList.toggle('mobile-open');
-        });
-
-        document.addEventListener('click', function(e) {
-            if (sidebar.classList.contains('mobile-open') && !sidebar.contains(e.target) && e.target !== menuBtn) {
-                sidebar.classList.remove('mobile-open');
-            }
-        });
-
-sidebar.querySelectorAll('a, button').forEach(item => {
-            item.addEventListener('click', () => {
-                if (window.innerWidth <= 1024) sidebar.classList.remove('mobile-open');
-            });
-        });
-    }
-
-    // 👇 [추가할 코드] 접속하자마자 즉시 실행하고, 8초마다 자동으로 바꾸기 👇
-    window.addEventListener('DOMContentLoaded', () => {
-        initSpotlight(); // 즉시 로딩
-        setInterval(initSpotlight, 8000); // 8초(8000)마다 다른 회사로 자동 변경
-    });
-
 </script>
-
-<script src="https://cdn.jsdelivr.net...
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
