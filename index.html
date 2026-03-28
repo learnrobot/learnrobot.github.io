@@ -710,17 +710,32 @@ background: rgba(44, 153, 153, 0.15);
             color: #FFFB03; font-family: 'Orbitron', sans-serif; text-align: center;
             border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 10px;
         }
-        .hud-svg-container { flex: 1; display: flex; justify-content: center; align-items: center; overflow: hidden; }
-        
-        /* 설계도 부품 애니메이션 디자인 */
-        .hud-part { opacity: 0.1; stroke: #2C9999; fill: none; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .hud-part rect[fill="currentColor"], .hud-part circle[fill="currentColor"] { fill: #2C9999; }
-        
-        .hud-part.unlocked { 
-            opacity: 1; stroke: #FFFB03; 
-            filter: drop-shadow(0 0 5px #FFFB03) drop-shadow(0 0 15px rgba(255,251,3,0.5)); 
+        .hud-svg-container { 
+            flex: 1; position: relative; width: 100%; min-height: 350px; 
+            /* 올려주신 로봇 이미지 파일명을 여기에 넣습니다 */
+            background: url('image_2a7f08.png') center/contain no-repeat; 
+            margin-bottom: 15px; border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.2); border: 1px solid rgba(44, 153, 153, 0.2);
         }
-        .hud-part.unlocked rect[fill="currentColor"], .hud-part.unlocked circle[fill="currentColor"] { fill: #FFFB03; }
+        
+        /* 직관적인 아이콘 스위치 기본 상태 (꺼짐) */
+        .hud-part { 
+            position: absolute; opacity: 0.2; color: #2C9999; font-size: 1.8rem; 
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translate(-50%, -50%); /* 정확한 중앙 정렬 */
+            display: flex; justify-content: center; align-items: center;
+            text-shadow: 0 0 5px rgba(44, 153, 153, 0.5); z-index: 5;
+        }
+        
+        /* 스위치가 켜졌을 때 (네온 효과) */
+        .hud-part.unlocked { 
+            opacity: 1; color: #FFFB03; 
+            filter: drop-shadow(0 0 5px #FFFB03) drop-shadow(0 0 15px rgba(255,251,3,0.8)); 
+            transform: translate(-50%, -50%) scale(1.3); z-index: 10;
+        }
+        /* 👆 여기까지 교체 👆 */
+
+        .hud-log {
 
         .hud-log {
             height: 90px; overflow-y: auto; background: rgba(0,0,0,0.6); border-radius: 8px;
@@ -1319,24 +1334,18 @@ Explore how robots work through interactive contents.</br>
             <span style="font-size:0.85rem; color:#86D1D1;" id="hud-progress">0 / 10 Modules Online</span>
         </div>
         <div class="hud-svg-container">
-            <svg viewBox="0 0 200 400" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(44,153,153,0.15)" stroke-width="1"/></pattern></defs>
-                <rect width="100%" height="100%" fill="url(#grid)" />
-
-                <g stroke="rgba(44,153,153,0.3)" stroke-width="2" fill="none">
-                    <rect x="70" y="40" width="60" height="50" rx="10"/> <rect x="50" y="110" width="100" height="120" rx="15"/> <path d="M 40 130 L 20 180 L 20 220" /> <path d="M 160 130 L 180 180 L 180 220" /> <path d="M 60 250 L 40 330 L 160 330 L 140 250 Z"/> </g>
-
-                <g id="hud-p8" class="hud-part"><path d="M 100 40 L 100 10 M 90 20 L 110 20" stroke-width="3"/><circle cx="100" cy="10" r="4" fill="currentColor"/></g>
-                <g id="hud-p6" class="hud-part"><path d="M 80 55 Q 100 45 120 55 Q 110 75 100 75 Q 90 75 80 55" stroke-dasharray="2 2" stroke-width="2"/></g>
-                <g id="hud-p3" class="hud-part"><rect x="75" y="65" width="50" height="15" rx="5" fill="rgba(0,0,0,0.5)"/><circle cx="90" cy="72.5" r="4" fill="currentColor"/><circle cx="110" cy="72.5" r="4" fill="currentColor"/></g>
-                <g id="hud-p2" class="hud-part"><rect x="70" y="140" width="60" height="40" rx="4" stroke-width="2"/><line x1="85" y1="140" x2="85" y2="180"/><line x1="115" y1="140" x2="115" y2="180"/></g>
-                <g id="hud-p1" class="hud-part"><rect x="90" y="190" width="20" height="20" fill="currentColor"/></g>
-                <g id="hud-p4" class="hud-part"><circle cx="100" cy="125" r="8" fill="currentColor"/><path d="M 90 125 A 10 10 0 0 1 110 125" stroke-width="2"/></g>
-                <g id="hud-p9" class="hud-part"><circle cx="40" cy="130" r="8" stroke-width="2"/><circle cx="160" cy="130" r="8" stroke-width="2"/><circle cx="20" cy="180" r="6" stroke-width="2"/><circle cx="180" cy="180" r="6" stroke-width="2"/></g>
-                <g id="hud-p5" class="hud-part"><path d="M 15 220 Q 5 240 15 250 M 25 220 Q 35 240 25 250" stroke-width="2"/><path d="M 175 220 Q 165 240 175 250 M 185 220 Q 195 240 185 250" stroke-width="2"/></g>
-                <g id="hud-p10" class="hud-part"><path d="M 45 125 L 10 180 L 10 220" stroke-dasharray="4 4" stroke-width="4"/><path d="M 155 125 L 190 180 L 190 220" stroke-dasharray="4 4" stroke-width="4"/></g>
-                <g id="hud-p7" class="hud-part"><rect x="50" y="310" width="100" height="20" rx="10" stroke-width="2"/><circle cx="65" cy="320" r="5" fill="currentColor"/><circle cx="100" cy="320" r="5" fill="currentColor"/><circle cx="135" cy="320" r="5" fill="currentColor"/></g>
-            </svg>
+            <div class="hud-svg-container">
+            <div id="hud-p8" class="hud-part" style="top: 15%; left: 30%;" title="Swarm Antenna"><i class="fas fa-broadcast-tower"></i></div>
+            <div id="hud-p6" class="hud-part" style="top: 18%; left: 50%;" title="AI Brain"><i class="fas fa-brain"></i></div>
+            <div id="hud-p3" class="hud-part" style="top: 28%; left: 50%;" title="Vision Camera"><i class="fas fa-eye"></i></div>
+            <div id="hud-p4" class="hud-part" style="top: 45%; left: 75%;" title="Etiquette Core"><i class="fas fa-handshake"></i></div>
+            <div id="hud-p2" class="hud-part" style="top: 42%; left: 50%;" title="Battery System"><i class="fas fa-battery-full"></i></div>
+            <div id="hud-p10" class="hud-part" style="top: 55%; left: 50%;" title="Safety Skin"><i class="fas fa-shield-alt"></i></div>
+            <div id="hud-p9" class="hud-part" style="top: 50%; left: 25%;" title="Precision Servos"><i class="fas fa-cogs"></i></div>
+            <div id="hud-p5" class="hud-part" style="top: 65%; left: 20%;" title="Soft Grippers"><i class="fas fa-hand-holding"></i></div>
+            <div id="hud-p1" class="hud-part" style="top: 70%; left: 50%;" title="IMU Sensor"><i class="fas fa-balance-scale"></i></div>
+            <div id="hud-p7" class="hud-part" style="top: 88%; left: 50%;" title="Path Algorithm"><i class="fas fa-route"></i></div>
+        </div>
         </div>
         <div class="hud-log" id="hud-log">
             <div>> System initialized.</div>
@@ -1663,7 +1672,7 @@ Explore how robots work through interactive contents.</br>
         if(btnElement) btnElement.classList.add('active');
     }
 
-    function scrollToNext(id) {
+   function scrollToNext(id) {
         const target = document.getElementById(id);
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         const allBtns = document.querySelectorAll('.category-btn');
@@ -1671,6 +1680,56 @@ Explore how robots work through interactive contents.</br>
         const activeBtn = Array.from(allBtns).find(btn => btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(id));
         if (activeBtn) activeBtn.classList.add('active');
     }
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+    // 1. 구글 번역기 초기화
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,ko,ja,zh-CN,es,fr,de,ru,pt,it',
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+
+    // 2. 언어 메뉴 열기/닫기
+    function toggleLanguageMenu() {
+        const dropdown = document.getElementById('lang-dropdown');
+        if(dropdown) dropdown.classList.toggle('show');
+    }
+
+    // 3. 바탕 클릭 시 언어 메뉴 자동으로 닫기
+    document.addEventListener('click', function(e) {
+        const langWrapper = document.querySelector('.lang-wrapper');
+        const dropdown = document.getElementById('lang-dropdown');
+        if (langWrapper && dropdown && !langWrapper.contains(e.target)) {
+            dropdown.classList.remove('show');
+        }
+    });
+
+    // 4. 언어 변경 실행 및 글자(EN, KO 등) 업데이트
+    function changeLanguage(langCode) {
+        const selectField = document.querySelector('.goog-te-combo');
+        if (selectField) {
+            selectField.value = langCode;
+            selectField.dispatchEvent(new Event('change'));
+        }
+        const langText = document.querySelector('.lang-current');
+        if (langText) langText.innerText = langCode.toUpperCase().split('-')[0];
+        const dropdown = document.getElementById('lang-dropdown');
+        if(dropdown) dropdown.classList.remove('show');
+    }
+
+    // 5. 거슬리는 구글 번역기 상단 배너 강제 숨김 (화면 밀림 방지)
+    setInterval(() => {
+        const bannerFrame = document.querySelector('.goog-te-banner-frame');
+        if (bannerFrame) bannerFrame.remove();
+        const topGhostDiv = document.querySelector('body > div.skiptranslate');
+        if (topGhostDiv) topGhostDiv.style.display = 'none';
+        document.body.style.position = 'static';
+        document.body.style.top = '0px';
+    }, 100);
 </script>
 </body>
 </html>
