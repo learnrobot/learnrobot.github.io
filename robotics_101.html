@@ -1342,108 +1342,108 @@ body {
 .compact-spotlight { width: 350px; margin-bottom: 0 !important; }
 
 
-/* --- [수정] 본문 집중을 위한 스마트 플로팅 뉴스 티커 --- */
-/* ▼▼▼ 기존 .news-ticker-floating 코드를 지우고 아래로 교체 ▼▼▼ */
-/* --- [수정] 화면 맨 아래에 완벽히 밀착되는 뉴스 티커 --- */
+/* --- [수정] 화면 맨 아래에 완벽히 밀착되는 뉴스 티커 (노란색 테마) --- */
+/* --- [수정] 화면 맨 아래에 떠있는 캡슐형 뉴스 티커 --- */
 .news-ticker-floating {
     position: fixed;
-    bottom: 0; /* 바닥에 여백 없이 딱 붙임 */
-    left: var(--sidebar-width); /* 사이드바 끝나는 지점부터 시작 */
-    right: 0; /* 오른쪽 화면 끝까지 꽉 채움 */
+    bottom: 15px; /* 바닥에서 15px 띄움 */
+    left: calc(var(--sidebar-width) + 20px); /* 왼쪽 사이드바에서 20px 띄움 */
+    right: 20px; /* 오른쪽에서 20px 띄움 */
     height: 45px;
     
-    background: #0A1118;
+    background: #05080A; 
     
-    /* 위쪽 테두리만 남겨서 본문과 구분 */
-    border-top: 1px solid rgba(134, 209, 209, 0.5); 
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.9); /* 그림자를 위쪽으로만 쏘아줌 */
+    /* 윗면만 있던 테두리를 전체 테두리로 변경 */
+    border: 2px solid #FFFB03; 
+    box-shadow: 0 5px 20px rgba(0,0,0,0.9), 0 0 15px rgba(255, 251, 3, 0.2);
     
-    border-radius: 0; /* 둥근 모서리를 없애서 바닥에 완벽히 밀착 */
+    border-radius: 12px; /* 네 모서리를 완벽하게 둥글게 (캡슐 모양) */
     display: flex;
     align-items: center;
     overflow: hidden;
     z-index: 9999; 
-    
     opacity: 1; 
     transition: all 0.4s ease; 
 }
 
-/* 🎯 마우스를 올렸을 때 효과 */
 .news-ticker-floating:hover {
-    border-top-color: #86D1D1;
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.9), 0 -5px 20px rgba(44, 153, 153, 0.4);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.9), 0 0 25px rgba(255, 251, 3, 0.5);
 }
-
-/* LATEST 라벨 영역 (글자 겹침 방지 수정) */
+/* LATEST 라벨 영역 (배경 자체를 강렬한 노란색으로 칠함) */
 .news-ticker-label {
     display: flex;
     align-items: center;
     padding: 0 20px;
-    background: #172222; /* 👈 투명도를 없애고 불투명한 다크 청록색으로 변경 */
+    background: #FFFB03; /* 배경 노란색 */
     height: 100%;
-    border-right: 1px solid rgba(134, 209, 209, 0.3);
+    border-right: 2px solid #FFFB03;
     z-index: 10;
-    position: relative; /* 👈 뉴스 글자가 무조건 라벨 뒤로 숨도록 층(Layer) 고정 */
+    position: relative; 
     font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    color: #86D1D1;
-    font-size: 0.9rem;
+    font-weight: 900;
+    color: #000; /* 노란 배경이므로 글자는 검은색 */
+    font-size: 0.95rem;
     letter-spacing: 1px;
-white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) */
-    flex-shrink: 0;       /* 브라우저 창이 좁아져도 라벨 영역이 찌그러지지 않게 방어 */
+    white-space: nowrap;  
+    flex-shrink: 0;       
 }
 
-/* 맥박처럼 뛰는 네온 닷(Dot) 애니메이션 */
+/* 맥박처럼 뛰는 애니메이션 (라벨이 노란색이라 검은색 점으로 변경) */
 .pulse-dot {
     width: 8px;
     height: 8px;
-    background-color: #FFFB03;
+    background-color: #000;
     border-radius: 50%;
     margin-right: 10px;
-    box-shadow: 0 0 10px #FFFB03;
-    animation: pulse-neon 1.5s infinite;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    animation: pulse-dark 1.5s infinite;
 }
 
-@keyframes pulse-neon {
-    0% { box-shadow: 0 0 0 0 rgba(255, 251, 3, 0.7); }
-    70% { box-shadow: 0 0 0 6px rgba(255, 251, 3, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 251, 3, 0); }
+@keyframes pulse-dark {
+    0% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7); }
+    70% { box-shadow: 0 0 0 6px rgba(0, 0, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
 }
 
-/* 뉴스 글자 스타일 변경 */
+/* 뉴스 글자 스타일 (본문과 확실히 분리되는 노란색 텍스트) */
 .ticker-item {
-    color: #ddd;
+    color: #FFFB03; /* 글자 노란색 */
     margin-right: 50px;
     font-family: 'Roboto', sans-serif;
     text-decoration: none;
-    font-size: 0.95rem;
+    font-size: 1rem; /* 눈에 띄게 살짝 키움 */
+    font-weight: 500;
     display: inline-flex;
     align-items: center;
 }
-.ticker-item:hover { color: #fff; text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); }
+/* 마우스 올리면 하얗게 빛남 */
+.ticker-item:hover { 
+    color: #fff; 
+    text-shadow: 0 0 10px rgba(255, 251, 3, 0.8); 
+}
 
-/* [수정] 출처(매체명) 스타일: 뱃지 형태로 눈에 띄게 완벽 분리! */
+/* 출처(매체명) 뱃지: 기사 제목과 구분되도록 노란색 테두리로 디자인 */
 .ticker-source { 
-    background: #86D1D1; /* 청록색 배경 */
-    color: #0A1118;      /* 검은색 글씨 */
-    padding: 3px 8px;    /* 네모난 테두리 여백 */
-    border-radius: 4px;  /* 모서리 살짝 둥글게 */
+    background: rgba(255, 251, 3, 0.1); /* 은은한 노란색 배경 */
+    color: #FFFB03;      /* 노란색 글씨 */
+    border: 1px solid #FFFB03; /* 노란색 테두리 */
+    padding: 2px 8px;    
+    border-radius: 4px;  
     font-size: 0.75rem; 
-    margin-left: 15px;   /* 제목과 거리 두기 */
+    margin-left: 15px;   
     font-weight: 900; 
     text-transform: uppercase; 
     letter-spacing: 0.5px;
-    box-shadow: 0 0 5px rgba(134, 209, 209, 0.4); /* 은은한 빛 */
-}
-/* 위로가기 버튼이 뉴스랑 겹치지 않게 더 위로 올림 */
+    box-shadow: inset 0 0 5px rgba(255, 251, 3, 0.2); 
+}/* 위로가기 버튼이 뉴스랑 겹치지 않게 더 위로 올림 */
 #topBtn { bottom: 90px !important; }
 
-/* 모바일 반응형 (화면이 좁아지면 캡슐이 꽉 차게) */
+/* 모바일 반응형 (화면이 좁아지면 여백 축소) */
 @media (max-width: 1024px) {
     .news-ticker-floating {
-        left: 0;
-        right: 0;
-        bottom: 0;
+        left: 10px;
+        right: 10px;
+        bottom: 15px;
     }
 }
     </style>
@@ -1685,7 +1685,7 @@ white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) *
 }
 /* 신규 메인화면 디자인 요소 */
 .news-ticker-wrapper { width: 100%; background: #111; border-top: 2px solid #2C9999; border-bottom: 2px solid #2C9999; display: flex; align-items: center; height: 50px; overflow: hidden; margin-bottom: 50px; position: relative; }
-.news-ticker-track-h { display: flex; white-space: nowrap; animation: tickerScroll 70s linear infinite; padding-left: 20px; align-items: center; }
+.news-ticker-track-h { display: flex; white-space: nowrap; animation: tickerScroll 100s linear infinite; padding-left: 20px; align-items: center; }
 .news-ticker-track-h:hover { animation-play-state: paused; }
 .ticker-item { color: #fff; margin-right: 50px; font-family: 'Roboto', sans-serif; text-decoration: none; font-size: 0.95rem; display: inline-flex; align-items: center; }
 .ticker-item:hover { color: #FFFB03; }
@@ -1789,39 +1789,79 @@ white-space: nowrap;  /* 강제 줄바꿈 방지 (무조건 한 줄로 표시) *
     </div>
 
     <div class="robot-info-panel" id="main-info-panel" style="flex: 2; min-width: 320px; max-width: none; border-top: 2px solid #2C9999;">
-     <div id="content-main">
-            <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-weight: 700;font-size: 2.2rem; margin-bottom: 15px;">
+        <div id="content-main">
+            <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 2.2rem; margin-bottom: 15px;">
                 Meet the Robot
             </h2>
             
-            <p class="panel-desc" style="font-size: 1.15rem; line-height: 1.7; color: #ddd; margin-bottom: 30px;">
+            <p class="panel-desc" style="font-size: 1.15rem; line-height: 1.7; color: #ddd; margin-bottom: 25px;">
                 Click on any glowing part of the robot to discover how it works! <br><br>
-                Robots might look complicated with all their wires and metal, but they are actually designed just like us. They have a body, senses, muscles, and a brain. Let's explore them one by one.
+                Robots might look complicated with all their wires and metal, but they are actually designed just like us. Let's explore the analogy.
             </p>
 
             <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 150px; text-align: center; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; border: 1px solid rgba(134, 209, 209, 0.2);">
-                    <i class="fas fa-microchip" style="font-size: 2.5rem; color: #86D1D1; margin-bottom: 15px;"></i>
-                    <h4 style="color: #fff; margin: 0 0 5px 0;">Hardware</h4>
-                    <p style="font-size: 0.85rem; color: #aaa; margin: 0;">The physical body</p>
+                
+                <div style="flex: 1; min-width: 200px; background: rgba(0,0,0,0.3); padding: 20px 25px; border-radius: 12px; border: 1px solid rgba(134, 209, 209, 0.3); box-shadow: inset 0 0 15px rgba(0,0,0,0.5); display: flex; flex-direction: column; justify-content: center;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px; border-bottom: 1px solid rgba(134, 209, 209, 0.2); padding-bottom: 10px;">
+                        <i class="fas fa-microchip" style="font-size: 2rem; color: #86D1D1;"></i>
+                        <div>
+                            <h4 style="color: #fff; margin: 0; font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem;">Hardware</h4>
+                            <span style="font-size: 0.85rem; color: #aaa;">The Physical Body</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'Roboto', sans-serif;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
+                            <span style="color: #ccc;"><i class="fas fa-bone" style="width: 25px; color: #888; text-align: center;"></i> Skeleton</span>
+                            <i class="fas fa-arrow-right" style="color: #555; font-size: 0.8rem; padding-top: 4px;"></i>
+                            <span style="color: #86D1D1; font-weight: 600; text-align: right; width: 85px;">Links</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
+                            <span style="color: #ccc;"><i class="fas fa-dumbbell" style="width: 25px; color: #888; text-align: center;"></i> Muscles</span>
+                            <i class="fas fa-arrow-right" style="color: #555; font-size: 0.8rem; padding-top: 4px;"></i>
+                            <span style="color: #86D1D1; font-weight: 600; text-align: right; width: 85px;">Actuators</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
+                            <span style="color: #ccc;"><i class="fas fa-eye" style="width: 25px; color: #888; text-align: center;"></i> Senses</span>
+                            <i class="fas fa-arrow-right" style="color: #555; font-size: 0.8rem; padding-top: 4px;"></i>
+                            <span style="color: #86D1D1; font-weight: 600; text-align: right; width: 85px;">Sensors</span>
+                        </div>
+                    </div>
                 </div>
-                <div style="flex: 1; min-width: 150px; text-align: center; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; border: 1px solid rgba(134, 209, 209, 0.2);">
-                    <i class="fas fa-brain" style="font-size: 2.5rem; color: #FFFB03; margin-bottom: 15px;"></i>
-                    <h4 style="color: #fff; margin: 0 0 5px 0;">Software & AI</h4>
-                    <p style="font-size: 0.85rem; color: #aaa; margin: 0;">The intelligence</p>
+                
+                <div style="flex: 1; min-width: 200px; background: rgba(0,0,0,0.3); padding: 20px 25px; border-radius: 12px; border: 1px solid rgba(255, 251, 3, 0.3); box-shadow: inset 0 0 15px rgba(0,0,0,0.5); display: flex; flex-direction: column; justify-content: center;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px; border-bottom: 1px solid rgba(255, 251, 3, 0.2); padding-bottom: 10px;">
+                        <i class="fas fa-brain" style="font-size: 2rem; color: #FFFB03;"></i>
+                        <div>
+                            <h4 style="color: #fff; margin: 0; font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem;">Software & AI</h4>
+                            <span style="font-size: 0.85rem; color: #aaa;">The Intelligence</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'Roboto', sans-serif;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
+                            <span style="color: #ccc;"><i class="fas fa-head-side-virus" style="width: 25px; color: #888; text-align: center;"></i> Brain</span>
+                            <i class="fas fa-arrow-right" style="color: #555; font-size: 0.8rem; padding-top: 4px;"></i>
+                            <span style="color: #FFFB03; font-weight: 600; text-align: right; width: 95px;">MCU / CPU</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
+                            <span style="color: #ccc;"><i class="fas fa-network-wired" style="width: 25px; color: #888; text-align: center;"></i> Nerves</span>
+                            <i class="fas fa-arrow-right" style="color: #555; font-size: 0.8rem; padding-top: 4px;"></i>
+                            <span style="color: #FFFB03; font-weight: 600; text-align: right; width: 95px;">Wires & ROS</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
+                            <span style="color: #ccc;"><i class="fas fa-graduation-cap" style="width: 25px; color: #888; text-align: center;"></i> Learning</span>
+                            <i class="fas fa-arrow-right" style="color: #555; font-size: 0.8rem; padding-top: 4px;"></i>
+                            <span style="color: #FFFB03; font-weight: 600; text-align: right; width: 95px;">AI Models</span>
+                        </div>
+                    </div>
                 </div>
+                
             </div>
-
-            
-        </div>
-    </div>
-
+        </div> </div> </div> <div class="content-header" style="border-bottom: 2px solid #2C9999 !important; padding-bottom: 0px; margin-bottom: -15px;">
+    <h1 id="main-hero-title">Robotics 101</h1>
 </div>
-    
+</section> 
 
-    <div class="content-header" style="border-bottom: 2px solid #2C9999 !important; padding-bottom: 0px; margin-bottom: -15px;">
-        <h1 id="main-hero-title">Robotics 101</h1>
-    </div>
+
 
         <section id="mechanics">
             <div class="content-header">
@@ -2935,29 +2975,31 @@ function resetRobotInfo() {
     const mainContent = document.getElementById('content-main');
     if (!mainContent) return;
     
-    const initHTML = `
-        <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-weight:700; font-size: 2.2rem; margin-bottom: 15px;">
-            Meet the Robot
-        </h2>
-        
-        <p class="panel-desc" style="font-size: 1.15rem; line-height: 1.7; color: #ddd; margin-bottom: 30px;">
-            Click on any glowing part of the robot to discover how it works! <br><br>
-            Robots might look complicated with all their wires and metal, but they are actually designed just like us. They have a body, senses, muscles, and a brain. Let's explore them one by one.
-        </p>
+   // 초기화 및 리셋 시 나타날 깔끔한 인트로 화면
+const initHTML = `
+    <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-weight:700; font-size: 2.2rem; margin-bottom: 15px;">
+        Meet the Robot
+    </h2>
+    
+    <p style="font-size: 1.1rem; line-height: 1.6; color: #ccc; margin-bottom: 30px; font-family: 'Roboto', sans-serif;">
+        Click on any glowing part of the robot to discover how it works! <br><br>
+        Robots might look complicated with all their wires and metal, but they are actually designed just like us. They have a body, senses, muscles, and a brain. Let's explore them one by one.
+    </p>
 
-        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-            <div style="flex: 1; min-width: 150px; text-align: center; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; border: 1px solid rgba(134, 209, 209, 0.2);">
-                <i class="fas fa-microchip" style="font-size: 2.5rem; color: #86D1D1; margin-bottom: 15px;"></i>
-                <h4 style="color: #fff; margin: 0 0 5px 0;">Hardware</h4>
-                <p style="font-size: 0.85rem; color: #aaa; margin: 0;">The physical body</p>
-            </div>
-            <div style="flex: 1; min-width: 150px; text-align: center; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; border: 1px solid rgba(134, 209, 209, 0.2);">
-                <i class="fas fa-brain" style="font-size: 2.5rem; color: #FFFB03; margin-bottom: 15px;"></i>
-                <h4 style="color: #fff; margin: 0 0 5px 0;">Software & AI</h4>
-                <p style="font-size: 0.85rem; color: #aaa; margin: 0;">The intelligence</p>
-            </div>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 150px; text-align: center; background: rgba(0,0,0,0.3); padding: 30px 20px; border-radius: 12px; border: 1px solid rgba(134, 209, 209, 0.2); box-shadow: inset 0 0 10px rgba(0,0,0,0.5);">
+            <i class="fas fa-microchip" style="font-size: 2.8rem; color: #86D1D1; margin-bottom: 15px;"></i>
+            <h4 style="color: #fff; margin: 0 0 8px 0; font-family: 'Chakra Petch', sans-serif; font-size: 1.3rem;">Hardware</h4>
+            <p style="font-size: 0.9rem; color: #888; margin: 0; font-family: 'Roboto', sans-serif;">The physical body</p>
         </div>
-</div>`;
+        
+        <div style="flex: 1; min-width: 150px; text-align: center; background: rgba(0,0,0,0.3); padding: 30px 20px; border-radius: 12px; border: 1px solid rgba(134, 209, 209, 0.2); box-shadow: inset 0 0 10px rgba(0,0,0,0.5);">
+            <i class="fas fa-brain" style="font-size: 2.8rem; color: #FFFB03; margin-bottom: 15px;"></i>
+            <h4 style="color: #fff; margin: 0 0 8px 0; font-family: 'Chakra Petch', sans-serif; font-size: 1.3rem;">Software & AI</h4>
+            <p style="font-size: 0.9rem; color: #888; margin: 0; font-family: 'Roboto', sans-serif;">The intelligence</p>
+        </div>
+    </div>
+`;
     
 
     mainContent.style.opacity = 0;
