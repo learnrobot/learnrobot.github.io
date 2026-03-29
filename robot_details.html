@@ -216,6 +216,13 @@ main {
                 box-sizing: border-box !important;
             }
         }
+		/* 방금 클릭한 퀴즈 카드 강조 효과 */
+.active-quiz-card {
+    border: 2px solid #FFFB03 !important;
+    background: rgba(255, 251, 3, 0.15) !important; /* 은은한 노란색 배경 */
+    box-shadow: 0 0 15px rgba(255, 251, 3, 0.3);
+    transition: all 0.3s ease;
+}
     </style>
 </head>
 <body>
@@ -839,6 +846,20 @@ main {
     };
 
     // ▼ 3. 퀴즈 정답 형광펜 및 탭 전환 로직 ▼
+	// ▼ 방금 푼 퀴즈 카드 색상 유지하기 ▼
+    document.addEventListener('DOMContentLoaded', function() {
+        // 모든 'Find Answer' 버튼을 찾습니다.
+        document.querySelectorAll('.hint-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 1. 기존에 색칠된 카드가 있다면 모두 원래대로 되돌림
+                document.querySelectorAll('.quiz-card').forEach(card => {
+                    card.classList.remove('active-quiz-card');
+                });
+                // 2. 지금 방금 클릭한 버튼을 감싸고 있는 카드에만 노란색 효과 추가
+                this.closest('.quiz-card').classList.add('active-quiz-card');
+            });
+        });
+    });
     function showAnswer(paraId, targetId) {
         document.getElementById(paraId).scrollIntoView({ behavior: 'smooth', block: 'center' });
         document.querySelectorAll('.ans-target').forEach(el => el.classList.remove('highlight-active'));
