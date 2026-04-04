@@ -597,7 +597,7 @@ background: rgba(44, 153, 153, 0.15);
 @media (max-width: 1024px) {
     /* 1. 사이드바를 아예 화면에서 없애서 본문 공간 확보 */
     aside {
-        display: none !important; /* 👈 이 코드가 들어가야 본문이 넓게 펴집니다 */
+        
     }
     
     /* 2. 메인 컨테이너가 가로가 아닌 세로로 흐르게 변경 */
@@ -1689,6 +1689,36 @@ Explore how robots work through interactive contents.</br>
         document.body.style.position = 'static';
         document.body.style.top = '0px';
     }, 100);
+	// ==========================================
+    // ▼ 모바일 햄버거 메뉴 작동 자바스크립트 ▼
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebarMenu');
+
+        if (menuBtn && sidebar) {
+            // 1. 햄버거 버튼 누르면 열고 닫기
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); 
+                sidebar.classList.toggle('mobile-open');
+            });
+
+            // 2. 메뉴 밖(본문)을 터치하면 자동으로 닫기
+            document.addEventListener('click', (e) => {
+                if (sidebar.classList.contains('mobile-open') && !sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            });
+
+            // 3. 메뉴 안의 버튼을 클릭해서 이동할 때도 자동으로 닫기
+            const navItems = sidebar.querySelectorAll('.category-btn, .nav-link-btn');
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    sidebar.classList.remove('mobile-open');
+                });
+            });
+        }
+    });
 </script>
 </body>
 </html>
