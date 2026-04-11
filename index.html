@@ -733,6 +733,27 @@ background: rgba(44, 153, 153, 0.15);
                 width: 100% !important;
             }
         }   
+/* --- [신규] 우측 실전 사례(Real-World Use) 패널 --- */
+        #realworld-panel {
+            position: fixed; right: 30px; top: 120px; width: 380px;
+            /* bottom: 30px; (삭제함) */
+            height: auto; /* 🚨 추가: 내용물에 맞춰 높이 자동 조절 */
+            max-height: calc(100vh - 150px); /* 🚨 추가: 화면을 벗어나지 않도록 최대 높이 제한 */
+            overflow-y: auto; /* 🚨 추가: 내용이 너무 많으면 패널 안에서 스크롤 생성 */
+            background: rgba(10, 15, 20, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(44, 153, 153, 0.4); border-radius: 15px; padding: 25px; z-index: 90; display: flex; flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(44, 153, 153, 0.1);
+            transition: all 0.3s ease;
+        }
+        .rw-header { color: #FFFB03; font-family: 'Orbitron', sans-serif; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 20px; font-weight: 700; font-size: 1.1rem; display:flex; align-items:center; justify-content:center; gap:10px;}
+        .rw-image-box { width: 100%; height: 220px; border-radius: 10px; overflow: hidden; border: 2px solid #2C9999; margin-bottom: 20px; position: relative; background: #000; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .rw-image { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.4s ease; }
+        .rw-title { color: #86D1D1; font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; transition: opacity 0.4s ease;}
+        .rw-desc { color: #e0e0e0; font-size: 1rem; line-height: 1.6; font-family: 'Roboto', sans-serif; transition: opacity 0.4s ease;}
+        
+        /* 🚨 화면 겹침 방지 보호막 */
+        @media (min-width: 1401px) { main { padding-right: 440px !important; } }
+        @media (max-width: 1400px) { #realworld-panel { display: none !important; } }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936" crossorigin="anonymous"></script>
 </head>
@@ -1323,7 +1344,16 @@ Explore how robots work through interactive contents.</br>
                 <i class="fas fa-hand-pointer fa-bounce"></i> Drag to rotate • Scroll to zoom
             </div>
         </div>
-
+<div id="realworld-panel">
+            <div class="rw-header">
+                <i class="fas fa-globe"></i> REAL-WORLD USE
+            </div>
+            <div class="rw-image-box">
+                <img id="rw-img" class="rw-image" src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600" alt="Real World Example">
+            </div>
+            <div id="rw-title" class="rw-title">Welcome to the Future</div>
+            <div id="rw-desc" class="rw-desc">Scroll down to see how the concepts you learn here are being used in real-world robotics today.</div>
+        </div>
     </main>
 </div> 
 
@@ -1782,6 +1812,103 @@ Explore how robots work through interactive contents.</br>
             });
         }
     });
+</script>
+<script>
+const rwData = {
+        'hero-intro': {
+            title: "PROJECT: LEARNBOT",
+            desc: "Scroll down to explore how fundamental robotics concepts are applied in the real world by industry leaders.",
+            img: "images/intro.jpg" // 0. 인트로 사진
+        },
+        'lab-balance': {
+            title: "Boston Dynamics 'Spot'",
+            desc: "Advanced quadruped robots use IMU sensors and real-time processing to maintain perfect balance on rough terrain.",
+            img: "images/balance.jpg" // 1. 보스턴 다이내믹스 스팟
+        },
+        'lab-battery': {
+            title: "EV Battery Management",
+            desc: "Just like modern electric vehicles, robots require massive, compact power systems directly integrated into their structure.",
+            img: "images/battery.jpg" // 2. 테슬라 배터리
+        },
+        'lab-vision': {
+            title: "Tesla Autopilot Vision",
+            desc: "Tesla processes millions of camera pixels per second using neural networks to identify and navigate complex environments without LiDAR.",
+            img: "images/vision.jpg" // 3. 자율주행 카메라 뷰
+        },
+        'lab-etiquette': {
+            title: "Human-Robot Interaction",
+            desc: "Service robots must use social algorithms to yield to humans, respect boundaries, and interact predictably.",
+            img: "images/etiquette.jpg" // 4. 사람과 상호작용하는 배달/서비스 로봇
+        },
+        'lab-egg': {
+            title: "Industrial Grippers",
+            desc: "Precise industrial robotic arms use advanced pneumatic and mechanical systems to handle objects with exact force.",
+            img: "images/gripper.jpg" // 5. 부드러운 로봇 그리퍼
+        },
+        'lab-gym': {
+            title: "Reinforcement Learning",
+            desc: "Robots use AI to teach themselves complex kinematic tasks—like playing a piano or doing parkour—through millions of simulations.",
+            img: "images/learning.jpg" // 6. 시뮬레이션/훈련 중인 로봇
+        },
+        'lab-maze': {
+            title: "Autonomous Navigation",
+            desc: "Using advanced sensors, autonomous systems instantly calculate alternative paths when the planned route is blocked.",
+            img: "images/maze.jpg" // 7. 경로 탐색 중인 자율 이동 로봇
+        },
+        'lab-swarm': {
+            title: "Warehouse Automation",
+            desc: "Logistics centers use fleets of automated robots communicating locally to coordinate massive supply chain tasks.",
+            img: "images/swarm.jpg" // 8. 아마존 창고 같은 군집 물류 로봇
+        },
+        'lab-muscle': {
+            title: "Precision Actuators",
+            desc: "Industrial robots use high-precision servo motors and absolute encoders for sub-millimeter accuracy.",
+            img: "images/muscle.jpg" // 9. 정밀 모터/관절
+        },
+        'lab-cobot': {
+            title: "Collaborative 'Cobots'",
+            desc: "Fitted with torque sensors, modern cobots are designed to stop instantly upon contact, allowing them to work safely alongside humans.",
+            img: "images/cobot.jpg" // 10. 사람 옆에서 안전하게 일하는 협동 로봇
+        }
+    };
+
+    const rwImg = document.getElementById('rw-img');
+    const rwTitle = document.getElementById('rw-title');
+    const rwDesc = document.getElementById('rw-desc');
+    let currentRwId = null;
+
+    if (rwImg && window.IntersectionObserver) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+                    const data = rwData[sectionId];
+                    
+                    if (data && sectionId !== currentRwId) {
+                        currentRwId = sectionId;
+                        
+                        // 부드러운 페이드 아웃
+                        rwImg.style.opacity = '0';
+                        rwTitle.style.opacity = '0';
+                        rwDesc.style.opacity = '0';
+                        
+                        setTimeout(() => {
+                            rwImg.src = data.img;
+                            rwTitle.innerText = data.title;
+                            rwDesc.innerText = data.desc;
+                            
+                            // 부드러운 페이드 인
+                            rwImg.style.opacity = '1';
+                            rwTitle.style.opacity = '1';
+                            rwDesc.style.opacity = '1';
+                        }, 400); // 0.4초 후 글자/그림 교체
+                    }
+                }
+            });
+        }, { threshold: 0.5 }); // 화면에 50% 진입 시 작동
+
+        document.querySelectorAll('section').forEach(sec => observer.observe(sec));
+    }
 </script>
 </body>
 </html>
