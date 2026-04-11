@@ -1008,11 +1008,7 @@ Explore how robots work through interactive contents.</br>
     <div style="flex-shrink: 0; width: 45px; height: 45px; background: rgba(44, 153, 153, 0.1); border-radius: 6px; display: flex; justify-content: center; align-items: center;">
         <i class="fas fa-microchip" style="font-size: 1.6rem; color: #FFFB03;"></i>
     </div>
-    <div style="flex: 1; min-width: 250px; font-family: 'Chakra Petch', sans-serif;">
-        <span style="color: #fff; font-size: 1rem; font-weight: 400; margin-right: 5px;">explore</span>
-        <span style="color: #FFFB03; font-size: 1.1rem; font-weight: 700; margin-right: 5px;">Arduino Starter Kit</span>
-        <span style="color: #ccc; font-size: 1rem; font-weight: 400;">: The most widely used kit for learning basic robotics.</span>
-    </div>
+ 
     <div style="flex-shrink: 0;">
         <a href="https://www.amazon.com/s?k=Arduino+Starter+Kit&crid=2IG2S84VBRL13&sprefix=arduino+starter+kit%2Caps%2C304&ref=nb_sb_noss_1" target="_blank" style="background: #FFFB03; color: #000; padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 800; font-family: 'Chakra Petch', sans-serif; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 0 12px rgba(255, 251, 3, 0.3); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
             <i class="fab fa-amazon"></i> Explore <i class="fas fa-chevron-right" style="font-size: 0.8rem;"></i>
@@ -1103,11 +1099,7 @@ Explore how robots work through interactive contents.</br>
     <div style="flex-shrink: 0; width: 45px; height: 45px; background: rgba(44, 153, 153, 0.1); border-radius: 6px; display: flex; justify-content: center; align-items: center;">
         <i class="fas fa-cogs" style="font-size: 1.6rem; color: #FFFB03;"></i>
     </div>
-    <div style="flex: 1; min-width: 250px; font-family: 'Chakra Petch', sans-serif;">
-        <span style="color: #fff; font-size: 1rem; font-weight: 400; margin-right: 5px;">explore</span>
-        <span style="color: #FFFB03; font-size: 1.1rem; font-weight: 700; margin-right: 5px;">Robotic Arm Kit</span>
-        <span style="color: #ccc; font-size: 1rem; font-weight: 400;">: Build and program your own precision servo robot arm.</span>
-    </div>
+    
     <div style="flex-shrink: 0;">
         <a href="https://www.amazon.com/s?k=robotic+arm+kit&crid=110DTUJO3EC8M&sprefix=robotic+arm+k%2Caps%2C293&ref=nb_sb_noss_2" target="_blank" style="background: #FFFB03; color: #000; padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 800; font-family: 'Chakra Petch', sans-serif; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 0 12px rgba(255, 251, 3, 0.3); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
             <i class="fab fa-amazon"></i> Explore <i class="fas fa-chevron-right" style="font-size: 0.8rem;"></i>
@@ -1317,11 +1309,7 @@ Explore how robots work through interactive contents.</br>
     <div style="flex-shrink: 0; width: 45px; height: 45px; background: rgba(44, 153, 153, 0.1); border-radius: 6px; display: flex; justify-content: center; align-items: center;">
         <i class="fas fa-dog" style="font-size: 1.6rem; color: #FFFB03;"></i>
     </div>
-    <div style="flex: 1; min-width: 250px; font-family: 'Chakra Petch', sans-serif;">
-        <span style="color: #fff; font-size: 1rem; font-weight: 400; margin-right: 5px;">explore</span>
-        <span style="color: #FFFB03; font-size: 1.1rem; font-weight: 700; margin-right: 5px;">Robot Dog</span>
-        <span style="color: #ccc; font-size: 1rem; font-weight: 400;">: Explore advanced AI, walking algorithms, and coding.</span>
-    </div>
+   
     <div style="flex-shrink: 0;">
         <a href="https://www.amazon.com/s?k=Robot+Dog&crid=2UXT9QAXEG582&sprefix=robot+dog%2Caps%2C322&ref=nb_sb_noss_1" target="_blank" style="background: #FFFB03; color: #000; padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 800; font-family: 'Chakra Petch', sans-serif; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 0 12px rgba(255, 251, 3, 0.3); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
             <i class="fab fa-amazon"></i> Explore <i class="fas fa-chevron-right" style="font-size: 0.8rem;"></i>
@@ -1383,6 +1371,7 @@ Explore how robots work through interactive contents.</br>
             </div>
             <div id="rw-title" class="rw-title">Welcome to the Future</div>
             <div id="rw-desc" class="rw-desc">Scroll down to see how the concepts you learn here are being used in real-world robotics today.</div>
+            <div id="rw-ad-slot" style="margin-top: 15px; transition: opacity 0.4s ease; display: none;"></div>
         </div>
     </main>
 </div> 
@@ -1848,63 +1837,100 @@ const rwData = {
         'hero-intro': {
             title: "PROJECT: LEARNBOT",
             desc: "Scroll down to explore how fundamental robotics concepts are applied in the real world by industry leaders.",
-            img: "0.real-humanoid.jpg" // 0. 인트로 사진
+            img: "0.real-humanoid.jpg" 
         },
         'lab-balance': {
             title: "Boston Dynamics 'Spot'",
             desc: "Advanced quadruped robots use IMU sensors and real-time processing to maintain perfect balance on rough terrain.",
-            img: "1.real-balance.jpg" // 1. 보스턴 다이내믹스 스팟
+            img: "1.real-balance.jpg" 
         },
         'lab-battery': {
             title: "EV Battery Management",
             desc: "Just like modern electric vehicles, robots require massive, compact power systems directly integrated into their structure.",
-            img: "2.real-battery.jpg" // 2. 테슬라 배터리
+            img: "2.real-battery.jpg",
+            // 👇 배터리 섹션 맞춤 광고 추가
+            ad: `
+            <div style="border: 1px solid rgba(44, 153, 153, 0.4); border-radius: 8px; background: rgba(0,0,0,0.4); padding: 15px; text-align: center; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px;">
+                    <i class="fas fa-microchip" style="font-size: 1.3rem; color: #FFFB03;"></i>
+                    <span style="color: #FFFB03; font-size: 1rem; font-weight: 700; font-family: 'Chakra Petch', sans-serif;">Arduino Starter Kit</span>
+                </div>
+                <p style="color: #ccc; font-size: 0.85rem; margin-bottom: 12px; font-family: 'Chakra Petch', sans-serif; line-height: 1.3;">The most widely used kit for learning basic robotics.</p>
+                <a href="https://www.amazon.com/s?k=Arduino+Starter+Kit" target="_blank" style="background: #FFFB03; color: #000; padding: 8px 10px; border-radius: 6px; text-decoration: none; font-weight: 800; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                    <i class="fab fa-amazon"></i> Explore <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
+                </a>
+            </div>`
         },
         'lab-vision': {
             title: "Tesla Autopilot Vision",
             desc: "Tesla processes millions of camera pixels per second using neural networks to identify and navigate complex environments without LiDAR.",
-            img: "3.real-vision.jpg" // 3. 자율주행 카메라 뷰
+            img: "3.real-vision.jpg" 
         },
         'lab-etiquette': {
             title: "Human-Robot Interaction",
             desc: "Service robots must use social algorithms to yield to humans, respect boundaries, and interact predictably.",
-            img: "4.real-etiquette.jpg" // 4. 사람과 상호작용하는 배달/서비스 로봇
+            img: "4.real-etiquette.jpg" 
         },
         'lab-egg': {
             title: "Industrial Grippers",
             desc: "Precise industrial robotic arms use advanced pneumatic and mechanical systems to handle objects with exact force.",
-            img: "5.real-gripper.jpg" // 5. 부드러운 로봇 그리퍼
+            img: "5.real-gripper.jpg",
+            // 👇 그리퍼 섹션 맞춤 광고 추가
+            ad: `
+            <div style="border: 1px solid rgba(44, 153, 153, 0.4); border-radius: 8px; background: rgba(0,0,0,0.4); padding: 15px; text-align: center; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px;">
+                    <i class="fas fa-cogs" style="font-size: 1.3rem; color: #FFFB03;"></i>
+                    <span style="color: #FFFB03; font-size: 1rem; font-weight: 700; font-family: 'Chakra Petch', sans-serif;">Robotic Arm Kit</span>
+                </div>
+                <p style="color: #ccc; font-size: 0.85rem; margin-bottom: 12px; font-family: 'Chakra Petch', sans-serif; line-height: 1.3;">Build and program your own precision servo robot arm.</p>
+                <a href="https://www.amazon.com/s?k=robotic+arm+kit" target="_blank" style="background: #FFFB03; color: #000; padding: 8px 10px; border-radius: 6px; text-decoration: none; font-weight: 800; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                    <i class="fab fa-amazon"></i> Explore <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
+                </a>
+            </div>`
         },
         'lab-gym': {
             title: "Reinforcement Learning",
             desc: "Robots use AI to teach themselves complex kinematic tasks—like playing a piano or doing parkour—through millions of simulations.",
-            img: "6.real-training.jpg" // 6. 시뮬레이션/훈련 중인 로봇
+            img: "6.real-training.jpg" 
         },
         'lab-maze': {
             title: "Autonomous Navigation",
             desc: "Using advanced sensors, autonomous systems instantly calculate alternative paths when the planned route is blocked.",
-            img: "7.real-path.jpg" // 7. 경로 탐색 중인 자율 이동 로봇
+            img: "7.real-path.jpg" 
         },
         'lab-swarm': {
             title: "Warehouse Automation",
             desc: "Logistics centers use fleets of automated robots communicating locally to coordinate massive supply chain tasks.",
-            img: "8.real-swarm.jpg" // 8. 아마존 창고 같은 군집 물류 로봇
+            img: "8.real-swarm.jpg" 
         },
         'lab-muscle': {
             title: "Precision Actuators",
             desc: "Industrial robots use high-precision servo motors and absolute encoders for sub-millimeter accuracy.",
-            img: "9.real-motor.jpg" // 9. 정밀 모터/관절
+            img: "9.real-motor.jpg",
+            // 👇 모터 섹션 맞춤 광고 추가
+            ad: `
+            <div style="border: 1px solid rgba(44, 153, 153, 0.4); border-radius: 8px; background: rgba(0,0,0,0.4); padding: 15px; text-align: center; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px;">
+                    <i class="fas fa-dog" style="font-size: 1.3rem; color: #FFFB03;"></i>
+                    <span style="color: #FFFB03; font-size: 1rem; font-weight: 700; font-family: 'Chakra Petch', sans-serif;">Robot Dog</span>
+                </div>
+                <p style="color: #ccc; font-size: 0.85rem; margin-bottom: 12px; font-family: 'Chakra Petch', sans-serif; line-height: 1.3;">Explore advanced AI, walking algorithms, and coding.</p>
+                <a href="https://www.amazon.com/s?k=Robot+Dog" target="_blank" style="background: #FFFB03; color: #000; padding: 8px 10px; border-radius: 6px; text-decoration: none; font-weight: 800; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                    <i class="fab fa-amazon"></i> Explore <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
+                </a>
+            </div>`
         },
         'lab-cobot': {
             title: "Collaborative 'Cobots'",
             desc: "Fitted with torque sensors, modern cobots are designed to stop instantly upon contact, allowing them to work safely alongside humans.",
-            img: "10.real-safety.jpg" // 10. 사람 옆에서 안전하게 일하는 협동 로봇
+            img: "10.real-safety.jpg" 
         }
     };
 
     const rwImg = document.getElementById('rw-img');
     const rwTitle = document.getElementById('rw-title');
     const rwDesc = document.getElementById('rw-desc');
+    const rwAdSlot = document.getElementById('rw-ad-slot'); // 광고 슬롯 변수 추가
     let currentRwId = null;
 
     if (rwImg && window.IntersectionObserver) {
@@ -1921,17 +1947,31 @@ const rwData = {
                         rwImg.style.opacity = '0';
                         rwTitle.style.opacity = '0';
                         rwDesc.style.opacity = '0';
+                        if(rwAdSlot) rwAdSlot.style.opacity = '0';
                         
                         setTimeout(() => {
                             rwImg.src = data.img;
                             rwTitle.innerText = data.title;
                             rwDesc.innerText = data.desc;
                             
+                            // 해당 섹션에 광고가 있으면 보여주고, 없으면 숨김
+                            if (rwAdSlot) {
+                                if (data.ad) {
+                                    rwAdSlot.innerHTML = data.ad;
+                                    rwAdSlot.style.display = 'block';
+                                } else {
+                                    rwAdSlot.innerHTML = '';
+                                    rwAdSlot.style.display = 'none';
+                                }
+                            }
+                            
                             // 부드러운 페이드 인
                             rwImg.style.opacity = '1';
                             rwTitle.style.opacity = '1';
                             rwDesc.style.opacity = '1';
-                        }, 400); // 0.4초 후 글자/그림 교체
+                            if(rwAdSlot && data.ad) rwAdSlot.style.opacity = '1';
+
+                        }, 400); // 0.4초 후 글자/그림/광고 교체
                     }
                 }
             });
