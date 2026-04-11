@@ -921,7 +921,7 @@ Explore how robots work through interactive contents.</br>
                 <a href="robot_details.html?id=1" class="go-detail-btn">learn more <i class="fas fa-arrow-right"></i></a>
                 <button class="nav-side-btn" onclick="scrollToNext('lab-battery')" title="Next: Battery & Power">next topic <i class="fas fa-arrow-down"></i></button>
             </div>
-            </div> </section>
+        </div> </section>
 
         <section id="lab-battery">
             <h1 class="section-title">2. Battery & Power</h1>
@@ -1205,12 +1205,18 @@ Explore how robots work through interactive contents.</br>
             <p class="section-subtitle">Sometimes, many simple robots are better than one complex robot.</p>
             <div class="lab-card">
                 <div style="height: 160px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; margin-bottom: 10px;">
-                    <i id="swarm-box" class="fas fa-car-side swarm-box"></i>
-                    <div id="swarm-ants" class="swarm-ants">
-                        <i class="fas fa-robot"></i><i class="fas fa-robot"></i><i class="fas fa-robot"></i><i class="fas fa-robot"></i>
+                  <div id="swarm-box" class="swarm-box" style="margin-bottom: 0px;">
+                        <svg viewBox="0 0 300 80" style="width: 280px; height: auto; display: block;" fill="currentColor">
+                            <rect x="60" y="36" width="180" height="8" /> <rect x="15" y="20" width="20" height="40" rx="3" />
+                            <rect x="35" y="10" width="25" height="60" rx="4" />
+                            <rect x="240" y="10" width="25" height="60" rx="4" />
+                            <rect x="265" y="20" width="20" height="40" rx="3" />
+                        </svg>
                     </div>
-                </div>
-                <h3 id="swarm-msg" style="background: rgba(15, 20, 25, 0.95); padding: 12px 25px; border-radius: 30px; display: inline-block; margin-bottom: 20px; color: #fff; border: 1px solid rgba(255,255,255,0.1);">Target is extremely heavy.</h3>
+                    <div id="swarm-ants" class="swarm-ants">
+                        <i class="fas fa-robot"></i><i class="fas fa-robot" style="display: none;"></i><i class="fas fa-robot" style="display: none;"></i><i class="fas fa-robot" style="display: none;"></i>
+                    </div>
+</div>                <h3 id="swarm-msg" style="background: rgba(15, 20, 25, 0.95); padding: 12px 25px; border-radius: 30px; display: inline-block; margin-bottom: 20px; color: #fff; border: 1px solid rgba(255,255,255,0.1);">Target is extremely heavy.</h3>
                 
                 <div style="margin-bottom: 15px;">
                     <button class="lab-btn" onclick="liftBox('alone')"><i class="fas fa-user"></i> Lift Alone</button>
@@ -1311,6 +1317,13 @@ Explore how robots work through interactive contents.</br>
                 &copy; 2026 LearnRobot.com. Demystifying the future.
             </p>
         </div>
+
+            
+            <div class="viewer-hint">
+                <i class="fas fa-hand-pointer fa-bounce"></i> Drag to rotate • Scroll to zoom
+            </div>
+        </div>
+
     </main>
 </div> 
 
@@ -1562,18 +1575,22 @@ Explore how robots work through interactive contents.</br>
         const msg = document.getElementById('swarm-msg');
         if(!box || !ants || !msg) return;
 
+        const robots = ants.querySelectorAll('i');
+
         if(type === 'alone') {
             box.style.transform = 'translateX(5px)'; 
             setTimeout(()=>box.style.transform='translateX(-5px)', 100); 
             setTimeout(()=>box.style.transform='translateX(0)', 200);
-            ants.style.opacity = '0';
+            
+            ants.style.opacity = '1';
+            robots.forEach((r, idx) => r.style.display = (idx === 0) ? 'inline-block' : 'none'); // 1대만 낑낑댐
             msg.innerHTML = '<span style="color:#FF5555;">Error: Target too heavy for 1 unit.</span>';
-            lockPart(8, 'Swarm Antenna'); // 오답 시 꺼짐
         } else {
             ants.style.opacity = '1';
-            box.style.transform = 'translateY(-30px)';
+            robots.forEach(r => r.style.display = 'inline-block'); // 4대 총출동
+            
+            box.style.transform = 'translateY(-20px)'; // 간격이 좁아진 만큼 들어올리는 높이도 알맞게 조절 (-30px -> -20px)
             msg.innerHTML = '<span style="color:#2ecc71;">Swarm logic engaged. Lift successful!</span>';
-            unlockPart(8, 'Swarm Antenna');
         }
     }
 
