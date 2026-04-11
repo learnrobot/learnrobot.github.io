@@ -214,7 +214,12 @@ background: rgba(44, 153, 153, 0.15);
             transition: border-color 0.3s; margin-bottom: 4px; /* 아래 마진 줄임 */
         }
         .category-group:hover { border-color: rgba(255, 251, 3, 0.5); }
-        .group-title { color: var(--primary-color); font-weight: 700; border-bottom: 1px solid rgba(44,153,153,0.2); padding-bottom: 5px; margin-bottom: 8px; font-size: 1.05rem; } /* 타이틀 여백/크기 조절 */
+        .group-title { 
+    color: #86D1D1; /* 기존보다 훨씬 밝은 청록색 */
+    font-weight: 800; 
+    text-shadow: 0 0 5px rgba(134, 209, 209, 0.3); /* 살짝 빛나는 효과 추가 */
+    border-bottom: 1px solid rgba(134, 209, 209, 0.4); 
+}
         
         .category-btn {
             width: 100%; text-align: left; background: transparent; border: none; color: #ccc;
@@ -228,7 +233,7 @@ background: rgba(44, 153, 153, 0.15);
 .nav-link-btn {
             display: flex; justify-content: space-between; align-items: center;
             background: rgba(255,255,255,0.03); 
-            color: #2C9999; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: all 0.3s;
+            color: #86D1D1; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: all 0.3s;
             /* 👇 움직이는 점선 대신 얇은 청록색 실선 추가 */
             border: 1px solid rgba(44, 153, 153, 0.3); 
         }
