@@ -137,7 +137,7 @@ background: rgba(44, 153, 153, 0.15);
             height: 100px;
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 1.5rem;
-            z-index: 10; gap: 20px; flex-shrink: 0;
+            z-index: 9999; gap: 20px; flex-shrink: 0;
         }
         .logo-link { text-decoration: none; color: inherit; display: flex; align-items: center; gap: 15px; }
         .logo-image { height: 60px; width: auto; object-fit: contain; border-radius: 50%; }
@@ -1328,7 +1328,9 @@ Explore how robots work through interactive contents.</br>
         </div>
 
             
-          
+            <div class="viewer-hint">
+                <i class="fas fa-hand-pointer fa-bounce"></i> Drag to rotate • Scroll to zoom
+            </div>
         </div>
 <div id="realworld-panel">
             <div class="rw-header">
@@ -1586,7 +1588,7 @@ Explore how robots work through interactive contents.</br>
         }
     }
 
-function liftBox(type) {
+    function liftBox(type) {
         const box = document.getElementById('swarm-box');
         const ants = document.getElementById('swarm-ants');
         const msg = document.getElementById('swarm-msg');
@@ -1598,7 +1600,6 @@ function liftBox(type) {
             box.style.transform = 'translateX(5px)'; 
             setTimeout(()=>box.style.transform='translateX(-5px)', 100); 
             setTimeout(()=>box.style.transform='translateX(0)', 200);
-            box.style.filter = 'none'; // 혼자 들 땐 네온 효과 끄기
             
             ants.style.opacity = '1';
             robots.forEach((r, idx) => r.style.display = (idx === 0) ? 'inline-block' : 'none'); // 1대만 낑낑댐
@@ -1607,12 +1608,7 @@ function liftBox(type) {
             ants.style.opacity = '1';
             robots.forEach(r => r.style.display = 'inline-block'); // 4대 총출동
             
-            // 🚨 들어올리는 높이를 대폭 상향 (-20px -> -60px)
-            box.style.transform = 'translateY(-60px)'; 
-            
-            // 🚨 무거운 것을 거뜬히 들었을 때 발산하는 청록색 네온 효과 추가
-            box.style.filter = 'drop-shadow(0 0 15px #86D1D1) drop-shadow(0 0 35px rgba(44, 153, 153, 0.8))';
-            
+            box.style.transform = 'translateY(-20px)'; // 간격이 좁아진 만큼 들어올리는 높이도 알맞게 조절 (-30px -> -20px)
             msg.innerHTML = '<span style="color:#2ecc71;">Swarm logic engaged. Lift successful!</span>';
         }
     }
