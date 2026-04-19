@@ -612,47 +612,7 @@ background: rgba(44, 153, 153, 0.15);
 }
 
 /* --- 모바일/태블릿 가로 잘림 및 사이드바 겹침 완전 해결 (1024px 이하) --- */
-@media (max-width: 1024px) {
-    /* 1. 사이드바를 아예 화면에서 없애서 본문 공간 확보 */
-    aside {
-        
-    }
-    
-    /* 2. 메인 컨테이너가 가로가 아닌 세로로 흐르게 변경 */
-    .container-fluid {
-        flex-direction: column !important;
-        overflow-x: hidden !important; /* 가로 스크롤 방지 */
-    }
-    
-    /* 3. 본문 패널을 화면 전체 폭(100%)으로 확대 */
-    main {
-        padding: 20px 15px !important;
-        width: 100% !important;
-        margin-left: 0 !important;
-        overflow-x: hidden !important;
-    }
 
-    /* 4. 오른쪽 바깥에 매달려 있던 버튼들을 패널 아래쪽으로 이동 */
-    .nav-action-group {
-        position: static !important;
-        transform: none !important;
-        flex-direction: row !important; /* 가로로 나란히 배치 */
-        margin: 25px 0 10px 0 !important;
-        width: 100% !important;
-        gap: 10px;
-    }
-    
-    /* 버튼 2개가 화면 폭을 반반씩 나눠 갖도록 설정 */
-    .nav-action-group .go-detail-btn,
-    .nav-action-group .nav-side-btn {
-        flex: 1;
-        width: auto !important;
-        min-width: 0; /* 글자가 삐져나가지 않게 방지 */
-    }
-
-    /* 5. 로고가 너무 크면 헤더가 깨지므로 크기 축소 */
-    .logo-image { height: 45px !important; }
-}
 /* 🚨 모바일 가로 튕김(오버플로우) 완벽 방어막 🚨 */
         html, body {
             max-width: 100vw !important;
@@ -660,40 +620,7 @@ background: rgba(44, 153, 153, 0.15);
             width: 100% !important;
         }
 
-        @media (max-width: 1024px) {
-            /* 1. 헤더 가로폭 폭발 방지 (상단 중앙 광고 & SNS 아이콘 숨김) */
-            header > div:nth-child(3), .sns-icons {
-                display: none !important; /* 모바일 헤더를 찢고 나가는 주범들 숨김 */
-            }
-            .auth-buttons { gap: 0 !important; }
-            
-            /* 2. 로고 텍스트 여백 축소 */
-            .logo-link span:last-child { margin-left: 10px !important; }
 
-            /* 3. 본문 박스가 화면 밖으로 나가는 것 방지 */
-            .lab-card, .article-container {
-                width: 100% !important;
-                max-width: 100vw !important;
-                box-sizing: border-box !important;
-                padding: 20px 15px !important;
-                margin: 0 auto !important;
-            }
-
-            /* 4. 두 개의 버튼이 가로로 화면을 찢는 것 방지 (세로로 꽉 차게 쌓음) */
-            .nav-action-group {
-                flex-direction: column !important; /* 좁은 폰에서는 위아래로 배치 */
-                width: 100% !important;
-                margin: 20px 0 0 0 !important;
-                gap: 10px !important;
-                box-sizing: border-box !important;
-            }
-            .nav-action-group .go-detail-btn,
-            .nav-action-group .nav-side-btn {
-                width: 100% !important; /* 버튼이 화면 가로폭을 100% 알차게 씀 */
-                max-width: 100% !important;
-                box-sizing: border-box !important;
-            }
-        }
 /* 🚨 낡은 노란색 네온 효과 강제 삭제 및 호버 디자인 완벽 통일 🚨 */
         .go-detail-btn:hover, .nav-side-btn:hover {
             background: #2C9999 !important;
@@ -800,10 +727,10 @@ background: rgba(44, 153, 153, 0.15);
         <a href="index.html" class="logo-link" style="text-decoration: none;">
             <div class="logo" style="display: flex; align-items: center; gap: 15px;">
                 <img src="image/favicon.png" alt="Logo" class="logo-image" style="height: 65px; width: auto; border-radius: 50%;"> 
-                <div style="font-family: 'Chakra Petch', sans-serif; font-style: italic; display: flex; flex-direction: column; line-height: 0.8; margin-top: 5px;">
-                    <span style="color: #ffffff; font-size: 2.2rem; font-weight: 900; z-index: 2; letter-spacing: 1px;-webkit-text-stroke: 0.3px #000;">LEARN</span>
-                    <span style="color: #FFFB03; font-size: 3.6rem; font-weight: 900; z-index: 1; margin-left: 50px; margin-top: -5px;-webkit-text-stroke: 0.3px #000;">ROBOT</span>
-                </div>
+               <div style="font-family: 'Chakra Petch', sans-serif; font-style: italic; display: flex; flex-direction: column; line-height: 0.8; margin-top: 5px;">
+    <span style="color: #ffffff; font-size: clamp(1.4rem, 5vw, 2.2rem); font-weight: 900; z-index: 2; letter-spacing: 1px; -webkit-text-stroke: 0.3px #000;">LEARN</span>
+    <span style="color: #FFFB03; font-size: clamp(2.1rem, 7vw, 3.6rem); font-weight: 900; z-index: 1; margin-left: clamp(15px, 5vw, 50px); margin-top: -5px; -webkit-text-stroke: 0.3px #000;">ROBOT</span>
+</div>
             </div> </a>
     </div>
     
@@ -1174,29 +1101,80 @@ Explore how robots work through interactive contents.</br>
             display: none; background: transparent; border: none; color: #fff;
             font-size: 1.8rem; cursor: pointer; z-index: 1001; padding: 10px; margin-right: 10px;
         }
+/* ==================================================================== */
+/* 📱 모바일 완벽 통합 수리 (1024px 이하) - 이 코드 하나만 남기세요 📱 */
+/* ==================================================================== */
+@media (max-width: 1024px) {
+    /* 1. 화면 가로 튕김 원천 차단 */
+    html, body {
+        overflow-x: hidden !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+    }
 
+    /* 2. 본문 레이아웃 정렬 */
+    .container-fluid {
+        flex-direction: column !important;
+        overflow-x: hidden !important;
+    }
+    main {
+        padding: 20px 15px !important;
+        width: 100vw !important;
+        margin-left: 0 !important;
+        overflow-x: hidden !important;
+    }
 
-        /* --- 모바일 햄버거 메뉴 및 최적화 (1024px 이하) --- */
-        @media (max-width: 1024px) {
-            .menu-toggle-btn { display: block; } /* 모바일에서만 버튼 표시 */
-            
-            /* 1. 사이드바를 서랍장(Drawer) 방식으로 왼쪽 밖에 대기 */
-            aside {
-                display: flex !important; position: fixed !important;
-                left: -320px; top: 100px; bottom: 0;
-                transition: left 0.3s ease; z-index: 1000 !important;
-                box-shadow: 5px 0 15px rgba(0,0,0,0.5);
-            }
-            /* 버튼 누르면 스르륵 나옴 */
-            aside.mobile-open { left: 0 !important; } 
+    /* 3. 헤더 최적화 및 언어 버튼 구출 */
+    header {
+        padding: 0 10px !important;
+        gap: 10px !important;
+    }
+    header > div:nth-child(2) { display: none !important; } /* 중앙 빈 공간/광고 숨김 */
+    
+    .auth-buttons {
+        display: flex !important;
+        margin-left: auto !important; /* 밀려난 버튼들 우측으로 당겨옴 */
+        gap: 5px !important;
+    }
+    .sns-icons { display: none !important; } /* 모바일은 공간 부족으로 SNS 아이콘 숨김 */
+    .lang-btn { padding: 5px 8px !important; font-size: 0.85rem !important; }
 
-            /* 2. 본문 꽉 차게 유지 */
-            .container-fluid { flex-direction: column !important; overflow-x: hidden !important; }
-            main { padding: 20px 15px !important; width: 100% !important; margin-left: 0 !important; overflow-x: hidden !important; }
-            .nav-action-group { position: static !important; transform: none !important; flex-direction: row !important; margin: 25px 0 10px 0 !important; width: 100% !important; gap: 10px; }
-            .nav-action-group .go-detail-btn, .nav-action-group .nav-side-btn { flex: 1; width: auto !important; min-width: 0; }
-            .logo-image { height: 45px !important; }
-        }
+    /* 4. 햄버거 메뉴 버튼 노출 */
+    .menu-toggle-btn {
+        display: block !important;
+        background: transparent; border: none; color: #fff;
+        font-size: 1.8rem; cursor: pointer; z-index: 1001;
+        padding: 5px; margin-right: 5px;
+    }
+
+    /* 5. 사이드바 (햄버거 누르기 전엔 화면 밖에 대기) */
+    aside#sidebarMenu {
+        display: flex !important;
+        position: fixed !important;
+        left: -320px !important; /* 화면 왼쪽 밖으로 숨김 */
+        top: 100px !important;
+        bottom: 0 !important;
+        width: 280px !important;
+        background: rgba(20, 20, 20, 0.98) !important;
+        transition: left 0.3s ease !important;
+        z-index: 1000 !important;
+        transform: none !important; /* 옛날 충돌 코드 무력화 */
+    }
+    /* 자바스크립트가 작동하여 클래스가 추가되면 화면에 등장 */
+    aside#sidebarMenu.mobile-open {
+        left: 0 !important; 
+    }
+
+    /* 6. 카드 및 내비게이션 버튼 세로 정렬 */
+    .spotlight-wrapper { display: flex !important; flex-direction: column !important; height: auto !important; }
+    .spotlight-card, .side-card.news-card { width: 100% !important; height: auto !important; }
+    
+    .nav-action-group { 
+        position: static !important; transform: none !important; 
+        flex-direction: column !important; width: 100% !important; margin-top: 25px !important; 
+    }
+    .go-detail-btn, .nav-side-btn { width: 100% !important; min-width: 0 !important; }
+}
     </style>
 
     <div class="maze-road">
