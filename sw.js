@@ -1,4 +1,4 @@
-const CACHE_NAME = 'learnrobot-v2'; // v2로 변경하여 브라우저가 새로 업데이트하도록 유도
+const CACHE_NAME = 'learnrobot-v3'; // v3로 변경하여 브라우저가 새로 업데이트하도록 유도
 const urlsToCache = [
   './',
   './index.html',
