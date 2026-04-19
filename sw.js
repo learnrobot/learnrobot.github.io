@@ -3,7 +3,7 @@ const urlsToCache = [
   './',
   './index.html',
   './robotics_101.html',
-  './favicon.png'
+  './image/favicon.png'
 ];
 
 // 설치 단계
