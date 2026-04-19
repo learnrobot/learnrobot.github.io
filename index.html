@@ -235,49 +235,49 @@ background: rgba(44, 153, 153, 0.15);
         .category-btn.active { color: var(--accent-color); font-weight: 700; background: rgba(255, 251, 3, 0.05); }
         .category-btn.active i { color: var(--accent-color) !important; }
 
+/* 1. Go to Robotics 101 패널 (움직이는 점선 테두리 적용) */
 .nav-link-btn {
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(255,255,255,0.03); 
-            color: #86D1D1; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: all 0.3s;
-            /* 👇 움직이는 점선 대신 얇은 청록색 실선 추가 */
-            border: 1px solid rgba(44, 153, 153, 0.3); 
-        }
-        .nav-link-btn:hover { 
-           color: var(--accent-color); 
-           border-color: var(--accent-color); /* 마우스 올리면 테두리도 노란색으로 */
-           box-shadow: 0 0 10px rgba(255, 251, 3, 0.2); 
-        }
- 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    color: #A5EAEA;
+    padding: 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+    margin-top: 10px;
+    
+    /* 점선 테두리 및 애니메이션 추가 */
+    border: 2px dashed #A5EAEA;
+    outline: none;
+    animation: border-dance 2s infinite linear;
+}
 
-  /* 101페이지 스타일의 넉넉한 크기 및 배경 복구 */
-  .spotlight-card {
-            margin-bottom: 0 !important; padding: 15px 20px !important; border-radius: 12px;
-            position: relative; z-index: 1; color: #fff;
-            background-color: rgba(20, 20, 20, 0.85); 
-            background-image: radial-gradient(rgba(255, 251, 3, 0.15) 2px, transparent 2px);
-            background-size: 10px 10px; backdrop-filter: blur(10px);
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(134, 209, 209, 0.05);
-            border: none; 
-        }
+.nav-link-btn:hover {
+    background: rgba(165, 234, 234, 0.1);
+    color: #FFFFFF;
+    border-color: #FFFB03; /* 호버 시 노란색 점선으로 변경 */
+}
 
-        /* 이 아래에 있는 .spotlight-card::before (점선 애니메이션) 코드는 그대로 두시면 됩니다! */
+/* 2. Players 패널 (일반 선 테두리로 변경) */
+.sidebar-players {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    
+    /* 움직이는 점선 제거 -> 일반 실선 적용 */
+    border: 1px solid rgba(134, 209, 209, 0.3); 
+    animation: none; /* 애니메이션 제거 */
+}
 
-        /* 101페이지의 상징인 움직이는 점선 애니메이션 추가 */
-        .spotlight-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 12px; padding: 2px; pointer-events: none;
-            background-image: 
-                linear-gradient(90deg, #86D1D1 50%, transparent 50%), linear-gradient(90deg, #86D1D1 50%, transparent 50%),
-                linear-gradient(0deg, #86D1D1 50%, transparent 50%), linear-gradient(0deg, #86D1D1 50%, transparent 50%);
-            background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
-            background-size: 15px 2px, 15px 2px, 2px 15px, 2px 15px;
-            background-position: 0 0, 0 100%, 0 0, 100% 0;
-            animation: border-march 1s infinite linear; z-index: -1;
-        }
-        @keyframes border-march {
-            0% { background-position: 0 0, 0 100%, 0 0, 100% 0; }
-            100% { background-position: 24px 0, -24px 100%, 0 -24px, 100% 24px; }
-        }
+/* 애니메이션 정의 (공용) */
+@keyframes border-dance {
+    0% { border-style: dashed; border-dash-offset: 0; }
+    100% { border-style: dashed; border-dash-offset: 20; }
+}
         .visit-btn { display: inline-flex; align-items: center; gap: 8px; background: #FFFB03; color: #000 !important; font-weight: 900; text-decoration: none; transition: all 0.3s ease; white-space: nowrap; justify-content: center; width: 100%; border-radius: 6px; padding: 5px 0;}
         .visit-btn:hover { transform: scale(1.03); background: #fff; }
         .sub-find-btn { display: flex; justify-content: center; align-items: center; width: 100%; padding: 6px 0; margin-top: 5px; background: #111; border: 1px solid rgba(134, 209, 209, 0.3); color: #86D1D1; font-size: 0.85rem; font-weight: 600; border-radius: 6px; text-decoration: none; transition: all 0.3s ease; }
