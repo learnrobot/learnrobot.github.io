@@ -1920,6 +1920,9 @@ ad: `
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const sectionId = entry.target.id;
+                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                    const activeBtn = document.querySelector(`.category-btn[onclick*="${sectionId}"]`);
+                    if (activeBtn) activeBtn.classList.add('active');
                     const data = rwData[sectionId];
                     
                     if (data && sectionId !== currentRwId) {
