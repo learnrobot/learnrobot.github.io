@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="LearnRobot">
+<link rel="apple-touch-icon" href="/images/icon-192.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <script src="data.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936"
@@ -1280,6 +1285,20 @@ document.addEventListener('keydown', (e) => {
         font-weight: bold;
     ">Privacy Policy</a>
 </div>
-
+<script>
+      // 여기에 보여주신 코드를 붙여넣습니다.
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+              console.log('ServiceWorker 등록 성공:', registration.scope);
+            })
+            .catch(error => {
+              console.log('ServiceWorker 등록 실패:', error);
+            });
+        });
+      }
+    </script>
+  </body> </html>
 </body>
 </html>
