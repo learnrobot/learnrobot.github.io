@@ -1157,12 +1157,13 @@ Explore how robots work through interactive contents.</br>
         overflow-x: hidden !important;
     }
 
-    /* 3. 헤더 최적화 및 언어 버튼 구출 */
+ /* 3. 헤더 최적화 및 언어 버튼 구출 */
     header {
         padding: 0 10px !important;
         gap: 10px !important;
     }
-    header > div:nth-child(2) { display: none !important; } /* 중앙 빈 공간/광고 숨김 */
+    /* 🚨 2번(로고)이 아니라 3번(광고)이 숨겨지도록 숫자 수정! */
+    header > div:nth-child(3) { display: none !important; }
     
     .auth-buttons {
         display: flex !important;
