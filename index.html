@@ -772,7 +772,11 @@ background: rgba(44, 153, 153, 0.15);
     </div>
 
     <div class="auth-buttons" style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 20px;">
-<div class="lang-wrapper">
+<div class="lang-wrapper" style="display: flex; gap: 10px;">
+    <button class="lang-btn" onclick="openRobotWiki()" style="border-color: #9b59b6; color: #9b59b6;">
+        <i class="fas fa-book"></i>
+        <span class="lang-current notranslate" style="font-family: 'Chakra Petch', sans-serif;">Wiki</span>
+    </button>
     <button class="lang-btn" onclick="toggleLanguageMenu()" title="Select Language">
         <i class="fas fa-globe"></i>
         <span class="lang-current notranslate">EN</span>
@@ -1984,6 +1988,87 @@ ad: `
         });
       }
     </script>
-  </body> </html>
-</body>
+<style>
+    .wiki-modal-overlay {
+        display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); z-index: 10000;
+        justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s;
+    }
+    .wiki-modal-box {
+        background: rgba(15, 20, 25, 0.95); border: 2px solid #9b59b6; border-radius: 15px;
+        width: 90%; max-width: 450px; padding: 25px; text-align: center; position: relative;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.8), inset 0 0 20px rgba(155, 89, 182, 0.2);
+        transform: translateY(20px); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .wiki-close { position: absolute; top: 15px; right: 20px; color: #ccc; font-size: 1.5rem; cursor: pointer; transition: 0.2s; }
+    .wiki-close:hover { color: #FF5555; transform: scale(1.2); }
+    .wiki-img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; border: 1px solid #555; }
+</style>
+
+<div id="wiki-overlay" class="wiki-modal-overlay" onclick="closeRobotWiki(event)">
+    <div class="wiki-modal-box" onclick="event.stopPropagation()">
+        <i class="fas fa-times wiki-close" onclick="closeRobotWiki()"></i>
+        <div style="color: #9b59b6; font-family: 'Orbitron', sans-serif; font-weight: bold; margin-bottom: 15px;">
+            <i class="fab fa-wikipedia-w"></i> Robot of the Day
+        </div>
+        <img id="wiki-img" class="wiki-img" src="" alt="Robot Image" style="display:none;">
+        <h2 id="wiki-title" style="color: #fff; font-weight: 900; margin-bottom: 10px;">Loading...</h2>
+        <p id="wiki-desc" style="color: #ccc; font-size: 0.95rem; line-height: 1.5; font-family: 'Roboto', sans-serif;">Connecting to Wikipedia...</p>
+        <a id="wiki-link" href="#" target="_blank" class="visit-btn" style="background:#9b59b6; color:#fff!important; margin-top:10px;">Read Full Article <i class="fas fa-external-link-alt" style="font-size:0.8rem;"></i></a>
+    </div>
+</div>
+<script>
+    // 위키백과에서 검색할 실존 로봇 명단 (영문 위키 주소 기준)
+    const famousRobots = [
+        'ASIMO', 'Roomba', 'Spot_(robot)', 'Curiosity_(rover)', 
+        'Sophia_(robot)', 'Atlas_(robot)', 'AIBO', 'Robonaut'
+    ];
+
+    function openRobotWiki() {
+        const overlay = document.getElementById('wiki-overlay');
+        const box = document.querySelector('.wiki-modal-box');
+        
+        // 팝업창 열기 애니메이션
+        overlay.style.display = 'flex';
+        setTimeout(() => {
+            overlay.style.opacity = '1';
+            box.style.transform = 'translateY(0)';
+        }, 10);
+
+        // 명단에서 랜덤으로 로봇 하나 뽑기
+        const randomRobot = famousRobots[Math.floor(Math.random() * famousRobots.length)];
+        
+        // 위키백과 공식 무료 API 호출
+        fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${randomRobot}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('wiki-title').innerText = data.title;
+                document.getElementById('wiki-desc').innerText = data.extract;
+                document.getElementById('wiki-link').href = data.content_urls.desktop.page;
+                
+                const imgEl = document.getElementById('wiki-img');
+                if (data.thumbnail && data.thumbnail.source) {
+                    imgEl.src = data.thumbnail.source;
+                    imgEl.style.display = 'block';
+                } else {
+                    imgEl.style.display = 'none'; // 사진이 없는 로봇은 이미지 숨김
+                }
+            })
+            .catch(err => {
+                document.getElementById('wiki-title').innerText = "Database Error";
+                document.getElementById('wiki-desc').innerText = "Failed to load data from Wikipedia.";
+            });
+    }
+
+    function closeRobotWiki(e) {
+        if (e && e.target.id !== 'wiki-overlay' && e.type === 'click') return;
+        const overlay = document.getElementById('wiki-overlay');
+        const box = document.querySelector('.wiki-modal-box');
+        
+        overlay.style.opacity = '0';
+        box.style.transform = 'translateY(20px)';
+        setTimeout(() => { overlay.style.display = 'none'; }, 300);
+    }
+</script>
+</body> 
 </html>
