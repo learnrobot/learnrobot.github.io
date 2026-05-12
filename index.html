@@ -207,6 +207,8 @@ background: rgba(44, 153, 153, 0.15);
 
         main {
             flex: 1; overflow-y: auto; scroll-behavior: smooth;
+			/* 🚨 신규 추가: 세로(y) 방향으로 무조건(mandatory) 자석처럼 달라붙게 설정 */
+            scroll-snap-type: y mandatory;
             /* 👇 글자가 잘 보이도록 메인 본문은 살짝만 어둡게 처리 (이미지는 뒤에서 비침) */
             background: rgba(15, 15, 15, 0.75) !important; 
             padding: 40px;
@@ -338,13 +340,17 @@ background: rgba(44, 153, 153, 0.15);
         }
         /* --- Interactive Lab Common --- */
         /* --- Interactive Lab Common --- */
+/* --- Interactive Lab Common --- */
         section { 
+            /* 🚨 신규 추가: 화면 스크롤이 섹션의 '시작점(start)'에 정확히 멈추도록 설정 */
+            scroll-snap-align: start;
+            
             min-height: 80vh; 
-            padding: 10px 0 60px 0; /* 위쪽 여백을 60px에서 10px로 대폭 축소 */
+            padding: 10px 0 60px 0; 
             border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
             display: flex; 
             flex-direction: column; 
-            justify-content: flex-start; /* 중앙 정렬을 해제하여 큰 패널의 아래쪽이 잘리는 현상 원천 차단 */
+            justify-content: flex-start; 
         }
         .section-title { font-size: 2.8rem; font-weight: 900; color: var(--primary-color); margin-bottom: 10px; text-align: center; }
         .section-subtitle { font-family: 'Roboto', sans-serif; color: #ffffff; font-size: 1.2rem; margin-bottom: 40px; text-align: center; }
