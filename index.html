@@ -746,6 +746,44 @@ background: rgba(44, 153, 153, 0.15);
         .muscle-canvas { margin: 10px auto !important; height: 100px !important; width: 100px !important; }
         .muscle-canvas .fas.fa-robot { transform-origin: center 50px !important; }
         .cobot-workspace { margin: 5px auto 10px auto !important; height: 100px !important; }
+/* --- [신규] 떠다니는 TOP 버튼 --- */
+        .floating-top-btn {
+            position: fixed;
+            /* 1. 👇 위치 조절: 숫자를 키우면 화면 안쪽(위/왼쪽)으로 더 들어옵니다. (예: 50px, 80px 등) */
+            bottom: 50px; 
+            left: 300px; 
+            
+            width: 50px;
+            height: 50px;
+            
+            /* 2. 👇 배경 투명하게: 기존 rgba 코드를 지우고 'transparent'로 변경! */
+            background: transparent; 
+            
+            color: #2C9999; /* 화살표 아이콘 색상 */
+            border: 2px solid #2C9999; /* 테두리 색상 */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 9999; 
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+.floating-top-btn:hover {
+            /* 마우스 올렸을 때 살짝만 네온 불빛이 들어오게 변경 */
+            background: rgba(44, 153, 153, 0.2); 
+            color: #FFFB03;
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(44, 153, 153, 0.6);
+        }
+        
+        @media (max-width: 1024px) {
+            /* 3. 👇 모바일/태블릿에서의 위치 조절 (필요시 이 숫자도 조절하세요) */
+            .floating-top-btn { bottom: 40px; right: 30px; width: 45px; height: 45px; font-size: 1.2rem; }
+        }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936" crossorigin="anonymous"></script>
 </head>
@@ -1341,7 +1379,7 @@ Explore how robots work through interactive contents.</br>
                 <a href="robot_details.html?id=10" class="go-detail-btn">learn more <i class="fas fa-arrow-right"></i></a>
                 <button class="nav-side-btn" onclick="scrollToNext('hero-intro')" title="Back to Top">Back to Top <i class="fas fa-arrow-up"></i></button>
             </div>      </section>
-   <div style="text-align: center; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 30px;">
+ <div style="text-align: center; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 30px; scroll-snap-align: end;">
             <p style="color: #666; font-size: 0.8rem; margin-bottom: 8px; font-family: 'Roboto', sans-serif;">
                 As an Amazon Associate I earn from qualifying purchases.
             </p>
@@ -2077,5 +2115,8 @@ ad: `
         setTimeout(() => { overlay.style.display = 'none'; }, 300);
     }
 </script>
+<div class="floating-top-btn" onclick="scrollToId('hero-intro')" title="Go to Top">
+    <i class="fas fa-arrow-up"></i>
+</div>
 </body> 
 </html>
