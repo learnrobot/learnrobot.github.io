@@ -1867,7 +1867,8 @@ body {
         </div> </div> </div> <div class="content-header" style="border-bottom: 2px solid #2C9999 !important; padding-bottom: 0px; margin-bottom: -15px;">
     <h1 id="main-hero-title">Robotics 101</h1>
 </div>
-</section> 
+
+ 
 
 
 
@@ -2022,6 +2023,7 @@ body {
         </div>
     </div>
 </div>
+<div id="inline-quiz-mechanics"></div>
         </section>
 
         <section id="electronics">
@@ -2191,6 +2193,7 @@ body {
         It controls powerful "Brushless Motors" precisely without friction.
     </span>
 </div>
+<div id="inline-quiz-electronics"></div>
 </section> <section id="programming">
     
     <div class="content-header">
@@ -2293,6 +2296,7 @@ body {
         </div>
     </div>
 </div>
+<div id="inline-quiz-programming"></div>
         </section>
 
         <section id="ai">
@@ -2355,6 +2359,7 @@ body {
         </div>
     </div>
 </div>
+<div id="inline-quiz-ai"></div>
         </section>
 
         <section id="ros">
@@ -2429,6 +2434,7 @@ Services: On-Demand Interaction
 </div>
                 
             </div>
+			<div id="inline-quiz-ros"></div>
         </section>
 <section id="synergy" style="background: rgba(44, 153, 153, 0.03); border-top: 1px solid rgba(134, 209, 209, 0.2);">
     <div class="content-header" style="text-align: center; border-bottom: none; margin-bottom: 30px;">
@@ -3235,6 +3241,90 @@ setInterval(() => {
     </div>
 </div>
 <script>
+// ▼ 본문 삽입형 스마트 퀴즈 렌더링 함수 ▼
+function renderSectionQuizzes() {
+    // 1. 모든 섹션 테마를 보라색(#9b59b6)으로 통일하고 4문제씩 배정
+    const sections = [
+        { id: 'inline-quiz-mechanics', title: 'Mechanics', color: '#9b59b6', start: 10, end: 13 },
+        { id: 'inline-quiz-electronics', title: 'Electronics', color: '#9b59b6', start: 20, end: 23 },
+        { id: 'inline-quiz-programming', title: 'Programming', color: '#9b59b6', start: 30, end: 33 },
+        { id: 'inline-quiz-ai', title: 'AI & Vision', color: '#9b59b6', start: 34, end: 37 },
+        { id: 'inline-quiz-ros', title: 'ROS 2', color: '#9b59b6', start: 40, end: 43 }
+    ];
+
+    sections.forEach(sec => {
+        const container = document.getElementById(sec.id);
+        if(!container) return;
+        
+        // 2. 퀴즈 4개를 2줄(2x2 그리드)로 자동 배치하는 컨테이너
+        let html = `<div style="margin-top: 40px; padding-top: 25px; border-top: 2px dashed ${sec.color}55;">
+                        <div style="color: ${sec.color}; font-size: 1.4rem; font-weight: 900; margin-bottom: 15px; font-family: 'Chakra Petch', sans-serif;">
+                            <i class="fas fa-gamepad"></i> Check Your Knowledge: ${sec.title}
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 15px;">`;
+        
+        for(let i = sec.start; i <= sec.end; i++) {
+            const q = quizData[i];
+            if(!q) continue;
+            
+            // 3. 각 문제 카드: 내부 여백을 줄이고 타이트하게 구성
+            html += `
+                <div class="quiz-card" style="background: rgba(255,255,255,0.02); border: 1px solid ${sec.color}44; border-left: 4px solid ${sec.color}; border-radius: 8px; padding: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div style="color: #fff; font-size: 1rem; font-weight: 700; margin-bottom: 12px; font-family: 'Roboto', sans-serif; line-height: 1.4;">Q. ${q.q}</div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">`;
+            
+            const btnStyle = `text-align: left; padding: 8px 10px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #ddd; border-radius: 6px; cursor: pointer; transition: 0.3s; font-family: 'Roboto', sans-serif; font-size: 0.9rem; line-height: 1.2;`;
+            
+            if(q.a) html += `<button onclick="checkInlineAns(this, '${q.ans}', 'A')" style="${btnStyle}">A) ${q.a}</button>`;
+            if(q.b) html += `<button onclick="checkInlineAns(this, '${q.ans}', 'B')" style="${btnStyle}">B) ${q.b}</button>`;
+            if(q.c) html += `<button onclick="checkInlineAns(this, '${q.ans}', 'C')" style="${btnStyle}">C) ${q.c}</button>`;
+            if(q.d) html += `<button onclick="checkInlineAns(this, '${q.ans}', 'D')" style="${btnStyle}">D) ${q.d}</button>`;
+            
+            html += `</div></div>`;
+        }
+        html += `</div></div>`;
+        container.innerHTML = html;
+    });
+}
+
+// ▼ 채점 애니메이션 함수 (정답 시 보라색으로 통일) ▼
+function checkInlineAns(btn, correctAns, selectedAns) {
+    const parent = btn.parentElement;
+    
+    parent.querySelectorAll('button').forEach(b => {
+        b.disabled = true;
+        b.style.cursor = 'default';
+    });
+    
+    if(correctAns === selectedAns) {
+        // 정답 시 (보라색 테마)
+        btn.style.background = "rgba(155, 89, 182, 0.25)";
+        btn.style.borderColor = "#9b59b6";
+        btn.style.color = "#fff";
+        btn.style.fontWeight = "bold";
+        btn.innerHTML += ' <i class="fas fa-check-circle" style="float: right; margin-top: 2px; color: #9b59b6;"></i>';
+    } else {
+        // 오답 시 (빨간색)
+        btn.style.background = "rgba(255, 85, 85, 0.15)";
+        btn.style.borderColor = "#FF5555";
+        btn.style.color = "#FF5555";
+        btn.innerHTML += ' <i class="fas fa-times-circle" style="float: right; margin-top: 2px;"></i>';
+        
+        // 정답 표시 (보라색)
+        const correctBtn = Array.from(parent.children).find(b => b.innerText.startsWith(correctAns + ")"));
+        if(correctBtn) {
+            correctBtn.style.background = "rgba(155, 89, 182, 0.25)";
+            correctBtn.style.borderColor = "#9b59b6";
+            correctBtn.style.color = "#fff";
+            correctBtn.style.fontWeight = "bold";
+            correctBtn.innerHTML += ' <i class="fas fa-arrow-left" style="float: right; margin-top: 2px; color: #9b59b6;"></i>';
+        }
+    }
+}
+
+// 창이 로드될 때 퀴즈 생성 함수 실행
+document.addEventListener('DOMContentLoaded', renderSectionQuizzes);// ▼ 본문 삽입형 스마트 퀴즈 렌더링 함수 ▼
       // 여기에 보여주신 코드를 붙여넣습니다.
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
