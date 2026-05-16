@@ -1451,6 +1451,27 @@ body {
         bottom: 15px;
     }
 }
+/* 사이버펑크 네온 펄스(숨쉬기) 애니메이션 */
+@keyframes neonPulse {
+    0% { 
+        box-shadow: 0 0 5px rgba(134, 209, 209, 0.1), inset 0 0 5px rgba(134, 209, 209, 0.05); 
+        border-color: rgba(134, 209, 209, 0.2);
+    }
+    100% { 
+        box-shadow: 0 0 25px rgba(134, 209, 209, 0.7), inset 0 0 10px rgba(134, 209, 209, 0.2); 
+        border-color: rgba(134, 209, 209, 0.8);
+    }
+}
+
+.neon-bridge-box {
+    background: rgba(134, 209, 209, 0.02);
+    border-left: 4px solid #86D1D1;
+    padding: 15px 20px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    /* 1.5초 주기로 영원히(infinite) 부드럽게 깜빡임 */
+    animation: neonPulse 1.5s infinite alternate ease-in-out; 
+}
     </style>
 </head>
 <body>
@@ -1873,6 +1894,13 @@ body {
 
 
         <section id="mechanics">
+<div class="neon-bridge-box">
+    <strong style="color: #86D1D1; font-family: 'Chakra Petch', sans-serif; font-size: 1.1rem;"><i class="fas fa-link"></i> From 'How Robot Works':</strong>
+    <span style="color: #ddd; font-size: 1.05rem; font-family: 'Roboto', sans-serif; margin-left: 10px; line-height: 1.5;">
+        Did you arrive here from <strong>1. Robot Balance</strong>, <strong>5. Soft Grippers</strong>, or <strong>9. Precision Motors</strong>? Read on to discover the physical hardware and joints that made those movements possible!
+    </span>
+</div>
+
             <div class="content-header">
     <h1>❶ Robot Mechanics: The Body, Muscles & Secrets</h1>
     <p>Robots are not just metal statues. They move, lift, and dance! Let's look inside their metal bodies.</p>
@@ -2027,6 +2055,13 @@ body {
         </section>
 
         <section id="electronics">
+<div class="neon-bridge-box">
+    <strong style="color: #86D1D1; font-family: 'Chakra Petch', sans-serif; font-size: 1.1rem;"><i class="fas fa-link"></i> From 'How Robot Works':</strong>
+    <span style="color: #ddd; font-size: 1.05rem; font-family: 'Roboto', sans-serif; margin-left: 10px; line-height: 1.5;">
+        Did you arrive here from <strong>2. Battery & Power</strong>, <strong>4. Robot Etiquette</strong>, or <strong>10. Safety Sensors</strong>? Discover how electricity and sensitive torque sensors act as the nervous system of the robot.
+    </span>
+</div>
+
             <div class="content-header">
     <h1>❷ Electronics: The Nervous System & Senses</h1>
     <p>If Mechanics is the body, Electronics is the life. Without it, a robot is just a statue.</p>
@@ -2194,7 +2229,15 @@ body {
     </span>
 </div>
 <div id="inline-quiz-electronics"></div>
-</section> <section id="programming">
+</section> 
+<section id="programming">
+<div class="neon-bridge-box">
+    <strong style="color: #86D1D1; font-family: 'Chakra Petch', sans-serif; font-size: 1.1rem;"><i class="fas fa-link"></i> From 'How Robot Works':</strong>
+    <span style="color: #ddd; font-size: 1.05rem; font-family: 'Roboto', sans-serif; margin-left: 10px; line-height: 1.5;">
+        Did you arrive here from <strong>7. Path Planning</strong> or <strong>8. Swarm Robotics</strong>? Here is the secret code and algorithms that allow robots to make smart decisions on the fly!
+    </span>
+</div>
+
     
     <div class="content-header">
     <h1>❸ Programming: The Recipe for Intelligence</h1>
@@ -2300,6 +2343,13 @@ body {
         </section>
 
         <section id="ai">
+<div class="neon-bridge-box">
+    <strong style="color: #86D1D1; font-family: 'Chakra Petch', sans-serif; font-size: 1.1rem;"><i class="fas fa-link"></i> From 'How Robot Works':</strong>
+    <span style="color: #ddd; font-size: 1.05rem; font-family: 'Roboto', sans-serif; margin-left: 10px; line-height: 1.5;">
+        Did you arrive here from <strong>3. Robot Vision AI</strong> or <strong>6. AI Training</strong>? Dive into the deep learning models and LiDAR lasers that allow machines to see and learn.
+    </span>
+</div>
+
             <div class="content-header">
     <h1>❹ AI & Perception: The Robot's Mind</h1>
     <p>AI is the ability to Learn and Understand.</p>
@@ -2363,6 +2413,12 @@ body {
         </section>
 
         <section id="ros">
+<div class="neon-bridge-box">
+    <strong style="color: #86D1D1; font-family: 'Chakra Petch', sans-serif; font-size: 1.1rem;"><i class="fas fa-lightbulb"></i> The Grand Finale:</strong>
+    <span style="color: #ddd; font-size: 1.05rem; font-family: 'Roboto', sans-serif; margin-left: 10px; line-height: 1.5;">
+        Wondering how the Vision, Motors, and AI all talk to each other at the exact same time without crashing? Welcome to ROS 2, the ultimate standard in modern robotics.
+    </span>
+</div>
             <div class="content-header">
     <h1>❺ ROS 2: The Robot Operating System</h1>
     <p>The Manager that makes all parts work together.</p>
