@@ -1451,26 +1451,51 @@ body {
         bottom: 15px;
     }
 }
-/* 사이버펑크 네온 펄스(숨쉬기) 애니메이션 */
+/* 사이버펑크 네온 펄스(숨쉬기) 애니메이션 - 보라색 테마 */
 @keyframes neonPulse {
     0% { 
-        box-shadow: 0 0 5px rgba(134, 209, 209, 0.1), inset 0 0 5px rgba(134, 209, 209, 0.05); 
-        border-color: rgba(134, 209, 209, 0.2);
+        box-shadow: 0 0 5px rgba(155, 89, 182, 0.1), inset 0 0 5px rgba(155, 89, 182, 0.05); 
+        border-color: rgba(155, 89, 182, 0.2);
     }
     100% { 
-        box-shadow: 0 0 25px rgba(134, 209, 209, 0.7), inset 0 0 10px rgba(134, 209, 209, 0.2); 
-        border-color: rgba(134, 209, 209, 0.8);
+        box-shadow: 0 0 25px rgba(155, 89, 182, 0.7), inset 0 0 10px rgba(155, 89, 182, 0.2); 
+        border-color: rgba(155, 89, 182, 0.8);
     }
 }
 
 .neon-bridge-box {
-    background: rgba(134, 209, 209, 0.02);
-    border-left: 4px solid #86D1D1;
+    background: rgba(155, 89, 182, 0.03); /* 배경 아주 옅은 보라색 */
+    border-left: 4px solid #9b59b6;      /* 왼쪽 두꺼운 테두리 보라색 */
     padding: 15px 20px;
     border-radius: 6px;
     margin-bottom: 30px;
     /* 1.5초 주기로 영원히(infinite) 부드럽게 깜빡임 */
     animation: neonPulse 1.5s infinite alternate ease-in-out; 
+}
+
+/* --- 학습 경로(Learning Path) 시각화 뱃지 스타일 --- */
+.path-flow-container {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 12px 0 8px 0;
+}
+.badge-origin {
+    background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #bbb; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem;
+    display: inline-flex; align-items: center; gap: 6px; font-family: 'Chakra Petch', sans-serif;
+}
+.badge-arrow {
+    color: #9b59b6; /* 🚨 중간 연결 화살표도 보라색으로 맞춤! */
+    font-size: 1.2rem; margin: 0 5px;
+}
+.badge-dest {
+    background: rgba(155, 89, 182, 0.2); /* 🚨 도착지 뱃지 배경 보라색 */
+    border: 1px solid #9b59b6;           /* 도착지 뱃지 테두리 보라색 */
+    color: #fff;                         /* 글자는 흰색으로 깔끔하게 */
+    padding: 5px 15px; border-radius: 20px; font-size: 0.95rem; font-weight: bold;
+    display: inline-flex; align-items: center; gap: 6px; font-family: 'Chakra Petch', sans-serif;
+    box-shadow: 0 0 10px rgba(155, 89, 182, 0.4);
+}
+.path-desc {
+    color: #ccc; font-size: 0.95rem; font-family: 'Roboto', sans-serif; line-height: 1.4;
 }
     </style>
 </head>
@@ -1895,10 +1920,19 @@ body {
 
         <section id="mechanics">
 <div class="neon-bridge-box">
-    <strong style="color: #86D1D1; font-family: 'Chakra Petch', sans-serif; font-size: 1.1rem;"><i class="fas fa-link"></i> From 'How Robot Works':</strong>
-    <span style="color: #ddd; font-size: 1.05rem; font-family: 'Roboto', sans-serif; margin-left: 10px; line-height: 1.5;">
-        Did you arrive here from <strong>1. Robot Balance</strong>, <strong>5. Soft Grippers</strong>, or <strong>9. Precision Motors</strong>? Read on to discover the physical hardware and joints that made those movements possible!
-    </span>
+    <strong style="color: #9b59b6; font-family: 'Chakra Petch', sans-serif; font-size: 0.85rem; text-transform : letter-spacing: 1px;">
+        <i class="fas fa-route"></i> From the interactive tour
+    </strong>
+    <div class="path-flow-container">
+        <span class="badge-origin"><i class="fas fa-child"></i> 1. Balance</span>
+        <span class="badge-origin"><i class="fas fa-egg"></i> 5. Grippers</span>
+        <span class="badge-origin"><i class="fas fa-cogs"></i> 9. Motors</span>
+        <i class="fas fa-angle-double-right badge-arrow"></i>
+        <span class="badge-dest"><i class="fas fa-wrench"></i> Mechanics</span>
+    </div>
+    <div class="path-desc">
+        Explore the physical hardware and joints that made those movements possible.
+    </div>
 </div>
 
             <div class="content-header">
@@ -2056,10 +2090,19 @@ body {
 
         <section id="electronics">
 <div class="neon-bridge-box">
-    <strong style="color: #86D1D1; font-family: 'Chakra Petch', sans-serif; font-size: 1.1rem;"><i class="fas fa-link"></i> From 'How Robot Works':</strong>
-    <span style="color: #ddd; font-size: 1.05rem; font-family: 'Roboto', sans-serif; margin-left: 10px; line-height: 1.5;">
-        Did you arrive here from <strong>2. Battery & Power</strong>, <strong>4. Robot Etiquette</strong>, or <strong>10. Safety Sensors</strong>? Discover how electricity and sensitive torque sensors act as the nervous system of the robot.
-    </span>
+    <strong style="color: #9b59b6; font-family: 'Chakra Petch', sans-serif; font-size: 0.85rem; text-transform:letter-spacing: 1px;">
+        <i class="fas fa-route"></i> From the interactive tour
+    </strong>
+    <div class="path-flow-container">
+        <span class="badge-origin"><i class="fas fa-battery-quarter"></i> 2. Battery</span>
+        <span class="badge-origin"><i class="fas fa-handshake"></i> 4. Etiquette</span>
+        <span class="badge-origin"><i class="fas fa-shield-alt"></i> 10. Safety</span>
+        <i class="fas fa-angle-double-right badge-arrow"></i>
+        <span class="badge-dest"><i class="fas fa-bolt"></i> Electronics</span>
+    </div>
+    <div class="path-desc">
+        Discover how electricity and sensitive torque sensors act as the nervous system of the robot.
+    </div>
 </div>
 
             <div class="content-header">
@@ -2232,10 +2275,18 @@ body {
 </section> 
 <section id="programming">
 <div class="neon-bridge-box">
-    <strong style="color: #86D1D1; font-family: 'Chakra Petch', sans-serif; font-size: 1.1rem;"><i class="fas fa-link"></i> From 'How Robot Works':</strong>
-    <span style="color: #ddd; font-size: 1.05rem; font-family: 'Roboto', sans-serif; margin-left: 10px; line-height: 1.5;">
-        Did you arrive here from <strong>7. Path Planning</strong> or <strong>8. Swarm Robotics</strong>? Here is the secret code and algorithms that allow robots to make smart decisions on the fly!
-    </span>
+    <strong style="color: #9b59b6; font-family: 'Chakra Petch', sans-serif; font-size: 0.85rem; text-transform:letter-spacing: 1px;">
+        <i class="fas fa-route"></i> From the interactive tour
+    </strong>
+    <div class="path-flow-container">
+        <span class="badge-origin"><i class="fas fa-route"></i> 7. Path Planning</span>
+        <span class="badge-origin"><i class="fas fa-users"></i> 8. Swarm</span>
+        <i class="fas fa-angle-double-right badge-arrow"></i>
+        <span class="badge-dest"><i class="fas fa-code"></i> Programming</span>
+    </div>
+    <div class="path-desc">
+        Uncover the secret code and algorithms that allow robots to make smart decisions on the fly.
+    </div>
 </div>
 
     
@@ -2344,10 +2395,18 @@ body {
 
         <section id="ai">
 <div class="neon-bridge-box">
-    <strong style="color: #86D1D1; font-family: 'Chakra Petch', sans-serif; font-size: 1.1rem;"><i class="fas fa-link"></i> From 'How Robot Works':</strong>
-    <span style="color: #ddd; font-size: 1.05rem; font-family: 'Roboto', sans-serif; margin-left: 10px; line-height: 1.5;">
-        Did you arrive here from <strong>3. Robot Vision AI</strong> or <strong>6. AI Training</strong>? Dive into the deep learning models and LiDAR lasers that allow machines to see and learn.
-    </span>
+    <strong style="color: #9b59b6; font-family: 'Chakra Petch', sans-serif; font-size: 0.85rem; text-transform: letter-spacing: 1px;">
+        <i class="fas fa-route"></i> From the interactive tour
+    </strong>
+    <div class="path-flow-container">
+        <span class="badge-origin"><i class="fas fa-eye"></i> 3. Vision AI</span>
+        <span class="badge-origin"><i class="fas fa-brain"></i> 6. AI Training</span>
+        <i class="fas fa-angle-double-right badge-arrow"></i>
+        <span class="badge-dest"><i class="fas fa-network-wired"></i> AI & Perception</span>
+    </div>
+    <div class="path-desc">
+        Dive into the deep learning models and LiDAR lasers that allow machines to see and learn.
+    </div>
 </div>
 
             <div class="content-header">
@@ -2414,10 +2473,19 @@ body {
 
         <section id="ros">
 <div class="neon-bridge-box">
-    <strong style="color: #86D1D1; font-family: 'Chakra Petch', sans-serif; font-size: 1.1rem;"><i class="fas fa-lightbulb"></i> The Grand Finale:</strong>
-    <span style="color: #ddd; font-size: 1.05rem; font-family: 'Roboto', sans-serif; margin-left: 10px; line-height: 1.5;">
-        Wondering how the Vision, Motors, and AI all talk to each other at the exact same time without crashing? Welcome to ROS 2, the ultimate standard in modern robotics.
-    </span>
+    <strong style="color: #9b59b6; font-family: 'Chakra Petch', sans-serif; font-size: 0.85rem; text-transform:letter-spacing: 1px;">
+        <i class="fas fa-route"></i> From the interactive tour
+    </strong>
+    <div class="path-flow-container">
+        <span class="badge-origin"><i class="fas fa-eye"></i> Vision</span>
+        <span class="badge-origin"><i class="fas fa-cogs"></i> Motors</span>
+        <span class="badge-origin"><i class="fas fa-brain"></i> AI</span>
+        <i class="fas fa-angle-double-right badge-arrow"></i>
+        <span class="badge-dest"><i class="fas fa-project-diagram"></i> ROS 2</span>
+    </div>
+    <div class="path-desc">
+        Wondering how they all talk to each other without crashing? Welcome to the ultimate robot operating system.
+    </div>
 </div>
             <div class="content-header">
     <h1>❺ ROS 2: The Robot Operating System</h1>
