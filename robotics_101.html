@@ -1910,8 +1910,12 @@ body {
                 </div>
                 
             </div>
-        </div> </div> </div> <div class="content-header" style="border-bottom: 2px solid #2C9999 !important; padding-bottom: 0px; margin-bottom: -15px;">
+        </div> </div> </div> 
+		<div class="content-header" style="border-bottom: 2px solid #2C9999 !important; padding-bottom: 0px; margin-bottom: -15px; display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap;">
     <h1 id="main-hero-title">Robotics 101</h1>
+    <div style="background: rgba(255, 251, 3, 0.1); border: 1px solid #FFFB03; color: #FFFB03; padding: 6px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; font-family: 'Chakra Petch', sans-serif; animation: neonPulse 2s infinite alternate;">
+        <i class="fas fa-graduation-cap"></i> Score 100% on all quizzes below to earn your Certificate!
+    </div>
 </div>
 
  
@@ -2596,12 +2600,25 @@ Services: On-Demand Interaction
         </div>
     </div>
 </section>
-<div style="margin-top: 50px; padding: 20px 20px 250px 20px; border-top: 1px solid #444; text-align: center;">
-    <h3 style="color: #86D1D1; margin-bottom: 10px;">🎉 You are ready!</h3>
-                    <p style="font-size: 1.1rem; color: #fff;">
-                        You have unlocked the secrets of Robotics. The future is waiting for you.<br>
-                        </p>
-                </div>
+<div style="margin-top: 50px; padding: 20px 20px 100px 20px; border-top: 1px solid #444; text-align: center;">
+    <h3 style="color: #86D1D1; margin-bottom: 10px;">🎉 Final Assessment</h3>
+    <p style="font-size: 1.1rem; color: #fff; margin-bottom: 30px;">
+        Answer all 20 inline quizzes perfectly to claim your Certificate of Completion.
+    </p>
+
+    <div id="cert-area" style="background: rgba(0,0,0,0.4); border: 2px dashed #9b59b6; border-radius: 15px; padding: 30px; max-width: 600px; margin: 0 auto;">
+        <p id="cert-status" style="color: #ccc; margin-bottom: 15px; font-weight: bold; font-size: 1.1rem;">
+            Quizzes Answered: 0 / 20
+        </p>
+        <div style="width: 100%; background: #222; border-radius: 10px; height: 12px; margin-bottom: 25px; overflow: hidden; border: 1px solid #444;">
+            <div id="cert-progress-bar" style="height: 100%; width: 0%; background: linear-gradient(90deg, #86D1D1, #9b59b6); transition: width 0.4s ease;"></div>
+        </div>
+        
+        <button id="claim-cert-btn" onclick="claimCertificate()" style="background: #333; color: #888; border: none; padding: 12px 30px; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: not-allowed; transition: all 0.3s; font-family: 'Chakra Petch', sans-serif;">
+            <i class="fas fa-lock"></i> Certificate Locked
+        </button>
+    </div>
+</div>
 
   
             </main>
@@ -3463,5 +3480,235 @@ document.addEventListener('DOMContentLoaded', renderSectionQuizzes);// ▼ 본�
       }
     </script>
   </body> </html>
+<style>
+    /* 수료증 모달 전체 배경 */
+    .cert-modal-overlay {
+        display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); z-index: 20000;
+        justify-content: center; align-items: center; opacity: 0; transition: opacity 0.4s;
+    }
+    
+    /* 학위증 종이 디자인 */
+    .cert-box {
+        background: #fdfbf7; /* 고급스러운 양피지(상아색) 느낌 */
+        border: 1px solid #c9b072;
+        outline: 8px solid #fdfbf7; /* 이중 테두리를 위한 여백 */
+        box-shadow: 0 0 0 14px #1a365d, 0 25px 50px rgba(0,0,0,0.8); /* 진한 네이비색 두꺼운 공식 테두리 */
+        border-radius: 2px;
+        width: 90%; max-width: 850px; padding: 60px 50px; text-align: center; position: relative;
+        transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .wiki-close { position: absolute; top: -30px; right: -30px; color: #fff; font-size: 1.8rem; cursor: pointer; transition: 0.2s; }
+    .wiki-close:hover { color: #FF5555; transform: scale(1.2); }
+
+    /* 학위증 텍스트 폰트 설정 (명조체/Serif 중심) */
+    .cert-header-img { font-size: 3rem; color: #1a365d; margin-bottom: 15px; }
+    .cert-title { font-family: 'Times New Roman', Georgia, serif; font-size: 3.2rem; color: #1a365d; font-weight: bold; letter-spacing: 2px; margin-bottom: 5px; text-transform: uppercase; }
+    .cert-subtitle { font-family: 'Times New Roman', Georgia, serif; font-size: 1.2rem; color: #b8860b; margin-bottom: 30px; letter-spacing: 4px; text-transform: uppercase; font-weight: bold;}
+    .cert-text { font-family: 'Georgia', serif; font-size: 1.15rem; color: #333; line-height: 1.8; margin-bottom: 30px; padding: 0 40px; font-style: italic; }
+    
+    /* 이름 입력칸 */
+    .cert-name-input { background: transparent; border: none; border-bottom: 2px solid #b8860b; color: #111; font-size: 2.2rem; font-family: 'Times New Roman', Georgia, serif; text-align: center; width: 70%; padding: 5px; outline: none; margin-bottom: 20px; font-weight: bold; font-style: italic; }
+    .cert-name-input::placeholder { color: #ccc; font-style: normal; font-weight: normal; }
+    
+    /* 최종 출력된 이름 */
+    .cert-name-display { font-size: 3.8rem; color: #111; font-family: 'Times New Roman', Georgia, serif; font-weight: bold; font-style: italic; margin-bottom: 20px; display: none; text-transform: capitalize; }
+    
+    /* 하단 서명 및 씰 영역 */
+    .cert-footer-layout { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 60px; padding: 0 40px; }
+    .cert-sign-box { width: 200px; text-align: center; font-family: 'Times New Roman', Georgia, serif; }
+    .cert-sign-line { border-bottom: 1px solid #333; height: 35px; margin-bottom: 8px; font-size: 1.4rem; color: #1a365d; font-style: italic; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 2px;}
+    .cert-sign-text { color: #555; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; font-weight: bold;}
+
+    /* 금박 씰(도장) 효과 */
+    .cert-seal { font-size: 5rem; color: #d4af37; filter: drop-shadow(2px 4px 5px rgba(0,0,0,0.3)); position: relative; z-index: 10; }
+
+    .print-btn { background: #1a365d; color: #fff; border: 1px solid #1a365d; padding: 12px 30px; border-radius: 4px; font-size: 1rem; cursor: pointer; transition: 0.3s; display: none; margin: 50px auto 0 auto; font-family: 'Times New Roman', Georgia, serif; letter-spacing: 1px; }
+    .print-btn:hover { background: #11223c; transform: scale(1.02); }
+
+    /* 인쇄(Print) 누를 때 화면 깔끔하게 수료증만 나오게 하는 마법의 CSS */
+    @media print {
+        body * { visibility: hidden; }
+        #cert-overlay, #cert-overlay * { visibility: visible; }
+        #cert-overlay { position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: none !important; align-items: flex-start; padding-top: 20px; }
+        .cert-box { transform: scale(1) !important; width: 100% !important; max-width: none !important; box-shadow: none !important; border: 12px solid #1a365d !important; outline: none !important; background: #fff !important; padding: 40px !important;}
+        .print-btn, .wiki-close { display: none !important; }
+    }
+</style>
+
+<div id="cert-overlay" class="cert-modal-overlay">
+    <div class="cert-box">
+        <i class="fas fa-times wiki-close" onclick="closeCert()" title="Close"></i>
+        
+        <div class="cert-header-img"><i class="fas fa-university"></i></div>
+        <div class="cert-title">Certificate of Completion</div>
+        <div class="cert-subtitle">Robotics Foundation Course</div>
+        
+        <div class="cert-text" style="margin-bottom: 15px;">
+            This is to certify that
+        </div>
+        
+        <div id="cert-input-area">
+            <input type="text" id="user-name-input" class="cert-name-input" placeholder="Enter Your Full Name" autocomplete="off" onkeypress="if(event.key==='Enter') generateCert()">
+            <div style="margin-top: 10px;">
+                <button onclick="generateCert()" style="background: transparent; border: 1px solid #b8860b; color: #b8860b; padding: 8px 25px; border-radius: 4px; cursor: pointer; font-family: 'Times New Roman', Georgia, serif; transition: 0.3s; font-size: 1.1rem;" onmouseover="this.style.background='#b8860b'; this.style.color='#fff';" onmouseout="this.style.background='transparent'; this.style.color='#b8860b';">Engrave Name</button>
+            </div>
+        </div>
+        
+        <div id="final-name-display" class="cert-name-display"></div>
+        
+        <div class="cert-text">
+            has successfully completed all assessments with a perfect score and has demonstrated outstanding mastery of the fundamental principles of robot mechanics, electronics, programming, AI, and ROS 2.
+        </div>
+        
+        <div class="cert-footer-layout">
+            <div class="cert-sign-box">
+                <div class="cert-sign-line" id="cert-date-display"></div>
+                <div class="cert-sign-text">Date of Issue</div>
+            </div>
+            
+            <i class="fas fa-award cert-seal"></i>
+            
+            <div class="cert-sign-box">
+                <div class="cert-sign-line" style="font-family: 'Brush Script MT', cursive; font-size: 2rem;">JH Ryu</div>
+                <div class="cert-sign-text">Course Director</div>
+            </div>
+        </div>
+        
+        <button id="cert-print-btn" class="print-btn" onclick="window.print()"><i class="fas fa-print"></i> Print / Save as PDF</button>
+    </div>
+</div>
+
+<script>
+    // 1. 점수 기록용 변수 세팅 (오답 횟수 무시, 맞춘 개수만 기록)
+    let totalInlineQuizzes = 20;
+    let correctInline = 0;
+
+    // 2. 퀴즈 채점 함수 완벽 덮어쓰기
+    window.checkInlineAns = function(btn, correctAns, selectedAns) {
+        const quizCard = btn.closest('.quiz-card');
+        const parent = btn.parentElement;
+        
+        // 이미 정답을 맞춘 문제면 반응 안 함
+        if(quizCard && quizCard.dataset.solved === "true") return;
+
+        if(correctAns === selectedAns) {
+            btn.style.background = "rgba(155, 89, 182, 0.25)";
+            btn.style.borderColor = "#9b59b6";
+            btn.style.color = "#fff";
+            btn.style.fontWeight = "bold";
+            btn.innerHTML += ' <i class="fas fa-check-circle" style="float: right; margin-top: 2px; color: #9b59b6;"></i>';
+            
+            if(quizCard) quizCard.dataset.solved = "true";
+            
+            Array.from(parent.children).forEach(b => {
+                b.style.cursor = 'default';
+                b.disabled = true; 
+                if(b !== btn) b.style.opacity = '0.3';
+            });
+
+            correctInline++;
+            updateCertUI();
+
+        } else {
+            btn.style.background = "rgba(155, 89, 182, 0.1)";
+            btn.style.borderColor = "#9b59b6";
+            btn.style.color = "#9b59b6";
+            btn.innerHTML += ' <i class="fas fa-redo" style="float: right; margin-top: 2px;"></i>';
+            
+            btn.disabled = true;
+            btn.style.cursor = 'default';
+            btn.style.opacity = '0.6';
+        }
+    };
+
+    // 3. 하단 진행 상태바 업데이트
+    window.updateCertUI = function() {
+        const bar = document.getElementById('cert-progress-bar');
+        const status = document.getElementById('cert-status');
+        const btn = document.getElementById('claim-cert-btn');
+        
+        if(bar) bar.style.width = (correctInline / totalInlineQuizzes * 100) + '%';
+        
+        if(correctInline === totalInlineQuizzes) {
+            status.innerHTML = '<span style="color:#9b59b6; font-size: 1.2rem;"><i class="fas fa-check-circle"></i> Perfect! You have mastered Robotics 101.</span>';
+            btn.style.background = '#FFFB03';
+            btn.style.color = '#000';
+            btn.style.cursor = 'pointer';
+            btn.innerHTML = '<i class="fas fa-unlock"></i> Claim Certificate';
+            btn.style.boxShadow = '0 0 15px rgba(255, 251, 3, 0.5)';
+            btn.style.border = 'none';
+            btn.onclick = claimCertificate;
+        } else {
+            status.innerHTML = `<span style="color:#9b59b6; font-size: 1.1rem;">Quizzes Completed: ${correctInline} / 20</span>`;
+            
+            btn.innerHTML = '<i class="fas fa-search"></i> Find Unanswered Quiz';
+            btn.style.cursor = 'pointer';
+            btn.style.background = 'transparent';
+            btn.style.border = '2px solid #9b59b6';
+            btn.style.color = '#9b59b6';
+            btn.style.boxShadow = 'none';
+            btn.onclick = scrollToNextQuiz;
+        }
+    };
+
+    // 4. 안 푼 문제 자동 찾아가기
+    window.scrollToNextQuiz = function() {
+        const allQuizzes = document.querySelectorAll('.quiz-card');
+        for(let q of allQuizzes) {
+            if(q.dataset.solved !== "true") {
+                q.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                q.style.transition = "box-shadow 0.4s";
+                q.style.boxShadow = "0 0 25px #9b59b6";
+                setTimeout(() => { q.style.boxShadow = "0 5px 15px rgba(0,0,0,0.2)"; }, 1500);
+                return;
+            }
+        }
+    };
+
+    // 5. 수료증 창 열기
+    window.claimCertificate = function() {
+        if(correctInline === totalInlineQuizzes) {
+            const overlay = document.getElementById('cert-overlay');
+            overlay.style.display = 'flex';
+            setTimeout(() => {
+                overlay.style.opacity = '1';
+                document.querySelector('.cert-box').style.transform = 'scale(1)';
+            }, 10);
+        }
+    };
+
+    // 6. 수료증 창 닫기
+    window.closeCert = function() {
+        const overlay = document.getElementById('cert-overlay');
+        overlay.style.opacity = '0';
+        document.querySelector('.cert-box').style.transform = 'scale(0.9)';
+        setTimeout(() => { overlay.style.display = 'none'; }, 400);
+    };
+
+    // 7. 이름 입력 완료 후 최종 수료증 생성 (학위증 날짜 텍스트 등 변경)
+    window.generateCert = function() {
+        const nameInput = document.getElementById('user-name-input').value.trim();
+        if(!nameInput) {
+            alert("Please enter your name.");
+            return;
+        }
+        
+        document.getElementById('cert-input-area').style.display = 'none';
+        const nameDisplay = document.getElementById('final-name-display');
+        nameDisplay.innerText = nameInput;
+        nameDisplay.style.display = 'block';
+        
+        // 날짜를 미국식 공식 문서 스타일(May 17, 2026)로 출력
+        const today = new Date();
+        const dateString = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        document.getElementById('cert-date-display').innerText = dateString;
+        
+        document.getElementById('cert-print-btn').style.display = 'block';
+    };
+</script>
+
+</script>
 </body>
 </html>
