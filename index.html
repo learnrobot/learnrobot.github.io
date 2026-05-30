@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* 대문 기본 배경 (어둡고 화면에 꽉 차게) */
+        /* 대문 기본 배경 */
         body, html {
             margin: 0; padding: 0;
             width: 100%; min-height: 100vh;
-            background-color: #101216; /* 기존 테마와 맞춘 다크 배경 */
+            background-color: #101216;
             color: #fff;
             display: flex;
             flex-direction: column;
@@ -32,7 +32,7 @@
             padding: 40px 20px;
         }
 
-        /* 🚪 대문 손잡이 버튼 (How Robots Work) */
+        /* 🚪 대문 손잡이 버튼 */
         .door-handle-btn {
             margin-top: 50px;
             display: inline-flex;
@@ -59,23 +59,22 @@
             box-shadow: 0 10px 30px rgba(134, 209, 209, 0.4);
         }
 
-        /* 🚨 여기서부터 추출한 로봇 CSS 스타일 🚨 */
         .interactive-playground { 
             display: flex; gap: 20px; align-items: center; justify-content: center; 
             flex-wrap: wrap; width: 100%;
         }
         .robot-info-panel { 
-            flex: 1.5; /* 패널이 차지하는 공간을 더 넓게 */
+            flex: 1.5; 
             min-width: 320px; 
-            max-width: 500px; /* 너비를 시원하게 확장 */
+            max-width: 500px; 
             background: rgba(10, 15, 20, 0.25); 
             border-radius: 12px; 
             padding: 30px; 
             color: #fff; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
             align-self: center;  
-            height: auto; /* 고정 높이 삭제: 글자 길이에 맞춰 자동 조절 */
-            overflow: visible; /* 스크롤바 완전 제거 */
+            height: auto; 
+            overflow: visible; 
             display: flex; 
             flex-direction: column; 
             justify-content: flex-start; 
@@ -86,33 +85,7 @@
             flex: 1.5; min-width: 320px; max-width: 450px; position: relative; 
             display: flex; justify-content: center; height: 540px; align-items: center;
         }
-        .robot-svg { 
-            width: 100%; height: auto; max-height: 550px;
-            filter: drop-shadow(0 0 20px rgba(44,153,153,0.15)); 
-        }
-        .hotspot { cursor: pointer; transition: all 0.3s ease; transform-origin: center; }
-        .hotspot:hover path, .hotspot:hover circle, .hotspot:hover rect, .hotspot:hover line {
-            stroke: #FFFB03 !important; fill: rgba(255, 251, 3, 0.15) !important; 
-            filter: brightness(1.4) drop-shadow(0 0 15px #FFFB03) !important; 
-        }
-        .hotspot.active path, .hotspot.active circle, .hotspot.active rect, .hotspot.active line {
-            stroke: #FFFB03 !important; fill: rgba(255, 251, 3, 0.4) !important; 
-            animation: neon-pulse 1.5s ease-in-out infinite alternate !important; 
-        } 
-        @keyframes neon-pulse {
-            0% { filter: brightness(1.2) drop-shadow(0 0 10px rgba(255, 251, 3, 0.4)); }
-            100% { filter: brightness(1.8) drop-shadow(0 0 35px rgba(255, 251, 3, 1)); }
-        }
-        .hotspot:hover, .hotspot.active { transform: scale(1.03); }
         
-        #reset-robot-btn {
-            position: absolute; top: 10px; right: 20px; background: rgba(20, 20, 20, 0.8);
-            border: 1px solid #86D1D1; color: #86D1D1; padding: 6px 15px; border-radius: 20px;
-            font-family: 'Chakra Petch', sans-serif; font-size: 0.85rem; cursor: pointer;
-            transition: all 0.3s ease; z-index: 10; display: none; align-items: center; gap: 6px;
-        }
-        #reset-robot-btn:hover { background: rgba(44, 153, 153, 0.2); color: #FFFB03; border-color: #FFFB03; }
-
         @media (max-width: 1024px) {
             .interactive-playground { flex-direction: column; }
             .robot-svg-container { order: -1; }
@@ -130,64 +103,22 @@
         <div class="interactive-playground">
             
             <div class="robot-svg-container">
-                <button id="reset-robot-btn" onclick="resetRobotInfo()">
-                    <i class="fas fa-undo"></i> Reset
-                </button>
+                <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
-                <svg class="robot-svg" viewBox="0 0 500 800" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#A3FFFF;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#39CCCC;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    
-                    <circle cx="250" cy="400" r="250" fill="rgba(44,153,153,0.05)" filter="blur(50px)"/>
-
-                    <g class="hotspot" onclick="showRobotInfo('base', this)">
-                        <path d="M 210 410 L 210 650 L 190 660 L 230 660 Z" fill="rgba(30,58,58,0.3)" stroke="#39CCCC" stroke-width="2"/>
-                        <line x1="210" y1="420" x2="210" y2="640" stroke="#A3FFFF" stroke-width="1" stroke-dasharray="5,5"/>
-                        <path d="M 290 410 L 290 650 L 270 660 L 310 660 Z" fill="rgba(30,58,58,0.3)" stroke="#39CCCC" stroke-width="2"/>
-                        <line x1="290" y1="420" x2="290" y2="640" stroke="#A3FFFF" stroke-width="1" stroke-dasharray="5,5"/>
-                    </g>
-
-                    <g class="hotspot" onclick="showRobotInfo('body', this)">
-                        <polygon points="170,190 330,190 350,230 310,410 190,410 150,230" fill="rgba(10,17,24,0.6)" stroke="#39CCCC" stroke-width="2"/>
-                        <circle cx="250" cy="310" r="40" fill="none" stroke="#2C9999" stroke-width="2" stroke-dasharray="4,4"/>
-                        <circle cx="250" cy="310" r="15" fill="url(#glow)">
-                            <animate attributeName="r" values="10;15;10" dur="2s" repeatCount="indefinite" />
-                            <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite" />
-                        </circle>
-                    </g>
-
-                    <g class="hotspot" onclick="showRobotInfo('arm', this)">
-                        <path d="M 140 240 L 90 290 L 90 430 L 120 430 L 120 300 L 150 260 Z" fill="rgba(30,58,58,0.3)" stroke="#39CCCC" stroke-width="2"/>
-                        <circle cx="115" cy="270" r="12" fill="none" stroke="#A3FFFF" stroke-width="2"/>
-                        <circle cx="105" cy="370" r="12" fill="none" stroke="#A3FFFF" stroke-width="2"/>
-                        <path d="M 360 240 L 410 290 L 410 430 L 380 430 L 380 300 L 350 260 Z" fill="rgba(30,58,58,0.3)" stroke="#39CCCC" stroke-width="2"/>
-                        <circle cx="385" cy="270" r="12" fill="none" stroke="#A3FFFF" stroke-width="2"/>
-                        <circle cx="395" cy="370" r="12" fill="none" stroke="#A3FFFF" stroke-width="2"/>
-                    </g>
-
-                    <g class="hotspot" onclick="showRobotInfo('endeffector', this)">
-                        <path d="M 90 440 L 120 440 L 130 490 L 115 490 L 105 460 L 95 490 L 80 490 Z" fill="none" stroke="#39CCCC" stroke-width="2"/>
-                        <path d="M 380 440 L 410 440 L 420 490 L 405 490 L 395 460 L 385 490 L 370 490 Z" fill="none" stroke="#39CCCC" stroke-width="2"/>
-                    </g>
-
-                    <g class="hotspot" onclick="showRobotInfo('head', this)">
-                        <polygon points="200,90 300,90 320,160 250,180 180,160" fill="rgba(30,58,58,0.8)" stroke="#39CCCC" stroke-width="2"/>
-                        <polygon points="190,120 310,120 300,140 200,140" fill="#0A1118" stroke="#39CCCC" stroke-width="1"/>
-                        <rect x="210" y="125" width="80" height="10" fill="url(#glow)"/>
-                        <line x1="220" y1="90" x2="200" y2="50" stroke="#39CCCC" stroke-width="2"/>
-                        <circle cx="200" cy="50" r="4" fill="#A3FFFF"/>
-                        <line x1="280" y1="90" x2="300" y2="50" stroke="#39CCCC" stroke-width="2"/>
-                        <circle cx="300" cy="50" r="4" fill="#A3FFFF"/>
-                    </g>
-                </svg>
+                <model-viewer
+                    src="https://github.com/learnrobot/learnrobot.github.io/blob/main/image/model.glb"
+                    alt="A 3D Humanoid Robot"
+                    auto-rotate
+                    camera-controls
+                    rotation-per-second="30deg"
+                    interaction-prompt="none"
+                    shadow-intensity="1"
+                    style="width: 100%; height: 100%; outline: none; background-color: transparent;">
+                </model-viewer>
 
                 <div style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); pointer-events: none; z-index: 10; background: rgba(10, 15, 20, 0.85); border: 1px solid rgba(44, 153, 153, 0.5); padding: 6px 18px; border-radius: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 8px; white-space: nowrap;">
-                    <i class="fas fa-hand-pointer fa-bounce" style="color: #FFFB03;"></i>
-                    <span style="color: #86D1D1; font-weight: bold; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif; letter-spacing: 0.5px;">Click any part of the robot</span>
+                    <i class="fas fa-mouse fa-bounce" style="color: #FFFB03;"></i>
+                    <span style="color: #86D1D1; font-weight: bold; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif; letter-spacing: 0.5px;">Drag & Rotate the 3D Robot!</span>
                 </div>
             </div>
 
@@ -197,8 +128,7 @@
                         Meet the Robot
                     </h2>
                     <p style="font-size: 1.15rem; line-height: 1.7; color: #ddd; margin-bottom: 25px; font-family: 'Roboto', sans-serif;">
-                        Click on any glowing part of the robot to discover how it works! <br><br>
-                        Robots might look complicated with all their wires and metal, but they are actually designed just like us. Let's explore the analogy.
+                        Robots might look complicated with all their wires and metal, but they are actually designed just like us. Explore the analogy.
                     </p>
 
                     <div style="display: flex; gap: 20px; flex-wrap: wrap;">
@@ -213,18 +143,15 @@
                             <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'Roboto', sans-serif;">
                                 <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
                                     <span style="color: #ccc;"><i class="fas fa-bone" style="width: 25px; color: #888; text-align: center;"></i> Skeleton</span>
-                                    <i class="fas fa-arrow-right" style="color: #555; font-size: 0.8rem; padding-top: 4px;"></i>
-                                    <span style="color: #86D1D1; font-weight: 600; text-align: right; width: 85px;">Links</span>
+                                    <span style="color: #86D1D1; font-weight: 600; text-align: right;">Links</span>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
                                     <span style="color: #ccc;"><i class="fas fa-dumbbell" style="width: 25px; color: #888; text-align: center;"></i> Muscles</span>
-                                    <i class="fas fa-arrow-right" style="color: #555; font-size: 0.8rem; padding-top: 4px;"></i>
-                                    <span style="color: #86D1D1; font-weight: 600; text-align: right; width: 85px;">Actuators</span>
+                                    <span style="color: #86D1D1; font-weight: 600; text-align: right;">Actuators</span>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
                                     <span style="color: #ccc;"><i class="fas fa-eye" style="width: 25px; color: #888; text-align: center;"></i> Senses</span>
-                                    <i class="fas fa-arrow-right" style="color: #555; font-size: 0.8rem; padding-top: 4px;"></i>
-                                    <span style="color: #86D1D1; font-weight: 600; text-align: right; width: 85px;">Sensors</span>
+                                    <span style="color: #86D1D1; font-weight: 600; text-align: right;">Sensors</span>
                                 </div>
                             </div>
                         </div>
@@ -240,18 +167,15 @@
                             <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'Roboto', sans-serif;">
                                 <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
                                     <span style="color: #ccc;"><i class="fas fa-head-side-virus" style="width: 25px; color: #888; text-align: center;"></i> Brain</span>
-                                    <i class="fas fa-arrow-right" style="color: #555; font-size: 0.8rem; padding-top: 4px;"></i>
-                                    <span style="color: #FFFB03; font-weight: 600; text-align: right; width: 95px;">MCU / CPU</span>
+                                    <span style="color: #FFFB03; font-weight: 600; text-align: right;">MCU / CPU</span>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
                                     <span style="color: #ccc;"><i class="fas fa-network-wired" style="width: 25px; color: #888; text-align: center;"></i> Nerves</span>
-                                    <i class="fas fa-arrow-right" style="color: #555; font-size: 0.8rem; padding-top: 4px;"></i>
-                                    <span style="color: #FFFB03; font-weight: 600; text-align: right; width: 95px;">Wires & ROS</span>
+                                    <span style="color: #FFFB03; font-weight: 600; text-align: right;">Wires & ROS</span>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
                                     <span style="color: #ccc;"><i class="fas fa-graduation-cap" style="width: 25px; color: #888; text-align: center;"></i> Learning</span>
-                                    <i class="fas fa-arrow-right" style="color: #555; font-size: 0.8rem; padding-top: 4px;"></i>
-                                    <span style="color: #FFFB03; font-weight: 600; text-align: right; width: 95px;">AI Models</span>
+                                    <span style="color: #FFFB03; font-weight: 600; text-align: right;">AI Models</span>
                                 </div>
                             </div>
                         </div>
@@ -265,116 +189,5 @@
         </a>
 
     </div>
-
-    <script>
-      function showRobotInfo(part, element) {
-            document.querySelectorAll('.hotspot').forEach(el => el.classList.remove('active'));
-            if (element) element.classList.add('active');
-
-            const mainContent = document.getElementById('content-main');
-            if (!mainContent) return;
-
-            mainContent.style.transition = "opacity 0.2s ease";
-            mainContent.style.opacity = 0;
-            
-            let htmlContext = "";
-            
-            if (part === 'head') {
-                htmlContext = `
-                    <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-size: 2rem; margin-bottom: 20px;">
-                        <i class="fas fa-eye"></i> Senses & Perception
-                    </h2>
-                    <div style="background: rgba(44, 153, 153, 0.1); border-left: 4px solid #2C9999; padding: 25px; border-radius: 0 8px 8px 0;">
-                        <strong style="color: #86D1D1; font-size: 1.2rem;"><i class="fas fa-lightbulb"></i> Analogy: The Eyes and Brain</strong>
-                        <p style="margin: 15px 0; font-size: 1.1rem; color: #ddd; line-height: 1.6;">Just like you use your eyes to see and your brain to understand what you're looking at, a robot uses cameras to capture light and AI to process it into meaning.</p>
-                        <span style="color: #888; font-size: 0.95rem; font-style: italic;">* Explore Vision AI & LiDAR in the main course.</span>
-                    </div>`;
-            } else if (part === 'body') {
-                htmlContext = `
-                    <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-size: 2rem; margin-bottom: 20px;">
-                        <i class="fas fa-battery-full"></i> Power & Core
-                    </h2>
-                    <div style="background: rgba(44, 153, 153, 0.1); border-left: 4px solid #2C9999; padding: 25px; border-radius: 0 8px 8px 0;">
-                        <strong style="color: #86D1D1; font-size: 1.2rem;"><i class="fas fa-lightbulb"></i> Analogy: The Heart and Nervous System</strong>
-                        <p style="margin: 15px 0; font-size: 1.1rem; color: #ddd; line-height: 1.6;">Your heart pumps blood to give you energy. The robot's body holds the battery and the central computer that sends instructions to every limb.</p>
-                        <span style="color: #888; font-size: 0.95rem; font-style: italic;">* Explore Microcontrollers & ROS 2 in the main course.</span>
-                    </div>`;
-            } else if (part === 'arm') {
-                htmlContext = `
-                    <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-size: 2rem; margin-bottom: 20px;">
-                        <i class="fas fa-cogs"></i> Motion & Mechanics
-                    </h2>
-                    <div style="background: rgba(44, 153, 153, 0.1); border-left: 4px solid #2C9999; padding: 25px; border-radius: 0 8px 8px 0;">
-                        <strong style="color: #86D1D1; font-size: 1.2rem;"><i class="fas fa-lightbulb"></i> Analogy: Muscles and Bones</strong>
-                        <p style="margin: 15px 0; font-size: 1.1rem; color: #ddd; line-height: 1.6;">When you reach for a cup, your brain automatically calculates how to bend your shoulder and elbow. A robot needs physics equations to do the exact same thing.</p>
-                        <span style="color: #888; font-size: 0.95rem; font-style: italic;">* Explore Kinematics & Actuators in the main course.</span>
-                    </div>`;
-            } else if (part === 'endeffector') {
-                htmlContext = `
-                    <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-size: 2rem; margin-bottom: 20px;">
-                        <i class="fas fa-hand-paper"></i> Touch & Grasp
-                    </h2>
-                    <div style="background: rgba(44, 153, 153, 0.1); border-left: 4px solid #2C9999; padding: 25px; border-radius: 0 8px 8px 0;">
-                        <strong style="color: #86D1D1; font-size: 1.2rem;"><i class="fas fa-lightbulb"></i> Analogy: Fingers and Sense of Touch</strong>
-                        <p style="margin: 15px 0; font-size: 1.1rem; color: #ddd; line-height: 1.6;">Holding an egg requires a soft touch, but holding a hammer requires a strong grip. The robot's hands must feel and adjust instantly to the environment.</p>
-                        <span style="color: #888; font-size: 0.95rem; font-style: italic;">* Explore Soft Grippers & Torque Sensors in the main course.</span>
-                    </div>`;
-            } else if (part === 'base') {
-                htmlContext = `
-                    <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-size: 2rem; margin-bottom: 20px;">
-                        <i class="fas fa-walking"></i> Locomotion & Balance
-                    </h2>
-                    <div style="background: rgba(44, 153, 153, 0.1); border-left: 4px solid #2C9999; padding: 25px; border-radius: 0 8px 8px 0;">
-                        <strong style="color: #86D1D1; font-size: 1.2rem;"><i class="fas fa-lightbulb"></i> Analogy: The Inner Ear and Legs</strong>
-                        <p style="margin: 15px 0; font-size: 1.1rem; color: #ddd; line-height: 1.6;">Walking is essentially falling forward and catching yourself. To not fall over, a robot must constantly calculate its center of gravity just like our inner ear does.</p>
-                        <span style="color: #888; font-size: 0.95rem; font-style: italic;">* Explore IMUs & Dynamic Balance in the main course.</span>
-                    </div>`;
-            }
-
-            setTimeout(() => {
-                mainContent.innerHTML = htmlContext;
-                mainContent.style.opacity = 1;
-                const resetBtn = document.getElementById('reset-robot-btn');
-                if (resetBtn) resetBtn.style.display = 'flex';
-            }, 200);
-        }
-        function resetRobotInfo() {
-            document.querySelectorAll('.hotspot').forEach(el => el.classList.remove('active'));
-            
-            const mainContent = document.getElementById('content-main');
-            if (!mainContent) return;
-            
-            const initHTML = `
-                <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-weight:700; font-size: 2.2rem; margin-bottom: 15px;">
-                    Meet the Robot
-                </h2>
-                <p style="font-size: 1.1rem; line-height: 1.6; color: #ccc; margin-bottom: 30px; font-family: 'Roboto', sans-serif;">
-                    Click on any glowing part of the robot to discover how it works! <br><br>
-                    Robots might look complicated with all their wires and metal, but they are actually designed just like us. They have a body, senses, muscles, and a brain. Let's explore them one by one.
-                </p>
-                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                    <div style="flex: 1; min-width: 150px; text-align: center; background: rgba(0,0,0,0.3); padding: 30px 20px; border-radius: 12px; border: 1px solid rgba(134, 209, 209, 0.2); box-shadow: inset 0 0 10px rgba(0,0,0,0.5);">
-                        <i class="fas fa-microchip" style="font-size: 2.8rem; color: #86D1D1; margin-bottom: 15px;"></i>
-                        <h4 style="color: #fff; margin: 0 0 8px 0; font-family: 'Chakra Petch', sans-serif; font-size: 1.3rem;">Hardware</h4>
-                        <p style="font-size: 0.9rem; color: #888; margin: 0; font-family: 'Roboto', sans-serif;">The physical body</p>
-                    </div>
-                    <div style="flex: 1; min-width: 150px; text-align: center; background: rgba(0,0,0,0.3); padding: 30px 20px; border-radius: 12px; border: 1px solid rgba(134, 209, 209, 0.2); box-shadow: inset 0 0 10px rgba(0,0,0,0.5);">
-                        <i class="fas fa-brain" style="font-size: 2.8rem; color: #FFFB03; margin-bottom: 15px;"></i>
-                        <h4 style="color: #fff; margin: 0 0 8px 0; font-family: 'Chakra Petch', sans-serif; font-size: 1.3rem;">Software & AI</h4>
-                        <p style="font-size: 0.9rem; color: #888; margin: 0; font-family: 'Roboto', sans-serif;">The intelligence</p>
-                    </div>
-                </div>
-            `;
-            
-            mainContent.style.opacity = 0;
-            setTimeout(() => {
-                mainContent.innerHTML = initHTML;
-                mainContent.style.opacity = 1;
-            }, 200);
-
-            const resetBtn = document.getElementById('reset-robot-btn');
-            if (resetBtn) resetBtn.style.display = 'none';
-        }
-    </script>
 </body>
 </html>
