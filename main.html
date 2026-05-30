@@ -1,0 +1,2162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="LearnRobot">
+<link rel="apple-touch-icon" href="/images/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BHWJFXWFDQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BHWJFXWFDQ');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Let's LearnRobot.com</title>
+
+    <link rel="icon" href="image/favicon.png?v=2" type="image/png">
+    <link rel="apple-touch-icon" href="image/welcome.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700;900&family=Orbitron:wght@500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.2/css/flag-icons.min.css" />
+
+    <script src="data.js"></script>
+
+    <style>
+
+/* --- [완성] 상세 & 다음 버튼 그룹 (패널 우측 바깥으로 원상복구) --- */
+        .nav-action-group {
+            position: absolute;
+            left: calc(100% + 20px); /* 패널 오른쪽 끝에서 20px 바깥으로 뺌 */
+            top: 50%;
+            transform: translateY(-50%); /* 세로 중앙 정렬 */
+            display: flex;
+            flex-direction: column; /* 위아래로 나란히 정렬 */
+            gap: 15px; /* 버튼 사이 간격 */
+            z-index: 10;
+        }
+        
+        
+        .go-detail-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(44, 153, 153, 0.15);
+            color: #86D1D1;
+            border: 1px solid #2C9999;
+            padding: 12px 15px;
+            border-radius: 8px; 
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            white-space: nowrap; 
+            width: 145px; /* 두 버튼의 폭을 완벽하게 통일! */
+        }
+        .go-detail-btn:hover {
+            background: #2C9999;
+            color: #1a1a1a;
+            box-shadow: 0 0 15px rgba(44, 153, 153, 0.5);
+            transform: scale(1.05); /* 마우스 올리면 커짐 */
+        }
+
+        /* next topic 버튼 디자인 (글자 포함 둥근 사각형) */
+        .nav-side-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+background: rgba(44, 153, 153, 0.15);
+           border: 1px solid #2C9999;  /* 2px에서 1px로 변경하고 색상 고정 */
+            color: #86D1D1;
+            padding: 12px 15px; 
+            border-radius: 8px; 
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            white-space: nowrap;
+            z-index: 10;
+            font-family: 'Chakra Petch', sans-serif;
+            width: 145px; /* 두 버튼의 폭을 완벽하게 통일! */
+        }
+        .nav-side-btn:hover {
+            background: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px rgba(255, 251, 3, 0.6);
+            transform: scale(1.05);
+        }
+
+        /* 화면이 좁아져서 버튼이 잘릴 위험이 있을 때만 패널 아래로 이동 */
+        @media (max-width: 1150px) {
+            .nav-action-group {
+                position: static;
+                transform: none;
+                flex-direction: row; /* 가로로 나란히 */
+                margin-top: 25px;
+                width: 100%;
+            }
+            .nav-action-group .go-detail-btn,
+            .nav-action-group .nav-side-btn {
+                flex: 1; /* 너비를 반반씩 나눠 갖기 */
+                width: auto;
+            }
+        }
+        :root {
+            --bg-dark: #1a1a1a;
+            --sidebar-bg: #1E1E1E;
+            --primary-color: #2C9999;
+            --accent-color: #FFFB03;
+            --text-main: #e0e0e0;
+            --sidebar-width: 280px;
+        }
+
+      body {
+            background-color: var(--bg-dark);
+            /* 👇 배경 이미지를 body 전체로 확장하여 깔아줍니다 */
+            background: url('image/welcome.png') center/cover no-repeat !important; 
+            color: var(--text-main);
+            font-family: 'Chakra Petch', sans-serif;
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column; height: 100vh; overflow: hidden;
+        }
+
+        /* --- Header Styles --- */
+   header {
+            /* 👇 투명도를 0.95에서 0.4로 대폭 낮추고 블러(blur)를 강하게 줍니다 */
+            background: rgba(20, 20, 20, 0.75) !important; 
+            backdrop-filter: blur(4px) saturate(120%) !important;
+            -webkit-backdrop-filter: blur(4px) saturate(120%) !important; /* 아이폰 호환성 */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important; /* 반짝이는 유리 테두리 */
+            height: 100px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 1.5rem;
+            z-index: 9999; gap: 20px; flex-shrink: 0;
+        }
+        .logo-link { text-decoration: none; color: inherit; display: flex; align-items: center; gap: 15px; }
+        .logo-image { height: 60px; width: auto; object-fit: contain; border-radius: 50%; }
+        .logo-text { 
+    font-family: 'Orbitron', sans-serif; 
+    font-size: 1.8rem; /* 기존 1.6rem에서 1.8rem으로 확대 */
+    font-weight: 900; 
+    letter-spacing: 2px; 
+    color: #fff; 
+    text-transform: uppercase; 
+}
+
+        /* --- Auth & Lang Buttons --- */
+        .auth-buttons { display: flex; gap: 15px; align-items: center; }
+        .lang-wrapper { position: relative; z-index: 1000; }
+        .lang-btn { background: transparent; border: 2px solid #2C9999; color: #2C9999; padding: 5px 12px; border-radius: 20px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+        .lang-btn:hover, .lang-btn.active { border-color: #FFFB03; color: #FFFB03; box-shadow: 0 0 10px rgba(255, 251, 3, 0.3); }
+        .lang-dropdown { display: none; position: absolute; top: 45px; right: 0; background: rgba(20, 20, 20, 0.95); border: 1px solid #2C9999; border-radius: 8px; width: 160px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); overflow: hidden; flex-direction: column; }
+        .lang-dropdown.show { display: flex; animation: slideDown 0.3s ease; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .lang-dropdown a { padding: 10px 15px; color: #ccc; text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: background 0.2s; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .lang-dropdown a:hover { background: rgba(44, 153, 153, 0.2); color: #FFFB03; }
+        .lang-dropdown a:last-child { border-bottom: none; }
+
+        .sns-icons { display: flex; gap: 15px; align-items: center; }
+        .sns-icons a { color: #2C9999; font-size: 1.8rem; display: inline-block; transition: color 0.3s ease, transform 0.3s ease; }
+        .sns-icons a:hover { color: #FFFB03; transform: translateY(-5px); }
+        
+        .email-hover-wrap { position: relative; display: flex; justify-content: center; align-items: center; }
+        .email-tooltip { position: absolute; top: 40px; right: 50%; transform: translateX(50%) translateY(10px); background: rgba(10, 15, 20, 0.95); border: 1px solid #FFFB03; color: #FFFB03; padding: 6px 12px; border-radius: 6px; font-family: 'Chakra Petch', sans-serif; font-size: 0.9rem; white-space: nowrap; opacity: 0; visibility: hidden; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.8), 0 0 10px rgba(255, 251, 3, 0.2); pointer-events: none; z-index: 100; }
+        .email-hover-wrap:hover .email-tooltip { opacity: 1; visibility: visible; transform: translateX(50%) translateY(0); }
+
+        /* Google Translate Banner Hiding */
+        .goog-te-banner-frame, .goog-te-banner-frame.skiptranslate { display: none !important; }
+        body > .skiptranslate { display: none !important; }
+        body { top: 0px !important; position: static !important; margin-top: 0px !important; }
+        html { margin-top: 0px !important; }
+        .goog-tooltip { display: none !important; }
+        .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
+
+        /* --- Layout & Sidebar (글래스모피즘) --- */
+        .container-fluid { display: flex; flex: 1; overflow: hidden; padding: 0; margin: 0; }
+        
+        aside {
+            width: var(--sidebar-width) !important; 
+            /* 👇 헤더와 동일하게 투명한 유리 질감 적용 */
+            background: rgba(20, 20, 20, 0.75) !important; 
+            backdrop-filter: blur(4px) saturate(120%) !important;
+            -webkit-backdrop-filter: blur(4px) saturate(120%) !important;
+            border-right: 1px solid rgba(255, 255, 255, 0.1) !important; /* 우측 유리 테두리 */
+            padding: 15px 1.5rem !important; display: flex !important; flex-direction: column !important;
+            flex-shrink: 0 !important; gap: 2px !important; z-index: 100 !important; 
+            overflow-y: auto; height: 100%;
+            scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent;
+        }
+        
+        /* 투명한 사이드바에 어울리게 스크롤바 디자인 변경 */
+        aside::-webkit-scrollbar { width: 6px; }
+        aside::-webkit-scrollbar-track { background: transparent; }
+        aside::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.2); border-radius: 3px; }
+        aside::-webkit-scrollbar-thumb:hover { background-color: #2C9999; }
+
+        main {
+            flex: 1; overflow-y: auto; scroll-behavior: smooth;
+			/* 🚨 신규 추가: 세로(y) 방향으로 무조건(mandatory) 자석처럼 달라붙게 설정 */
+            scroll-snap-type: y mandatory;
+            /* 👇 글자가 잘 보이도록 메인 본문은 살짝만 어둡게 처리 (이미지는 뒤에서 비침) */
+            background: rgba(15, 15, 15, 0.75) !important; 
+            padding: 40px;
+        }
+
+ /* --- Sidebar UI --- */
+        .category-group {margin-top: 7px !important;
+            border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px;
+            padding: 8px 10px; background: rgba(255, 255, 255, 0.03); /* 패딩 약간 줄임 */
+            transition: border-color 0.3s; margin-bottom: 4px; /* 아래 마진 줄임 */
+        }
+        .category-group:hover { border-color: rgba(255, 251, 3, 0.5); }
+        .group-title { 
+    color: #86D1D1; /* 기존보다 훨씬 밝은 청록색 */
+    font-weight: 800; 
+    text-shadow: 0 0 5px rgba(134, 209, 209, 0.3); /* 살짝 빛나는 효과 추가 */
+    border-bottom: 1px solid rgba(134, 209, 209, 0.4); 
+}
+        
+        .category-btn {
+            width: 100%; text-align: left; background: transparent; border: none; color: #ccc;
+            padding: 5px 10px; font-family: 'Chakra Petch', sans-serif; font-size: 0.98rem; /* 위아래 패딩과 글자 크기를 다이어트! */
+            cursor: pointer; border-radius: 6px; transition: all 0.2s; display: flex; align-items: center; gap: 10px;
+        }
+        .category-btn:hover { background: rgba(44, 153, 153, 0.1); color: #fff; }
+        .category-btn.active { color: var(--accent-color); font-weight: 700; background: rgba(255, 251, 3, 0.05); }
+        .category-btn.active i { color: var(--accent-color) !important; }
+
+
+/* 1. Go to robotics 101 버튼 (움직이는 점선 테두리) */
+.nav-link-btn {margin-top: 7px !important;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(255, 255, 255, 0.1); 
+    color: #A5EAEA; padding: 12px; border-radius: 4px; text-decoration: none; font-weight: bold; 
+    transition: all 0.3s;
+    position: relative; z-index: 1; overflow: hidden;
+    /* 고정 테두리 대신 가상 요소(::before)로 애니메이션 구현 */
+}
+
+.nav-link-btn::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 4px; pointer-events: none;
+    background-image: 
+        linear-gradient(90deg, #86D1D1 50%, transparent 50%), linear-gradient(90deg, #86D1D1 50%, transparent 50%),
+        linear-gradient(0deg, #86D1D1 50%, transparent 50%), linear-gradient(0deg, #86D1D1 50%, transparent 50%);
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    background-size: 15px 2px, 15px 2px, 2px 15px, 2px 15px;
+    background-position: 0 0, 0 100%, 0 0, 100% 0;
+    animation: border-march 1s infinite linear; z-index: -1;
+}
+
+.nav-link-btn:hover {
+    color: var(--accent-color);
+    background: rgba(255, 251, 3, 0.1);
+}
+
+/* 2. Players 패널 (일반 실선 테두리 및 배경 통일) */
+.spotlight-card {
+    /* 외부 여백은 위의 category-group이 담당하므로 여기서는 0으로 설정하여 이중 여백 방지 */
+    margin-top: 0 !important; 
+    padding: 15px 20px !important; 
+    border-radius: 12px;
+    position: relative; 
+    z-index: 1; 
+    color: #fff;
+    
+    /* 👇 다른 카테고리 패널과 100% 동일한 투명도 배경 적용 */
+    background-color: rgba(255, 255, 255, 0.03); 
+    background-image: none !important; 
+    
+    backdrop-filter: blur(10px);
+    /* 👇 혼자만 튀어보이게 만들던 짙은 그림자 제거 */
+    box-shadow: none; 
+    border: 1px solid rgba(134, 209, 209, 0.3); 
+}
+
+/* 3. 점선이 움직이게 만드는 핵심 애니메이션 (꼭 추가해야 함) */
+@keyframes border-march {
+    0% { background-position: 0 0, 0 100%, 0 0, 100% 0; }
+    100% { background-position: 15px 0, -15px 100%, 0 -15px, 100% 15px; }
+}
+        .visit-btn { display: inline-flex; align-items: center; gap: 8px; background: #FFFB03; color: #000 !important; font-weight: 900; text-decoration: none; transition: all 0.3s ease; white-space: nowrap; justify-content: center; width: 100%; border-radius: 6px; padding: 5px 0;}
+        .visit-btn:hover { transform: scale(1.03); background: #fff; }
+/* 사이드바 서브 버튼 (Find 300+) - 박스 형태 제거, 깔끔한 텍스트 링크화 */
+        .sub-find-btn { 
+            display: inline-flex; justify-content: center; align-items: center; width: 100%; 
+            margin-top: 10px; padding: 4px 0;
+            background: transparent; border: none; /* 배경과 테두리 완벽 제거 */
+            color: #86D1D1; font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: all 0.3s ease; gap: 6px;
+        }
+        /* 버튼 오른쪽에 폰트어썸 화살표 자동 추가 */
+        .sub-find-btn::after {
+            content: '\f061'; 
+            font-family: 'Font Awesome 5 Free'; font-weight: 900; font-size: 0.75rem;
+        }
+        .sub-find-btn:hover { 
+            color: #FFFB03; 
+            transform: translateX(4px); /* 마우스를 올리면 화살표 방향으로 살짝 움직임 */
+        }
+/* Hero Section 전용 버튼 스타일 추가 */
+        .hero-btn {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 15px 35px;
+            border-radius: 50px; /* 알약 모양 */
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+        }
+
+        .hero-btn:hover {
+            background: rgba(44, 153, 153, 0.1);
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px rgba(255, 251, 3, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* 아래쪽 화살표 애니메이션 */
+        @keyframes bounce-down {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+        /* --- Interactive Lab Common --- */
+        /* --- Interactive Lab Common --- */
+/* --- Interactive Lab Common --- */
+        section { 
+            /* 🚨 신규 추가: 화면 스크롤이 섹션의 '시작점(start)'에 정확히 멈추도록 설정 */
+            scroll-snap-align: start;
+            
+            min-height: 80vh; 
+            padding: 10px 0 60px 0; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-start; 
+        }
+        .section-title { font-size: 2.8rem; font-weight: 900; color: var(--primary-color); margin-bottom: 10px; text-align: center; }
+        .section-subtitle { font-family: 'Roboto', sans-serif; color: #ffffff; font-size: 1.2rem; margin-bottom: 40px; text-align: center; }
+        .lab-card { background: rgba(0,0,0,0.4); border: 2px solid var(--primary-color); border-radius: 15px; padding: 40px; text-align: center; max-width: 800px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; width: 100%; }
+        .lab-btn { background: transparent; border: 2px solid #555; color: #ddd; padding: 12px 20px; border-radius: 8px; margin: 10px; cursor: pointer; transition: all 0.3s; font-size: 1.1rem; font-weight: bold; font-family: 'Chakra Petch', sans-serif; }
+        .lab-btn:hover { border-color: var(--accent-color); color: var(--accent-color); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255,251,3,0.2); }
+
+        /* 1. Balance Lab */
+        .robot-character { font-size: 8rem; color: #fff; transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55); transform-origin: bottom center; margin: 20px 0; display: inline-block; }
+        .robot-falling { transform: rotate(75deg); color: #FF5555; }
+        .robot-standing { transform: rotate(0deg); color: #2ecc71; animation: float 2s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        /* 2. Battery Lab */
+        .battery-container { width: 100%; max-width: 500px; height: 80px; border: 4px solid #fff; border-radius: 12px; margin: 30px auto; position: relative; padding: 4px; display: flex; align-items: center; }
+        .battery-container::after { content: ''; position: absolute; right: -14px; top: 50%; transform: translateY(-50%); width: 10px; height: 30px; background: #fff; border-radius: 0 4px 4px 0; }
+        .battery-level { height: 100%; width: 100%; background: #2ecc71; border-radius: 6px; transition: all 0.5s ease; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.8rem; color: #000; font-family: 'Orbitron', sans-serif; }
+
+        /* 3. Vision Lab */
+/* 3. Vision Lab */
+        .vision-box { 
+            width: 100%; 
+            height: 200px; /* 기존 350px에서 200px로 축소 */
+            border-radius: 12px; position: relative; 
+            border: 3px solid #333; 
+            margin-bottom: 10px; /* 여백 축소 */
+            overflow: hidden; 
+            background: #000;
+        }
+        /* 필터가 글자에 안 먹히게 배경 이미지를 별도의 가상 층(::before)으로 분리 */
+        .vision-box::before { 
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
+            background: url('https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=800') center/cover; 
+            transition: all 0.5s ease; z-index: 1; 
+        }
+        .vision-box.vision-robot-mode { 
+            border-color: #FFFB03; box-shadow: 0 0 20px rgba(255, 251, 3, 0.4); 
+        }
+        /* 엑스레이 필터는 오직 배경 이미지에만 적용! */
+        .vision-box.vision-robot-mode::before { 
+            filter: grayscale(100%) contrast(150%) invert(1) hue-rotate(180deg); 
+        }
+        
+        .bounding-box { 
+            display: none; position: absolute; border: 2px solid #FFFB03; 
+            background: rgba(255, 251, 3, 0.1); 
+            color: #FFFB03; font-weight: bold; font-family: 'Chakra Petch', monospace; 
+            padding: 4px 8px; font-size: 1.1rem; z-index: 2; 
+            /* 흰 배경 위에서도 글자가 잘 보이도록 진한 검정 그림자 추가 */
+            text-shadow: 1px 1px 3px #000, -1px -1px 3px #000, 1px -1px 3px #000, -1px 1px 3px #000;
+        }
+        .vision-box.vision-robot-mode .bounding-box { display: block; animation: blinkBox 1s infinite alternate; }
+        @keyframes blinkBox { from { border-color: rgba(255,251,3,0.3); } to { border-color: rgba(255,251,3,1); } }
+
+ /* 4. Etiquette Lab */
+        .etiquette-scene { font-size: 5rem; margin: 20px 0; display: flex; justify-content: center; gap: 40px; align-items: center; position: relative; height: 120px; }
+        .etiq-actor { transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); z-index: 2; }
+        
+        /* 발로 찼을 때: 빨갛게 변하며 뒤로 넘어짐 */
+        .robot-knocked { transform: rotate(90deg) translateX(20px) translateY(20px); color: #FF5555 !important; }
+        
+        /* 기다렸을 때: 초록색으로 변하며 부드럽게 사람을 피해 지나감 */
+        /* 4. Etiquette Lab 개선 */
+.robot-pass { 
+    /* 3.5초 정도로 느리게 설정하여 '신중하게 돌아가는' 느낌을 강조합니다. */
+    animation: arc-move 3.5s ease-in-out forwards !important; 
+    opacity: 1; 
+    color: #2ecc71 !important; 
+}
+.etiq-wrong-x {
+    position: absolute; color: #FF5555; font-size: 4rem; font-weight: 900;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    animation: pulseX 0.5s infinite alternate; z-index: 10; display: none;
+}
+@keyframes pulseX { from { opacity: 0.5; transform: translate(-50%, -50%) scale(0.8); } to { opacity: 1; transform: translate(-50%, -50%) scale(1.2); } }
+        
+        /* 로딩(계산 중) 애니메이션 */
+        .spin-loading { animation: spinSync 1.5s linear infinite; }
+        @keyframes spinSync { 100% { transform: translateX(-50%) rotate(360deg); } }
+        
+/* --- 5~10번 패널 전용 애니메이션 --- */
+        .egg-icon { 
+    font-size: 6rem !important; /* !important를 추가하여 크기를 강제합니다 */
+    transition: all 0.3s; 
+    margin: 20px 0; 
+    display: inline-block; 
+    color: #fff; 
+}
+        .egg-crushed { color: #FF5555; transform: scale(1.2) scaleY(0.5); }
+        .egg-safe { color: #f1c40f; filter: drop-shadow(0 0 15px rgba(241, 196, 15, 0.5)); transform: scale(1.1); }
+        
+        .gym-bot { font-size: 7.5rem; transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); display: inline-block; color: #fff; margin: 20px 0; }
+        .gym-fail1 { transform: rotate(-90deg); color: #FF5555; }
+        .gym-fail2 { transform: rotate(180deg) translateY(20px); color: #e67e22; }
+        
+        /* 👇 성공 시 360도 회전하며 네온 빛이 영구적으로 숨 쉬듯 깜빡이는 효과 */
+        .gym-success { 
+            transform: rotate(360deg) translateY(-30px); 
+            color: #2ecc71; 
+            /* 1.2초 주기로 무한 반복(infinite)되는 애니메이션 추가 */
+            animation: neonPulse 1.2s infinite alternate ease-in-out; 
+        }
+
+        /* 👇 네온 빛이 커졌다 작아졌다 하는 움직임 정의 (이 부분도 꼭 같이 복사해 주세요!) */
+        @keyframes neonPulse {
+            0% { filter: drop-shadow(0 0 5px #2ecc71) drop-shadow(0 0 10px rgba(46, 204, 113, 0.5)); }
+            100% { filter: drop-shadow(0 0 15px #2ecc71) drop-shadow(0 0 35px rgba(46, 204, 113, 1)); }
+        }
+
+        .maze-area { position: relative; height: 100px; margin: 30px 0; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+        .maze-path { position: absolute; left: 60px; right: 60px; height: 4px; background: #3498db; top: 50%; transform: translateY(-50%); transition: all 0.4s; z-index: 1; }
+        .maze-obstacle { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: #e74c3c; display: none; z-index: 2; animation: popIn 0.3s ease; }
+        .path-detour { height: 80px; top: 10px; border: 4px solid #2ecc71; border-bottom: none; border-radius: 20px 20px 0 0; background: transparent; }
+        @keyframes popIn { 0% { transform: translate(-50%, -50%) scale(0); } 100% { transform: translate(-50%, -50%) scale(1); } }
+
+        .swarm-box { font-size: 7rem; color: #bdc3c7; transition: transform 0.5s ease; position: relative; z-index: 2; margin: 0 auto; display: inline-block; }
+        .swarm-ants { font-size: 2rem; color: #e67e22; display: flex; justify-content: center; gap: 10px; margin-top: -30px; opacity: 0; transition: opacity 0.3s; z-index: 1; }
+        
+        .muscle-canvas { width: 120px; height: 120px; border: 2px dashed #555; border-radius: 50%; margin: 20px auto; position: relative; display: flex; align-items: center; justify-content: center; }
+        .muscle-arm { font-size: 2.5rem; color: #95a5a6; position: absolute; transform-origin: center 60px; top: 0; }
+/* ▼ 기존 애니메이션 코드 싹 지우고 이걸로 덮어씌우세요 ▼ */
+        /* 1. 장난감 모터: 관성 때문에 타겟(90도)을 휙 지나쳐서 120도쯤에 미끄러져 멈춤 */
+        .spin-toy { animation: spinToy 1.2s ease-out forwards; color: #FF5555; }
+        @keyframes spinToy {
+            0%   { transform: rotate(0deg); }
+            50%  { transform: rotate(140deg); } /* 브레이크가 없어서 타겟을 한참 지나침 */
+            80%  { transform: rotate(110deg); } /* 흔들거림 */
+            100% { transform: rotate(120deg); } /* 엉뚱한 곳에 정지 */
+        }
+
+        /* 2. 로봇 서보 모터: 센서가 각도를 읽고 90도 타겟에 자를 댄 듯 정확히 꽂히고 정지 */
+        .spin-servo { animation: spinServo 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; color: #2ecc71; }
+        @keyframes spinServo {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(90deg); } /* 오차 0.1mm 없이 정확히 타겟에 명중 */
+        }
+    
+.cobot-workspace { 
+            height: 120px; /* 기존 180px에서 120px로 축소 */
+            position: relative; border: 2px dashed #555; border-radius: 10px; 
+            margin: 10px auto; /* 위아래 여백 축소 */
+            width: 90%; max-width: 450px; 
+            display: flex; flex-direction: row; justify-content: flex-start; align-items: center; 
+            padding-left: 50px; background: rgba(0,0,0,0.3); overflow: hidden; 
+        }
+        
+        /* 사람(작업자) 영역: 직관적인 사람 아이콘 적용 */
+        .worker-box { display: flex; flex-direction: column; align-items: center; z-index: 2; transition: all 0.3s ease; }
+        .worker-icon { font-size: 3rem; margin-bottom: 5px; transition: all 0.3s; color: #ccc; } /* 기존 4rem -> 3rem 축소 */
+        .worker-status { font-weight: 900; font-size: 1rem; padding: 4px 10px; border-radius: 5px; transition: all 0.3s; color: #ccc; background: rgba(255,255,255,0.1); }
+
+        /* 로봇 팔 영역: 진짜 로봇 팔 모양 적용 */
+        .robot-arm-box { position: absolute; right: 40px; font-size: 3.5rem; z-index: 2; transform-origin: center right; } /* 기존 5rem -> 3.5rem 축소 */
+        
+        /* 1. 산업용 모드: 사람 코앞까지 위협적으로 다가옴 (완전히 겹치지 않게 거리 조절) */
+        .attack-fast { animation: dashCrash 1s forwards cubic-bezier(0.5, 0, 1, 1); filter: drop-shadow(0 0 10px #FF5555); }
+        @keyframes dashCrash {
+            0%, 20% { transform: translateX(0); }
+            100% { transform: translateX(-160px); } /* 완전히 겹치지 않고 아슬아슬하게 정지 */
+        }
+        
+        /* 2. 협동 로봇 모드: 사람에게 다가가다가 더 멀리서 안전하게 딱 멈춤! */
+        .approach-safe { animation: dashSafe 2.5s infinite alternate ease-in-out; filter: drop-shadow(0 0 10px #2ecc71); }
+        @keyframes dashSafe {
+            0%, 10% { transform: translateX(0); }
+            40%, 100% { transform: translateX(-90px); } /* 충돌 지점보다 훨씬 앞에서 정지 */
+        }
+        /* 기존에 있던 불필요한 .human-shock (떨림 효과) 코드는 완전히 삭제했습니다. */
+/* 로봇이 가까워졌을 때 X 표시 네온 팝업 효과 */
+        .crash-x { display: inline-block; animation: xGlow 1s infinite alternate cubic-bezier(0.5, 0, 1, 1); }
+        @keyframes xGlow {
+            0%, 75% { filter: drop-shadow(0 0 0px transparent); transform: scale(1); }
+            100% { filter: drop-shadow(0 0 10px #FFFB03) drop-shadow(0 0 20px #FFFB03); transform: scale(1.6); }
+        }
+@keyframes arc-move {
+    0% { 
+        /* 출발 지점 */
+        transform: translateX(0) translateY(0) rotate(0deg); 
+    }
+    30% {
+        /* 사람에게 닿기 전, 미리 대각선 위로 크게 방향을 틈 */
+        transform: translateX(-50px) translateY(-100px) rotate(-35deg);
+    }
+    60% { 
+        /* 사람의 머리 위를 아슬아슬하지 않게 '멀리' 지나가는 정점 지점 */
+        transform: translateX(-150px) translateY(-110px) rotate(-15deg); 
+    } 
+    100% { 
+        /* 사람을 완전히 지나쳐서 왼쪽 먼 곳으로 안전하게 이동 완료 */
+        transform: translateX(-300px) translateY(-20px) rotate(0deg); 
+        opacity: 0.7; /* 지나가서 멀어지는 거리감 표현 */
+    }
+}
+
+/* --- [신규] 상세 & 다음 버튼 통합 그룹 --- */
+        .nav-action-group {
+            position: absolute;
+            left: calc(100% + 20px); /* 패널 오른쪽 끝에서 20px 바깥으로 완전히 뺌 */
+            top: 50%;
+            transform: translateY(-50%); /* 세로 중앙 정렬 */
+            display: flex;
+            flex-direction: column; 
+            align-items: center; /* 두 버튼 가운데 정렬 */
+            gap: 15px; /* 버튼 사이 간격 */
+            z-index: 10;
+        }
+        
+       
+        .go-detail-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(44, 153, 153, 0.15);
+            color: #86D1D1;
+            border: 1px solid #2C9999;
+            padding: 10px 18px;
+            border-radius: 8px; 
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            white-space: nowrap; /* 글자 안 깨지게 고정 */
+        }
+        .go-detail-btn:hover {
+            background: #2C9999;
+            color: #1a1a1a;
+            box-shadow: 0 0 15px rgba(44, 153, 153, 0.5);
+            transform: scale(1.05); /* 아래 화살표랑 똑같이 커지는 효과 */
+        }
+
+        /* 그룹 안에 들어간 아래 화살표 버튼 위치 초기화 */
+        .nav-action-group .nav-side-btn {
+            position: static;
+            transform: none;
+            margin: 0;
+        }
+        .nav-action-group .nav-side-btn:hover {
+            transform: scale(1.1); 
+        }
+
+/* --- [수정] 상세 & 다음 버튼 그룹 (가로 배열, 하단 이동, 두께 축소) --- */
+.nav-action-group {
+    position: relative; /* 우측 바깥(absolute)에서 본문 안쪽(relative)으로 변경 */
+    display: flex;
+    flex-direction: row; /* 세로(column)에서 가로(row)로 나란히 배치 */
+    justify-content: center; /* 가운데 정렬 */
+    align-items: center;
+    gap: 15px; /* 두 버튼 사이 간격 */
+    margin-top: 30px; /* 위쪽 콘텐츠와의 간격 넉넉하게 */
+    width: 100%;
+    z-index: 10;
+}
+
+
+.go-detail-btn, .nav-side-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(44, 153, 153, 0.15); /* 배경색 통일 */
+    color: #86D1D1; /* 폰트색 통일 */
+    border: 1px solid #2C9999; /* 테두리 통일 */
+    padding: 8px 20px; /* 🚨 위아래 두께(padding)를 기존 12px에서 8px로 대폭 축소! */
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.95rem; /* 글자 크기도 미세하게 줄여 밸런스 조정 */
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    white-space: nowrap;
+    min-width: 150px; /* 최소 너비 지정 */
+    width: auto;
+    cursor: pointer;
+    font-family: 'Chakra Petch', sans-serif;
+}
+
+.go-detail-btn:hover, .nav-side-btn:hover {
+    background: #2C9999;
+    color: #1a1a1a;
+    transform: scale(1.05);
+}
+
+.go-detail-btn:hover, .nav-side-btn:hover {
+    background: #2C9999;
+    color: #1a1a1a;
+    transform: scale(1.05);
+}
+
+/* --- 모바일/태블릿 가로 잘림 및 사이드바 겹침 완전 해결 (1024px 이하) --- */
+
+/* 🚨 모바일 가로 튕김(오버플로우) 완벽 방어막 🚨 */
+        html, body {
+            max-width: 100vw !important;
+            overflow-x: hidden !important; /* 가로 스크롤과 튕김을 원천 차단 */
+            width: 100% !important;
+        }
+
+
+/* 🚨 낡은 노란색 네온 효과 강제 삭제 및 호버 디자인 완벽 통일 🚨 */
+        .go-detail-btn:hover, .nav-side-btn:hover {
+            background: #2C9999 !important;
+            color: #1a1a1a !important;
+            border-color: #2C9999 !important;
+            box-shadow: 0 0 15px rgba(44, 153, 153, 0.5) !important;
+            transform: scale(1.05) !important;
+        }
+/* --- [신규] 우측 Blueprint HUD (로봇 조립 설계도) --- */
+        /* --- [신규] 우측 Blueprint HUD (로봇 조립 설계도) --- */
+    /* 🚨 모든 중복 코드를 씹고 강제로 패널 하단으로 내리는 절대 규칙 🚨 */
+        .nav-action-group {
+            position: relative !important;
+            left: 0 !important;
+            top: 0 !important;
+            transform: none !important;
+            display: flex !important;
+            flex-direction: row !important; /* 세로가 아닌 가로로 나란히 배치 */
+            justify-content: center !important; /* 가운데 정렬 */
+            align-items: center !important;
+            gap: 15px !important;
+            margin-top: 35px !important; /* 위쪽 콘텐츠와 넉넉한 간격 */
+            width: 100% !important;
+        }
+
+        .go-detail-btn, .nav-side-btn {
+            position: relative !important;
+            transform: none !important;
+            padding: 8px 25px !important; /* 🚨 위아래 두께를 대폭 줄임 (기존 12px -> 8px) */
+            width: auto !important;
+            min-width: 160px !important;
+            height: auto !important;
+            margin: 0 !important;
+        }
+        
+        /* 좁은 스마트폰 화면에서는 삐져나가지 않게 다시 세로로 꽉 차게 보호 */
+        @media (max-width: 768px) {
+            .nav-action-group {
+                flex-direction: column !important;
+            }
+            .go-detail-btn, .nav-side-btn {
+                width: 100% !important;
+            }
+        }   
+/* --- [신규] 우측 실전 사례(Real-World Use) 패널 --- */
+        #realworld-panel {
+            position: fixed; right: 30px; 
+            top: 230px; /* 🚨 120px -> 230px로 변경: 메인 패널(청록색 박스) 상단 높이와 나란히 맞춤 */
+            width: 380px;
+            /* bottom: 30px; (삭제함) */
+            height: auto; 
+            max-height: calc(100vh - 260px); /* 🚨 패널이 아래로 내려온 만큼 최대 높이 제한도 수정 */
+            overflow-y: auto; /* 🚨 추가: 내용이 너무 많으면 패널 안에서 스크롤 생성 */
+            background: rgba(10, 15, 20, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(44, 153, 153, 0.4); border-radius: 15px; padding: 25px; z-index: 90; display: flex; flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(44, 153, 153, 0.1);
+            transition: all 0.3s ease;
+        }
+        .rw-header { color: #FFFB03; font-family: 'Orbitron', sans-serif; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 20px; font-weight: 700; font-size: 1.1rem; display:flex; align-items:center; justify-content:center; gap:10px;}
+        .rw-image-box { width: 100%; height: 220px; border-radius: 10px; overflow: hidden; border: 2px solid #2C9999; margin-bottom: 20px; position: relative; background: #000; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .rw-image { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.4s ease; }
+        .rw-title { color: #86D1D1; font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; transition: opacity 0.4s ease;}
+        .rw-desc { color: #e0e0e0; font-size: 1rem; line-height: 1.6; font-family: 'Roboto', sans-serif; transition: opacity 0.4s ease;}
+        
+        /* 🚨 화면 겹침 방지 보호막 */
+        @media (min-width: 1401px) { main { padding-right: 440px !important; } }
+        @media (max-width: 1400px) { #realworld-panel { display: none !important; } }
+		/* 🚨 패널 내부 위아래 여백 다이어트 (아래쪽 잘림 완벽 방지) 🚨 */
+        .lab-card {
+            padding: 20px 30px !important; /* 전체 테두리 안쪽 여백 대폭 축소 (기존 40px) */
+        }
+        
+        .lab-card h3 {
+            margin-bottom: 10px !important; /* 상태 메시지 아래 텅 빈 여백 축소 */
+            padding: 8px 20px !important; /* 메시지 캡슐 박스 위아래 두께 축소 */
+        }
+
+        /* 팁(전구) 박스 잉여 마진 및 패딩 축소 */
+        .lab-card > div[style*="margin-top: 30px;"] {
+            margin-top: 15px !important; 
+            margin-bottom: 5px !important;
+            padding: 10px 15px !important;
+        }
+
+        
+        .nav-action-group {
+            margin-top: 15px !important; 
+        }
+
+        /* 공간을 많이 차지하던 특정 패널 그림 영역들 추가 압축 */
+        #lab-balance .robot-character { margin: 10px 0 !important; }
+        .maze-road { margin: 10px 20px 15px 20px !important; height: 100px !important; }
+        .muscle-canvas { margin: 10px auto !important; height: 100px !important; width: 100px !important; }
+        .muscle-canvas .fas.fa-robot { transform-origin: center 50px !important; }
+        .cobot-workspace { margin: 5px auto 10px auto !important; height: 100px !important; }
+/* --- [신규] 떠다니는 TOP 버튼 --- */
+        .floating-top-btn {
+            position: fixed;
+            /* 1. 👇 위치 조절: 숫자를 키우면 화면 안쪽(위/왼쪽)으로 더 들어옵니다. (예: 50px, 80px 등) */
+            bottom: 50px; 
+            left: 300px; 
+            
+            width: 50px;
+            height: 50px;
+            
+            /* 2. 👇 배경 투명하게: 기존 rgba 코드를 지우고 'transparent'로 변경! */
+            background: transparent; 
+            
+            color: #2C9999; /* 화살표 아이콘 색상 */
+            border: 2px solid #2C9999; /* 테두리 색상 */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 9999; 
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+.floating-top-btn:hover {
+            /* 마우스 올렸을 때 살짝만 네온 불빛이 들어오게 변경 */
+            background: rgba(44, 153, 153, 0.2); 
+            color: #2C9999;
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(44, 153, 153, 0.6);
+        }
+        
+        @media (max-width: 1024px) {
+            /* 3. 👇 모바일/태블릿에서의 위치 조절 (필요시 이 숫자도 조절하세요) */
+            .floating-top-btn { bottom: 40px; right: 30px; width: 45px; height: 45px; font-size: 1.2rem; }
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+<button class="menu-toggle-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+<div style="flex: 1; display: flex; justify-content: flex-start;">
+    <a href="index.html" class="logo-link" style="text-decoration: none;">
+        <div class="logo" style="display: flex; align-items: center; gap: clamp(5px, 2vw, 15px);">
+            <img src="image/favicon.png" alt="Logo" class="logo-image" style="height: clamp(45px, 10vw, 65px); width: auto; border-radius: 50%;"> 
+            
+            <div style="font-family: 'Chakra Petch', sans-serif; font-style: italic; display: flex; flex-direction: column; line-height: 0.8; margin-top: 5px;">
+                <span style="color: #ffffff; font-size: clamp(1.3rem, 5vw, 2.2rem); font-weight: 900; z-index: 2; letter-spacing: 1px; -webkit-text-stroke: 0.3px #000;">LEARN</span>
+                
+                <span style="color: #FFFB03; font-size: clamp(1.8rem, 8vw, 3.6rem); font-weight: 900; z-index: 1; margin-left: clamp(15px, 6vw, 50px); margin-top: -5px; -webkit-text-stroke: 0.3px #000;">ROBOT</span>
+            </div>
+        </div> 
+    </a>
+</div>
+    
+    <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; height: 90px; max-width: 728px; overflow: hidden; margin: 0 20px;">
+        <ins class="adsbygoogle"
+             style="display:inline-block; width:100%; max-width:728px; height:90px;"
+             data-ad-client="ca-pub-2674022896970936"
+             data-ad-slot="2262766753"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="auth-buttons" style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 20px;">
+<div class="lang-wrapper" style="display: flex; gap: 10px;">
+    <button class="lang-btn" onclick="openRobotWiki()" style="border-color: #9b59b6; color: #9b59b6;">
+        <i class="fas fa-book"></i>
+        <span class="lang-current notranslate" style="font-family: 'Chakra Petch', sans-serif;">Hall of Fame</span>
+    </button>
+    <button class="lang-btn" onclick="toggleLanguageMenu()" title="Select Language">
+        <i class="fas fa-globe"></i>
+        <span class="lang-current notranslate">EN</span>
+        <i class="fas fa-caret-down"></i>
+    </button>
+    <div id="lang-dropdown" class="lang-dropdown">
+        <a href="#" onclick="changeLanguage('en'); return false;"><span class="fi fi-us"></span> English</a>
+        <a href="#" onclick="changeLanguage('zh-CN'); return false;"><span class="fi fi-cn"></span> Chinese</a>                
+        <a href="#" onclick="changeLanguage('ko'); return false;"><span class="fi fi-kr"></span> Korean</a>
+        <a href="#" onclick="changeLanguage('ja'); return false;"><span class="fi fi-jp"></span> Japanese</a>
+        <a href="#" onclick="changeLanguage('es'); return false;"><span class="fi fi-es"></span> Spanish</a>
+        <a href="#" onclick="changeLanguage('fr'); return false;"><span class="fi fi-fr"></span> French</a>
+        <a href="#" onclick="changeLanguage('de'); return false;"><span class="fi fi-de"></span> German</a>
+        <a href="#" onclick="changeLanguage('pt'); return false;"><span class="fi fi-pt"></span> Portuguese</a>
+        <a href="#" onclick="changeLanguage('it'); return false;"><span class="fi fi-it"></span> Italian</a>
+        <a href="#" onclick="changeLanguage('ru'); return false;"><span class="fi fi-ru"></span> Russian</a>
+    </div>
+</div>
+<div id="google_translate_element" style="position: absolute; bottom: 0; left: 0; width: 1px; height: 1px; overflow: hidden; opacity: 0;"></div>
+        <div class="sns-icons">
+            <div class="email-hover-wrap">
+                <a href="mailto:learnrobot@learnrobot.com">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <div class="email-tooltip">learnrobot@learnrobot.com</div>
+            </div>
+            <a href="https://www.instagram.com/learnrobot" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://x.com/learnrobot" target="_blank">
+                <i class="fab fa-x-twitter"></i>
+            </a>
+        </div>
+    </div>
+</header>
+
+<div class="container-fluid">
+    <aside id="sidebarMenu">
+
+<div class="category-group">
+            <div class="group-title">How Robots Work</div>
+            <button class="category-btn active" onclick="scrollToId('lab-balance', this)"><i class="fas fa-child" style="color:#86D1D1; width: 25px;"></i> 1. Robot Balance</button>
+            <button class="category-btn" onclick="scrollToId('lab-battery', this)"><i class="fas fa-battery-quarter" style="color:#FFFB03; width: 25px;"></i> 2. Battery & Power</button>
+            <button class="category-btn" onclick="scrollToId('lab-vision', this)"><i class="fas fa-eye" style="color:#2ecc71; width: 25px;"></i> 3. Robot Vision AI</button>
+            <button class="category-btn" onclick="scrollToId('lab-etiquette', this)"><i class="fas fa-handshake" style="color:#FF7777; width: 25px;"></i> 4. Robot Etiquette</button>
+            <button class="category-btn" onclick="scrollToId('lab-egg', this)"><i class="fas fa-egg" style="color:#f1c40f; width: 25px;"></i> 5. Soft Grippers</button> 
+            <button class="category-btn" onclick="scrollToId('lab-gym', this)"><i class="fas fa-brain" style="color:#9b59b6; width: 25px;"></i> 6. AI Training</button>
+            <button class="category-btn" onclick="scrollToId('lab-maze', this)"><i class="fas fa-route" style="color:#3498db; width: 25px;"></i> 7. Path Planning</button>
+            <button class="category-btn" onclick="scrollToId('lab-swarm', this)"><i class="fas fa-users" style="color:#e67e22; width: 25px;"></i> 8. Swarm Robotics</button>
+            <button class="category-btn" onclick="scrollToId('lab-muscle', this)"><i class="fas fa-cogs" style="color:#95a5a6; width: 25px;"></i> 9. Precision Motors</button>
+           <button class="category-btn" onclick="scrollToId('lab-cobot', this)"><i class="fas fa-shield-alt" style="color:#1abc9c; width: 25px;"></i> 10. Safety Sensors</button>
+     
+        </div>
+
+        <a href="robotics_101.html#mechanics" class="nav-link-btn">
+            <span>Go to Robotics 101</span>
+            <i class="fas fa-arrow-right"></i>
+        </a>
+
+       <div class="category-group" style="padding: 0; border: none; background: transparent;">
+    <div class="spotlight-card" style="width: 100%; padding: 15px; border-radius: 10px; display: block !important;">
+        
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+            <div style="color: #86D1D1; font-weight: 700; font-size: 0.9rem; padding-bottom: 5px; border-bottom: 2px solid rgba(134, 209, 209, 0.5); width: fit-content;">
+                <i class="fas fa-star" style="color: #FFFB03;"></i> Players in Robotics
+            </div>
+            <i class="fas fa-sync-alt" id="spotlight-refresh-icon" onclick="nextSpotlight()" style="color: #FFFB03; cursor: pointer; font-size: 0.9rem;"></i>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(134, 209, 209, 0.2); border-radius: 10px; padding: 12px; margin-bottom: 12px; box-shadow: inset 0 0 10px rgba(0,0,0,0.2);">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; min-height: 40px;">
+                <span id="sl-flag-large" class="country-flag" style="font-size: 1.2rem; flex-shrink: 0;"></span>
+                <h2 id="sl-name" style="color: #fff; font-weight: 900; font-size: 1.05rem; margin: 0; line-height: 1.3;">LOADING...</h2>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem;">
+                <i class="fas fa-layer-group" style="color: #86D1D1; font-size: 0.8rem; opacity: 0.7;"></i>
+                <span id="sl-category" style="color: #ccc; font-weight: 500;">-</span>
+            </div>
+        </div>
+        
+        <div style="display: flex; flex-direction: column; width: 100%;">
+            <a href="#" id="sl-link" target="_blank" class="visit-btn" style="padding: 8px 0; font-size: 0.95rem; width: 100%; justify-content: center; border-radius: 6px; margin-bottom: 8px;">Visit</a>
+            
+            <a href="players_in_robotics.html" class="sub-find-btn" style="margin-top: 5px;">
+                Find 300+ More
+            </a>
+        </div>
+
+    </div>
+</div>
+    </aside>
+
+    <main id="main-scroll-area">
+        
+        <section id="hero-intro" style="min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; padding: 20px; border-bottom: none;">
+            <div style="max-width: 850px; z-index: 2;">
+                <h1 style="font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; color: var(--accent-color); text-transform: none ; margin-bottom: 25px; line-height: 1.2; text-shadow: 0 10px 30px rgba(0,0,0,0.8);">
+                    How Robots Work<br>
+                    <span style="color: #fff; text-shadow: 0 0 25px rgba(255,251,3,0.5); font-size: 0.55em;">- interactive tour -</span>
+                </h1>
+                
+         <p style="font-family: 'Roboto', sans-serif; color: #ccc; font-size: 1.25rem; line-height: 1.8; margin-bottom: 20px;">
+                    Robotics made simple here.</br>
+Explore how robots work through interactive contents.</br>
+
+                </p>
+                
+          <div style="position: relative; width: 100%; height: 50px; margin-top: 20px;">
+                <div style="position: absolute; left: 50%; animation: bounce-down 2s infinite; cursor: pointer;" onclick="scrollToId('lab-balance')">
+                    <i class="fas fa-chevron-down" style="color: #86D1D1; font-size: 2.5rem; opacity: 0.7; transition: opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'"></i>
+                </div>
+            </div>
+        </section>
+
+        <section id="lab-balance">
+            <h1 class="section-title">1. Robot Balance</h1>
+            <p class="section-subtitle">Robots easily lose balance. Equip sensors to keep it standing!</p>
+            
+            <div class="lab-card">
+                <div style="height: 180px; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+    <div id="balance-bot" class="robot-character robot-falling" style="margin: 0; opacity: 0.9; position: relative; z-index: 1;">
+        <svg viewBox="0 0 100 100" width="1em" height="1em" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <line x1="50" y1="12" x2="50" y2="4" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="50" cy="4" r="3" fill="#FFFB03"/>
+            <rect x="35" y="14" width="30" height="24" rx="6" />
+            <rect x="42" y="20" width="16" height="6" rx="3" fill="#1a1a1a"/>
+            <rect x="46" y="38" width="8" height="6" />
+            <path d="M 30 44 L 70 44 L 65 70 L 35 70 Z" />
+            <circle cx="28" cy="48" r="6" />
+            <rect x="23" y="48" width="10" height="28" rx="5" />
+            <circle cx="72" cy="48" r="6" />
+            <rect x="67" y="48" width="10" height="28" rx="5" />
+            <rect x="37" y="70" width="10" height="28" rx="4" />
+            <rect x="53" y="70" width="10" height="28" rx="4" />
+        </svg>
+    </div>
+</div>
+
+                
+                <h3 id="balance-msg" style="position: relative; z-index: 10; background: rgba(15, 20, 25, 0.95); padding: 12px 25px; border-radius: 30px; display: inline-block; margin-bottom: 20px; color: #FF5555; box-shadow: 0 5px 15px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1);">Warning: IMU Sensor Missing!</h3>
+                
+                <div style="margin-bottom: 15px;">
+                    <button class="lab-btn" onclick="equipIMU()"><i class="fas fa-microchip"></i> Equip IMU Sensor</button>
+                    <button class="lab-btn" onclick="removeIMU()"><i class="fas fa-hammer"></i> Remove Sensor</button>
+                </div>
+                
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Click a button above to test
+                </div>
+
+<div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                An <strong>IMU (Inertial Measurement Unit)</strong> acts like the human inner ear, detecting gravity and tilt.
+            </div>
+
+            <div class="nav-action-group">
+                <a href="robotics_101.html#mechanics" target="_blank" class="go-detail-btn">learn more <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-battery')" title="Next: Battery & Power">next topic <i class="fas fa-arrow-down"></i></button>
+            </div>
+        </div> </section>
+
+        <section id="lab-battery">
+            <h1 class="section-title">2. Battery & Power</h1>
+            <p class="section-subtitle">Why do robots run out of power so fast? Try clicking the tasks.</p>
+            
+            <div class="lab-card">
+                <div class="battery-container">
+                    <div id="battery-level" class="battery-level">100%</div>
+                </div>
+                
+                <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+                    <button class="lab-btn" onclick="useBattery(30)"><i class="fas fa-eye"></i> Run AI Vision (-30%)</button>
+                    <button class="lab-btn" onclick="useBattery(40)"><i class="fas fa-box"></i> Lift Heavy Box (-40%)</button>
+                    <button class="lab-btn" onclick="useBattery(20)"><i class="fas fa-running"></i> Walk 1km (-20%)</button>
+                    <button class="lab-btn" onclick="recharge()" style="border-color: #2ecc71; color: #2ecc71;"><i class="fas fa-bolt"></i> Recharge</button>
+                </div>
+
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Click buttons above to drain battery
+                </div>
+
+                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                    Robots are <strong>walking supercomputers</strong>. Processing AI data consumes massive amounts of electricity!
+                </div>
+<div class="nav-action-group">
+                <a href="robotics_101.html#electronics" target="_blank" class="go-detail-btn">learn more <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-vision')" title="Next: Robot Vision AI">next topic <i class="fas fa-arrow-down"></i></button>
+            </div>
+            </div> </section>
+
+
+        <section id="lab-vision">
+            <h1 class="section-title">3. Robot Vision AI</h1>
+            <p class="section-subtitle">Robots don't see pictures. They see data and math.</p>
+            
+            <div class="lab-card">
+                <div id="vision-box" class="vision-box">
+                    <div class="bounding-box" style="top: 20%; left: 35%; width: 40%; height: 60%;">DOG: 98% MATCH</div>
+                    <div class="bounding-box" style="top: 70%; left: 15%; width: 20%; height: 20%;">HOODIE: 89%</div>
+                </div>
+                
+                <div style="margin-top: 25px; margin-bottom: 15px;">
+                    <button id="vision-btn" class="lab-btn" onclick="toggleVision()"><i class="fas fa-robot"></i> Switch to Robot Eye</button>
+                </div>
+
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Click the button above to switch views
+                </div>
+
+<div class="nav-action-group">
+                <a href="robotics_101.html#ai" target="_blank" class="go-detail-btn">learn more <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-etiquette')" title="Next: Robot Etiquette">next topic <i class="fas fa-arrow-down"></i></button>
+            </div>
+        </section>
+
+        <section id="lab-etiquette">
+            <h1 class="section-title">4. Robot Etiquette</h1>
+            <p class="section-subtitle">A delivery robot suddenly stops in front of you. What do you do?</p>
+            
+            <div class="lab-card">
+    <div id="etiq-scene" class="etiquette-scene">
+    <i id="etiq-person" class="fas fa-walking etiq-actor" style="color: #ccc;"></i>
+    <div style="position: relative;">
+        <div id="etiq-x" class="etiq-wrong-x">❌</div> <i id="etiq-robot" class="fas fa-robot etiq-actor" style="color: #86D1D1; transform: scaleX(-1);"></i>
+    </div>
+</div>
+                <div id="etiq-msg" style="height: 30px; margin-bottom: 20px; font-size: 1.2rem;"></div>
+                
+                <div style="margin-bottom: 15px;">
+                    <button class="lab-btn" onclick="answerEtiquette('kick')">❌ Push it away</button>
+                    <button class="lab-btn" onclick="answerEtiquette('wait')">⭕ Wait 3 seconds</button>
+                </div>
+
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Click your choice above
+                </div>
+
+                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                    <strong>Robot Etiquette:</strong> Treat working robots just like you would treat a working human. Give them space!
+                </div>
+<div class="nav-action-group">
+               <a href="robotics_101.html#electronics" target="_blank" class="go-detail-btn">learn more <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-egg')" title="Next: Soft Grippers">next topic <i class="fas fa-arrow-down"></i></button>
+            </div>       </section>
+<section id="lab-egg">
+            <h1 class="section-title">5. Soft Grippers</h1>
+            <p class="section-subtitle">Robots have strong grips, but can they hold an egg without breaking it?</p>
+            <div class="lab-card">
+               <div id="egg-display-area" style="height: 150px; display: flex; align-items: center; justify-content: center; position: relative;">
+                    <i id="egg-stage" class="fas fa-egg egg-icon" style="color: white; transform: scale(1);"></i>
+                </div>
+                <h3 id="egg-msg" style="position: relative; z-index: 10; background: rgba(15, 20, 25, 0.95); padding: 12px 25px; border-radius: 30px; display: inline-block; margin-bottom: 20px; color: #fff; border: 1px solid rgba(255,255,255,0.1);">Waiting for gripper...</h3>
+                
+                <div style="margin-bottom: 15px;">
+                    <button class="lab-btn" onclick="testGrip('steel')"><i class="fas fa-claw-marks"></i> Steel Gripper</button>
+                    <button class="lab-btn" onclick="testGrip('soft')"><i class="fas fa-mitten"></i> Soft Pneumatic Hand</button>
+                </div>
+                
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Choose a hand to grip the egg
+                </div>
+
+                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                    <strong>Soft Robotics:</strong> Instead of rigid metal, robots are now using silicon and air pressure to safely handle fragile items in our daily lives.
+                </div>
+<div class="nav-action-group">
+               <a href="robotics_101.html#mechanics" target="_blank" class="go-detail-btn">learn more <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-gym')" title="Next: AI Training">next topic <i class="fas fa-arrow-down"></i></button>
+            </div>        </section>
+
+        <section id="lab-gym">
+            <h1 class="section-title">6. AI Training</h1>
+            <p class="section-subtitle">Robots aren't born smart. They learn by failing thousands of times.</p>
+        <div class="lab-card">
+                <div style="height: 150px; display: flex; align-items: center; justify-content: center;">
+                    <svg id="gym-bot" class="gym-bot" viewBox="0 0 100 100" width="1em" height="1em" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="50" y1="12" x2="50" y2="4" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="50" cy="4" r="3" fill="#FFFB03"/>
+                        <rect x="35" y="14" width="30" height="24" rx="6" />
+                        <rect x="42" y="20" width="16" height="6" rx="3" fill="#1a1a1a"/>
+                        <rect x="46" y="38" width="8" height="6" />
+                        <path d="M 30 44 L 70 44 L 65 70 L 35 70 Z" />
+                        <circle cx="28" cy="48" r="6" />
+                        <rect x="23" y="48" width="10" height="28" rx="5" />
+                        <circle cx="72" cy="48" r="6" />
+                        <rect x="67" y="48" width="10" height="28" rx="5" />
+                        <rect x="37" y="70" width="10" height="28" rx="4" />
+                        <rect x="53" y="70" width="10" height="28" rx="4" />
+                    </svg>
+                </div>
+                <h3 id="gym-msg" ... >Ready to learn a backflip!</h3>
+                <div style="margin-bottom: 15px;">
+                    <button class="lab-btn" onclick="trainBot(10)"><i class="fas fa-dumbbell"></i> Train: 10 tries</button>
+                    <button class="lab-btn" onclick="trainBot(100)"><i class="fas fa-dumbbell"></i> Train: 100 tries</button>
+                    <button class="lab-btn" onclick="trainBot(10000)" style="border-color: #9b59b6; color: #9b59b6;"><i class="fas fa-brain"></i> Train: 10,000 tries</button>
+                </div>
+
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Click buttons to train the AI
+                </div>
+
+                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                    <strong>Reinforcement Learning:</strong> The AI tries random movements in a simulation. It gets "points" for getting closer to the goal, eventually mastering the skill.
+                </div>
+<div class="nav-action-group">
+                <a href="robotics_101.html#ai" target="_blank" class="go-detail-btn">learn more <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-maze')" title="Next: Path Planning">next topic <i class="fas fa-arrow-down"></i></button>
+            </div></section>
+
+        <section id="lab-maze">
+            <h1 class="section-title">7. Path Planning</h1>
+            <p class="section-subtitle">What happens when a sudden obstacle blocks a robot's path?</p>
+<div class="lab-card">
+<style>
+        .maze-road {
+            position: relative; height: 120px; border-bottom: 3px solid #444; 
+            margin: 20px 20px 40px 20px;
+        }
+        .path-straight {
+            animation: runBot 3s linear infinite;
+        }
+        /* 장애물을 피할 때는 로봇이 노란색으로 빛나며 곡선으로 이동합니다 */
+        .path-detour-anim {
+            animation: runDetour 3s linear infinite;
+            color: #FFFB03 !important; 
+            filter: drop-shadow(0 0 10px rgba(255,251,3,0.8));
+        }
+        @keyframes runBot {
+            0% { left: 0px; bottom: -5px; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { left: calc(100% - 50px); bottom: -5px; opacity: 0; }
+        }
+        /* [수정됨] 회피 궤적: 더 일찍 꺾고(30%), 더 높이 날아서(85px) 장애물과 닿지 않음 */
+        @keyframes runDetour {
+            0% { left: 0px; bottom: -5px; opacity: 0; }
+            10% { opacity: 1; }
+            28% { left: calc(50% - 110px); bottom: -5px; } /* 훨씬 더 일찍부터 회피 시작 */
+            50% { left: calc(50% - 20px); bottom: 105px; } /* 로봇 몸통 너비(-20px)를 계산해 완벽한 중앙 위치, 높이는 105px로 대폭 상승! */
+            72% { left: calc(50% + 70px); bottom: -5px; } /* 장애물을 완전히 넘어서 여유롭게 착지 */
+            90% { opacity: 1; }
+            100% { left: calc(100% - 50px); bottom: -5px; opacity: 0; }
+        }
+        @keyframes popInObs {
+            0% { transform: translateX(-50%) scale(0); }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+/* 👇 모바일 햄버거 버튼 기본(숨김) 👇 */
+        .menu-toggle-btn {
+            display: none; background: transparent; border: none; color: #fff;
+            font-size: 1.8rem; cursor: pointer; z-index: 1001; padding: 10px; margin-right: 10px;
+        }
+/* ==================================================================== */
+/* 📱 모바일 완벽 통합 수리 (1024px 이하) - 이 코드 하나만 남기세요 📱 */
+/* ==================================================================== */
+@media (max-width: 1024px) {
+    /* 1. 화면 가로 튕김 원천 차단 */
+    html, body {
+        overflow-x: hidden !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+    }
+
+    /* 2. 본문 레이아웃 정렬 */
+    .container-fluid {
+        flex-direction: column !important;
+        overflow-x: hidden !important;
+    }
+    main {
+        padding: 20px 15px !important;
+        width: 100vw !important;
+        margin-left: 0 !important;
+        overflow-x: hidden !important;
+    }
+
+ /* 3. 헤더 최적화 및 언어 버튼 구출 */
+    header {
+        padding: 0 10px !important;
+        gap: 10px !important;
+    }
+    /* 🚨 2번(로고)이 아니라 3번(광고)이 숨겨지도록 숫자 수정! */
+    header > div:nth-child(3) { display: none !important; }
+    
+    .auth-buttons {
+        display: flex !important;
+        margin-left: auto !important; /* 밀려난 버튼들 우측으로 당겨옴 */
+        gap: 5px !important;
+    }
+    .sns-icons { display: none !important; } /* 모바일은 공간 부족으로 SNS 아이콘 숨김 */
+    .lang-btn { padding: 5px 8px !important; font-size: 0.85rem !important; }
+
+    /* 4. 햄버거 메뉴 버튼 노출 */
+    .menu-toggle-btn {
+        display: block !important;
+        background: transparent; border: none; color: #fff;
+        font-size: 1.8rem; cursor: pointer; z-index: 1001;
+        padding: 5px; margin-right: 5px;
+    }
+
+    /* 5. 사이드바 (햄버거 누르기 전엔 화면 밖에 대기) */
+    aside#sidebarMenu {
+        display: flex !important;
+        position: fixed !important;
+        left: -320px !important; /* 화면 왼쪽 밖으로 숨김 */
+        top: 100px !important;
+        bottom: 0 !important;
+        width: 280px !important;
+        background: rgba(20, 20, 20, 0.98) !important;
+        transition: left 0.3s ease !important;
+        z-index: 1000 !important;
+        transform: none !important; /* 옛날 충돌 코드 무력화 */
+    }
+    /* 자바스크립트가 작동하여 클래스가 추가되면 화면에 등장 */
+    aside#sidebarMenu.mobile-open {
+        left: 0 !important; 
+    }
+
+    /* 6. 카드 및 내비게이션 버튼 세로 정렬 */
+    .spotlight-wrapper { display: flex !important; flex-direction: column !important; height: auto !important; }
+    .spotlight-card, .side-card.news-card { width: 100% !important; height: auto !important; }
+    
+    .nav-action-group { 
+        position: static !important; transform: none !important; 
+        flex-direction: column !important; width: 100% !important; margin-top: 25px !important; 
+    }
+    .go-detail-btn, .nav-side-btn { width: 100% !important; min-width: 0 !important; }
+}
+    </style>
+
+    <div class="maze-road">
+        <i class="fas fa-flag-checkered" style="position: absolute; right: -10px; bottom: -5px; font-size: 3rem; color: #2ecc71;"></i>
+
+        <div id="maze-obs" style="position: absolute; left: 50%; bottom: -5px; transform: translateX(-50%); display: none; z-index: 2; animation: popInObs 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+            <i class="fas fa-road-barrier" style="font-size: 3.5rem; color: #FF5555;"></i>
+        </div>
+
+        <i id="maze-moving-bot" class="fas fa-robot path-straight" style="position: absolute; left: 0; bottom: -5px; font-size: 2.5rem; color: #86D1D1; z-index: 3;"></i>
+    </div>
+    
+    <h3 id="maze-msg" style="background: rgba(15, 20, 25, 0.95); padding: 12px 25px; border-radius: 30px; display: inline-block; margin-bottom: 20px; color: #fff; border: 1px solid rgba(255,255,255,0.1);">Path is clear. Driving straight...</h3>
+    
+    <div style="margin-bottom: 15px;">
+        <button id="maze-btn" class="lab-btn" onclick="dropObstacle()"><i class="fas fa-cube"></i> Drop Obstacle</button>
+    </div>
+
+    <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+        <i class="fas fa-hand-point-up fa-bounce"></i> Click to disrupt the robot's path
+    </div>
+
+    <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+        <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+        <strong>Dynamic Path Planning:</strong> Robots constantly scan their environment. If blocked, algorithms like A* (A-Star) instantly calculate a new optimal detour.
+    </div>
+<div class="nav-action-group">
+                <a href="robotics_101.html#programming" target="_blank" class="go-detail-btn">learn more <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-swarm')" title="Next: Swarm Robotics">next topic <i class="fas fa-arrow-down"></i></button>
+            </div></section>
+
+        <section id="lab-swarm">
+            <h1 class="section-title">8. Swarm Robotics</h1>
+            <p class="section-subtitle">Sometimes, many simple robots are better than one complex robot.</p>
+            <div class="lab-card">
+                <div style="height: 160px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; margin-bottom: 10px;">
+                  <div id="swarm-box" class="swarm-box" style="margin-bottom: 0px;">
+                        <svg viewBox="0 0 300 80" style="width: 280px; height: auto; display: block;" fill="currentColor">
+                            <rect x="60" y="36" width="180" height="8" /> <rect x="15" y="20" width="20" height="40" rx="3" />
+                            <rect x="35" y="10" width="25" height="60" rx="4" />
+                            <rect x="240" y="10" width="25" height="60" rx="4" />
+                            <rect x="265" y="20" width="20" height="40" rx="3" />
+                        </svg>
+                    </div>
+                    <div id="swarm-ants" class="swarm-ants">
+                        <i class="fas fa-robot"></i><i class="fas fa-robot" style="display: none;"></i><i class="fas fa-robot" style="display: none;"></i><i class="fas fa-robot" style="display: none;"></i>
+                    </div>
+</div>                <h3 id="swarm-msg" style="background: rgba(15, 20, 25, 0.95); padding: 12px 25px; border-radius: 30px; display: inline-block; margin-bottom: 20px; color: #fff; border: 1px solid rgba(255,255,255,0.1);">Target is extremely heavy.</h3>
+                
+                <div style="margin-bottom: 15px;">
+                    <button class="lab-btn" onclick="liftBox('alone')"><i class="fas fa-user"></i> Lift Alone</button>
+                    <button class="lab-btn" onclick="liftBox('swarm')" style="border-color: #e67e22; color: #e67e22;"><i class="fas fa-users"></i> Call the Swarm</button>
+                </div>
+
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Choose how to lift the box
+                </div>
+
+                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                    <strong>Swarm Robotics:</strong> Inspired by ants, hundreds of small robots communicate locally to perform massive tasks without a central brain. Used heavily in Amazon warehouses.
+                </div>
+<div class="nav-action-group">
+                <a href="robotics_101.html#programming" target="_blank" class="go-detail-btn">learn more <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-muscle')" title="Next: Precision Motors">next topic <i class="fas fa-arrow-down"></i></button>
+            </div>       </section>
+
+        <section id="lab-muscle">
+            <h1 class="section-title">9. Precision Motors</h1>
+            <p class="section-subtitle">Why do robots move so precisely compared to toys?</p>
+            <div class="lab-card">
+                <div class="muscle-canvas">
+                    <i class="fas fa-bullseye" style="position: absolute; right: -15px; top: 50%; transform: translateY(-50%); color: #FF5555; font-size: 1.5rem; z-index: 2;"></i>
+                    <i id="muscle-arm" class="fas fa-robot muscle-arm"></i>
+                </div>
+                <h3 id="muscle-msg" style="background: rgba(15, 20, 25, 0.95); padding: 12px 25px; border-radius: 30px; display: inline-block; margin-bottom: 20px; color: #fff; border: 1px solid rgba(255,255,255,0.1);">Target: Exactly 90 Degrees</h3>
+                <div style="margin-bottom: 15px;">
+                    <button class="lab-btn" onclick="testMotor('toy')"><i class="fas fa-car-battery"></i> Toy Motor</button>
+                    <button class="lab-btn" onclick="testMotor('servo')"><i class="fas fa-cogs"></i> Precision Servo</button>
+                </div>
+
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Equip a motor to draw
+                </div>
+
+                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                    <strong>Actuators & Encoders:</strong> Robot joints don't just spin; they have sensors (Encoders) that tell the computer exactly how many degrees they have turned, allowing zero-error movements.
+                </div>
+<div class="nav-action-group">
+                <a href="robotics_101.html#mechanics" target="_blank" class="go-detail-btn">learn more <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('lab-cobot')" title="Next: Safety Sensors">next topic <i class="fas fa-arrow-down"></i></button>
+            </div>        </section>
+
+<section id="lab-cobot">
+            <h1 class="section-title">10. Safety Sensors</h1>
+            <p class="section-subtitle">How did dangerous factory robots safely move into cafes?</p>
+            <div class="lab-card">
+                
+                <div class="cobot-workspace">
+                    <div class="worker-box">
+                        <i id="worker-icon" class="fas fa-user-gear worker-icon"></i>
+                        <div id="worker-status" class="worker-status">STANDBY</div>
+                    </div>
+                    <div id="robot-arm-box" class="robot-arm-box">🦾</div>
+                </div>
+                
+                <h3 id="cobot-msg" style="background: rgba(15, 20, 25, 0.95); padding: 12px 25px; border-radius: 30px; display: inline-block; margin-bottom: 20px; color: #fff; border: 1px solid rgba(255,255,255,0.1);">Select a mode to test safety!</h3>
+                
+                <div style="margin-bottom: 15px;">
+                    <button class="lab-btn" onclick="setCobotMode2('industrial')"><i class="fas fa-exclamation-triangle"></i> Old Industrial Mode</button>
+                    <button class="lab-btn" onclick="setCobotMode2('cobot')" style="border-color: #1abc9c; color: #1abc9c;"><i class="fas fa-shield-alt"></i> Modern Cobot Mode</button>
+                </div>
+
+                <div style="color: #FFFB03; font-weight: bold; margin-bottom: 10px; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif;">
+                    <i class="fas fa-hand-point-up fa-bounce"></i> Click modes to see how safety changes
+                </div>
+
+                <div style="color: #fff; background: rgba(44, 153, 153, 0.15); border: 1px solid rgba(44, 153, 153, 0.4); border-left: 4px solid #FFFB03; padding: 15px 20px; border-radius: 8px; margin-top: 30px; font-size: 1.05rem; font-weight: 500; text-align: left; line-height: 1.5; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fas fa-lightbulb" style="color: #FFFB03; margin-right: 8px;"></i> 
+                    <strong>Collaborative Robots (Cobots):</strong> Equipped with ultra-sensitive torque sensors. If they feel even the slightest unexpected resistance (like bumping a human), they instantly freeze to prevent injury.
+                </div>
+<div class="nav-action-group">
+                <a href="robotics_101.html#electronics" target="_blank" class="go-detail-btn">learn more <i class="fas fa-arrow-right"></i></a>
+                <button class="nav-side-btn" onclick="scrollToNext('hero-intro')" title="Back to Top">Back to Top <i class="fas fa-arrow-up"></i></button>
+            </div>      </section>
+ <div style="text-align: center; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 30px; scroll-snap-align: end;">
+            <p style="color: #666; font-size: 0.8rem; margin-bottom: 8px; font-family: 'Roboto', sans-serif;">
+                As an Amazon Associate I earn from qualifying purchases.
+            </p>
+            <p style="color: #555; font-size: 0.9rem; font-family: 'Roboto', sans-serif; margin: 0;">
+                &copy; 2026 LearnRobot.com. Demystifying the future.
+            </p>
+        </div>
+
+            
+            
+        </div>
+<div id="realworld-panel">
+            <div class="rw-header">
+                <i class="fas fa-globe"></i> How it's applied
+            </div>
+            <div class="rw-image-box">
+                <img id="rw-img" class="rw-image" src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600" alt="Real World Example">
+            </div>
+            <div id="rw-title" class="rw-title">Welcome to the Future</div>
+            <div id="rw-desc" class="rw-desc">Scroll down to see how the concepts you learn here are being used in real-world robotics today.</div>
+            <div id="rw-ad-slot" style="margin-top: 15px; transition: opacity 0.4s ease; display: none;"></div>
+        </div>
+    </main>
+</div> 
+
+<script>    // ==========================================
+    // ▼ 1~10번 패널 작동 및 설계도 연동 함수들 ▼
+    // ==========================================
+
+    let unlockedParts = new Set();
+    
+    // [기능 1] 정답 시 불 켜기
+    function unlockPart(partNum, partName) {
+        if(unlockedParts.has(partNum)) return;
+        unlockedParts.add(partNum);
+
+        const partEl = document.getElementById('hud-p' + partNum);
+        if(partEl) partEl.classList.add('unlocked');
+
+        const progressEl = document.getElementById('hud-progress');
+        if(progressEl) progressEl.innerText = `${unlockedParts.size} / 10 Modules Online`;
+
+        const logEl = document.getElementById('hud-log');
+        if(logEl) {
+            const entry = document.createElement('div');
+            entry.style.color = '#FFFB03';
+            entry.innerText = `> ${partName} INTEGRATED.`;
+            logEl.appendChild(entry);
+            logEl.scrollTop = logEl.scrollHeight;
+
+            // 10개가 모이면 축하 메시지와 리셋 버튼 등장!
+            if(unlockedParts.size === 10) {
+                setTimeout(() => {
+                    const finalEntry = document.createElement('div');
+                    finalEntry.style.color = '#2ecc71';
+                    finalEntry.style.fontWeight = 'bold';
+                    finalEntry.innerText = `> ROBOT BUILD COMPLETE!`;
+                    logEl.appendChild(finalEntry);
+                    logEl.scrollTop = logEl.scrollHeight;
+                    
+                    const resetBtn = document.getElementById('hud-reset-btn');
+                    if(resetBtn) resetBtn.style.display = 'block';
+                }, 1000);
+            }
+        }
+    }
+
+    // [기능 2] 오답 시 불 끄기
+    function lockPart(partNum, partName) {
+        if(!unlockedParts.has(partNum)) return;
+        unlockedParts.delete(partNum);
+
+        const partEl = document.getElementById('hud-p' + partNum);
+        if(partEl) partEl.classList.remove('unlocked');
+
+        const progressEl = document.getElementById('hud-progress');
+        if(progressEl) progressEl.innerText = `${unlockedParts.size} / 10 Modules Online`;
+
+        const logEl = document.getElementById('hud-log');
+        if(logEl) {
+            const entry = document.createElement('div');
+            entry.style.color = '#FF5555';
+            entry.innerText = `> [WARN] ${partName} DISCONNECTED.`;
+            logEl.appendChild(entry);
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+        
+        const resetBtn = document.getElementById('hud-reset-btn');
+        if(resetBtn) resetBtn.style.display = 'none';
+    }
+
+    // [기능 3] 전체 리셋
+    function resetBlueprint() {
+        unlockedParts.clear();
+        for(let i=1; i<=10; i++) {
+            const partEl = document.getElementById('hud-p' + i);
+            if(partEl) partEl.classList.remove('unlocked');
+        }
+        const progressEl = document.getElementById('hud-progress');
+        if(progressEl) progressEl.innerText = `0 / 10 Modules Online`;
+        
+        const logEl = document.getElementById('hud-log');
+        if(logEl) logEl.innerHTML = '<div>> System initialized.</div><div>> Awaiting module integration...</div>';
+        
+        const resetBtn = document.getElementById('hud-reset-btn');
+        if(resetBtn) resetBtn.style.display = 'none';
+
+        // 사용자 편의를 위해 맨 위로 스크롤
+        document.getElementById('main-scroll').scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- 패널 기능들 ---
+
+    function equipIMU() {
+        const bot = document.getElementById('balance-bot');
+        const msg = document.getElementById('balance-msg');
+        if(bot) bot.className = 'robot-character robot-standing';
+        if(msg) msg.innerHTML = '<span style="color:#2ecc71;">IMU Sensor Online! Balance restored.</span>';
+        unlockPart(1, 'IMU Sensor');
+    }
+    function removeIMU() {
+        const bot = document.getElementById('balance-bot');
+        const msg = document.getElementById('balance-msg');
+        if(bot) bot.className = 'robot-character robot-falling';
+        if(msg) msg.innerHTML = '<span style="color:#FF5555;">Warning: IMU Sensor Missing!</span>';
+        lockPart(1, 'IMU Sensor'); // 오답 시 꺼짐
+    }
+
+    let battLvl = 100;
+    function useBattery(amt) {
+        battLvl = Math.max(0, battLvl - amt);
+        updateBatteryUI();
+        lockPart(2, 'Battery System'); // 배터리 쓰면 꺼짐
+    }
+    function recharge() {
+        battLvl = 100;
+        updateBatteryUI();
+        unlockPart(2, 'Battery System');
+    }
+    function updateBatteryUI() {
+        const bar = document.getElementById('battery-level');
+        if(!bar) return;
+        bar.style.width = battLvl + '%';
+        bar.innerText = battLvl + '%';
+        bar.style.background = battLvl > 50 ? '#2ecc71' : (battLvl > 20 ? '#f1c40f' : '#e74c3c');
+        bar.style.color = battLvl > 20 ? '#000' : '#fff';
+    }
+
+    function toggleVision() {
+        const box = document.getElementById('vision-box');
+        const btn = document.getElementById('vision-btn');
+        if(!box || !btn) return;
+        box.classList.toggle('vision-robot-mode');
+        if(box.classList.contains('vision-robot-mode')) {
+            btn.innerHTML = '<i class="fas fa-eye"></i> Switch to Human Eye';
+            btn.style.cssText = 'background: transparent; color: #ddd; border-color: #555;';
+            unlockPart(3, 'Vision Camera');
+        } else {
+            btn.innerHTML = '<i class="fas fa-robot"></i> Switch to Robot Eye';
+            btn.style.cssText = 'background: #FFFB03; color: #000; border-color: #FFFB03;';
+            lockPart(3, 'Vision Camera'); // 오답 시 꺼짐
+        }
+    }
+
+    function answerEtiquette(type) {
+        const msg = document.getElementById('etiq-msg');
+        const robot = document.getElementById('etiq-robot');
+        const xMark = document.getElementById('etiq-x');
+        if(!robot || !msg) return;
+        
+        robot.className = 'fas fa-robot etiq-actor';
+        robot.style.cssText = 'color: #86D1D1; transform: scaleX(-1);';
+        if(xMark) xMark.style.display = 'none';
+        void robot.offsetWidth;
+
+        if(type === 'kick') {
+            robot.classList.add('robot-knocked');
+            if(xMark) xMark.style.display = 'block';
+            msg.innerHTML = '<span style="color:#FF5555; font-weight:bold;">❌ WRONG: Don\'t push! It breaks the robot.</span>';
+            lockPart(4, 'Etiquette Core'); // 오답 시 꺼짐
+        } else {
+            robot.classList.add('robot-pass');
+            msg.innerHTML = '<span style="color:#2ecc71; font-weight:bold;">✅ CORRECT: It recalculated and passed safely!</span>';
+            unlockPart(4, 'Etiquette Core');
+        }
+    }
+
+    function testGrip(type) {
+        const displayArea = document.getElementById('egg-display-area'); 
+        const msg = document.getElementById('egg-msg');
+        if(!displayArea || !msg) return;
+
+        const cleanEggHTML = `<i id="egg-stage" class="fas fa-egg egg-icon"></i>`;
+        const shatteredEggHTML = `<div class="egg-icon shattered-raw" style="position: relative; width: 100px; height: 120px; display: flex; align-items: center; justify-content: center;">
+            <div style="position: absolute; bottom: 0px; width: 90px; height: 35px; background: rgba(255,255,255,0.8); border-radius: 50%; z-index: 1; animation: splat 0.2s forwards;"></div>
+            <div style="position: absolute; bottom: 5px; width: 45px; height: 30px; background: #FFCC00; border-radius: 50%; z-index: 2; box-shadow: inset -5px -5px 10px rgba(220,120,0,0.5); animation: splat 0.2s forwards;"></div>
+            <i class="fas fa-egg" style="position: absolute; color: #F0F0F0; font-size: 6rem; z-index: 3; clip-path: polygon(0 0, 100% 0, 100% 50%, 75% 65%, 50% 45%, 25% 65%, 0 50%); animation: topShell 0.3s ease-out forwards;"></i>
+            <i class="fas fa-egg" style="position: absolute; color: #E8E8E8; font-size: 6rem; z-index: 3; clip-path: polygon(0 50%, 25% 65%, 50% 45%, 75% 65%, 100% 50%, 100% 100%, 0 100%); animation: bottomShell 0.3s ease-out forwards;"></i>
+            </div>
+            <style>@keyframes topShell { 100% { transform: translateY(-25px) translateX(-15px) rotate(-25deg); } } @keyframes bottomShell { 100% { transform: translateY(15px) translateX(10px) rotate(15deg); } } @keyframes splat { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }</style>`;
+
+        if(type === 'steel') {
+            displayArea.innerHTML = shatteredEggHTML;
+            msg.innerHTML = '<span style="color:#FF5555; font-weight:bold;">CRACKED! The gripper applied too much force.</span>';
+            lockPart(5, 'Soft Grippers'); // 오답 시 꺼짐
+        } else {
+            displayArea.innerHTML = cleanEggHTML;
+            const eggIcon = document.getElementById('egg-stage');
+            if(eggIcon) { void eggIcon.offsetWidth; eggIcon.className = 'fas fa-egg egg-icon egg-safe'; }
+            msg.innerHTML = '<span style="color:#f1c40f; font-weight:bold;">SAFE! The gripper adapted to the shape.</span>';
+            unlockPart(5, 'Soft Grippers');
+        }
+    }
+
+    function trainBot(tries) {
+        const bot = document.getElementById('gym-bot');
+        const msg = document.getElementById('gym-msg');
+        if(!bot || !msg) return;
+        
+        bot.style.transition = 'none';
+        bot.setAttribute('class', 'gym-bot');
+        void bot.offsetWidth; 
+        bot.style.transition = '';
+
+        if (tries === 10) {
+            bot.classList.add('gym-fail1');
+            msg.innerHTML = '<span style="color:#FF5555; font-weight:bold;">FAIL! Not enough training data.</span>';
+            lockPart(6, 'AI Neural Brain'); // 오답 시 꺼짐
+        } else if (tries === 100) {
+            bot.classList.add('gym-fail2');
+            msg.innerHTML = '<span style="color:#e67e22; font-weight:bold;">OUCH! Almost there, but landed on its head.</span>';
+            lockPart(6, 'AI Neural Brain'); // 오답 시 꺼짐
+        } else {
+            bot.classList.add('gym-success');
+            msg.innerHTML = '<span style="color:#2ecc71; font-weight:bold;">SUCCESS! Perfect backflip after 10,000 simulations!</span>';
+            unlockPart(6, 'AI Neural Brain');
+        }
+    }
+
+    function dropObstacle() {
+        const obs = document.getElementById('maze-obs');
+        const bot = document.getElementById('maze-moving-bot');
+        const msg = document.getElementById('maze-msg');
+        const btn = document.getElementById('maze-btn');
+        if(!obs || !bot || !msg) return;
+
+        if (obs.style.display === 'block') {
+            obs.style.display = 'none';
+            bot.style.animation = 'none';
+            void bot.offsetWidth; 
+            bot.className = 'fas fa-robot path-straight'; 
+            bot.style.animation = '';
+            msg.innerHTML = '<span style="color:#fff;">Path is clear. Driving straight...</span>';
+            if (btn) { btn.innerHTML = '<i class="fas fa-cube"></i> Drop Obstacle'; btn.style.borderColor = '#555'; btn.style.color = '#ddd'; }
+            lockPart(7, 'Path Algorithm'); // 오답 시 꺼짐
+        } else {
+            obs.style.display = 'block';
+            bot.style.animation = 'none';
+            void bot.offsetWidth; 
+            bot.className = 'fas fa-robot path-detour-anim'; 
+            bot.style.animation = '';
+            msg.innerHTML = '<span style="color:#FF5555;">Obstacle!</span> <span style="color:#2ecc71;">Detour calculated instantly.</span>';
+            if (btn) { btn.innerHTML = '<i class="fas fa-undo"></i> Remove Obstacle'; btn.style.borderColor = '#e74c3c'; btn.style.color = '#e74c3c'; }
+            unlockPart(7, 'Path Algorithm');
+        }
+    }
+
+function liftBox(type) {
+        const box = document.getElementById('swarm-box');
+        const ants = document.getElementById('swarm-ants');
+        const msg = document.getElementById('swarm-msg');
+        if(!box || !ants || !msg) return;
+
+        const robots = ants.querySelectorAll('i');
+
+        if(type === 'alone') {
+            box.style.transform = 'translateX(5px)'; 
+            setTimeout(()=>box.style.transform='translateX(-5px)', 100); 
+            setTimeout(()=>box.style.transform='translateX(0)', 200);
+            box.style.filter = 'none'; // 혼자 들 땐 네온 효과 끄기
+            
+            ants.style.opacity = '1';
+            robots.forEach((r, idx) => r.style.display = (idx === 0) ? 'inline-block' : 'none'); // 1대만 낑낑댐
+            msg.innerHTML = '<span style="color:#FF5555;">Error: Target too heavy for 1 unit.</span>';
+        } else {
+            ants.style.opacity = '1';
+            robots.forEach(r => r.style.display = 'inline-block'); // 4대 총출동
+            
+            // 🚨 들어올리는 높이를 대폭 상향 (-20px -> -60px)
+            box.style.transform = 'translateY(-60px)'; 
+            
+            // 🚨 무거운 것을 거뜬히 들었을 때 발산하는 청록색 네온 효과 추가
+            box.style.filter = 'drop-shadow(0 0 15px #86D1D1) drop-shadow(0 0 35px rgba(44, 153, 153, 0.8))';
+            
+            msg.innerHTML = '<span style="color:#2ecc71;">Swarm logic engaged. Lift successful!</span>';
+        }
+    }
+
+    function testMotor(type) {
+        const arm = document.getElementById('muscle-arm');
+        const msg = document.getElementById('muscle-msg');
+        if(!arm || !msg) return;
+
+        arm.className = 'fas fa-robot muscle-arm';
+        void arm.offsetWidth; 
+
+        if(type === 'toy') { 
+            arm.classList.add('spin-toy'); 
+            msg.innerHTML = '<span style="color:#FF5555;">Missed! It slides and stops at random angles.</span>'; 
+            lockPart(9, 'Precision Servos'); // 오답 시 꺼짐
+        } else { 
+            arm.classList.add('spin-servo'); 
+            msg.innerHTML = '<span style="color:#2ecc71;">Perfect hit! Encoder stops it exactly at 90°.</span>'; 
+            unlockPart(9, 'Precision Servos');
+        }
+    }
+
+    function setCobotMode2(mode) {
+        const armBox = document.getElementById('robot-arm-box');
+        const workerIcon = document.getElementById('worker-icon');
+        const workerStatus = document.getElementById('worker-status');
+        const msg = document.getElementById('cobot-msg');
+        if(!armBox || !workerIcon || !workerStatus || !msg) return;
+
+        armBox.className = 'robot-arm-box';
+        workerIcon.className = 'fas fa-user-gear worker-icon'; 
+        void armBox.offsetWidth;
+
+        if (mode === 'industrial') {
+            armBox.classList.add('attack-fast');
+            workerIcon.style.color = '#FF5555';
+            workerStatus.innerHTML = '<span class="crash-x">❌</span> CRASH';
+            workerStatus.style.cssText = 'background: rgba(255, 85, 85, 0.2); color: #FF5555;';
+            msg.innerHTML = '<span style="color:#FF5555; font-size:1.1rem; font-weight:900;">[Industrial Mode] Warning! The arm does not stop!</span>';
+            lockPart(10, 'Safety Skin'); // 오답 시 꺼짐
+        } else {
+            armBox.classList.add('approach-safe');
+            workerIcon.style.color = '#2ecc71';
+            workerStatus.innerHTML = 'SAFE 🛡️';
+            workerStatus.style.cssText = 'background: rgba(46, 204, 113, 0.2); color: #2ecc71;';
+            msg.innerHTML = '<span style="color:#2ecc71; font-size:1.1rem; font-weight:bold;">[Cobot Mode] Safe! It senses the human and stops halfway.</span>';
+            unlockPart(10, 'Safety Skin');
+        }
+    }
+
+    function scrollToId(id, btnElement) {
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({ behavior: 'smooth' });
+        const allBtns = document.querySelectorAll('.category-btn');
+        allBtns.forEach(btn => btn.classList.remove('active'));
+        if(btnElement) btnElement.classList.add('active');
+    }
+
+   function scrollToNext(id) {
+        const target = document.getElementById(id);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const allBtns = document.querySelectorAll('.category-btn');
+        allBtns.forEach(btn => btn.classList.remove('active'));
+        const activeBtn = Array.from(allBtns).find(btn => btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(id));
+        if (activeBtn) activeBtn.classList.add('active');
+    }
+	function scrollToNext(id) {
+        const target = document.getElementById(id);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const allBtns = document.querySelectorAll('.category-btn');
+        allBtns.forEach(btn => btn.classList.remove('active'));
+        const activeBtn = Array.from(allBtns).find(btn => btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(id));
+        if (activeBtn) activeBtn.classList.add('active');
+    }
+
+    // ▼ 여기서부터 복사해서 빈 공간에 붙여넣으세요 ▼
+    function nextSpotlight() {
+        if (typeof updateSpotlight === 'function') {
+            updateSpotlight(); 
+        } else if (typeof robotCompanies !== 'undefined') {
+            const rand = robotCompanies[Math.floor(Math.random() * robotCompanies.length)];
+            document.getElementById('sl-name').innerText = rand.name;
+            document.getElementById('sl-category').innerText = rand.field;
+            document.getElementById('sl-flag-large').className = 'fi ' + rand.flag;
+            document.getElementById('sl-link').href = rand.url || '#';
+        } else {
+            const fallbackData = [
+                { name: 'Boston Dynamics', field: 'Humanoid & Quadruped', flag: 'fi-us', url: 'https://bostondynamics.com' },
+                { name: 'FANUC', field: 'Industrial Automation', flag: 'fi-jp', url: 'https://www.fanuc.com' },
+                { name: 'ABB Robotics', field: 'Industrial & Collaborative', flag: 'fi-ch', url: 'https://new.abb.com/products/robotics' },
+                { name: 'KUKA', field: 'Industrial Robotics', flag: 'fi-de', url: 'https://www.kuka.com' },
+                { name: 'Universal Robots', field: 'Collaborative Robots (Cobots)', flag: 'fi-dk', url: 'https://www.universal-robots.com' }
+            ];
+            const rand = fallbackData[Math.floor(Math.random() * fallbackData.length)];
+            
+            const nameEl = document.getElementById('sl-name');
+            const catEl = document.getElementById('sl-category');
+            const flagEl = document.getElementById('sl-flag-large');
+            const linkEl = document.getElementById('sl-link');
+            
+            if(nameEl) nameEl.innerText = rand.name;
+            if(catEl) catEl.innerText = rand.field;
+            if(flagEl) flagEl.className = 'fi ' + rand.flag;
+            if(linkEl) linkEl.href = rand.url;
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(nextSpotlight, 100); // 로딩 즉시 없애기
+        setInterval(nextSpotlight, 8000); // 8초마다 자동 회전
+    });
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+    // 1. 구글 번역기 초기화
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,ko,ja,zh-CN,es,fr,de,ru,pt,it',
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+
+    // 2. 언어 메뉴 열기/닫기
+    function toggleLanguageMenu() {
+        const dropdown = document.getElementById('lang-dropdown');
+        if(dropdown) dropdown.classList.toggle('show');
+    }
+
+    // 3. 바탕 클릭 시 언어 메뉴 자동으로 닫기
+    document.addEventListener('click', function(e) {
+        const langWrapper = document.querySelector('.lang-wrapper');
+        const dropdown = document.getElementById('lang-dropdown');
+        if (langWrapper && dropdown && !langWrapper.contains(e.target)) {
+            dropdown.classList.remove('show');
+        }
+    });
+
+    // 4. 언어 변경 실행 및 글자(EN, KO 등) 업데이트
+    function changeLanguage(langCode) {
+        const selectField = document.querySelector('.goog-te-combo');
+        if (selectField) {
+            selectField.value = langCode;
+            selectField.dispatchEvent(new Event('change'));
+        }
+        const langText = document.querySelector('.lang-current');
+        if (langText) langText.innerText = langCode.toUpperCase().split('-')[0];
+        const dropdown = document.getElementById('lang-dropdown');
+        if(dropdown) dropdown.classList.remove('show');
+    }
+
+    // 5. 거슬리는 구글 번역기 상단 배너 강제 숨김 (화면 밀림 방지)
+    setInterval(() => {
+        const bannerFrame = document.querySelector('.goog-te-banner-frame');
+        if (bannerFrame) bannerFrame.remove();
+        const topGhostDiv = document.querySelector('body > div.skiptranslate');
+        if (topGhostDiv) topGhostDiv.style.display = 'none';
+        document.body.style.position = 'static';
+        document.body.style.top = '0px';
+    }, 100);
+	// ==========================================
+    // ▼ 모바일 햄버거 메뉴 작동 자바스크립트 ▼
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebarMenu');
+
+        if (menuBtn && sidebar) {
+            // 1. 햄버거 버튼 누르면 열고 닫기
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); 
+                sidebar.classList.toggle('mobile-open');
+            });
+
+            // 2. 메뉴 밖(본문)을 터치하면 자동으로 닫기
+            document.addEventListener('click', (e) => {
+                if (sidebar.classList.contains('mobile-open') && !sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            });
+
+            // 3. 메뉴 안의 버튼을 클릭해서 이동할 때도 자동으로 닫기
+            const navItems = sidebar.querySelectorAll('.category-btn, .nav-link-btn');
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    sidebar.classList.remove('mobile-open');
+                });
+            });
+        }
+    });
+</script>
+<script>
+const rwData = {
+        'hero-intro': {
+            title: "PROJECT: LEARNBOT",
+            desc: "Scroll down to explore how fundamental robotics concepts are applied in the real world by industry leaders.",
+            img: "image/0.real-humanoid.jpg",
+            // 👇 배터리에서 인트로 섹션으로 아두이노 광고 이동!
+            ad: `
+            <div style="border: 1px solid rgba(44, 153, 153, 0.4); border-radius: 8px; background: rgba(0,0,0,0.4); padding: 15px; text-align: center; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px;">
+                    <i class="fas fa-microchip" style="font-size: 1.3rem; color: #FFFB03;"></i>
+                    <span style="color: #FFFB03; font-size: 1rem; font-weight: 700; font-family: 'Chakra Petch', sans-serif;">Arduino Starter Kit</span>
+                </div>
+                <p style="color: #ccc; font-size: 0.85rem; margin-bottom: 12px; font-family: 'Chakra Petch', sans-serif; line-height: 1.3;">The most widely used kit for learning basic robotics.</p>
+                <a href="https://www.amazon.com/s?k=Arduino+Starter+Kit" target="_blank" style="background: #FFFB03; color: #000; padding: 8px 10px; border-radius: 6px; text-decoration: none; font-weight: 800; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                    <i class="fab fa-amazon"></i> Explore <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
+                </a>
+            </div>`
+        },
+        'lab-balance': {
+            title: "Boston Dynamics 'Spot'",
+            desc: "Advanced quadruped robots use IMU sensors and real-time processing to maintain perfect balance on rough terrain.",
+            img: "image/1.real-balance.jpg" 
+        },
+        'lab-battery': {
+            title: "EV Battery Management",
+            desc: "Just like modern electric vehicles, robots require massive, compact power systems directly integrated into their structure.",
+            img: "image/2.real-battery.jpg" 
+            // 🚨 여기서 광고 코드가 빠졌습니다!
+        },
+        'lab-vision': {
+            title: "Tesla Autopilot Vision",
+            desc: "Tesla processes millions of camera pixels per second using neural networks to identify and navigate complex environments without LiDAR.",
+            img: "image/3.real-vision.jpg" 
+        },
+        'lab-etiquette': {
+            title: "Human-Robot Interaction",
+            desc: "Service robots must use social algorithms to yield to humans, respect boundaries, and interact predictably.",
+            img: "image/4.real-etiquette.jpg" 
+        },
+        'lab-egg': {
+            title: "Industrial Grippers",
+            desc: "Precise industrial robotic arms use advanced pneumatic and mechanical systems to handle objects with exact force.",
+            img: "image/5.real-gripper.jpg",
+            // 👇 그리퍼 섹션 맞춤 광고 추가
+            ad: `
+            <div style="border: 1px solid rgba(44, 153, 153, 0.4); border-radius: 8px; background: rgba(0,0,0,0.4); padding: 15px; text-align: center; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px;">
+                    <i class="fas fa-cogs" style="font-size: 1.3rem; color: #FFFB03;"></i>
+                    <span style="color: #FFFB03; font-size: 1rem; font-weight: 700; font-family: 'Chakra Petch', sans-serif;">Robotic Arm Kit</span>
+                </div>
+                <p style="color: #ccc; font-size: 0.85rem; margin-bottom: 12px; font-family: 'Chakra Petch', sans-serif; line-height: 1.3;">Build and program your own precision servo robot arm.</p>
+                <a href="https://www.amazon.com/s?k=robotic+arm+kit" target="_blank" style="background: #FFFB03; color: #000; padding: 8px 10px; border-radius: 6px; text-decoration: none; font-weight: 800; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                    <i class="fab fa-amazon"></i> Explore <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
+                </a>
+            </div>`
+        },
+        'lab-gym': {
+            title: "Reinforcement Learning",
+            desc: "Robots use AI to teach themselves complex kinematic tasks—like playing a piano or doing parkour—through millions of simulations.",
+            img: "image/6.real-training.jpg" 
+        },
+        'lab-maze': {
+            title: "Autonomous Navigation",
+            desc: "Using advanced sensors, autonomous systems instantly calculate alternative paths when the planned route is blocked.",
+            img: "image/7.real-path.jpg" 
+        },
+        'lab-swarm': {
+            title: "Warehouse Automation",
+            desc: "Logistics centers use fleets of automated robots communicating locally to coordinate massive supply chain tasks.",
+            img: "image/8.real-swarm.jpg" 
+        },
+        'lab-muscle': {
+            title: "Precision Actuators",
+            desc: "Industrial robots use high-precision servo motors and absolute encoders for sub-millimeter accuracy.",
+            img: "image/9.real-motor.jpg",
+            // 👇 모터 섹션 맞춤 광고 추가
+ad: `
+            <div style="border: 1px solid rgba(44, 153, 153, 0.4); border-radius: 8px; background: rgba(0,0,0,0.4); padding: 15px; text-align: center; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px;">
+                    <i class="fas fa-cogs" style="font-size: 1.3rem; color: #FFFB03;"></i>
+                    <span style="color: #FFFB03; font-size: 1rem; font-weight: 700; font-family: 'Chakra Petch', sans-serif;">Servo Motor Kit</span>
+                </div>
+                <p style="color: #ccc; font-size: 0.85rem; margin-bottom: 12px; font-family: 'Chakra Petch', sans-serif; line-height: 1.3;">Build highly accurate robot joints with precision servo motors.</p>
+                <a href="https://www.amazon.com/s?k=Servo+Motor+Kit" target="_blank" style="background: #FFFB03; color: #000; padding: 8px 10px; border-radius: 6px; text-decoration: none; font-weight: 800; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                    <i class="fab fa-amazon"></i> Explore <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i>
+                </a>
+            </div>`
+        },
+        'lab-cobot': {
+            title: "Collaborative 'Cobots'",
+            desc: "Fitted with torque sensors, modern cobots are designed to stop instantly upon contact, allowing them to work safely alongside humans.",
+            img: "image/10.real-safety.jpg" 
+        }
+    };
+
+    const rwImg = document.getElementById('rw-img');
+    const rwTitle = document.getElementById('rw-title');
+    const rwDesc = document.getElementById('rw-desc');
+    const rwAdSlot = document.getElementById('rw-ad-slot'); // 광고 슬롯 변수 추가
+    let currentRwId = null;
+
+    if (rwImg && window.IntersectionObserver) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                    const activeBtn = document.querySelector(`.category-btn[onclick*="${sectionId}"]`);
+                    if (activeBtn) activeBtn.classList.add('active');
+                    const data = rwData[sectionId];
+                    
+                    if (data && sectionId !== currentRwId) {
+                        currentRwId = sectionId;
+                        
+                        // 부드러운 페이드 아웃
+                        rwImg.style.opacity = '0';
+                        rwTitle.style.opacity = '0';
+                        rwDesc.style.opacity = '0';
+                        if(rwAdSlot) rwAdSlot.style.opacity = '0';
+                        
+                        setTimeout(() => {
+                            rwImg.src = data.img;
+                            rwTitle.innerText = data.title;
+                            rwDesc.innerText = data.desc;
+                            
+                            // 해당 섹션에 광고가 있으면 보여주고, 없으면 숨김
+                            if (rwAdSlot) {
+                                if (data.ad) {
+                                    rwAdSlot.innerHTML = data.ad;
+                                    rwAdSlot.style.display = 'block';
+                                } else {
+                                    rwAdSlot.innerHTML = '';
+                                    rwAdSlot.style.display = 'none';
+                                }
+                            }
+                            
+                            // 부드러운 페이드 인
+                            rwImg.style.opacity = '1';
+                            rwTitle.style.opacity = '1';
+                            rwDesc.style.opacity = '1';
+                            if(rwAdSlot && data.ad) rwAdSlot.style.opacity = '1';
+
+                        }, 400); // 0.4초 후 글자/그림/광고 교체
+                    }
+                }
+            });
+        }, { threshold: 0.5 }); // 화면에 50% 진입 시 작동
+
+        document.querySelectorAll('section').forEach(sec => observer.observe(sec));
+    }
+</script>
+<script>
+      // 여기에 보여주신 코드를 붙여넣습니다.
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+              console.log('ServiceWorker 등록 성공:', registration.scope);
+            })
+            .catch(error => {
+              console.log('ServiceWorker 등록 실패:', error);
+            });
+        });
+      }
+    </script>
+<style>
+    .wiki-modal-overlay {
+        display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); z-index: 10000;
+        justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s;
+    }
+    .wiki-modal-box {
+        background: rgba(15, 20, 25, 0.95); border: 2px solid #9b59b6; border-radius: 15px;
+        width: 90%; max-width: 450px; padding: 25px; text-align: center; position: relative;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.8), inset 0 0 20px rgba(155, 89, 182, 0.2);
+        transform: translateY(20px); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .wiki-close { position: absolute; top: 15px; right: 20px; color: #ccc; font-size: 1.5rem; cursor: pointer; transition: 0.2s; }
+    .wiki-close:hover { color: #FF5555; transform: scale(1.2); }
+    .wiki-img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; border: 1px solid #555; }
+</style>
+
+<div id="wiki-overlay" class="wiki-modal-overlay" onclick="closeRobotWiki(event)">
+    <div class="wiki-modal-box" onclick="event.stopPropagation()">
+        <i class="fas fa-times wiki-close" onclick="closeRobotWiki()"></i>
+        <div style="color: #9b59b6; font-family: 'Orbitron', sans-serif; font-weight: bold; margin-bottom: 15px;">
+            <i class="fab fa-wikipedia-w"></i> Hall of Fame
+        </div>
+        <img id="wiki-img" class="wiki-img" src="" alt="Robot Image" style="display:none;">
+        <h2 id="wiki-title" style="color: #fff; font-weight: 900; margin-bottom: 10px;">Loading...</h2>
+        <p id="wiki-desc" style="color: #ccc; font-size: 0.95rem; line-height: 1.5; font-family: 'Roboto', sans-serif;">Connecting to Wikipedia...</p>
+        <a id="wiki-link" href="#" target="_blank" class="visit-btn" style="background:#9b59b6; color:#fff!important; margin-top:10px;">Read Full Article <i class="fas fa-external-link-alt" style="font-size:0.8rem;"></i></a>
+    </div>
+</div>
+<script>
+// 위키백과에서 검색할 실존 로봇 VIP 명단 30선 (영문 위키 주소 기준)
+    const famousRobots = [
+        // 1. 역사를 바꾼 개척자들 (최초의 로봇들)
+        'Unimate',              // 세계 최초의 산업용 로봇 (1961)
+        'Shakey_the_robot',     // 세계 최초로 AI와 비전을 탑재한 이동형 로봇 (1966)
+        'PUMA_(robot)',         // 현대 로봇 팔의 표준을 만든 전설의 로봇 (1978)
+
+        // 2. 휴머노이드 & 이족보행의 혁신
+        'ASIMO',                // 두 발로 걷는 휴머노이드의 대명사 (혼다)
+        'Atlas_(robot)',        // 파쿠르와 공중제비를 도는 괴물 로봇 (보스턴 다이내믹스)
+        'Ameca_(robot)',        // 인간과 가장 흡사한 표정을 짓는 휴머노이드
+        'Valkyrie_(robot)',     // NASA가 개발한 우주 개척용 휴머노이드
+        'Robonaut',             // 국제우주정거장(ISS)에서 일하는 상반신 인간형 로봇
+        'Optimus_(robot)',      // 테슬라가 개발 중인 차세대 양산형 휴머노이드
+
+        // 3. 우주 개척의 영웅들 (화성 탐사 로봇 4대장)
+        'Sojourner_(rover)',    // 인류 최초의 화성 탐사 로봇 (1997)
+        'Opportunity_(rover)',  // 90일 수명으로 15년을 버틴 화성의 전설
+        'Curiosity_(rover)',    // 화성에 생명체 흔적이 있는지 밝혀낸 과학 실험실
+        'Perseverance_(rover)', // 화성의 흙을 채취하고 있는 가장 진보된 로버
+        'Lunokhod_1',           // 소련이 달에 보낸 세계 최초의 우주 원격 조종 로봇
+        'Canadarm',             // 우주 왕복선에 달려 수많은 위성을 수리한 전설의 로봇 팔
+
+        // 4. 대중화 & 일상을 바꾼 로봇
+        'Roomba',               // 전 세계 수천만 대가 팔린 로봇 청소기의 시조
+        'AIBO',                 // 사람들의 마음을 훔친 소니의 인공지능 반려견
+        'Kismet_(robot)',       // 사람과 눈을 맞추고 감정을 교류한 최초의 소셜 로봇
+        'Sophia_(robot)',       // 인류 최초로 시민권을 부여받은 화제의 로봇
+        'Baxter_(robot)',       // 사람 옆에서 안전하게 일하는 '협동 로봇(Cobot)'의 선구자
+
+        // 5. 극한 재난 및 전술용 로봇
+        'PackBot',              // 9.11 테러와 후쿠시마 원전 사태에 투입된 영웅
+        'BigDog',               // 발로 차도 넘어지지 않는 네 발 로봇의 시초
+        'Spot_(robot)',         // 건설 현장과 순찰에 투입되는 현대적인 사족보행 로봇
+
+        // 6. 의료, 신체 강화 및 생체모방 로봇
+        'Da_Vinci_Surgical_System', // 의사의 손떨림을 잡아주는 세계 1위 수술 로봇
+        'Paro_(robot)',         // 치매 환자의 심리를 치료해주는 보송보송한 물개 로봇
+        'Cyberdyne_HAL',        // 하반신 마비 환자를 걷게 해주는 입는 로봇(외골격)
+        
+        // 7. 차세대 모빌리티 & 로보틱스
+        'Ingenuity_(helicopter)',// 지구 밖(화성)에서 최초로 하늘을 난 로봇 헬리콥터
+        'Digit_(robot)',         // 택배 상자를 들고 계단을 오르내리는 배달용 이족보행 로봇
+        'Cassie_(robot)'         // 새의 다리 구조를 모방해 100m 달리기를 하는 타조 로봇
+    ];
+
+    function openRobotWiki() {
+        const overlay = document.getElementById('wiki-overlay');
+        const box = document.querySelector('.wiki-modal-box');
+        
+        // 팝업창 열기 애니메이션
+        overlay.style.display = 'flex';
+        setTimeout(() => {
+            overlay.style.opacity = '1';
+            box.style.transform = 'translateY(0)';
+        }, 10);
+
+        // 명단에서 랜덤으로 로봇 하나 뽑기
+        const randomRobot = famousRobots[Math.floor(Math.random() * famousRobots.length)];
+        
+        // 위키백과 공식 무료 API 호출
+        fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${randomRobot}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('wiki-title').innerText = data.title;
+                document.getElementById('wiki-desc').innerText = data.extract;
+                document.getElementById('wiki-link').href = data.content_urls.desktop.page;
+                
+                const imgEl = document.getElementById('wiki-img');
+                if (data.thumbnail && data.thumbnail.source) {
+                    imgEl.src = data.thumbnail.source;
+                    imgEl.style.display = 'block';
+                } else {
+                    imgEl.style.display = 'none'; // 사진이 없는 로봇은 이미지 숨김
+                }
+            })
+            .catch(err => {
+                document.getElementById('wiki-title').innerText = "Database Error";
+                document.getElementById('wiki-desc').innerText = "Failed to load data from Wikipedia.";
+            });
+    }
+
+    function closeRobotWiki(e) {
+        if (e && e.target.id !== 'wiki-overlay' && e.type === 'click') return;
+        const overlay = document.getElementById('wiki-overlay');
+        const box = document.querySelector('.wiki-modal-box');
+        
+        overlay.style.opacity = '0';
+        box.style.transform = 'translateY(20px)';
+        setTimeout(() => { overlay.style.display = 'none'; }, 300);
+    }
+</script>
+<div class="floating-top-btn" onclick="scrollToId('hero-intro')" title="Go to Top">
+    <i class="fas fa-arrow-up"></i>
+</div>
+</body> 
+</html>
