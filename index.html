@@ -26,7 +26,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Chakra Petch', sans-serif;
+            font-family: 'Orbitron', sans-serif;
         }
 
         .gateway-container {
@@ -42,8 +42,8 @@
 
         /* 1. 심플한 타이틀 영역 */
         .title-area { text-align: center; }
-.main-title {
-            font-family: 'Chakra Petch', sans-serif;
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
             /* 글자가 길어졌으므로 모바일 화면을 위해 폰트 크기를 살짝 줄였습니다 */
             font-size: clamp(2.2rem, 5vw, 4rem); 
             font-weight: 900;
@@ -54,7 +54,7 @@
             text-transform: none; /* 🚨 핵심: 강제로 대문자로 바꾸지 않고 입력한 그대로 출력 */
         }
         .sub-title {
-            font-family: 'Chakra Petch', sans-serif;
+            font-family: 'Orbitron', sans-serif;
             font-size: clamp(1rem, 2vw, 1.3rem);
             color: #aaa;
             margin: 0;
@@ -70,7 +70,7 @@
             align-items: center;
         }
 
- .neon-robot-svg {
+        .neon-robot-svg {
             height: 100%;
             width: auto;
             max-width: 90vw; /* 🚨 추가됨: 어떤 경우에도 화면 가로폭의 90%를 넘지 않게 강제 축소 */
@@ -100,7 +100,7 @@
             border: 2px solid #FFFB03;
             padding: 15px 40px;
             border-radius: 30px; /* 둥근 버튼으로 변경하여 세련미 추가 */
-            font-family: 'Chakra Petch', sans-serif;
+            font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.1rem, 2vw, 1.3rem);
             font-weight: 700;
             text-decoration: none;
@@ -128,27 +128,13 @@
         .intro-hotspot.active path, .intro-hotspot.active rect, .intro-hotspot.active circle, .intro-hotspot.active line {
             stroke: #FFFB03;
         }
-  
-        .intro-hotspot {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .intro-hotspot:hover, .intro-hotspot.active {
-            filter: drop-shadow(0 0 20px #FFFB03);
-            transform: scale(1.02);
-            transform-origin: center;
-        }
-        .intro-hotspot:hover path, .intro-hotspot:hover rect, .intro-hotspot:hover circle, .intro-hotspot:hover line,
-        .intro-hotspot.active path, .intro-hotspot.active rect, .intro-hotspot.active circle, .intro-hotspot.active line {
-            stroke: #FFFB03;
-        }
         
         /* 양옆 공간에 나타나는 SVG 글자 폰트 강제 설정 */
-        .svg-tech-title { fill: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: 2px;}
-        .svg-human-desc { fill: #86D1D1; font-family: 'Roboto', sans-serif; font-size: 26px; }
+        .svg-tech-title { fill: #FFFB03; font-family: 'Orbitron', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: 2px;}
+        .svg-human-desc { fill: #86D1D1; font-family: 'Orbitron', sans-serif; font-size: 26px; }
         #tech-display-text {
             color: #FFFB03;
-            font-family: 'Chakra Petch', sans-serif;
+            font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 3vw, 1.5rem);
             font-weight: 700;
             letter-spacing: 3px;
