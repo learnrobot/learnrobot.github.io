@@ -162,6 +162,10 @@
             #info-head text, #info-arm text { transform: translateX(30px); }
             #info-body text, #info-leg text { transform: translateX(-30px); }
         }
+		/* 팔 안쪽 어두운 선은 클릭/호버 시에도 노란색으로 변하지 않도록 방지 */
+.intro-hotspot:hover .inner-arm, .intro-hotspot.active .inner-arm {
+    stroke: #0b0d10 !important;
+}
     </style>
 </head>
 <body>
@@ -189,17 +193,19 @@
                         </circle>
                     </g>
 
-                    <g class="intro-hotspot" onclick="showIntroInfo('arm', this)">
-                        <rect x="10" y="160" width="280" height="190" fill="transparent" class="hitbox" stroke="none" />
-                        <path d="M 65 180 L 35 250 L 45 320" fill="none" stroke="#86D1D1" stroke-width="24" stroke-linejoin="round" stroke-linecap="round" />
-                        <path d="M 65 180 L 35 250 L 45 320" fill="none" stroke="#0b0d10" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" />
-                        <circle cx="35" cy="250" r="5" fill="#FFFB03" /> 
-                        <path d="M 33 345 L 33 330 L 45 320 L 57 330 L 57 345" fill="none" stroke="#86D1D1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M 235 180 L 265 250 L 255 320" fill="none" stroke="#86D1D1" stroke-width="24" stroke-linejoin="round" stroke-linecap="round" />
-                        <path d="M 235 180 L 265 250 L 255 320" fill="none" stroke="#0b0d10" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" />
-                        <circle cx="265" cy="250" r="5" fill="#FFFB03" /> 
-                        <path d="M 243 345 L 243 330 L 255 320 L 267 330 L 267 345" fill="none" stroke="#86D1D1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
-                    </g>
+                 <g class="intro-hotspot" onclick="showIntroInfo('arm', this)">
+    <rect x="10" y="160" width="280" height="190" fill="transparent" class="hitbox" stroke="none" />
+    
+    <path d="M 65 180 L 35 250 L 45 320" fill="none" stroke="#86D1D1" stroke-width="24" stroke-linejoin="round" stroke-linecap="round" />
+    <path d="M 65 180 L 35 250 L 45 320" fill="none" stroke="#0b0d10" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" class="inner-arm" />
+    <circle cx="35" cy="250" r="5" fill="#FFFB03" /> 
+    <path d="M 33 345 L 33 330 L 45 320 L 57 330 L 57 345" fill="none" stroke="#86D1D1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <path d="M 235 180 L 265 250 L 255 320" fill="none" stroke="#86D1D1" stroke-width="24" stroke-linejoin="round" stroke-linecap="round" />
+    <path d="M 235 180 L 265 250 L 255 320" fill="none" stroke="#0b0d10" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" class="inner-arm" />
+    <circle cx="265" cy="250" r="5" fill="#FFFB03" /> 
+    <path d="M 243 345 L 243 330 L 255 320 L 267 330 L 267 345" fill="none" stroke="#86D1D1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+</g>
 
                     <g class="intro-hotspot" onclick="showIntroInfo('leg', this)">
                         <rect x="80" y="320" width="140" height="175" fill="transparent" class="hitbox" stroke="none" />
