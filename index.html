@@ -67,9 +67,10 @@
             align-items: center;
         }
 
-        .neon-robot-svg {
+ .neon-robot-svg {
             height: 100%;
             width: auto;
+            max-width: 90vw; /* 🚨 추가됨: 어떤 경우에도 화면 가로폭의 90%를 넘지 않게 강제 축소 */
             filter: drop-shadow(0 0 15px rgba(134, 209, 209, 0.5));
             /* 로봇이 우주에 떠있는 것처럼 부드럽게 위아래로 움직임 */
             animation: float-and-pulse 4s ease-in-out infinite alternate;
@@ -164,7 +165,7 @@
         
         <div class="title-area">
             <h1 class="main-title">LEARN<span style="color: #FFFB03;">ROBOT</span></h1>
-            <p class="sub-title">Step inside the world of robotics.</p>
+            <p class="sub-title">Click on any glowing part of the robot.</p>
         </div>
 
         <div class="neon-robot-wrapper" style="flex-direction: column;">
@@ -223,27 +224,27 @@
                     </g>
                 </g> 
                 <g id="info-head" class="info-group" style="opacity: 0; transition: opacity 0.3s ease;">
-                    <line x1="450" y1="95" x2="280" y2="95" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
-                    <text x="260" y="90" class="svg-tech-title" text-anchor="end">AI & VISION</text>
-                    <text x="260" y="125" class="svg-human-desc" text-anchor="end">Human: Brain & Eyes</text>
+                    <line x1="450" y1="95" x2="390" y2="95" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
+                    <text x="380" y="90" class="svg-tech-title" text-anchor="end">AI & VISION</text>
+                    <text x="380" y="125" class="svg-human-desc" text-anchor="end">Like our brain & eyes</text>
                 </g>
 
                 <g id="info-arm" class="info-group" style="opacity: 0; transition: opacity 0.3s ease;">
-                    <line x1="390" y1="260" x2="280" y2="260" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
-                    <text x="260" y="255" class="svg-tech-title" text-anchor="end">ACTUATORS</text>
-                    <text x="260" y="290" class="svg-human-desc" text-anchor="end">Human: Muscles</text>
+                    <line x1="385" y1="260" x2="350" y2="260" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
+                    <text x="340" y="255" class="svg-tech-title" text-anchor="end">ACTUATORS</text>
+                    <text x="340" y="290" class="svg-human-desc" text-anchor="end">Like human muscles</text>
                 </g>
 
                 <g id="info-body" class="info-group" style="opacity: 0; transition: opacity 0.3s ease;">
-                    <line x1="560" y1="230" x2="660" y2="230" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
-                    <text x="680" y="225" class="svg-tech-title" text-anchor="start">BATTERY & MCU</text>
-                    <text x="680" y="260" class="svg-human-desc" text-anchor="start">Human: Heart & Nerves</text>
+                    <line x1="580" y1="230" x2="620" y2="230" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
+                    <text x="630" y="225" class="svg-tech-title" text-anchor="start">BATTERY & MCU</text>
+                    <text x="630" y="260" class="svg-human-desc" text-anchor="start">Like the heart & nerves</text>
                 </g>
 
                 <g id="info-leg" class="info-group" style="opacity: 0; transition: opacity 0.3s ease;">
-                    <line x1="540" y1="400" x2="660" y2="400" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
-                    <text x="680" y="395" class="svg-tech-title" text-anchor="start">SENSORS & BALANCE</text>
-                    <text x="680" y="430" class="svg-human-desc" text-anchor="start">Human: Inner Ear</text>
+                    <line x1="535" y1="400" x2="620" y2="400" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
+                    <text x="630" y="395" class="svg-tech-title" text-anchor="start">SENSORS & BALANCE</text>
+                    <text x="630" y="430" class="svg-human-desc" text-anchor="start">Like the inner ear</text>
                 </g>
 
             </svg>
