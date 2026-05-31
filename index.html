@@ -42,13 +42,16 @@
 
         /* 1. 심플한 타이틀 영역 */
         .title-area { text-align: center; }
-        .main-title {
+.main-title {
             font-family: 'Chakra Petch', sans-serif;
-            font-size: clamp(5rem, 6vw, 5rem); /* 화면 크기에 맞춰 글자 자동 축소/확대 */
+            /* 글자가 길어졌으므로 모바일 화면을 위해 폰트 크기를 살짝 줄였습니다 */
+            font-size: clamp(2.2rem, 5vw, 4rem); 
             font-weight: 900;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             margin: 0 0 10px 0;
             text-shadow: 0 0 30px rgba(134, 209, 209, 0.4);
+            white-space: nowrap; /* 🚨 핵심: 어떤 일이 있어도 줄바꿈을 하지 않고 한 줄로 강제 고정 */
+            text-transform: none; /* 🚨 핵심: 강제로 대문자로 바꾸지 않고 입력한 그대로 출력 */
         }
         .sub-title {
             font-family: 'Chakra Petch', sans-serif;
@@ -163,15 +166,15 @@
 
     <div class="gateway-container">
         
-        <div class="title-area">
-            <h1 class="main-title">LEARN<span style="color: #FFFB03;">ROBOT</span></h1>
-            <p class="sub-title">Click on any glowing part of the robot.</p>
+<div class="title-area">
+            <h1 class="main-title">Learn<span style="color: #FFFB03;">Robot.com</span></h1>
+            <p class="sub-title">Click on any glowing part of the robot to discover how it works.</p>
         </div>
 
         <div class="neon-robot-wrapper" style="flex-direction: column;">
-            <svg class="neon-robot-svg" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+            <svg class="neon-robot-svg" viewBox="0 0 1200 500" xmlns="http://www.w3.org/2000/svg">
                 
-                <g transform="translate(350, 0)">
+                <g transform="translate(450, 0)">
                     
                     <g class="intro-hotspot" onclick="showIntroInfo('head', this)">
                         <rect x="100" y="50" width="100" height="90" rx="20" fill="#0b0d10" stroke="#86D1D1" stroke-width="4"/>
@@ -184,14 +187,12 @@
                         </circle>
                     </g>
 
-               <g class="intro-hotspot" onclick="showIntroInfo('arm', this)">
+                    <g class="intro-hotspot" onclick="showIntroInfo('arm', this)">
                         <rect x="10" y="160" width="280" height="190" fill="transparent" class="hitbox" stroke="none" />
-                        
                         <path d="M 60 180 L 35 250 L 45 320" fill="none" stroke="#86D1D1" stroke-width="24" stroke-linejoin="round" stroke-linecap="round" />
                         <path d="M 60 180 L 35 250 L 45 320" fill="none" stroke="#0b0d10" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" />
                         <circle cx="35" cy="250" r="5" fill="#FFFB03" /> 
                         <path d="M 33 345 L 33 330 L 45 320 L 57 330 L 57 345" fill="none" stroke="#86D1D1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
-
                         <path d="M 240 180 L 265 250 L 255 320" fill="none" stroke="#86D1D1" stroke-width="24" stroke-linejoin="round" stroke-linecap="round" />
                         <path d="M 240 180 L 265 250 L 255 320" fill="none" stroke="#0b0d10" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" />
                         <circle cx="265" cy="250" r="5" fill="#FFFB03" /> 
@@ -208,43 +209,39 @@
 
                     <g class="intro-hotspot" onclick="showIntroInfo('body', this)">
                         <path d="M 70 160 L 230 160 L 190 330 L 110 330 Z" fill="transparent" class="hitbox" stroke="none" />
-                        
                         <path d="M 70 160 L 230 160 L 190 330 L 110 330 Z" fill="#0b0d10" stroke="#86D1D1" stroke-width="4" />
-                        
                         <line x1="90" y1="185" x2="210" y2="185" stroke="#2C9999" stroke-width="2" stroke-dasharray="5,5" />
-
                         <rect x="140" y="205" width="20" height="8" rx="2" fill="#2C9999" />
                         <rect x="125" y="213" width="50" height="70" rx="6" fill="none" stroke="#2C9999" stroke-width="4" />
                         <rect x="133" y="221" width="34" height="54" rx="3" fill="#86D1D1">
                             <animate attributeName="opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite" />
                         </rect>
                         <path d="M 153 228 L 141 248 L 151 248 L 146 266 L 159 244 L 149 244 Z" fill="#0b0d10" />
-
                         <line x1="105" y1="305" x2="195" y2="305" stroke="#2C9999" stroke-width="2" stroke-dasharray="5,5" />
                     </g>
                 </g> 
                 <g id="info-head" class="info-group" style="opacity: 0; transition: opacity 0.3s ease;">
-                    <line x1="450" y1="95" x2="320" y2="95" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
-                    <text x="300" y="90" class="svg-tech-title" text-anchor="end">AI & VISION</text>
-                    <text x="300" y="125" class="svg-human-desc" text-anchor="end">Like human brain & eyes</text>
+                    <line x1="550" y1="95" x2="420" y2="95" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
+                    <text x="400" y="90" class="svg-tech-title" text-anchor="end">AI & VISION</text>
+                    <text x="400" y="125" class="svg-human-desc" text-anchor="end">Like our brain & eyes</text>
                 </g>
 
                 <g id="info-arm" class="info-group" style="opacity: 0; transition: opacity 0.3s ease;">
-                    <line x1="385" y1="260" x2="320" y2="260" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
-                    <text x="300" y="255" class="svg-tech-title" text-anchor="end">ACTUATORS</text>
-                    <text x="300" y="290" class="svg-human-desc" text-anchor="end">Like human muscles</text>
+                    <line x1="485" y1="260" x2="420" y2="260" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
+                    <text x="400" y="255" class="svg-tech-title" text-anchor="end">ACTUATORS</text>
+                    <text x="400" y="290" class="svg-human-desc" text-anchor="end">Like human muscles</text>
                 </g>
 
                 <g id="info-body" class="info-group" style="opacity: 0; transition: opacity 0.3s ease;">
-                    <line x1="580" y1="230" x2="680" y2="230" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
-                    <text x="700" y="225" class="svg-tech-title" text-anchor="start">BATTERY & MCU</text>
-                    <text x="700" y="260" class="svg-human-desc" text-anchor="start">Like human the heart & nerves</text>
+                    <line x1="680" y1="230" x2="780" y2="230" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
+                    <text x="800" y="225" class="svg-tech-title" text-anchor="start">BATTERY & MCU</text>
+                    <text x="800" y="260" class="svg-human-desc" text-anchor="start">Like the heart & nerves</text>
                 </g>
 
                 <g id="info-leg" class="info-group" style="opacity: 0; transition: opacity 0.3s ease;">
-                    <line x1="535" y1="400" x2="680" y2="400" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
-                    <text x="700" y="395" class="svg-tech-title" text-anchor="start">SENSORS & BALANCE</text>
-                    <text x="700" y="430" class="svg-human-desc" text-anchor="start">Like human inner ear</text>
+                    <line x1="635" y1="400" x2="780" y2="400" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
+                    <text x="800" y="395" class="svg-tech-title" text-anchor="start">SENSORS & BALANCE</text>
+                    <text x="800" y="430" class="svg-human-desc" text-anchor="start">Like the inner ear</text>
                 </g>
 
             </svg>
