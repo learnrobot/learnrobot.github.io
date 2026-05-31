@@ -3,190 +3,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <title>LearnRobot.com</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* 대문 기본 배경 */
+        /* [핵심] 스크롤 완벽 차단 및 화면 꽉 채우기 */
+        * { box-sizing: border-box; }
         body, html {
             margin: 0; padding: 0;
-            width: 100%; min-height: 100vh;
-            background-color: #101216;
+            width: 100%; height: 100vh; /* 화면 높이 100% 고정 */
+            overflow: hidden; /* 스크롤바 생성 방지 */
+            
+            /* 깊은 연구소 느낌의 배경 (가운데만 살짝 밝은 그라데이션) */
+            background-color: #0b0d10; 
+            background-image: radial-gradient(circle at center, #1a242f 0%, #0b0d10 70%);
             color: #fff;
+            
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Chakra Petch', sans-serif;
         }
 
-        .gateway-content {
-            width: 100%;
-            max-width: 1000px;
+        .gateway-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative;
-            padding: 40px 20px;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            gap: 5vh; /* 화면 높이에 비례하여 요소들 사이의 간격 자동 조절 */
+            padding: 20px;
         }
 
-        /* 🚪 대문 손잡이 버튼 */
+        /* 1. 심플한 타이틀 영역 */
+        .title-area { text-align: center; }
+        .main-title {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: clamp(5rem, 6vw, 5rem); /* 화면 크기에 맞춰 글자 자동 축소/확대 */
+            font-weight: 900;
+            letter-spacing: 4px;
+            margin: 0 0 10px 0;
+            text-shadow: 0 0 30px rgba(134, 209, 209, 0.4);
+        }
+        .sub-title {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: #aaa;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        /* 2. 중앙 네온 로봇 (블루프린트 스타일) */
+        .neon-robot-wrapper {
+            position: relative;
+            height: 45vh; /* 로봇이 화면 높이의 45%만 차지하게 하여 레이아웃 보호 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .neon-robot-svg {
+            height: 100%;
+            width: auto;
+            filter: drop-shadow(0 0 15px rgba(134, 209, 209, 0.5));
+            /* 로봇이 우주에 떠있는 것처럼 부드럽게 위아래로 움직임 */
+            animation: float-and-pulse 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes float-and-pulse {
+            0% { 
+                transform: translateY(10px); 
+                filter: drop-shadow(0 0 10px rgba(134, 209, 209, 0.3));
+            }
+            100% { 
+                transform: translateY(-10px); 
+                filter: drop-shadow(0 0 40px rgba(134, 209, 209, 0.9));
+            }
+        }
+
+        /* 3. 입장 버튼 */
         .door-handle-btn {
-            margin-top: 50px;
             display: inline-flex;
             align-items: center;
             gap: 15px;
-            background: rgba(134, 209, 209, 0.1);
-            color: #86D1D1;
-            border: 2px solid #86D1D1;
-            padding: 18px 50px;
-            border-radius: 8px;
+            background: transparent;
+            color: #FFFB03;
+            border: 2px solid #FFFB03;
+            padding: 15px 40px;
+            border-radius: 30px; /* 둥근 버튼으로 변경하여 세련미 추가 */
             font-family: 'Chakra Petch', sans-serif;
-            font-size: 1.4rem;
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
             font-weight: 700;
             text-decoration: none;
             letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: 0.3s;
-            z-index: 100;
-        }
-        .door-handle-btn:hover {
-            background: #86D1D1;
-            color: #101216;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(134, 209, 209, 0.4);
-        }
-
-        .interactive-playground { 
-            display: flex; gap: 20px; align-items: center; justify-content: center; 
-            flex-wrap: wrap; width: 100%;
-        }
-        .robot-info-panel { 
-            flex: 1.5; 
-            min-width: 320px; 
-            max-width: 500px; 
-            background: rgba(10, 15, 20, 0.25); 
-            border-radius: 12px; 
-            padding: 30px; 
-            color: #fff; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
-            align-self: center;  
-            height: auto; 
-            overflow: visible; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: flex-start; 
-            transition: all 0.4s ease; 
-            border-top: 2px solid #2C9999;
-        }
-        .robot-svg-container { 
-            flex: 1.5; min-width: 320px; max-width: 450px; position: relative; 
-            display: flex; justify-content: center; height: 540px; align-items: center;
+            transition: all 0.3s ease;
         }
         
-        @media (max-width: 1024px) {
-            .interactive-playground { flex-direction: column; }
-            .robot-svg-container { order: -1; }
+        .door-handle-btn:hover {
+            background: rgba(255, 251, 3, 0.1);
+            box-shadow: 0 0 25px rgba(255, 251, 3, 0.5), inset 0 0 10px rgba(255, 251, 3, 0.2);
+            transform: scale(1.05);
+            color: #fff;
+        }
+		/* [신규] 핫스팟 클릭 및 텍스트 효과 */
+        .intro-hotspot {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .intro-hotspot:hover, .intro-hotspot.active {
+            filter: drop-shadow(0 0 20px #FFFB03);
+            transform: scale(1.02);
+            transform-origin: center;
+        }
+        .intro-hotspot:hover path, .intro-hotspot:hover rect, .intro-hotspot:hover circle, .intro-hotspot:hover line,
+        .intro-hotspot.active path, .intro-hotspot.active rect, .intro-hotspot.active circle, .intro-hotspot.active line {
+            stroke: #FFFB03;
+        }
+  
+        .intro-hotspot {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .intro-hotspot:hover, .intro-hotspot.active {
+            filter: drop-shadow(0 0 20px #FFFB03);
+            transform: scale(1.02);
+            transform-origin: center;
+        }
+        .intro-hotspot:hover path, .intro-hotspot:hover rect, .intro-hotspot:hover circle, .intro-hotspot:hover line,
+        .intro-hotspot.active path, .intro-hotspot.active rect, .intro-hotspot.active circle, .intro-hotspot.active line {
+            stroke: #FFFB03;
+        }
+        
+        /* 양옆 공간에 나타나는 SVG 글자 폰트 강제 설정 */
+        .svg-tech-title { fill: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: 2px;}
+        .svg-human-desc { fill: #86D1D1; font-family: 'Roboto', sans-serif; font-size: 26px; }
+        #tech-display-text {
+            color: #FFFB03;
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(255, 251, 3, 0.6);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+		/* [추가] 투명한 클릭 보조 영역(hitbox)에는 네온 테두리가 생기지 않도록 방지 */
+        .intro-hotspot:hover .hitbox, .intro-hotspot.active .hitbox {
+            stroke: none !important;
         }
     </style>
 </head>
 <body>
 
-    <div class="gateway-content">
+    <div class="gateway-container">
         
-        <h1 style="font-family: 'Orbitron', sans-serif; font-size: 3.5rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: #fff; margin: 0 0 40px 0; text-shadow: 0 0 30px rgba(134,209,209,0.3); text-align: center;">
-            LEARN<span style="color: #86D1D1;">ROBOT</span>
-        </h1>
-
-        <div class="interactive-playground">
-            
-            <div class="robot-svg-container">
-                <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-
-                <model-viewer
-    src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"  alt="A 3D Humanoid Robot"
-    auto-rotate
-    camera-controls
-    rotation-per-second="30deg"
-    interaction-prompt="none"
-    shadow-intensity="1"
-    style="width: 100%; height: 100%; outline: none; background-color: transparent;">
-</model-viewer>
-
-                <div style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); pointer-events: none; z-index: 10; background: rgba(10, 15, 20, 0.85); border: 1px solid rgba(44, 153, 153, 0.5); padding: 6px 18px; border-radius: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 8px; white-space: nowrap;">
-                    <i class="fas fa-mouse fa-bounce" style="color: #FFFB03;"></i>
-                    <span style="color: #86D1D1; font-weight: bold; font-size: 0.95rem; font-family: 'Chakra Petch', sans-serif; letter-spacing: 0.5px;">Drag & Rotate the 3D Robot!</span>
-                </div>
-            </div>
-
-            <div class="robot-info-panel" id="main-info-panel">
-                <div id="content-main">
-                    <h2 style="color: #FFFB03; font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 2.2rem; margin-bottom: 15px;">
-                        Meet the Robot
-                    </h2>
-                    <p style="font-size: 1.15rem; line-height: 1.7; color: #ddd; margin-bottom: 25px; font-family: 'Roboto', sans-serif;">
-                        Robots might look complicated with all their wires and metal, but they are actually designed just like us. Explore the analogy.
-                    </p>
-
-                    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                        <div style="flex: 1; min-width: 200px; background: rgba(0,0,0,0.3); padding: 20px 25px; border-radius: 12px; border: 1px solid rgba(134, 209, 209, 0.3); box-shadow: inset 0 0 15px rgba(0,0,0,0.5);">
-                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px; border-bottom: 1px solid rgba(134, 209, 209, 0.2); padding-bottom: 10px;">
-                                <i class="fas fa-microchip" style="font-size: 2rem; color: #86D1D1;"></i>
-                                <div>
-                                    <h4 style="color: #fff; margin: 0; font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem;">Hardware</h4>
-                                    <span style="font-size: 0.85rem; color: #aaa;">The Physical Body</span>
-                                </div>
-                            </div>
-                            <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'Roboto', sans-serif;">
-                                <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
-                                    <span style="color: #ccc;"><i class="fas fa-bone" style="width: 25px; color: #888; text-align: center;"></i> Skeleton</span>
-                                    <span style="color: #86D1D1; font-weight: 600; text-align: right;">Links</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
-                                    <span style="color: #ccc;"><i class="fas fa-dumbbell" style="width: 25px; color: #888; text-align: center;"></i> Muscles</span>
-                                    <span style="color: #86D1D1; font-weight: 600; text-align: right;">Actuators</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
-                                    <span style="color: #ccc;"><i class="fas fa-eye" style="width: 25px; color: #888; text-align: center;"></i> Senses</span>
-                                    <span style="color: #86D1D1; font-weight: 600; text-align: right;">Sensors</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div style="flex: 1; min-width: 200px; background: rgba(0,0,0,0.3); padding: 20px 25px; border-radius: 12px; border: 1px solid rgba(255, 251, 3, 0.3); box-shadow: inset 0 0 15px rgba(0,0,0,0.5);">
-                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px; border-bottom: 1px solid rgba(255, 251, 3, 0.2); padding-bottom: 10px;">
-                                <i class="fas fa-brain" style="font-size: 2rem; color: #FFFB03;"></i>
-                                <div>
-                                    <h4 style="color: #fff; margin: 0; font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem;">Software & AI</h4>
-                                    <span style="font-size: 0.85rem; color: #aaa;">The Intelligence</span>
-                                </div>
-                            </div>
-                            <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'Roboto', sans-serif;">
-                                <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
-                                    <span style="color: #ccc;"><i class="fas fa-head-side-virus" style="width: 25px; color: #888; text-align: center;"></i> Brain</span>
-                                    <span style="color: #FFFB03; font-weight: 600; text-align: right;">MCU / CPU</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
-                                    <span style="color: #ccc;"><i class="fas fa-network-wired" style="width: 25px; color: #888; text-align: center;"></i> Nerves</span>
-                                    <span style="color: #FFFB03; font-weight: 600; text-align: right;">Wires & ROS</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
-                                    <span style="color: #ccc;"><i class="fas fa-graduation-cap" style="width: 25px; color: #888; text-align: center;"></i> Learning</span>
-                                    <span style="color: #FFFB03; font-weight: 600; text-align: right;">AI Models</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-            </div> 
+        <div class="title-area">
+            <h1 class="main-title">LEARN<span style="color: #FFFB03;">ROBOT</span></h1>
+            <p class="sub-title">Step inside the world of robotics.</p>
         </div>
 
+        <div class="neon-robot-wrapper" style="flex-direction: column;">
+            <svg class="neon-robot-svg" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+                
+                <g transform="translate(350, 0)">
+                    
+                    <g class="intro-hotspot" onclick="showIntroInfo('head', this)">
+                        <rect x="100" y="50" width="100" height="90" rx="20" fill="#0b0d10" stroke="#86D1D1" stroke-width="4"/>
+                        <circle cx="130" cy="90" r="10" fill="#FFFB03" />
+                        <circle cx="170" cy="90" r="10" fill="#FFFB03" />
+                        <line x1="120" y1="120" x2="180" y2="120" stroke="#86D1D1" stroke-width="3" />
+                        <line x1="150" y1="50" x2="150" y2="10" stroke="#86D1D1" stroke-width="4" />
+                        <circle cx="150" cy="10" r="6" fill="#FFFB03">
+                            <animate attributeName="opacity" values="1;0.2;1" dur="1.5s" repeatCount="indefinite" />
+                        </circle>
+                    </g>
+
+               <g class="intro-hotspot" onclick="showIntroInfo('arm', this)">
+                        <rect x="10" y="160" width="280" height="190" fill="transparent" class="hitbox" stroke="none" />
+                        
+                        <path d="M 60 180 L 35 250 L 45 320" fill="none" stroke="#86D1D1" stroke-width="24" stroke-linejoin="round" stroke-linecap="round" />
+                        <path d="M 60 180 L 35 250 L 45 320" fill="none" stroke="#0b0d10" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" />
+                        <circle cx="35" cy="250" r="5" fill="#FFFB03" /> 
+                        <path d="M 33 345 L 33 330 L 45 320 L 57 330 L 57 345" fill="none" stroke="#86D1D1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+
+                        <path d="M 240 180 L 265 250 L 255 320" fill="none" stroke="#86D1D1" stroke-width="24" stroke-linejoin="round" stroke-linecap="round" />
+                        <path d="M 240 180 L 265 250 L 255 320" fill="none" stroke="#0b0d10" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" />
+                        <circle cx="265" cy="250" r="5" fill="#FFFB03" /> 
+                        <path d="M 243 345 L 243 330 L 255 320 L 267 330 L 267 345" fill="none" stroke="#86D1D1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+                    </g>
+
+                    <g class="intro-hotspot" onclick="showIntroInfo('leg', this)">
+                        <rect x="80" y="320" width="140" height="175" fill="transparent" class="hitbox" stroke="none" />
+                        <rect x="115" y="330" width="24" height="140" rx="6" fill="#0b0d10" stroke="#86D1D1" stroke-width="4" />
+                        <rect x="161" y="330" width="24" height="140" rx="6" fill="#0b0d10" stroke="#86D1D1" stroke-width="4" />
+                        <rect x="102" y="470" width="50" height="15" rx="5" fill="#0b0d10" stroke="#86D1D1" stroke-width="4" />
+                        <rect x="148" y="470" width="50" height="15" rx="5" fill="#0b0d10" stroke="#86D1D1" stroke-width="4" />
+                    </g>
+
+                    <g class="intro-hotspot" onclick="showIntroInfo('body', this)">
+                        <path d="M 70 160 L 230 160 L 190 330 L 110 330 Z" fill="transparent" class="hitbox" stroke="none" />
+                        
+                        <path d="M 70 160 L 230 160 L 190 330 L 110 330 Z" fill="#0b0d10" stroke="#86D1D1" stroke-width="4" />
+                        
+                        <line x1="90" y1="185" x2="210" y2="185" stroke="#2C9999" stroke-width="2" stroke-dasharray="5,5" />
+
+                        <rect x="140" y="205" width="20" height="8" rx="2" fill="#2C9999" />
+                        <rect x="125" y="213" width="50" height="70" rx="6" fill="none" stroke="#2C9999" stroke-width="4" />
+                        <rect x="133" y="221" width="34" height="54" rx="3" fill="#86D1D1">
+                            <animate attributeName="opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite" />
+                        </rect>
+                        <path d="M 153 228 L 141 248 L 151 248 L 146 266 L 159 244 L 149 244 Z" fill="#0b0d10" />
+
+                        <line x1="105" y1="305" x2="195" y2="305" stroke="#2C9999" stroke-width="2" stroke-dasharray="5,5" />
+                    </g>
+                </g> 
+                <g id="info-head" class="info-group" style="opacity: 0; transition: opacity 0.3s ease;">
+                    <line x1="450" y1="95" x2="280" y2="95" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
+                    <text x="260" y="90" class="svg-tech-title" text-anchor="end">AI & VISION</text>
+                    <text x="260" y="125" class="svg-human-desc" text-anchor="end">Human: Brain & Eyes</text>
+                </g>
+
+                <g id="info-arm" class="info-group" style="opacity: 0; transition: opacity 0.3s ease;">
+                    <line x1="390" y1="260" x2="280" y2="260" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
+                    <text x="260" y="255" class="svg-tech-title" text-anchor="end">ACTUATORS</text>
+                    <text x="260" y="290" class="svg-human-desc" text-anchor="end">Human: Muscles</text>
+                </g>
+
+                <g id="info-body" class="info-group" style="opacity: 0; transition: opacity 0.3s ease;">
+                    <line x1="560" y1="230" x2="660" y2="230" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
+                    <text x="680" y="225" class="svg-tech-title" text-anchor="start">BATTERY & MCU</text>
+                    <text x="680" y="260" class="svg-human-desc" text-anchor="start">Human: Heart & Nerves</text>
+                </g>
+
+                <g id="info-leg" class="info-group" style="opacity: 0; transition: opacity 0.3s ease;">
+                    <line x1="540" y1="400" x2="660" y2="400" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
+                    <text x="680" y="395" class="svg-tech-title" text-anchor="start">SENSORS & BALANCE</text>
+                    <text x="680" y="430" class="svg-human-desc" text-anchor="start">Human: Inner Ear</text>
+                </g>
+
+            </svg>
+        </div>
+
+        <script>
+            function showIntroInfo(partId, element) {
+                // 1. 모든 핫스팟 활성화 효과 초기화
+                document.querySelectorAll('.intro-hotspot').forEach(el => el.classList.remove('active'));
+                if(element) element.classList.add('active');
+                
+                // 2. 모든 양옆 텍스트/선 숨기기
+                document.querySelectorAll('.info-group').forEach(el => {
+                    el.style.opacity = '0';
+                });
+                
+                // 3. 클릭한 부위의 텍스트/선만 부드럽게 나타내기
+                const infoEl = document.getElementById('info-' + partId);
+                if(infoEl) {
+                    infoEl.style.opacity = '1';
+                }
+            }
+        </script>
+
         <a href="main.html" class="door-handle-btn">
-            How Robots Work <i class="fas fa-sign-in-alt"></i>
+            HOW ROBOTS WORK <i class="fas fa-chevron-right"></i>
         </a>
 
     </div>
+	<script>
+        function showIntroTech(techName, element) {
+            // 모든 핫스팟 효과 초기화 후 클릭한 곳만 활성화
+            document.querySelectorAll('.intro-hotspot').forEach(el => el.classList.remove('active'));
+            if(element) element.classList.add('active');
+            
+            // 텍스트 부드럽게 나타나기
+            const display = document.getElementById('tech-display-text');
+            display.style.opacity = 0;
+            setTimeout(() => {
+                display.innerText = techName;
+                display.style.opacity = 1;
+            }, 150);
+        }
+    </script>
 </body>
 </html>
