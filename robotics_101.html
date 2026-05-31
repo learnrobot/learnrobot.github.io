@@ -2500,8 +2500,9 @@ Services: On-Demand Interaction
 
 
 <script>
-// ▼▼▼▼▼▼ [신규] 로봇 퀴즈 50문제 데이터뱅크 ▼▼▼▼▼▼
+// ▼▼▼▼▼▼ [수정] 본문 내용과 100% 일치하는 로봇 퀴즈 50문제 데이터뱅크 ▼▼▼▼▼▼
 const quizData = [
+    // 0~9 (사이드바 랜덤용)
     { q: "Which sensor is best for mapping a room?", a: "LiDAR", b: "Thermometer", ans: "A" },
     { q: "What does an IMU measure?", a: "Temperature", b: "Motion & Gravity", ans: "B" },
     { q: "Ultrasonic sensors use...?", a: "Sound waves", b: "Lasers", ans: "A" },
@@ -2512,40 +2513,58 @@ const quizData = [
     { q: "A microphone is a sensor for...?", a: "Light", b: "Sound", ans: "B" },
     { q: "Which sensor is cheapest for distance?", a: "Ultrasonic", b: "3D LiDAR", ans: "A" },
     { q: "What does 'ToF' stand for?", a: "Time of Flight", b: "Time of Fall", ans: "A" },
+    
+    // --- 🏆 1. Mechanics 본문 퀴즈 (10~13) ---
     { q: "What acts as the 'Muscle' of a robot?", a: "Sensor", b: "Actuator", ans: "B" },
     { q: "What connects two robot links?", a: "Joint", b: "Glue", ans: "A" },
     { q: "Which material is light but strong?", a: "Lead", b: "Carbon Fiber", ans: "B" },
     { q: "A 'Servo Motor' controls...?", a: "Exact Angle", b: "Just Speed", ans: "A" },
+    
+    // 14~19 (사이드바 랜덤용)
     { q: "What is 'Torque'?", a: "Speed", b: "Turning Force", ans: "B" },
     { q: "Stepper motors move in...?", a: "Discrete Steps", b: "Continuous Flow", ans: "A" },
     { q: "Hydraulics use...?", a: "Air", b: "Liquid (Oil)", ans: "B" },
     { q: "Pneumatics use...?", a: "Compressed Air", b: "Electricity", ans: "A" },
     { q: "What is an End Effector?", a: "Robot Hand/Tool", b: "Robot Foot", ans: "A" },
     { q: "6 DoF means...?", a: "6 Dead Fans", b: "6 Degrees of Freedom", ans: "B" },
+    
+    // --- 🏆 2. Electronics 본문 퀴즈 (20~23) ---
     { q: "What protects the brain from voltage?", a: "Motor Driver", b: "USB Cable", ans: "A" },
     { q: "Common robot battery type?", a: "LiPo", b: "AA Alkaline", ans: "A" },
     { q: "Arduino is a...?", a: "Microcontroller", b: "Microprocessor", ans: "A" },
     { q: "Raspberry Pi is a...?", a: "Simple Chip", b: "Mini Computer", ans: "B" },
+    
+    // 24~29 (사이드바 랜덤용)
     { q: "PWM is used to control...?", a: "Motor Speed", b: "WiFi", ans: "A" },
     { q: "What is a PCB?", a: "Printed Circuit Board", b: "Plastic Car Body", ans: "A" },
     { q: "Ohm's Law formula?", a: "V = I * R", b: "F = m * a", ans: "A" },
     { q: "What stores energy temporarily?", a: "Resistor", b: "Capacitor", ans: "B" },
     { q: "LED stands for...?", a: "Light Emitting Diode", b: "Low Energy Drive", ans: "A" },
     { q: "GND usually means...?", a: "Grand", b: "Ground (0V)", ans: "B" },
-    { q: "Infinite loop syntax?", a: "while(true)", b: "if(true)", ans: "A" },
+    
+    // --- 🏆 3. Programming 본문 퀴즈 (30~33) ---
+    { q: "What logic is used for robot decisions?", a: "If, Then, Else", b: "Loop Forever", ans: "A" }, // [수정] 무한루프 제거
     { q: "Python is known for...?", a: "Readability", b: "Speed", ans: "A" },
     { q: "C++ is preferred for...?", a: "Real-time Control", b: "Websites", ans: "A" },
-    { q: "How do AI robots learn?", a: "Magic", b: "Training Data", ans: "B" },
+    { q: "Why are computer errors called 'bugs'?", a: "A real moth was found inside", b: "Code looks like insects", ans: "A" }, // [수정] 나방 이야기로 교체
+    
+    // --- 🏆 4. AI & Vision 본문 퀴즈 (34~37) ---
     { q: "Computer Vision uses...?", a: "Pixels", b: "Audio", ans: "A" },
-    { q: "SLAM stands for...?", a: "Simultaneous Localization & Mapping", b: "Simple Logic & Math", ans: "A" },
-    { q: "What is a Neural Network?", a: "AI Model", b: "Internet Cable", ans: "A" },
-    { q: "Linux command to list files?", a: "ls", b: "cd", ans: "A" },
+    { q: "V-SLAM is used to...?", a: "Build maps & track location", b: "Make robot noises", ans: "A" }, 
+    { q: "What is a Neural Network?", a: "Imitates brain neurons", b: "Internet Cable", ans: "A" }, 
+    { q: "Which AI defeated the 'Go' champion?", a: "AlphaGo", b: "Terminator", ans: "A" }, // [수정] 리눅스 명령어 제거
+    
+    // 38~39 (사이드바 랜덤용)
     { q: "GitHub is for...?", a: "Code Hosting", b: "Video Streaming", ans: "A" },
     { q: "Binary code uses...?", a: "0 and 1", b: "A to Z", ans: "A" },
+    
+    // --- 🏆 5. ROS 2 본문 퀴즈 (40~43) ---
     { q: "ROS stands for?", a: "Robot Operating System", b: "Real Organic System", ans: "A" },
     { q: "In ROS, a 'Node' is...?", a: "Hardware", b: "Software Process", ans: "B" },
-    { q: "ROS messaging system?", a: "Pub/Sub", b: "Call/SMS", ans: "A" },
-    { q: "Who makes 'Spot'?", a: "Boston Dynamics", b: "Tesla", ans: "A" },
+    { q: "Topics use which model?", a: "Publish/Subscribe", b: "Call/SMS", ans: "A" }, // [수정] 좀 더 명확하게 수정
+    { q: "What is 'Gazebo' in ROS 2?", a: "3D Physics Simulator", b: "A Robot Battery", ans: "A" }, // [수정] 스팟(Spot) 제거
+    
+    // 44~49 (사이드바 랜덤용)
     { q: "Tesla's humanoid name?", a: "Optimus", b: "Prime", ans: "A" },
     { q: "Asimov's 1st Law protects?", a: "Humans", b: "Robots", ans: "A" },
     { q: "What is a 'Cobot'?", a: "Collaborative Robot", b: "Cold Robot", ans: "A" },
@@ -3528,17 +3547,24 @@ document.addEventListener('DOMContentLoaded', renderSectionQuizzes);
             
             <div class="cert-text">has successfully mastered the foundational concepts of Robotics 101, including Mechanics, Electronics, Programming, AI Vision, and ROS 2.</div>
             
-            <div class="cert-footer-layout">
-                <div class="cert-sign-box">
-                    <div class="cert-sign-line" id="cert-date-display">Date</div>
-                    <div class="cert-sign-text">Date of Issue</div>
-                </div>
-                <div class="cert-seal"><i class="fas fa-medal"></i></div>
-                <div class="cert-sign-box">
-                    <div class="cert-sign-line" style="font-family: 'Brush Script MT', cursive; font-size: 1.8rem;">www.learnrobot.com</div>
-                    <div class="cert-sign-text">Issued by</div>
-                </div>
-            </div>
+            <!-- [수정 전] 라벨이 밑줄 아래에 있던 기존 레이아웃을 지우고 아래 코드로 교체하세요 -->
+<div class="cert-footer-layout">
+    <div class="cert-sign-box">
+        <!-- 1. 라벨 (Date of Issue) -->
+        <div class="cert-sign-text" style="margin-bottom: 5px;">Date of Issue</div>
+        <!-- 2. 날짜 + 3. 밑줄 -->
+        <div class="cert-sign-line" id="cert-date-display" style="height: auto; padding-top: 5px; padding-bottom: 5px; margin-bottom: 0;">Date</div>
+    </div>
+    
+    <div class="cert-seal"><i class="fas fa-medal"></i></div>
+    
+    <div class="cert-sign-box">
+        <!-- 1. 라벨 (Issued by) -->
+        <div class="cert-sign-text" style="margin-bottom: 5px;">Issued by</div>
+        <!-- 2. 발행자 + 3. 밑줄 -->
+        <div class="cert-sign-line" style="font-family: 'Brush Script MT', cursive; font-size: 1.8rem; height: auto; padding-top: 5px; padding-bottom: 5px; margin-bottom: 0;">www.learnrobot.com</div>
+    </div>
+</div>
             
             <button id="cert-print-btn" onclick="window.print()" class="print-btn">Print / Save as PDF</button>
         </div>
