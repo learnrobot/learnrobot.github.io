@@ -96,8 +96,8 @@
             align-items: center;
             gap: 15px;
             background: transparent;
-            color: #FFFB03;
-            border: 2px solid #FFFB03;
+            color: #FFF;
+            border: 2px solid #FFF;
             padding: 15px 40px;
             border-radius: 30px; /* 둥근 버튼으로 변경하여 세련미 추가 */
             font-family: 'Orbitron', sans-serif;
@@ -108,12 +108,18 @@
             transition: all 0.3s ease;
         }
         
-        .door-handle-btn:hover {
-            background: rgba(255, 251, 3, 0.1);
-            box-shadow: 0 0 25px rgba(255, 251, 3, 0.5), inset 0 0 10px rgba(255, 251, 3, 0.2);
-            transform: scale(1.05);
-            color: #fff;
-        }
+.door-handle-btn:hover {
+    /* 1. 배경을 은은한 흰색으로 변경 */
+    background: rgba(255, 255, 255, 0.1); 
+    
+    /* 2. 네온 빛(그림자) 효과를 흰색(255, 255, 255)으로 변경 */
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.2); 
+    
+    transform: scale(1.05);
+    
+    /* 3. 글자색 흰색 (이 부분은 이미 #fff로 되어있습니다) */
+    color: #fff; 
+}
 		/* [신규] 핫스팟 클릭 및 텍스트 효과 */
         .intro-hotspot {
             cursor: pointer;
@@ -279,7 +285,7 @@
         </script>
 
         <a href="main.html" class="door-handle-btn">
-            Find out How Robots Work <i class="fas fa-chevron-right"></i>
+            Find out How Robots Work<i class="fas fa-chevron-right"></i>
         </a>
 
     </div>
