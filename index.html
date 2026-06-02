@@ -149,18 +149,18 @@
 		/* 📱 [신규] 모바일 화면 전용 확대 (화면 폭 768px 이하일 때만 작동) */
         @media (max-width: 768px) {
             .neon-robot-svg {
-                max-width: 140vw !important; /* 가로 제한을 풀어서 로봇을 1.4배 줌인! */
-                width: 140vw;
+                max-width: 105vw !important; /* 가로 제한을 풀어서 로봇을 1.4배 줌인! */
+                width: 105vw;
             }
             .svg-tech-title { 
-                font-size: 36px !important; /* 모바일에서 제목 폰트 빵빵하게 */
+                font-size: 20px !important; /* 모바일에서 제목 폰트 빵빵하게 */
             }
             .svg-human-desc { 
                 font-size: 26px !important; /* 모바일에서 설명 폰트 빵빵하게 */
             }
             /* 글씨를 키웠을 때 화면 밖으로 잘리지 않도록 글자들을 로봇 쪽(안쪽)으로 살짝 당김 */
-            #info-head text, #info-arm text { transform: translateX(30px); }
-            #info-body text, #info-leg text { transform: translateX(-30px); }
+            #info-head text, #info-arm text { transform: translateX(45px); }
+            #info-body text, #info-leg text { transform: translateX(-45px); }
         }
 		/* 팔 안쪽 어두운 선은 클릭/호버 시에도 노란색으로 변하지 않도록 방지 */
 .intro-hotspot:hover .inner-arm, .intro-hotspot.active .inner-arm {
