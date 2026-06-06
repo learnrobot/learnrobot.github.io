@@ -23,6 +23,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA===" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
+	body {
+        background-image: url('welcome.png'); /* 기본 배경 이미지 */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
 /* --- 메인 내비게이션 스타일 (새로 추가) --- */
 /* index.html의 <style> 태그 안 */
 /* [수정] 네비게이션 스타일 교체 (메뉴 3개 -> 홈 버튼 1개) */
@@ -1286,6 +1292,16 @@ document.addEventListener('keydown', (e) => {
     ">Privacy Policy</a>
 </div>
 <script>
+const backgroundImages = ['welcome.png', 'image/3.future_world.png', 'image/6.softwares.jpg'];
+    let currentBgIndex = 0;
+
+    function setInitialBackground() {
+        // body 태그에 첫 번째 이미지 적용
+        document.body.style.backgroundImage = `url('${backgroundImages[currentBgIndex]}')`;
+    }
+
+    // 페이지 로드 시 실행
+    window.addEventListener('DOMContentLoaded', setInitialBackground);
       // 여기에 보여주신 코드를 붙여넣습니다.
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
