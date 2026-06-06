@@ -269,7 +269,7 @@ background: rgba(44, 153, 153, 0.15);
     background: rgba(255, 251, 3, 0.1);
 }
 
-/* 2. Players 패널 (일반 실선 테두리 및 배경 통일) */
+
 .spotlight-card {
     /* 외부 여백은 위의 category-group이 담당하므로 여기서는 0으로 설정하여 이중 여백 방지 */
     margin-top: 0 !important; 
@@ -788,6 +788,129 @@ background: rgba(44, 153, 153, 0.15);
             /* 3. 👇 모바일/태블릿에서의 위치 조절 (필요시 이 숫자도 조절하세요) */
             .floating-top-btn { bottom: 40px; right: 30px; width: 45px; height: 45px; font-size: 1.2rem; }
         }
+		/* ========================================== */
+        /* 🚨 주식 전광판 (Stock Ticker) 최종 완성 CSS 🚨 */
+        /* ========================================== */
+        .ticker-wrapper {
+            display: flex;
+            align-items: center;
+            height: 31px; /* 국기가 커졌으므로 전광판 높이를 살짝 키움 */
+            flex-shrink: 0;
+            background: rgba(20, 20, 20, 0.5); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(44, 153, 153, 0.4);
+            border-bottom: 1px solid rgba(44, 153, 153, 0.4);
+            width: 100%;
+            z-index: 50;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .ticker-label {
+            position: relative;
+            flex-shrink: 0;
+            background: #2C9999;
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            padding: 0 15px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.9);
+        }
+        .ticker-label::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 0;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            border-left: 10px solid #2C9999;
+        }
+        .ticker-container {
+            flex-grow: 1;
+            overflow: hidden;
+            display: flex;
+            margin-left: 15px;
+        }
+        .ticker-content {
+            display: flex;
+            width: max-content;
+            /* 🚨 3. 속도 대폭 감속 (600s -> 1500s) : 눈이 아주 편안해집니다 */
+            animation: tickerScroll 2000s linear infinite; 
+        }
+        /* 🚨 5. 마우스 올리면 정지 */
+        .ticker-content:hover {
+            animation-play-state: paused;
+        }
+        .ticker-track {
+            display: flex;
+            gap: 40px;
+            padding-right: 40px;
+        }
+        
+        /* 🚨 2 & 5. 클릭 가능한 영역(<a> 태그) 디자인 설정 및 한줄 고정 */
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px; /* 간격을 살짝 넓혀 가독성 확보 */
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1rem;
+            text-decoration: none; /* 밑줄 제거 */
+            cursor: pointer;
+            white-space: nowrap; /* 🚨 핵심: 어떤 일이 있어도 두 줄로 꺾이지 않음 */
+            padding: 2px 8px;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+        /* 마우스 올렸을 때 살짝 하이라이트 효과 */
+        .ticker-item:hover {
+            background: rgba(255, 255, 255, 0.1); 
+        }
+        
+        /* 🚨 1. 국기 크기 대폭 확대 (2.2rem) */
+        .ticker-item .fi, .ticker-item .fa-globe {
+            font-size: 1.8rem !important; 
+            border-radius: 3px;
+            line-height: 1;
+            flex-shrink: 0; /* 국기가 찌그러지지 않게 방어 */
+        }
+        
+/* 🚨 파란색(기본 링크색) 탈피 & 색상 가독성 대폭 개선 🚨 */
+        .ticker-item .co-name {
+            color: #ffffff; /* 1. 회사명: 깨끗한 흰색 */
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .ticker-item .co-desc {
+            color: #FFFB03; /* 2. 품명/기술: 눈에 잘 띄는 네온 노란색 (파란색 탈피!) */
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .ticker-item .co-tech {
+            color: #ffffff; /* 3. 분야: 괄호[]가 있으니 흰색으로 통일 */
+            font-weight: 900;
+            font-size: 0.85rem;
+            opacity: 0.7; /* 메인 회사명과 헷갈리지 않게 살짝 투명하게 처리 */
+        }
+        
+        @keyframes tickerScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } 
+        }
+        @media (max-width: 768px) {
+            .ticker-label { font-size: 0.7rem; padding: 0 10px; }
+            .ticker-label::after { right: -8px; border-top: 20px solid transparent; border-bottom: 20px solid transparent; border-left: 8px solid #2C9999; }
+            .ticker-item { font-size: 0.9rem; }
+            .ticker-item .fi, .ticker-item .fa-globe { font-size: 1.6rem !important; } 
+        }
+
+        /* 🚨 next topic 버튼 절대 숨김 규칙 🚨 */
+        .nav-action-group .nav-side-btn { display: none !important; }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936" crossorigin="anonymous"></script>
 </head>
@@ -860,7 +983,53 @@ background: rgba(44, 153, 153, 0.15);
         </div>
     </div>
 </header>
+<div class="ticker-wrapper">
+            <div class="ticker-label">Who makes Robots</div>
+            <div class="ticker-container">
+                <div class="ticker-content" id="ticker-content">
+                    </div>
+            </div>
+        </div>
+        
+        <script>
+            window.addEventListener('DOMContentLoaded', () => {
+                const tickerContent = document.getElementById('ticker-content');
+                if(tickerContent && typeof links !== 'undefined') {
+                    let shuffled = [...links].sort(() => 0.5 - Math.random());
+                    
+                    let htmlString = '';
+                    shuffled.forEach(link => {
+                        const flag = link.country ? `<span class="fi fi-${link.country}"></span>` : '<i class="fas fa-globe" style="color:#888;"></i>';
+                        
+                        const cleanTitle = link.title.replace(/<br\s*\/?>/gi, ' '); 
+                        const cleanTooltip = cleanTitle.replace(/<[^>]*>?/gm, '');
 
+                        // 🚨 괄호를 기준으로 회사명과 (품명/기술명) 분리
+                        let coName = cleanTitle;
+                        let coDesc = '';
+                        if (cleanTitle.includes('(')) {
+                            const splitIdx = cleanTitle.indexOf('(');
+                            coName = cleanTitle.substring(0, splitIdx).trim();
+                            coDesc = cleanTitle.substring(splitIdx).trim();
+                        }
+
+                        // 🚨 각 파트별로 CSS 클래스(색상)를 다르게 부여
+                        htmlString += `
+                            <a href="${link.url}" target="_blank" class="ticker-item" title="${cleanTooltip} 사이트 방문">
+                                ${flag} 
+                                <span class="co-name">${coName}</span> 
+                                <span class="co-desc">${coDesc}</span>
+                                <span class="co-tech">[${link.category.toUpperCase()}]</span>
+                            </a>`;
+                    });
+                    
+                    tickerContent.innerHTML = `
+                        <div class="ticker-track">${htmlString}</div>
+                        <div class="ticker-track">${htmlString}</div>
+                    `;
+                }
+            });
+        </script>
 <div class="container-fluid">
     <aside id="sidebarMenu">
 
@@ -920,6 +1089,7 @@ background: rgba(44, 153, 153, 0.15);
 
     <main id="main-scroll-area">
         
+
         <section id="hero-intro" style="min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; padding: 20px; border-bottom: none;">
             <div style="max-width: 850px; z-index: 2;">
                 <h1 style="font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; color: var(--accent-color); text-transform: none ; margin-bottom: 25px; line-height: 1.2; text-shadow: 0 10px 30px rgba(0,0,0,0.8);">

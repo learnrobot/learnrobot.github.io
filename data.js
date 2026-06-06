@@ -227,7 +227,8 @@ var links = [
     { id: 720, title: "Scale AI", category: "ai", source: "Data Infrastructure", url: "https://scale.com/", country: "us" },
     { id: 807, title: "Mistral AI", category: "ai", source: "Frontier AI Models (France)", url: "https://mistral.ai/", country: "fr" },
     { id: 731, title: "DeepSeek<br>(Open Source AGI & Reasoning)", category: "ai", source: "Vision-Language AI for Robot Brains", url: "https://www.deepseek.com/", country: "cn" },
-    
+    { id: 999, title: "NVIDIA (Isaac Robotics)", category: "ai", source: "NVIDIA Isaac Platform", url: "https://www.nvidia.com/en-us/deep-learning-ai/industries/robotics/", country: "us" },
+
     // Software
     { id: 701, title: "ROS (Robot Operating System)", category: "software", source: "Open Source", url: "https://www.ros.org/", country: "us" }, 
     { id: 702, title: "NVIDIA Isaac Sim", category: "software", source: "NVIDIA", url: "https://developer.nvidia.com/isaac", country: "us" }, 
