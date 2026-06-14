@@ -23,7 +23,7 @@
         }
 	:root {
             --bg: #1a1a1a;
-            --panel-bg: rgba(20, 20, 20, 0.85);
+            --panel-bg: rgba(20, 20, 20, 0.15);
             --text-main: #e0e0e0;
             --text-sub: #aaaaaa;
             --primary: #2C9999;
@@ -40,13 +40,19 @@
         }
         
 .news-card { 
-            background: transparent !important; /* 배경 완전 투명 */
-            backdrop-filter: none !important;   /* 유리 흐림 효과 완벽 제거 */
-            box-shadow: none !important;        /* 🚨 카드를 어둡게 만드는 그림자 제거 */
+            /* 🚨 핵심 해결책: 패딩과 테두리를 추가해도 카드가 커지지 않고 제자리를 지키게 함 */
+            box-sizing: border-box !important; 
+            
+            background: var(--panel-bg) !important; 
+            backdrop-filter: blur(5px) !important;   
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;        
             
             border-radius: 12px; 
             padding: 25px; 
-            border: 1px solid rgba(134,209,209,0.4); /* 테두리만 살짝 남김 */
+            
+            /* 🚨 겹치지 않는 얇고 예쁜 청록색 단일 외곽선 복구 */
+            border: 1px solid rgba(134, 209, 209, 0.2) !important; 
+            
             display: flex; 
             flex-direction: column; 
             height: 100%;
@@ -54,26 +60,28 @@
         }
         
         .news-card:hover {
-            border-color: rgba(255, 251, 3, 0.5);
-            transform: translateY(-3px);
+            border-color: var(--primary) !important;
+            transform: translateY(-4px);
         }
 
-/* 매체사 헤더 뱃지 (크기 대폭 축소) */
+/* 매체사 헤더 (배경 박스 제거, 글자색으로만 포인트) */
         .source-header { 
             font-family: 'Orbitron', sans-serif; 
-            font-size: 0.85rem; /* 🚨 1.1rem에서 예전 크기로 확 줄임 */
+            font-size: 0.95rem; /* 박스가 사라진 대신 글자 크기를 살짝 키움 */
             font-weight: 700;
-            color: #F3FCF2; 
-            background: #803C41; 
-            padding: 4px 10px;  /* 🚨 위아래 여백도 예전처럼 얇게 */
-            border-radius: 4px; 
-            width: max-content; 
-            margin-bottom: 15px; 
+            
+            /* 기본 언론사 텍스트 색상은 사이트 메인 컬러인 청록색으로 맞춤 */
+            color: var(--primary); 
+            
+            margin-bottom: 20px; 
             letter-spacing: 1px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             display: flex; 
             align-items: center; 
-            gap: 8px; /* 로고와 글자 사이 간격 축소 */
+            gap: 8px; 
+            
+            /* 🚨 밑줄을 살짝 그어주어 깔끔하게 기사 제목과 분리 */
+            
+            padding-bottom: 8px; 
         }
 
         /* 🚨 언론사 로고 이미지 스타일 (로고도 뱃지에 맞춰 작게) */
@@ -95,14 +103,12 @@
             gap: 15px;
             flex-grow: 1;
         }
-
-        .article-item {
-            border-bottom: 1px dashed rgba(134, 209, 209, 0.2);
+.article-item {
+            /* 🚨 기존에 있던 border-bottom: 1px dashed... 줄을 삭제했습니다! */
             padding-bottom: 15px;
         }
 
         .article-item:last-child {
-            border-bottom: none;
             padding-bottom: 0;
         }
 
@@ -199,7 +205,8 @@
             transform: translateY(-2px); 
         }
 
-        .container { max-width: 1400px; width: 92%; margin: 0 auto; padding: 60px 0; }
+        /* 아래 여백을 60px에서 20px로 대폭 축소 */
+        .container { max-width: 1400px; width: 92%; margin: 0 auto; padding: 60px 0 20px; }
         
         .section-title {
             font-family: 'Chakra Petch', sans-serif; font-size: 2.5rem; font-weight: 700;
@@ -253,14 +260,12 @@
         .news-date { font-size: 0.85rem; color: #666; }
         .read-more { font-size: 0.9rem; color: var(--primary); font-weight: bold; font-family: 'Chakra Petch', sans-serif; }
 
-        .cta-section { 
+.cta-section { 
             text-align: center; 
-            padding: 80px 20px; 
+            /* 위 여백 30px, 양옆 20px, 아래 여백 80px로 변경 */
+            padding: 30px 20px 80px; 
             
-            /* 🚨 기존의 진한 그라데이션 배경을 완전히 투명하게 변경 */
             background: transparent !important; 
-            
-            /* (선택) 위쪽 테두리를 청록색으로 은은하게 남겨 구분감을 줌 */
             border-top: 1px solid rgba(134, 209, 209, 0.2); 
         }
         .cta-title { 
@@ -420,7 +425,7 @@
 
    <!-- 실시간 뉴스 그리드 섹션 -->
     <section id="realtime-news" class="container">
-        <h2 class="section-title">Global Robotics News</h2>
+        <h2 class="section-title">Robotics News</h2>
         
         
         <div class="news-grid" id="rss-news-container">
@@ -450,9 +455,10 @@
 
             // 다시 정상적인 구글 뉴스 검색어로 복구 (intitle 강제 제한 해제)
             const allRssSources = [
-                { name: "Google: Humanoids", url: "https://news.google.com/rss/search?q=humanoid+robot+OR+boston+dynamics+OR+figure+ai&hl=en-US&gl=US&ceid=US:en", domain: "news.google.com" }, 
-                { name: "Google: AI Bots", url: "https://news.google.com/rss/search?q=AI+robot+OR+artificial+intelligence+automation&hl=en-US&gl=US&ceid=US:en", domain: "news.google.com" }, 
-                { name: "Google: Robotics", url: "https://news.google.com/rss/search?q=robotics+OR+automation+OR+mechatronics&hl=en-US&gl=US&ceid=US:en", domain: "news.google.com" }, 
+ { name: "Robotics", url: "https://news.google.com/rss/search?q=robotics+OR+automation+OR+mechatronics&hl=en-US&gl=US&ceid=US:en", domain: "news.google.com" }, 
+                { name: "Humanoids", url: "https://news.google.com/rss/search?q=humanoid+robot+OR+boston+dynamics+OR+figure+ai&hl=en-US&gl=US&ceid=US:en", domain: "news.google.com" }, 
+                { name: "Artificial Intelligence", url: "https://news.google.com/rss/search?q=AI+robot+OR+artificial+intelligence+automation&hl=en-US&gl=US&ceid=US:en", domain: "news.google.com" }, 
+               
                 { name: "TechCrunch", url: "https://techcrunch.com/category/robotics/feed/", domain: "techcrunch.com" },
                 { name: "IEEE Spectrum", url: "https://spectrum.ieee.org/feeds/topic/robotics.rss", domain: "spectrum.ieee.org" },
                 { name: "The Robot Report", url: "https://www.therobotreport.com/feed/", domain: "therobotreport.com" },
@@ -553,9 +559,14 @@
                     if (articles && articles.length > 0) {
                         const iconUrl = `https://www.google.com/s2/favicons?domain=${source.domain}&sz=64`;
 
+                        // 1. 도메인 주소에 google이 있으면 파란색, 아니면 빈칸
+                       // 🚨 배경색(background)은 없애고, 글자색(color)을 파란색으로 변경
+                        const customBadgeStyle = source.domain.includes("google") ? "color: #4285F4 !important;" : "";
+
+                        // 2. 🚨 아래 div 태그 안에 style="${customBadgeStyle}" 가 반드시 포함되어야 합니다!
                         newsHTML += `
                             <div class="news-card">
-                                <div class="source-header">
+                                <div class="source-header" style="${customBadgeStyle}">
                                     <img src="${iconUrl}" alt="logo" class="source-icon">
                                     ${source.name}
                                 </div>
