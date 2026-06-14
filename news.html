@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LearnRobot | Trend Hub</title>
@@ -16,13 +17,104 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        :root {
-            --bg: #0b0c10;
-            --panel-bg: rgba(20, 25, 30, 0.6);
-            --primary: #86D1D1;
+	/* 🚨 모바일/태블릿(화면 좁을 때)에서는 헤더 광고 숨김 */
+        @media (max-width: 1024px) {
+            .header-ad-zone { display: none !important; }
+        }
+	:root {
+            --bg: #1a1a1a;
+            --panel-bg: rgba(20, 20, 20, 0.85);
+            --text-main: #e0e0e0;
+            --text-sub: #aaaaaa;
+            --primary: #2C9999;
             --accent: #FFFB03;
-            --text-main: #ffffff;
-            --text-sub: #a0a5b5;
+        }
+	/* ========================================== */
+        /* 실시간 뉴스 그리드 & 카드 스타일 (매체별 통합 버전) */
+        /* ========================================== */
+        .news-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
+            gap: 25px; 
+            margin-top: 40px; 
+        }
+        
+.news-card { 
+            background: transparent !important; /* 배경 완전 투명 */
+            backdrop-filter: none !important;   /* 유리 흐림 효과 완벽 제거 */
+            box-shadow: none !important;        /* 🚨 카드를 어둡게 만드는 그림자 제거 */
+            
+            border-radius: 12px; 
+            padding: 25px; 
+            border: 1px solid rgba(134,209,209,0.4); /* 테두리만 살짝 남김 */
+            display: flex; 
+            flex-direction: column; 
+            height: 100%;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .news-card:hover {
+            border-color: rgba(255, 251, 3, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* 매체사 헤더 뱃지 */
+        .source-header { 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 1.1rem; 
+            font-weight: 700;
+            color: #0b0c10; 
+            background: var(--accent); 
+            padding: 6px 15px; 
+            border-radius: 6px; 
+            width: max-content; 
+            margin-bottom: 20px; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 10px rgba(255, 251, 3, 0.4);
+        }
+
+        /* 카드 내부 기사 리스트 */
+        .article-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            flex-grow: 1;
+        }
+
+        .article-item {
+            border-bottom: 1px dashed rgba(134, 209, 209, 0.2);
+            padding-bottom: 15px;
+        }
+
+        .article-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .article-title {
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            line-height: 1.4;
+            display: block;
+            margin-bottom: 6px;
+            font-family: 'Roboto', sans-serif;
+            transition: color 0.2s ease;
+        }
+
+        .article-title:hover {
+            color: var(--primary);
+        }
+
+        .article-date {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            font-family: 'Chakra Petch', sans-serif;
         }
 
 /* 기본 배경 설정 및 가상 요소를 위한 relative 속성 추가 */
@@ -147,7 +239,16 @@
         .news-date { font-size: 0.85rem; color: #666; }
         .read-more { font-size: 0.9rem; color: var(--primary); font-weight: bold; font-family: 'Chakra Petch', sans-serif; }
 
-        .cta-section { text-align: center; padding: 80px 20px; background: linear-gradient(0deg, rgba(11,12,16,1) 0%, rgba(20,25,30,0.8) 100%); border-top: 1px solid rgba(255,255,255,0.05); }
+        .cta-section { 
+            text-align: center; 
+            padding: 80px 20px; 
+            
+            /* 🚨 기존의 진한 그라데이션 배경을 완전히 투명하게 변경 */
+            background: transparent !important; 
+            
+            /* (선택) 위쪽 테두리를 청록색으로 은은하게 남겨 구분감을 줌 */
+            border-top: 1px solid rgba(134, 209, 209, 0.2); 
+        }
         .cta-title { font-family: 'chakra petch'; font-size: 1.9rem; margin-bottom: 20px; color: #fff; }
         .cta-desc { font-size: 1.2rem; color: var(--text-sub); margin-bottom: 40px; }
         .cta-btn {
@@ -209,6 +310,8 @@
             .ticker-item .fi, .ticker-item .fa-globe { font-size: 1.6rem !important; } 
         }
     </style>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2674022896970936" crossorigin="anonymous"></script>
+
 </head>
 <body>
 
@@ -230,12 +333,19 @@
         </div>
 
         <!-- 중앙: main.html의 광고 여백과 동일한 빈 공간 강제 할당 -->
-        <div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; height: 90px; max-width: 728px; overflow: hidden; margin: 0 20px;"></div>
+        <div class="header-ad-zone" style="flex-grow: 1; display: flex; justify-content: center; align-items: center; height: 90px; max-width: 728px; overflow: hidden; margin: 0 20px;">
+            <ins class="adsbygoogle"
+                 style="display:inline-block; width:100%; max-width:728px; height:90px;"
+                 data-ad-client="ca-pub-2674022896970936"
+                 data-ad-slot="2262766753"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
 
         <!-- 우측: 링크 영역 (How Robots Work는 버튼 스타일) -->
         <div class="nav-links" style="flex: 1; display: flex; justify-content: flex-end; align-items: center;">
-            <a href="#rotd">Robot of the Day</a>
-            <a href="#news-feed">Weekly Insights</a>
+            
             <a href="main.html" class="btn-main">How Robots Work <i class="fas fa-arrow-right"></i></a>
         </div>
 
@@ -286,42 +396,22 @@
         });
     </script>
 
-   
-
-    <section id="rotd" class="container">
-        <h2 class="section-title">Robot of the Day</h2>
-        <div class="rotd-card">
-            <!-- image 폴더에 사진을 넣고 경로를 변경하세요 -->
-<div class="rotd-image" style="background-image: url('image/figure03.jpg');"></div>
-        <div class="rotd-info">
-                <div class="rotd-badge"><i class="fas fa-fire"></i> Hot Issue</div>
-                <h3 class="rotd-name">Figure 03</h3>
-                <div class="rotd-maker">by Figure AI</div>
-                <p class="rotd-desc">
-                    Designed for the home and the world, Figure 03 is powered by the Helix Vision-Language-Action (VLA) model. Featuring soft textiles, wireless charging, and ultra-sensitive tactile sensors, it safely performs everyday tasks like folding laundry and loading dishwashers autonomously.
-                </p>
-                <div class="rotd-specs">
-                    <div class="spec-item">
-                        <div class="spec-label">Core Brain</div>
-                        <div class="spec-value">Helix VLA Model</div>
-                    </div>
-                    <div class="spec-item">
-                        <div class="spec-label">Application</div>
-                        <div class="spec-value">Home & Everyday Use</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="news-feed" class="container">
-        <h2 class="section-title">Weekly Insights</h2>
-        <p style="color: var(--text-sub); margin-bottom: 40px; font-size: 1.1rem;">Instead of long, boring articles, we summarize the core Physical AI issues you shouldn't miss this week.</p>
+   <!-- 실시간 뉴스 그리드 섹션 -->
+    <section id="realtime-news" class="container">
+        <h2 class="section-title">Global Robotics News</h2>
         
-        <div class="news-grid" id="news-container">
-            <!-- 자바스크립트가 여기에 기사를 렌더링합니다. -->
+        
+        <div class="news-grid" id="rss-news-container">
+            <!-- 자바스크립트가 데이터를 긁어와 여기에 카드를 생성합니다 -->
+            <p style="color: var(--primary); font-size: 1.2rem; grid-column: 1 / -1; text-align: center; padding: 80px 0; font-family: 'Chakra Petch', sans-serif;">
+                <i class="fas fa-spinner fa-spin"></i> Fetching latest news from TechCrunch, IEEE, and more...
+            </p>
         </div>
     </section>
+
+    
+
+    
 
     <section class="cta-section">
         <h2 class="cta-title">Curious about the tech inside?</br> Let's break down the basic principles of how robots work</h2>
@@ -332,94 +422,111 @@
     </section>
 
     <script>
-        /* 타이핑 효과 로직 */
-        const headlines = [
-            "Tesla Optimus successfully deployed in factory sorting tasks",
-            "Robot equipped with OpenAI brain makes autonomous decisions",
-            "Industrial humanoid market predicted to explode by 2030",
-            "A new design approach for robot actuators emerges"
-        ];
-        
-        let hlIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typedTextSpan = document.getElementById("typed-text");
+        async function fetchGridNews() {
+            const container = document.getElementById('rss-news-container');
+            if (!container) return;
 
-        function typeEffect() {
-            const currentHeadline = headlines[hlIndex];
+            const allRssSources = [
+                { name: "TechCrunch", url: "https://techcrunch.com/category/robotics/feed/" },
+                { name: "IEEE Spectrum", url: "https://spectrum.ieee.org/feeds/topic/robotics.rss" },
+                { name: "The Robot Report", url: "https://www.therobotreport.com/feed/" },
+                { name: "MIT News", url: "https://news.mit.edu/rss/topic/robotics" },
+                { name: "Robotics & Auto", url: "https://roboticsandautomationnews.com/feed/" },
+                { name: "ScienceDaily", url: "https://www.sciencedaily.com/rss/matter_energy/robotics.xml" },
+                { name: "Google News", url: "https://news.google.com/rss/search?q=robotics+OR+humanoid&hl=en-US&gl=US&ceid=US:en" },
+                { name: "Robohub", url: "https://robohub.org/feed/" },
+                { name: "Interesting Eng.", url: "https://interestingengineering.com/feed" }
+            ];
+
+            // 매체별로 기사를 담을 객체 생성
+            let sourceDataMap = {};
             
-            if (isDeleting) {
-                typedTextSpan.textContent = currentHeadline.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typedTextSpan.textContent = currentHeadline.substring(0, charIndex + 1);
-                charIndex++;
-            }
+            // 두 달(60일) 전 날짜 계산
+            const twoMonthsAgo = new Date();
+            twoMonthsAgo.setDate(twoMonthsAgo.getDate() - 60);
 
-            let typeSpeed = isDeleting ? 30 : 80;
+            try {
+                // 여러 매체에 동시에 API 요청
+                const fetchPromises = allRssSources.map(async (source) => {
+                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}&count=10`;
+                    try {
+                        const response = await fetch(apiUrl);
+                        const data = await response.json();
+                        
+                        if (data.status === 'ok' && data.items && data.items.length > 0) {
+                            let validArticles = [];
+                            
+                            // 조건에 맞는 기사만 최대 3개 추출
+                            for (const item of data.items) {
+                                if (validArticles.length >= 3) break; 
+                                
+                                const pubDate = new Date(item.pubDate);
+                                if (pubDate >= twoMonthsAgo) {
+                                    validArticles.push({
+                                        title: item.title.replace(/<[^>]*>?/gm, ''), // 태그 제거
+                                        link: item.link,
+                                        pubDate: pubDate
+                                    });
+                                }
+                            }
+                            // 유효한 기사가 하나라도 있으면 맵에 저장
+                            if (validArticles.length > 0) {
+                                sourceDataMap[source.name] = validArticles;
+                            }
+                        }
+                    } catch (e) { 
+                        console.log("Failed to load:", source.name); 
+                    }
+                });
 
-            if (!isDeleting && charIndex === currentHeadline.length) {
-                typeSpeed = 2500;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                hlIndex = (hlIndex + 1) % headlines.length;
-                typeSpeed = 500;
-            }
-            setTimeout(typeEffect, typeSpeed);
-        }
-        document.addEventListener("DOMContentLoaded", function() { setTimeout(typeEffect, 1000); });
+                // 모든 API 요청이 끝날 때까지 대기
+                await Promise.all(fetchPromises);
 
+                let newsHTML = "";
+                
+                // 설정한 매체 순서대로 카드를 생성
+                allRssSources.forEach(source => {
+                    const articles = sourceDataMap[source.name];
+                    
+                    if (articles && articles.length > 0) {
+                        // 1. 카드 시작 & 매체명 헤더
+                        newsHTML += `
+                            <div class="news-card">
+                                <div class="source-header">${source.name}</div>
+                                <ul class="article-list">
+                        `;
+                        
+                        // 2. 카드 내부 기사 리스트 3개
+                        articles.forEach(news => {
+                            const dateStr = news.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                            newsHTML += `
+                                <li class="article-item">
+                                    <a href="${news.link}" target="_blank" class="article-title">${news.title}</a>
+                                    <div class="article-date"><i class="far fa-clock"></i> ${dateStr}</div>
+                                </li>
+                            `;
+                        });
 
-        /* 클릭 가능한 뉴스 데이터베이스 */
-        const newsDatabase = [
-            {
-                tag: "Industrial",
-                title: "Tesla develops new proprietary Optimus actuators",
-                summary: "Tesla has designed dedicated motors and reducers for humanoids without relying on external parts. This significantly lowers production costs, advancing the timeline for mass deployment in industrial settings.",
-                date: "2026-06-10",
-                link: "https://www.therobotreport.com" 
-            },
-            {
-                tag: "AI Model",
-                title: "New VLA model for robots unveiled",
-                summary: "The era where robots learn actions by analyzing video data from a single human demonstration has arrived. Robots can now figure out new assembly tasks autonomously without thousands of lines of code.",
-                date: "2026-06-08",
-                link: "https://spectrum.ieee.org/robotics"
-            },
-            {
-                tag: "Hardware",
-                title: "Tactile sensors 99% similar to human skin introduced",
-                summary: "Electronic skin for robots, capable of detecting the micro-vibrations of a slipping glass, has entered the commercialization phase. Industrial robots can now move eggs perfectly without breaking them.",
-                date: "2026-06-05",
-                link: "https://techcrunch.com/category/robotics/"
-            }
-        ];
-
-        /* 뉴스 카드 렌더링 */
-        function renderNews() {
-            const container = document.getElementById('news-container');
-            let html = '';
-            
-            newsDatabase.forEach(news => {
-                html += `
-                    <a href="${news.link}" target="_blank" class="news-card-link">
-                        <div class="news-card">
-                            <div class="news-tag">${news.tag}</div>
-                            <h3 class="news-title">${news.title}</h3>
-                            <p class="news-summary">${news.summary}</p>
-                            <div class="news-footer">
-                                <div class="read-more">Read Article <i class="fas fa-external-link-alt"></i></div>
-                                <div class="news-date">${news.date}</div>
+                        // 3. 카드 닫기
+                        newsHTML += `
+                                </ul>
                             </div>
-                        </div>
-                    </a>
-                `;
-            });
-            container.innerHTML = html;
+                        `;
+                    }
+                });
+
+                // 화면에 렌더링
+                if (newsHTML !== "") {
+                    container.innerHTML = newsHTML;
+                } else {
+                    container.innerHTML = '<p style="color: #FF5555; grid-column: 1 / -1; text-align: center;">No news available within the last 2 months.</p>';
+                }
+            } catch (error) {
+                container.innerHTML = '<p style="color: #FF5555; grid-column: 1 / -1; text-align: center;">Failed to load news feeds.</p>';
+            }
         }
-        
-        renderNews();
+
+        window.addEventListener('DOMContentLoaded', fetchGridNews);
     </script>
 </body>
 </html>
