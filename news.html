@@ -58,7 +58,7 @@
             transform: translateY(-3px);
         }
 
-        /* 매체사 헤더 뱃지 */
+/* 매체사 헤더 뱃지 (로고 추가 버전) */
         .source-header { 
             font-family: 'Orbitron', sans-serif; 
             font-size: 1.1rem; 
@@ -69,9 +69,22 @@
             border-radius: 6px; 
             width: max-content; 
             margin-bottom: 20px; 
-            text-transform: uppercase;
             letter-spacing: 1px;
             box-shadow: 0 0 10px rgba(255, 251, 3, 0.4);
+            
+            /* 🚨 이미지와 글자를 나란히 정렬하기 위한 속성 추가 */
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+
+        /* 🚨 언론사 로고 이미지 스타일 */
+        .source-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            background-color: transparent; /* 로고 배경 */
+            object-fit: contain;
         }
 
         /* 카드 내부 기사 리스트 */
@@ -249,7 +262,13 @@
             /* (선택) 위쪽 테두리를 청록색으로 은은하게 남겨 구분감을 줌 */
             border-top: 1px solid rgba(134, 209, 209, 0.2); 
         }
-        .cta-title { font-family: 'chakra petch'; font-size: 1.9rem; margin-bottom: 20px; color: #fff; }
+        .cta-title { 
+    font-family: 'Chakra Petch', sans-serif; 
+    font-size: 1.9rem; 
+    margin-bottom: 20px; 
+    color: var(--primary); /* #FFFB03 네온 옐로우 */
+    text-shadow: 0 0 10px rgba(255, 251, 3, 0.3); /* 은은한 빛 번짐 추가 */
+}
         .cta-desc { font-size: 1.2rem; color: var(--text-sub); margin-bottom: 40px; }
         .cta-btn {
             display: inline-flex; align-items: center; gap: 15px; background: var(--primary); color: var(--bg);
@@ -421,33 +440,30 @@
         </a>
     </section>
 
-   <script>
+  <script>
         async function fetchGridNews() {
             const container = document.getElementById('rss-news-container');
             if (!container) return;
 
-            // 🚨 기존 매체 + '절대 실패하지 않는' 예비 매체(Google News 특화 등) 대거 추가 (총 15개)
+            // 사용자가 변경한 순서 적용 + 아이콘 불러오기용 domain 주소 포함 (총 15개)
             const allRssSources = [
-			{ name: "Google: Humanoids", url: "https://news.google.com/rss/search?q=humanoid+robot&hl=en-US&gl=US&ceid=US:en" }, // 신규 추가
-                { name: "Google: AI Bots", url: "https://news.google.com/rss/search?q=AI+robot&hl=en-US&gl=US&ceid=US:en" }, // 신규 추가
-			{ name: "Google: Robotics", url: "https://news.google.com/rss/search?q=robotics&hl=en-US&gl=US&ceid=US:en" }, // 절대 실패 안함
-                { name: "TechCrunch", url: "https://techcrunch.com/category/robotics/feed/" },
-                { name: "IEEE Spectrum", url: "https://spectrum.ieee.org/feeds/topic/robotics.rss" },
-                { name: "The Robot Report", url: "https://www.therobotreport.com/feed/" },
-                { name: "The Verge", url: "https://www.theverge.com/rss/robotics/index.xml" },
-                { name: "MIT News", url: "https://news.mit.edu/rss/topic/robotics" },
-                { name: "Robotics & Auto", url: "https://roboticsandautomationnews.com/feed/" },
-                { name: "ScienceDaily", url: "https://www.sciencedaily.com/rss/matter_energy/robotics.xml" },
-                { name: "Interesting Eng.", url: "https://interestingengineering.com/feed" },
-                
-                { name: "Wired", url: "https://www.wired.com/feed/tag/robotics/latest/rss" }, // 신규 추가 (매우 안정적)
-                
-                { name: "Robotics Tomorrow", url: "https://roboticstomorrow.com/rss.xml" }, 
-                { name: "PopSci", url: "https://www.popsci.com/category/technology/robotics/feed/" }, 
-                { name: "Robohub", url: "https://robohub.org/feed/" }
+                { name: "Google: Humanoids", url: "https://news.google.com/rss/search?q=humanoid+robot&hl=en-US&gl=US&ceid=US:en", domain: "news.google.com" }, 
+                { name: "Google: AI Bots", url: "https://news.google.com/rss/search?q=AI+robot&hl=en-US&gl=US&ceid=US:en", domain: "news.google.com" }, 
+                { name: "Google: Robotics", url: "https://news.google.com/rss/search?q=robotics&hl=en-US&gl=US&ceid=US:en", domain: "news.google.com" }, 
+                { name: "TechCrunch", url: "https://techcrunch.com/category/robotics/feed/", domain: "techcrunch.com" },
+                { name: "IEEE Spectrum", url: "https://spectrum.ieee.org/feeds/topic/robotics.rss", domain: "spectrum.ieee.org" },
+                { name: "The Robot Report", url: "https://www.therobotreport.com/feed/", domain: "therobotreport.com" },
+                { name: "The Verge", url: "https://www.theverge.com/rss/robotics/index.xml", domain: "theverge.com" },
+                { name: "MIT News", url: "https://news.mit.edu/rss/topic/robotics", domain: "mit.edu" },
+                { name: "Robotics & Auto", url: "https://roboticsandautomationnews.com/feed/", domain: "roboticsandautomationnews.com" },
+                { name: "ScienceDaily", url: "https://www.sciencedaily.com/rss/matter_energy/robotics.xml", domain: "sciencedaily.com" },
+                { name: "Interesting Eng.", url: "https://interestingengineering.com/feed", domain: "interestingengineering.com" },
+                { name: "Wired", url: "https://www.wired.com/feed/tag/robotics/latest/rss", domain: "wired.com" }, 
+                { name: "Robotics Tomorrow", url: "https://roboticstomorrow.com/rss.xml", domain: "roboticstomorrow.com" }, 
+                { name: "PopSci", url: "https://www.popsci.com/category/technology/robotics/feed/", domain: "popsci.com" }, 
+                { name: "Robohub", url: "https://robohub.org/feed/", domain: "robohub.org" }
             ];
 
-            // 매체별로 기사를 담을 객체 생성
             let sourceDataMap = {};
             
             // 두 달(60일) 전 날짜 계산
@@ -465,20 +481,18 @@
                         if (data.status === 'ok' && data.items && data.items.length > 0) {
                             let validArticles = [];
                             
-                            // 조건에 맞는 기사만 최대 3개 추출
                             for (const item of data.items) {
                                 if (validArticles.length >= 3) break; 
                                 
                                 const pubDate = new Date(item.pubDate);
                                 if (pubDate >= twoMonthsAgo) {
                                     validArticles.push({
-                                        title: item.title.replace(/<[^>]*>?/gm, ''), // 태그 제거
+                                        title: item.title.replace(/<[^>]*>?/gm, ''), 
                                         link: item.link,
                                         pubDate: pubDate
                                     });
                                 }
                             }
-                            // 유효한 기사가 하나라도 있으면 맵에 저장
                             if (validArticles.length > 0) {
                                 sourceDataMap[source.name] = validArticles;
                             }
@@ -492,19 +506,25 @@
                 await Promise.all(fetchPromises);
 
                 let newsHTML = "";
-                let renderedCards = 0; // 화면에 그린 카드 개수 추적
+                let renderedCards = 0; 
                 
                 // 설정한 매체 순서대로 카드를 생성 (딱 9개까지만 그림)
                 allRssSources.forEach(source => {
-                    if (renderedCards >= 9) return; // 🚨 9개가 채워지면 더 이상 그리지 않고 중단
+                    if (renderedCards >= 9) return; 
 
                     const articles = sourceDataMap[source.name];
                     
                     if (articles && articles.length > 0) {
-                        // 1. 카드 시작 & 매체명 헤더
+                        // 구글 API를 통해 해당 도메인의 파비콘(로고)을 불러옵니다.
+                        const iconUrl = `https://www.google.com/s2/favicons?domain=${source.domain}&sz=64`;
+
+                        // 1. 카드 시작 & 매체명 헤더 (로고 이미지 추가)
                         newsHTML += `
                             <div class="news-card">
-                                <div class="source-header">${source.name}</div>
+                                <div class="source-header">
+                                    <img src="${iconUrl}" alt="logo" class="source-icon">
+                                    ${source.name}
+                                </div>
                                 <ul class="article-list">
                         `;
                         
@@ -525,7 +545,7 @@
                             </div>
                         `;
                         
-                        renderedCards++; // 그려진 카드 수 1 증가
+                        renderedCards++; 
                     }
                 });
 
