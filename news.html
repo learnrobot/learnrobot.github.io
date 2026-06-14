@@ -448,11 +448,11 @@
             const container = document.getElementById('rss-news-container');
             if (!container) return;
 
-            // 사용자가 변경한 순서 적용 + 아이콘 불러오기용 domain 주소 포함 (총 15개)
+            // 다시 정상적인 구글 뉴스 검색어로 복구 (intitle 강제 제한 해제)
             const allRssSources = [
-                { name: "Google: Humanoids", url: "https://news.google.com/rss/search?q=humanoid+robot&hl=en-US&gl=US&ceid=US:en", domain: "news.google.com" }, 
-                { name: "Google: AI Bots", url: "https://news.google.com/rss/search?q=AI+robot&hl=en-US&gl=US&ceid=US:en", domain: "news.google.com" }, 
-                { name: "Google: Robotics", url: "https://news.google.com/rss/search?q=robotics&hl=en-US&gl=US&ceid=US:en", domain: "news.google.com" }, 
+                { name: "Google: Humanoids", url: "https://news.google.com/rss/search?q=humanoid+robot+OR+boston+dynamics+OR+figure+ai&hl=en-US&gl=US&ceid=US:en", domain: "news.google.com" }, 
+                { name: "Google: AI Bots", url: "https://news.google.com/rss/search?q=AI+robot+OR+artificial+intelligence+automation&hl=en-US&gl=US&ceid=US:en", domain: "news.google.com" }, 
+                { name: "Google: Robotics", url: "https://news.google.com/rss/search?q=robotics+OR+automation+OR+mechatronics&hl=en-US&gl=US&ceid=US:en", domain: "news.google.com" }, 
                 { name: "TechCrunch", url: "https://techcrunch.com/category/robotics/feed/", domain: "techcrunch.com" },
                 { name: "IEEE Spectrum", url: "https://spectrum.ieee.org/feeds/topic/robotics.rss", domain: "spectrum.ieee.org" },
                 { name: "The Robot Report", url: "https://www.therobotreport.com/feed/", domain: "therobotreport.com" },
@@ -467,16 +467,19 @@
                 { name: "Robohub", url: "https://robohub.org/feed/", domain: "robohub.org" }
             ];
 
+            // 🚨 100% 신뢰할 수 있는 전문 매체 도메인 목록 (여기는 검열 없이 무조건 통과)
+            const trustedDomains = [
+                "techcrunch.com", "spectrum.ieee.org", "therobotreport.com", 
+                "mit.edu", "roboticsandautomationnews.com", "wired.com", "robohub.org", "roboticstomorrow.com"
+            ];
+
             let sourceDataMap = {};
-            
-            // 두 달(60일) 전 날짜 계산
             const twoMonthsAgo = new Date();
             twoMonthsAgo.setDate(twoMonthsAgo.getDate() - 60);
 
             try {
-                // 여러 매체에 동시에 API 요청
                 const fetchPromises = allRssSources.map(async (source) => {
-                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}&count=10`;
+                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}&count=10`; 
                     try {
                         const response = await fetch(apiUrl);
                         const data = await response.json();
@@ -488,14 +491,46 @@
                                 if (validArticles.length >= 3) break; 
                                 
                                 const pubDate = new Date(item.pubDate);
-                                if (pubDate >= twoMonthsAgo) {
+                                const cleanTitle = item.title.replace(/<[^>]*>?/gm, ''); 
+                                
+                                // 기사 본문 요약 내용 가져오기 (제목에 로봇 단어가 없어도 본문에 있으면 잡기 위해)
+                                const contentText = (item.description || item.content || "").replace(/<[^>]*>?/gm, '').toLowerCase();
+                                const titleLower = cleanTitle.toLowerCase();
+                                const fullContext = titleLower + " " + contentText; // 제목 + 본문 합체
+                                
+                                let isRelevant = true;
+
+                                // 🚨 구글 뉴스 등 검색 기반 소스에만 '스마트 필터링' 적용
+                                if (!trustedDomains.includes(source.domain)) {
+                                    
+                                    // 1. 최소한의 엉뚱한 뉴스 방어막
+                                    const badWords = ['archaeology', 'dinosaur', 'movie review', 'fossil'];
+                                    if (badWords.some(word => titleLower.includes(word))) {
+                                        isRelevant = false;
+                                    }
+
+                                    // 2. 제목이나 본문에 아래의 '업계 단어' 중 하나라도 있으면 무조건 합격 (투자, 회사명 포함)
+                                    const goodWords = [
+                                        'robot', 'ai', 'humanoid', 'automation', 'autonomous', 'funding', 'investment', 
+                                        'boston dynamics', 'figure ai', 'tesla bot', 'optimus', 'agility robotics', 
+                                        'sanctuary', 'apptronik', 'unitree', 'machine learning', 'exoskeleton'
+                                    ];
+                                    
+                                    // 제목+본문 전체를 뒤져서 관련 단어가 하나도 없으면 탈락
+                                    if (!goodWords.some(word => fullContext.includes(word))) {
+                                        isRelevant = false;
+                                    }
+                                }
+
+                                if (pubDate >= twoMonthsAgo && isRelevant) {
                                     validArticles.push({
-                                        title: item.title.replace(/<[^>]*>?/gm, ''), 
+                                        title: cleanTitle,
                                         link: item.link,
                                         pubDate: pubDate
                                     });
                                 }
                             }
+                            
                             if (validArticles.length > 0) {
                                 sourceDataMap[source.name] = validArticles;
                             }
@@ -505,23 +540,19 @@
                     }
                 });
 
-                // 모든 API 요청이 끝날 때까지 대기
                 await Promise.all(fetchPromises);
 
                 let newsHTML = "";
                 let renderedCards = 0; 
                 
-                // 설정한 매체 순서대로 카드를 생성 (딱 9개까지만 그림)
                 allRssSources.forEach(source => {
                     if (renderedCards >= 9) return; 
 
                     const articles = sourceDataMap[source.name];
                     
                     if (articles && articles.length > 0) {
-                        // 구글 API를 통해 해당 도메인의 파비콘(로고)을 불러옵니다.
                         const iconUrl = `https://www.google.com/s2/favicons?domain=${source.domain}&sz=64`;
 
-                        // 1. 카드 시작 & 매체명 헤더 (로고 이미지 추가)
                         newsHTML += `
                             <div class="news-card">
                                 <div class="source-header">
@@ -531,7 +562,6 @@
                                 <ul class="article-list">
                         `;
                         
-                        // 2. 카드 내부 기사 리스트 3개
                         articles.forEach(news => {
                             const dateStr = news.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
                             newsHTML += `
@@ -542,7 +572,6 @@
                             `;
                         });
 
-                        // 3. 카드 닫기
                         newsHTML += `
                                 </ul>
                             </div>
@@ -552,7 +581,6 @@
                     }
                 });
 
-                // 화면에 렌더링
                 if (newsHTML !== "") {
                     container.innerHTML = newsHTML;
                 } else {
