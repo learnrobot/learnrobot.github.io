@@ -58,32 +58,30 @@
             transform: translateY(-3px);
         }
 
-/* 매체사 헤더 뱃지 (로고 추가 버전) */
+/* 매체사 헤더 뱃지 (크기 대폭 축소) */
         .source-header { 
             font-family: 'Orbitron', sans-serif; 
-            font-size: 1.1rem; 
+            font-size: 0.85rem; /* 🚨 1.1rem에서 예전 크기로 확 줄임 */
             font-weight: 700;
-            color: #0b0c10; 
-            background: var(--accent); 
-            padding: 6px 15px; 
-            border-radius: 6px; 
+            color: #111; 
+            background: #6BA860; 
+            padding: 4px 10px;  /* 🚨 위아래 여백도 예전처럼 얇게 */
+            border-radius: 4px; 
             width: max-content; 
-            margin-bottom: 20px; 
+            margin-bottom: 15px; 
             letter-spacing: 1px;
-            box-shadow: 0 0 10px rgba(255, 251, 3, 0.4);
-            
-            /* 🚨 이미지와 글자를 나란히 정렬하기 위한 속성 추가 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             display: flex; 
             align-items: center; 
-            gap: 10px; 
+            gap: 8px; /* 로고와 글자 사이 간격 축소 */
         }
 
-        /* 🚨 언론사 로고 이미지 스타일 */
+        /* 🚨 언론사 로고 이미지 스타일 (로고도 뱃지에 맞춰 작게) */
         .source-icon {
-            width: 20px;
-            height: 20px;
+            width: 14px; /* 🚨 20px에서 14px로 축소 */
+            height: 14px;
             border-radius: 3px;
-            background-color: transparent; /* 로고 배경 */
+            background-color: transparent; 
             object-fit: contain;
         }
 
@@ -108,10 +106,13 @@
             padding-bottom: 0;
         }
 
+/* 카드 내부 기사 제목 */
         .article-title {
             font-size: 1.05rem;
             font-weight: bold;
-            color: #fff;
+            
+            color: #F3FCF2; 
+            
             text-decoration: none;
             line-height: 1.4;
             display: block;
@@ -120,10 +121,10 @@
             transition: color 0.2s ease;
         }
 
+        /* (선택) 마우스 올렸을 때 색상 */
         .article-title:hover {
             color: var(--primary);
         }
-
         .article-date {
             font-size: 0.8rem;
             color: var(--text-sub);
@@ -438,7 +439,7 @@
         <h2 class="cta-title">Curious about the tech inside?</br> Let's break down the basic principles of how robots work</h2>
         
         <a href="main.html" class="cta-btn">
-            Find out How Robots Work
+            How Robots Work
         </a>
     </section>
 
