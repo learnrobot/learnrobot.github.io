@@ -428,6 +428,9 @@
 
             // 🚨 기존 매체 + '절대 실패하지 않는' 예비 매체(Google News 특화 등) 대거 추가 (총 15개)
             const allRssSources = [
+			{ name: "Google: Humanoids", url: "https://news.google.com/rss/search?q=humanoid+robot&hl=en-US&gl=US&ceid=US:en" }, // 신규 추가
+                { name: "Google: AI Bots", url: "https://news.google.com/rss/search?q=AI+robot&hl=en-US&gl=US&ceid=US:en" }, // 신규 추가
+			{ name: "Google: Robotics", url: "https://news.google.com/rss/search?q=robotics&hl=en-US&gl=US&ceid=US:en" }, // 절대 실패 안함
                 { name: "TechCrunch", url: "https://techcrunch.com/category/robotics/feed/" },
                 { name: "IEEE Spectrum", url: "https://spectrum.ieee.org/feeds/topic/robotics.rss" },
                 { name: "The Robot Report", url: "https://www.therobotreport.com/feed/" },
@@ -436,10 +439,9 @@
                 { name: "Robotics & Auto", url: "https://roboticsandautomationnews.com/feed/" },
                 { name: "ScienceDaily", url: "https://www.sciencedaily.com/rss/matter_energy/robotics.xml" },
                 { name: "Interesting Eng.", url: "https://interestingengineering.com/feed" },
-                { name: "Google: Robotics", url: "https://news.google.com/rss/search?q=robotics&hl=en-US&gl=US&ceid=US:en" }, // 절대 실패 안함
+                
                 { name: "Wired", url: "https://www.wired.com/feed/tag/robotics/latest/rss" }, // 신규 추가 (매우 안정적)
-                { name: "Google: Humanoids", url: "https://news.google.com/rss/search?q=humanoid+robot&hl=en-US&gl=US&ceid=US:en" }, // 신규 추가
-                { name: "Google: AI Bots", url: "https://news.google.com/rss/search?q=AI+robot&hl=en-US&gl=US&ceid=US:en" }, // 신규 추가
+                
                 { name: "Robotics Tomorrow", url: "https://roboticstomorrow.com/rss.xml" }, 
                 { name: "PopSci", url: "https://www.popsci.com/category/technology/robotics/feed/" }, 
                 { name: "Robohub", url: "https://robohub.org/feed/" }
