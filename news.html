@@ -29,15 +29,14 @@
             --primary: #2C9999;
             --accent: #FFFB03;
         }
-	/* ========================================== */
-        /* 실시간 뉴스 그리드 & 카드 스타일 (매체별 통합 버전) */
-        /* ========================================== */
-        .news-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
-            gap: 25px; 
-            margin-top: 40px; 
-        }
+/* 변경된 코드 */
+.news-grid { 
+    display: grid; 
+    /* 화면이 350px보다 좁을 때는 100%로 꽉 채우도록 변경 */
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr)); 
+    gap: 25px; 
+    margin-top: 40px; 
+}
         
 .news-card { 
             /* 🚨 핵심 해결책: 패딩과 테두리를 추가해도 카드가 커지지 않고 제자리를 지키게 함 */
@@ -154,12 +153,13 @@
             position: relative;
         }
 
-        body::before {
-            content: '';
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100vw; height: 100vh;
-            background-image: url('image/6.softwares.jpg'); /* 확장자 정확히 확인! */
+body::before {
+    content: '';
+    position: fixed; 
+    top: 0; left: 0; 
+    width: 100%; /* vw 대신 % 사용 */
+    height: 100vh;
+    background-image: url('image/6.softwares.jpg');/* 확장자 정확히 확인! */
             background-size: cover;
             background-position: center;
             opacity: 0.15; 
