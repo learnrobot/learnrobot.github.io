@@ -455,7 +455,7 @@ body::before {
         </a>
     </section>
 
-        <script>
+       <script>
         async function fetchGridNews() {
             const googleContainer = document.getElementById('google-news-container');
             const rssContainer = document.getElementById('rss-news-container');
@@ -466,7 +466,7 @@ body::before {
             ];
 
             // ==========================================
-            // 1. Google's Pick 전용 로직 (캐시 적용)
+            // 1. Editor's Pick (Google News) 로직 
             // ==========================================
             async function fetchGooglePicks() {
                 const googleSources = [
@@ -478,7 +478,7 @@ body::before {
                 let fetchedData = { humanoids: [], ai: [], robotics: [] };
 
                 const promises = googleSources.map(async (source) => {
-                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}&count=10`;
+                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}&count=15`; // 필터링 탈락 대비 15개 넉넉히 호출
                     try {
                         const response = await fetch(apiUrl);
                         const data = await response.json();
@@ -493,6 +493,10 @@ body::before {
                                 let isRelevant = true;
                                 const badWords = ['archaeology', 'dinosaur', 'movie review', 'fossil'];
                                 if (badWords.some(word => titleLower.includes(word))) isRelevant = false;
+
+                                // 🚨 1. 유료 매체(Paywall) 강력 차단 블랙리스트 추가!
+                                const paywalls = ['fortune', 'wsj', 'bloomberg', 'financial times', 'business insider', 'nytimes', 'reuters'];
+                                if (paywalls.some(pw => titleLower.includes(pw))) isRelevant = false;
 
                                 const goodWords = [
                                     'robot', 'ai', 'humanoid', 'automation', 'autonomous', 'funding', 'investment', 
@@ -550,7 +554,6 @@ body::before {
                     if (!added) break; 
                 }
 
-                // 🚨 구글 뉴스 백업 적용
                 const googleCacheKey = "newsCache_googlePicks";
                 if (finalPicks.length >= 3) {
                     localStorage.setItem(googleCacheKey, JSON.stringify(finalPicks));
@@ -592,14 +595,22 @@ body::before {
                 }
             }
 
-            // ==========================================
-            // 2. 전문 매체 전용 로직 (순차적 통신 + 로컬 캐시)
+           // ==========================================
+            // 2. 전문 매체 전용 로직 (예비 소스 대거 추가 및 안정화)
             // ==========================================
             async function fetchSpecializedNews() {
                 const specializedSources = [
                     { name: "TechCrunch", url: "https://techcrunch.com/category/robotics/feed/", domain: "techcrunch.com" },
                     { name: "IEEE Spectrum", url: "https://spectrum.ieee.org/feeds/topic/robotics.rss", domain: "spectrum.ieee.org" },
                     { name: "The Robot Report", url: "https://www.therobotreport.com/feed/", domain: "therobotreport.com" },
+                    
+                    // 🚨 죽은 링크들을 완벽하게 커버할 새롭고 안정적인 전문 매체 추가!
+                    { name: "TechXplore", url: "https://techxplore.com/rss-feed/robotics-news/", domain: "techxplore.com" }, 
+                    { name: "ZDNet", url: "https://www.zdnet.com/topic/robotics/rss.xml", domain: "zdnet.com" }, 
+                    { name: "VentureBeat", url: "https://venturebeat.com/category/ai/feed/", domain: "venturebeat.com" }, 
+                    { name: "AI News", url: "https://www.artificialintelligence-news.com/feed/", domain: "artificialintelligence-news.com" },
+                    
+                    // 기존 매체들
                     { name: "Robotics & Auto", url: "https://roboticsandautomationnews.com/feed/", domain: "roboticsandautomationnews.com" },
                     { name: "ScienceDaily", url: "https://www.sciencedaily.com/rss/matter_energy/robotics.xml", domain: "sciencedaily.com" },
                     { name: "Interesting Eng.", url: "https://interestingengineering.com/feed", domain: "interestingengineering.com" },
@@ -613,9 +624,8 @@ body::before {
 
                 let sourceDataMap = {};
                 
-                // 🚨 핵심 수정: map과 Promise.all(동시 발사)을 지우고, for...of 루프(순서대로 1개씩)를 사용합니다!
                 for (const source of specializedSources) {
-                    // 이미 성공적으로 9개의 언론사 데이터를 확보했다면, 남은 언론사는 굳이 통신하지 않고 멈춤 (속도 최적화)
+                    // 🚨 살아있는 매체 9개를 성공적으로 확보하면 즉시 루프 종료!
                     if (Object.keys(sourceDataMap).length >= 9) break;
 
                     const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}&count=10`; 
@@ -637,14 +647,13 @@ body::before {
                             }
                             if (validArticles.length > 0) {
                                 sourceDataMap[source.name] = validArticles;
-                                // 통신 성공! 브라우저 메모리에 기사 덮어쓰기 (백업)
-                                localStorage.setItem(cacheKey, JSON.stringify(validArticles));
+                                localStorage.setItem(cacheKey, JSON.stringify(validArticles)); 
                             }
                         } else {
                             throw new Error("Empty data or rate limit hit"); 
                         }
                     } catch (e) { 
-                        // 통신 실패 시 캐시에서 꺼내오기
+                        // 실패 시 로컬 캐시에서 백업 데이터 불러오기
                         console.log(`Failed to load ${source.name}, restoring from cache...`);
                         const cachedData = localStorage.getItem(cacheKey);
                         if (cachedData) {
@@ -653,11 +662,15 @@ body::before {
                             sourceDataMap[source.name] = parsedData;
                         }
                     }
+
+                    // 차단 방지용 타이머 (안정성을 위해 0.5초로 살짝 늘림)
+                    await new Promise(resolve => setTimeout(resolve, 500));
                 }
 
                 let newsHTML = "";
                 let renderedCards = 0; 
                 
+                // 확보한 데이터를 바탕으로 카드 9개 렌더링
                 specializedSources.forEach(source => {
                     if (renderedCards >= 9) return; 
                     
@@ -694,13 +707,11 @@ body::before {
                 }
             }
 
-            // 구글 픽과 전문 매체 뉴스를 동시에 비동기로 불러오기
             fetchGooglePicks();
             fetchSpecializedNews();
         }
 
         window.addEventListener('DOMContentLoaded', fetchGridNews);
-    </script>
     </script>
 </body>
 </html>
