@@ -495,9 +495,27 @@ body::before {
                                 if (badWords.some(word => titleLower.includes(word))) isRelevant = false;
 
                                 // 🚨 1. 유료 매체(Paywall) 강력 차단 블랙리스트 추가!
-                                const paywalls = ['fortune', 'wsj', 'bloomberg', 'financial times', 'business insider', 'nytimes', 'reuters'];
-                                if (paywalls.some(pw => titleLower.includes(pw))) isRelevant = false;
-
+                                // 🚨 유료 매체(Paywall) 필터링 강화 (세로 정렬)
+                                const paywalls = [
+                                    'fortune', 
+                                    'wsj', 
+                                    'bloomberg', 
+                                    'financial times', 
+                                    'business insider', 
+                                    'nytimes', 
+                                    'reuters', 
+                                    'wall street journal', 
+                                    'cnbc pro', 
+                                    'barron'
+                                ];
+                                
+                                if (paywalls.some(pw => 
+                                    titleLower.includes(`- ${pw}`) || 
+                                    titleLower.includes(`| ${pw}`) || 
+                                    titleLower.endsWith(pw)
+                                )) {
+                                    isRelevant = false;
+                                }
                                 const goodWords = [
                                     'robot', 'ai', 'humanoid', 'automation', 'autonomous', 'funding', 'investment', 
                                     'boston dynamics', 'figure ai', 'tesla bot', 'optimus', 'agility robotics', 
