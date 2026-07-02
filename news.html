@@ -616,8 +616,9 @@ body::before {
            // ==========================================
             // 2. 전문 매체 전용 로직 (예비 소스 대거 추가 및 안정화)
             // ==========================================
-            async function fetchSpecializedNews() {
-                const specializedSources = [
+async function fetchSpecializedNews() {
+    const rssContainer = document.getElementById('rss-news-container');
+    const specializedSources = [
                     { name: "TechCrunch", url: "https://techcrunch.com/category/robotics/feed/", domain: "techcrunch.com" },
                     { name: "IEEE Spectrum", url: "https://spectrum.ieee.org/feeds/topic/robotics.rss", domain: "spectrum.ieee.org" },
                     { name: "The Robot Report", url: "https://www.therobotreport.com/feed/", domain: "therobotreport.com" },
@@ -640,90 +641,73 @@ body::before {
                     { name: "Robohub", url: "https://robohub.org/feed/", domain: "robohub.org" }
                 ];
 
-                let sourceDataMap = {};
-                
-                for (const source of specializedSources) {
-                    // 🚨 살아있는 매체 9개를 성공적으로 확보하면 즉시 루프 종료!
-                    if (Object.keys(sourceDataMap).length >= 9) break;
+               const promises = specializedSources.map(async (source) => {
+        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}&count=10`; 
+        const cacheKey = `newsCache_${source.name}`; 
 
-                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}&count=10`; 
-                    const cacheKey = `newsCache_${source.name}`; 
-
-                    try {
-                        const response = await fetch(apiUrl);
-                        const data = await response.json();
-                        
-                        if (data.status === 'ok' && data.items && data.items.length > 0) {
-                            let validArticles = [];
-                            for (const item of data.items) {
-                                if (validArticles.length >= 3) break; 
-                                validArticles.push({
-                                    title: item.title.replace(/<[^>]*>?/gm, ''),
-                                    link: item.link,
-                                    pubDate: new Date(item.pubDate)
-                                });
-                            }
-                            if (validArticles.length > 0) {
-                                sourceDataMap[source.name] = validArticles;
-                                localStorage.setItem(cacheKey, JSON.stringify(validArticles)); 
-                            }
-                        } else {
-                            throw new Error("Empty data or rate limit hit"); 
-                        }
-                    } catch (e) { 
-                        // 실패 시 로컬 캐시에서 백업 데이터 불러오기
-                        console.log(`Failed to load ${source.name}, restoring from cache...`);
-                        const cachedData = localStorage.getItem(cacheKey);
-                        if (cachedData) {
-                            const parsedData = JSON.parse(cachedData);
-                            parsedData.forEach(item => item.pubDate = new Date(item.pubDate));
-                            sourceDataMap[source.name] = parsedData;
-                        }
-                    }
-
-                    // 차단 방지용 타이머 (안정성을 위해 0.5초로 살짝 늘림)
-                    await new Promise(resolve => setTimeout(resolve, 500));
-                }
-
-                let newsHTML = "";
-                let renderedCards = 0; 
-                
-                // 확보한 데이터를 바탕으로 카드 9개 렌더링
-                specializedSources.forEach(source => {
-                    if (renderedCards >= 9) return; 
-                    
-                    const articles = sourceDataMap[source.name];
-                    
-                    if (articles && articles.length > 0) {
-                        const iconUrl = `https://www.google.com/s2/favicons?domain=${source.domain}&sz=64`;
-                        newsHTML += `
-                            <div class="news-card">
-                                <div class="source-header">
-                                    <img src="${iconUrl}" alt="logo" class="source-icon">
-                                    ${source.name}
-                                </div>
-                                <ul class="article-list">
-                        `;
-                        articles.forEach(news => {
-                            const dateStr = news.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-                            newsHTML += `
-                                <li class="article-item">
-                                    <a href="${news.link}" target="_blank" class="article-title">${news.title}</a>
-                                    <div class="article-date"><i class="far fa-clock"></i> ${dateStr}</div>
-                                </li>
-                            `;
-                        });
-                        newsHTML += `</ul></div>`;
-                        renderedCards++; 
-                    }
-                });
-
-                if (newsHTML !== "" && rssContainer) {
-                    rssContainer.innerHTML = newsHTML;
-                } else if (rssContainer) {
-                    rssContainer.innerHTML = '<p style="color: #FF5555; grid-column: 1 / -1; text-align: center;">No news available at the moment.</p>';
-                }
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            
+            if (data.status === 'ok' && data.items && data.items.length > 0) {
+                let validArticles = data.items.slice(0, 3).map(item => ({
+                    title: item.title.replace(/<[^>]*>?/gm, ''),
+                    link: item.link,
+                    pubDate: new Date(item.pubDate)
+                }));
+                localStorage.setItem(cacheKey, JSON.stringify(validArticles)); 
+                return { source, articles: validArticles };
             }
+            throw new Error("Invalid data");
+        } catch (e) {
+            // 실패 시 로컬 캐시에서 백업 데이터 불러오기
+            const cachedData = localStorage.getItem(cacheKey);
+            if (cachedData) {
+                const parsedData = JSON.parse(cachedData);
+                parsedData.forEach(item => item.pubDate = new Date(item.pubDate));
+                return { source, articles: parsedData };
+            }
+            return null; // 캐시도 없으면 null 반환
+        }
+    });
+
+    // 2. 병렬 요청이 모두 완료될 때까지 기다립니다. (0.5초 딜레이 제거됨)
+    const results = await Promise.all(promises);
+
+    // 3. 성공한 데이터만 필터링하고 최대 9개까지만 자릅니다.
+    const validResults = results.filter(res => res !== null).slice(0, 9);
+
+    let newsHTML = "";
+    
+    // 4. 화면에 렌더링합니다.
+    validResults.forEach(({ source, articles }) => {
+        const iconUrl = `https://www.google.com/s2/favicons?domain=${source.domain}&sz=64`;
+        newsHTML += `
+            <div class="news-card">
+                <div class="source-header">
+                    <img src="${iconUrl}" alt="logo" class="source-icon">
+                    ${source.name}
+                </div>
+                <ul class="article-list">
+        `;
+        articles.forEach(news => {
+            const dateStr = news.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+            newsHTML += `
+                <li class="article-item">
+                    <a href="${news.link}" target="_blank" class="article-title">${news.title}</a>
+                    <div class="article-date"><i class="far fa-clock"></i> ${dateStr}</div>
+                </li>
+            `;
+        });
+        newsHTML += `</ul></div>`;
+    });
+
+    if (newsHTML !== "" && rssContainer) {
+        rssContainer.innerHTML = newsHTML;
+    } else if (rssContainer) {
+        rssContainer.innerHTML = '<p style="color: #FF5555; grid-column: 1 / -1; text-align: center;">No news available at the moment.</p>';
+    }
+}
 
             fetchGooglePicks();
             fetchSpecializedNews();
