@@ -455,53 +455,84 @@ body::before {
         </a>
     </section>
 
-      <script>
+     <script>
         async function fetchGridNews() {
             const googleContainer = document.getElementById('google-news-container');
             const rssContainer = document.getElementById('rss-news-container');
 
+            // 🚨 1. 문제의 rss2json 서버를 버리고, 제한 없는 AllOrigins 우회 터널과 자체 번역기(XML Parser)를 사용합니다.
+            async function fetchRSS(url) {
+                // disableCache=true 를 넣어 항상 최신 기사를 가져오도록 강제합니다.
+                const proxy = 'https://api.allorigins.win/get?disableCache=true&url=';
+                const response = await fetch(proxy + encodeURIComponent(url));
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
+                const parser = new DOMParser();
+                return parser.parseFromString(data.contents, "text/xml");
+            }
+
             // ==========================================
-            // 1. Editor's Pick (Google News) - 단일 요청 초고속 로직
+            // 2. Editor's Pick (Google News)
+            // ==========================================
+           // ==========================================
+            // 2. Editor's Pick (Google News) - 단일 요청 (가장 안정적인 rss2json으로 복구)
             // ==========================================
             async function fetchGooglePicks() {
-                // 🚨 구글 자체 검색어에서 유료 매체를 아예 빼버립니다. (요청 1번으로 단축)
                 const googleQuery = "robotics OR humanoid OR AI -fortune -wsj -bloomberg -nytimes -reuters -businessinsider";
                 const rssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(googleQuery)}&hl=en-US&gl=US&ceid=US:en`;
+                
+                // 🚨 구글은 AllOrigins 대신 찰떡궁합인 rss2json으로 다시 복구! (1번 요청이라 차단 위험 없음)
                 const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=10`;
-
+                
                 let finalPicks = [];
-                const cacheKey = "newsCache_google_v8"; // 🚨 과거의 썩은 캐시(Fortune 포함)를 버리고 새 저장소 생성
+                const cacheKey = "newsCache_google_v10"; // 확실한 초기화
 
                 try {
                     const response = await fetch(apiUrl);
                     const data = await response.json();
 
                     if (data.status === 'ok' && data.items) {
+                        function isTooSimilar(t1, t2) {
+                            const stopWords = ['how', 'the', 'and', 'for', 'with', 'from', 'this', 'that', 'robot', 'humanoid', 'artificial', 'intelligence', 'robotics'];
+                            const w1 = t1.toLowerCase().split(/\W+/).filter(w => w.length > 2 && !stopWords.includes(w));
+                            const w2 = t2.toLowerCase().split(/\W+/).filter(w => w.length > 2 && !stopWords.includes(w));
+                            let match = 0;
+                            w1.forEach(w => { if(w2.includes(w)) match++; });
+                            return match >= 3;
+                        }
+
                         for (const item of data.items) {
                             if (finalPicks.length >= 3) break;
                             const cleanTitle = item.title.replace(/<[^>]*>?/gm, '');
-                            finalPicks.push({
-                                title: cleanTitle,
-                                link: item.link,
-                                pubDate: new Date(item.pubDate)
-                            });
+
+                            let isDuplicate = finalPicks.some(p => isTooSimilar(p.title, cleanTitle));
+                            if (!isDuplicate) {
+                                finalPicks.push({
+                                    title: cleanTitle,
+                                    link: item.link,
+                                    pubDate: new Date(item.pubDate)
+                                });
+                            }
                         }
+
                         if (finalPicks.length > 0) {
                             localStorage.setItem(cacheKey, JSON.stringify(finalPicks));
                         }
                     }
-                } catch (e) { console.log("Google fetch error"); }
+                } catch (e) {
+                    console.log("Google fetch error, restoring from cache");
+                }
 
-                // 실패 시 캐시에서 복구
+                // 🚨 통신 실패 시 과거 백업(final, v8 등)까지 영혼 끌어모아 복구
                 if (finalPicks.length === 0) {
-                    const cached = localStorage.getItem(cacheKey);
+                    const cached = localStorage.getItem(cacheKey) || localStorage.getItem("newsCache_google_final") || localStorage.getItem("newsCache_google_v8");
                     if (cached) {
                         finalPicks = JSON.parse(cached);
                         finalPicks.forEach(item => item.pubDate = new Date(item.pubDate));
                     }
                 }
 
-                // 렌더링
+                const googleContainer = document.getElementById('google-news-container');
                 if (finalPicks.length > 0 && googleContainer) {
                     let html = `<div class="news-card" style="grid-column: 1 / -1; border-color: #4285F4 !important; padding: 20px 25px;"><ul class="article-list" style="gap: 12px;">`;
                     finalPicks.forEach((news, index) => {
@@ -516,14 +547,15 @@ body::before {
                     });
                     html += `</ul></div>`;
                     googleContainer.innerHTML = html;
+                } else if (googleContainer) {
+                    googleContainer.innerHTML = '<p style="color: #FF5555; grid-column: 1 / -1; text-align: center;">현재 뉴스를 불러올 수 없습니다. 잠시 후 새로고침 해주세요.</p>';
                 }
 
-                // 🚨 핵심: 전문 매체와 중복되지 않도록 뽑힌 기사 제목들을 반환합니다!
                 return finalPicks.map(article => article.title.toLowerCase());
             }
 
-            // ==========================================
-            // 2. 전문 매체 전용 로직
+           // ==========================================
+            // 2. 전문 매체 전용 로직 (위쪽 구글 픽은 절대 건드리지 않음)
             // ==========================================
             async function fetchSpecializedNews(excludeTitles = []) {
                 const specializedSources = [
@@ -539,68 +571,105 @@ body::before {
                 ];
 
                 let sourceDataMap = {};
-
-                // 서버 차단을 막기 위해 0.15초씩 아주 짧게 숨을 고르며 순서대로 호출
-                for (const source of specializedSources) {
-                    if (Object.keys(sourceDataMap).length >= 9) break;
-
-                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}&count=5`;
-                    const cacheKey = `newsCache_${source.name}_v8`;
+                
+                // 🚨 차단당한 rss2json 대신, 제한 없는 우회 터널 함수를 내부에 선언
+                async function fetchSafeXML(url) {
+                    const proxy = 'https://api.allorigins.win/get?disableCache=true&url=';
+                    const response = await fetch(proxy + encodeURIComponent(url));
+                    const data = await response.json();
+                    const parser = new DOMParser();
+                    return parser.parseFromString(data.contents, "text/xml");
+                }
+                
+                // 🚨 0.4초 딜레이 완전히 삭제! 차단 걱정 없이 9개를 동시에 쏴서 속도 극대화
+                const fetchPromises = specializedSources.map(async (source) => {
+                    const cacheKey = `newsCache_${source.name}_safe`;
 
                     try {
-                        const response = await fetch(apiUrl);
-                        const data = await response.json();
+                        const xmlDoc = await fetchSafeXML(source.url);
+                        const items = xmlDoc.querySelectorAll('item');
 
-                        if (data.status === 'ok' && data.items && data.items.length > 0) {
+                        if (items && items.length > 0) {
                             let validArticles = [];
-                            for (const item of data.items) {
+                            for (const item of items) {
                                 if (validArticles.length >= 3) break;
-                                const cleanTitle = item.title.replace(/<[^>]*>?/gm, '');
+                                
+                                const titleNode = item.querySelector('title');
+                                const linkNode = item.querySelector('link');
+                                const dateNode = item.querySelector('pubDate');
 
-                                // 🚨 위쪽 구글 뉴스(Editor's Pick)에 이미 있는 기사인지 검사해서 중복 컷!
+                                if (!titleNode || !linkNode) continue;
+                                
+                                // 불필요한 기호 완벽 제거
+                                let cleanTitle = titleNode.textContent
+                                    .replace(/<!\[CDATA\[/g, '')
+                                    .replace(/\]\]>/g, '')
+                                    .replace(/<[^>]*>?/gm, '')
+                                    .trim();
+
+                                // 위쪽 Editor's Pick과 중복되면 건너뛰기
                                 let isDuplicate = excludeTitles.some(exTitle => exTitle === cleanTitle.toLowerCase());
                                 if (isDuplicate) continue;
 
-                                validArticles.push({ title: cleanTitle, link: item.link, pubDate: new Date(item.pubDate) });
+                                validArticles.push({ 
+                                    title: cleanTitle, 
+                                    link: linkNode.textContent.trim(), 
+                                    pubDate: new Date(dateNode ? dateNode.textContent : Date.now()) 
+                                });
                             }
                             if (validArticles.length > 0) {
                                 sourceDataMap[source.name] = validArticles;
                                 localStorage.setItem(cacheKey, JSON.stringify(validArticles));
                             }
+                        } else {
+                            throw new Error("No items");
                         }
-                    } catch (e) {}
-
-                    // 에러 시 캐시 로드
-                    // 에러 시 캐시 로드
-                    if (!sourceDataMap[source.name]) {
-                        const cachedData = localStorage.getItem(cacheKey);
+                    } catch (e) {
+                        // 에러 시 과거의 모든 백업(_v8 포함)을 싹 뒤져서 무조건 화면을 띄움
+                        const cachedData = localStorage.getItem(cacheKey) || 
+                                           localStorage.getItem(`newsCache_${source.name}_v8`) || 
+                                           localStorage.getItem(`newsCache_${source.name}`);
                         if (cachedData) {
                             const parsedData = JSON.parse(cachedData);
                             parsedData.forEach(item => item.pubDate = new Date(item.pubDate));
                             sourceDataMap[source.name] = parsedData;
                         }
                     }
+                });
 
-                    // 🚨 수정 1: 0.15초는 무료 서버가 공격으로 오해하기 쉬워 0.4초로 늘립니다.
-                    await new Promise(resolve => setTimeout(resolve, 400));
-                }
+                await Promise.all(fetchPromises);
 
                 let newsHTML = "";
+                let renderedCount = 0;
+                const rssContainer = document.getElementById('rss-news-container');
+
                 specializedSources.forEach(source => {
+                    if (renderedCount >= 9) return;
                     const articles = sourceDataMap[source.name];
                     if (articles && articles.length > 0) {
                         const iconUrl = `https://www.google.com/s2/favicons?domain=${source.domain}&sz=64`;
-                        newsHTML += `<div class="news-card"><div class="source-header"><img src="${iconUrl}" alt="logo" class="source-icon">${source.name}</div><ul class="article-list">`;
+                        newsHTML += `
+                            <div class="news-card">
+                                <div class="source-header">
+                                    <img src="${iconUrl}" alt="logo" class="source-icon">
+                                    ${source.name}
+                                </div>
+                                <ul class="article-list">
+                        `;
                         articles.forEach(news => {
                             const dateStr = news.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-                            newsHTML += `<li class="article-item"><a href="${news.link}" target="_blank" class="article-title">${news.title}</a><div class="article-date"><i class="far fa-clock"></i> ${dateStr}</div></li>`;
+                            newsHTML += `
+                                <li class="article-item">
+                                    <a href="${news.link}" target="_blank" class="article-title">${news.title}</a>
+                                    <div class="article-date"><i class="far fa-clock"></i> ${dateStr}</div>
+                                </li>
+                            `;
                         });
                         newsHTML += `</ul></div>`;
+                        renderedCount++;
                     }
                 });
 
-                // 🚨 수정 2: 제가 실수로 지워버렸던 에러 처리(else) 블록 완벽 복구!
-                // 이제 데이터를 못 가져오면 Fetching이 멈추고 안내 문구가 뜹니다.
                 if (newsHTML !== "" && rssContainer) {
                     rssContainer.innerHTML = newsHTML;
                 } else if (rssContainer) {
@@ -608,7 +677,7 @@ body::before {
                 }
             }
 
-            // 🚨 실행 순서: 구글을 먼저 부르고, 뽑힌 제목들을 전문 매체로 넘겨서 중복 차단!
+            // 실행
             const pickedTitles = await fetchGooglePicks();
             await fetchSpecializedNews(pickedTitles);
         }
