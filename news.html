@@ -455,262 +455,162 @@ body::before {
         </a>
     </section>
 
-       <script>
+      <script>
         async function fetchGridNews() {
             const googleContainer = document.getElementById('google-news-container');
             const rssContainer = document.getElementById('rss-news-container');
 
-            const trustedDomains = [
-                "techcrunch.com", "spectrum.ieee.org", "therobotreport.com", 
-                "mit.edu", "roboticsandautomationnews.com", "wired.com", "robohub.org", "roboticstomorrow.com"
-            ];
-
             // ==========================================
-            // 1. Editor's Pick (Google News) 로직 
+            // 1. Editor's Pick (Google News) - 단일 요청 초고속 로직
             // ==========================================
             async function fetchGooglePicks() {
-                const googleSources = [
-                    { id: "humanoids", url: "https://news.google.com/rss/search?q=humanoid+robot+OR+boston+dynamics+OR+figure+ai&hl=en-US&gl=US&ceid=US:en" }, 
-                    { id: "ai", url: "https://news.google.com/rss/search?q=AI+robot+OR+artificial+intelligence+automation&hl=en-US&gl=US&ceid=US:en" },
-                    { id: "robotics", url: "https://news.google.com/rss/search?q=robotics+OR+automation+OR+mechatronics&hl=en-US&gl=US&ceid=US:en" }
-                ];
-
-                let fetchedData = { humanoids: [], ai: [], robotics: [] };
-
-                const promises = googleSources.map(async (source) => {
-                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}&count=15`; // 필터링 탈락 대비 15개 넉넉히 호출
-                    try {
-                        const response = await fetch(apiUrl);
-                        const data = await response.json();
-                        
-                        if (data.status === 'ok' && data.items) {
-                            for (const item of data.items) {
-                                const cleanTitle = item.title.replace(/<[^>]*>?/gm, ''); 
-                                const contentText = (item.description || item.content || "").replace(/<[^>]*>?/gm, '').toLowerCase();
-                                const titleLower = cleanTitle.toLowerCase();
-                                const fullContext = titleLower + " " + contentText; 
-
-                                let isRelevant = true;
-                                const badWords = ['archaeology', 'dinosaur', 'movie review', 'fossil'];
-                                if (badWords.some(word => titleLower.includes(word))) isRelevant = false;
-
-                                // 🚨 1. 유료 매체(Paywall) 강력 차단 블랙리스트 추가!
-                                // 🚨 유료 매체(Paywall) 필터링 강화 (세로 정렬)
-                                const paywalls = [
-                                    'fortune', 
-                                    'wsj', 
-                                    'bloomberg', 
-                                    'financial times', 
-                                    'business insider', 
-                                    'nytimes', 
-                                    'reuters', 
-                                    'wall street journal', 
-                                    'cnbc pro', 
-                                    'barron'
-                                ];
-                                
-                                if (paywalls.some(pw => 
-                                    titleLower.includes(`- ${pw}`) || 
-                                    titleLower.includes(`| ${pw}`) || 
-                                    titleLower.endsWith(pw)
-                                )) {
-                                    isRelevant = false;
-                                }
-                                const goodWords = [
-                                    'robot', 'ai', 'humanoid', 'automation', 'autonomous', 'funding', 'investment', 
-                                    'boston dynamics', 'figure ai', 'tesla bot', 'optimus', 'agility robotics', 
-                                    'sanctuary', 'apptronik', 'unitree', 'machine learning', 'exoskeleton'
-                                ];
-                                if (!goodWords.some(word => fullContext.includes(word))) isRelevant = false;
-
-                                if (isRelevant) {
-                                    fetchedData[source.id].push({
-                                        title: cleanTitle,
-                                        link: item.link,
-                                        pubDate: new Date(item.pubDate)
-                                    });
-                                }
-                            }
-                        }
-                    } catch (e) { console.log("Google fetch error:", source.id); }
-                });
-
-                await Promise.all(promises);
-
-                function isTooSimilar(t1, t2) {
-                    const stopWords = ['how', 'the', 'and', 'for', 'with', 'from', 'this', 'that', 'robot', 'humanoid', 'artificial', 'intelligence', 'robotics', 'automation'];
-                    const w1 = t1.toLowerCase().split(/\W+/).filter(w => w.length > 2 && !stopWords.includes(w));
-                    const w2 = t2.toLowerCase().split(/\W+/).filter(w => w.length > 2 && !stopWords.includes(w));
-                    let match = 0;
-                    w1.forEach(w => { if(w2.includes(w)) match++; });
-                    return match >= 3; 
-                }
+                // 🚨 구글 자체 검색어에서 유료 매체를 아예 빼버립니다. (요청 1번으로 단축)
+                const googleQuery = "robotics OR humanoid OR AI -fortune -wsj -bloomberg -nytimes -reuters -businessinsider";
+                const rssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(googleQuery)}&hl=en-US&gl=US&ceid=US:en`;
+                const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=10`;
 
                 let finalPicks = [];
-                let pools = [fetchedData.humanoids, fetchedData.ai, fetchedData.robotics];
-                
-                function tryAddArticle(pool) {
-                    while(pool.length > 0) {
-                        let candidate = pool.shift();
-                        let isDuplicate = finalPicks.some(p => isTooSimilar(p.title, candidate.title));
-                        if (!isDuplicate) {
-                            finalPicks.push(candidate);
-                            return true;
+                const cacheKey = "newsCache_google_v8"; // 🚨 과거의 썩은 캐시(Fortune 포함)를 버리고 새 저장소 생성
+
+                try {
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
+
+                    if (data.status === 'ok' && data.items) {
+                        for (const item of data.items) {
+                            if (finalPicks.length >= 3) break;
+                            const cleanTitle = item.title.replace(/<[^>]*>?/gm, '');
+                            finalPicks.push({
+                                title: cleanTitle,
+                                link: item.link,
+                                pubDate: new Date(item.pubDate)
+                            });
+                        }
+                        if (finalPicks.length > 0) {
+                            localStorage.setItem(cacheKey, JSON.stringify(finalPicks));
                         }
                     }
-                    return false;
-                }
+                } catch (e) { console.log("Google fetch error"); }
 
-                for (let pool of pools) { tryAddArticle(pool); }
-                while (finalPicks.length < 3) {
-                    let added = false;
-                    for (let pool of pools) {
-                        if (finalPicks.length < 3) {
-                            if (tryAddArticle(pool)) added = true;
-                        }
-                    }
-                    if (!added) break; 
-                }
-
-                const googleCacheKey = "newsCache_googlePicks";
-                if (finalPicks.length >= 3) {
-                    localStorage.setItem(googleCacheKey, JSON.stringify(finalPicks));
-                } else {
-                    const cached = localStorage.getItem(googleCacheKey);
+                // 실패 시 캐시에서 복구
+                if (finalPicks.length === 0) {
+                    const cached = localStorage.getItem(cacheKey);
                     if (cached) {
                         finalPicks = JSON.parse(cached);
                         finalPicks.forEach(item => item.pubDate = new Date(item.pubDate));
                     }
                 }
 
+                // 렌더링
                 if (finalPicks.length > 0 && googleContainer) {
-                    let html = `
-                        <div class="news-card" style="grid-column: 1 / -1; border-color: #4285F4 !important; padding: 20px 25px;">
-                            <ul class="article-list" style="gap: 12px;">
-                    `;
+                    let html = `<div class="news-card" style="grid-column: 1 / -1; border-color: #4285F4 !important; padding: 20px 25px;"><ul class="article-list" style="gap: 12px;">`;
                     finalPicks.forEach((news, index) => {
                         const dateStr = news.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
                         const borderStyle = index < finalPicks.length - 1 ? 'border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px;' : 'padding-bottom: 0;';
-                        
                         html += `
                             <li class="article-item" style="${borderStyle}">
-                                <a href="${news.link}" target="_blank" class="article-title" style="display:inline; margin-bottom:0; line-height:1.5;">
-                                    ${news.title}
-                                </a>
-                                <span class="article-date" style="display:inline-block; margin-left: 8px; color: #888; font-size: 0.85rem;">
-                                    <i class="far fa-clock"></i> ${dateStr}
-                                </span>
+                                <a href="${news.link}" target="_blank" class="article-title" style="display:inline; margin-bottom:0; line-height:1.5;">${news.title}</a>
+                                <span class="article-date" style="display:inline-block; margin-left: 8px; color: #888; font-size: 0.85rem;"><i class="far fa-clock"></i> ${dateStr}</span>
                             </li>
                         `;
                     });
-                    html += `
-                            </ul>
-                        </div>
-                    `;
+                    html += `</ul></div>`;
                     googleContainer.innerHTML = html;
-                } else if (googleContainer) {
-                    googleContainer.innerHTML = '<p style="color: #FF5555; grid-column: 1 / -1; text-align: center;">No Google top picks available right now.</p>';
                 }
+
+                // 🚨 핵심: 전문 매체와 중복되지 않도록 뽑힌 기사 제목들을 반환합니다!
+                return finalPicks.map(article => article.title.toLowerCase());
             }
 
-           // ==========================================
-            // 2. 전문 매체 전용 로직 (예비 소스 대거 추가 및 안정화)
             // ==========================================
-async function fetchSpecializedNews() {
-    const rssContainer = document.getElementById('rss-news-container');
-    const specializedSources = [
+            // 2. 전문 매체 전용 로직
+            // ==========================================
+            async function fetchSpecializedNews(excludeTitles = []) {
+                const specializedSources = [
                     { name: "TechCrunch", url: "https://techcrunch.com/category/robotics/feed/", domain: "techcrunch.com" },
                     { name: "IEEE Spectrum", url: "https://spectrum.ieee.org/feeds/topic/robotics.rss", domain: "spectrum.ieee.org" },
                     { name: "The Robot Report", url: "https://www.therobotreport.com/feed/", domain: "therobotreport.com" },
-                    
-                    // 🚨 죽은 링크들을 완벽하게 커버할 새롭고 안정적인 전문 매체 추가!
-                    { name: "TechXplore", url: "https://techxplore.com/rss-feed/robotics-news/", domain: "techxplore.com" }, 
-                    { name: "ZDNet", url: "https://www.zdnet.com/topic/robotics/rss.xml", domain: "zdnet.com" }, 
-                    { name: "VentureBeat", url: "https://venturebeat.com/category/ai/feed/", domain: "venturebeat.com" }, 
-                    { name: "AI News", url: "https://www.artificialintelligence-news.com/feed/", domain: "artificialintelligence-news.com" },
-                    
-                    // 기존 매체들
+                    { name: "TechXplore", url: "https://techxplore.com/rss-feed/robotics-news/", domain: "techxplore.com" },
                     { name: "Robotics & Auto", url: "https://roboticsandautomationnews.com/feed/", domain: "roboticsandautomationnews.com" },
                     { name: "ScienceDaily", url: "https://www.sciencedaily.com/rss/matter_energy/robotics.xml", domain: "sciencedaily.com" },
                     { name: "Interesting Eng.", url: "https://interestingengineering.com/feed", domain: "interestingengineering.com" },
-                    { name: "Wired", url: "https://www.wired.com/feed/tag/robotics/latest/rss", domain: "wired.com" }, 
-                    { name: "Robotics Tomorrow", url: "https://roboticstomorrow.com/rss.xml", domain: "roboticstomorrow.com" }, 
-                    { name: "PopSci", url: "https://www.popsci.com/category/technology/robotics/feed/", domain: "popsci.com" }, 
-                    { name: "The Verge", url: "https://www.theverge.com/rss/robotics/index.xml", domain: "theverge.com" },
-                    { name: "MIT News", url: "https://news.mit.edu/rss/topic/robotics", domain: "mit.edu" },
-                    { name: "Robohub", url: "https://robohub.org/feed/", domain: "robohub.org" }
+                    { name: "Wired", url: "https://www.wired.com/feed/tag/robotics/latest/rss", domain: "wired.com" },
+                    { name: "MIT News", url: "https://news.mit.edu/rss/topic/robotics", domain: "mit.edu" }
                 ];
 
-               const promises = specializedSources.map(async (source) => {
-        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}&count=10`; 
-        const cacheKey = `newsCache_${source.name}`; 
+                let sourceDataMap = {};
 
-        try {
-            const response = await fetch(apiUrl);
-            const data = await response.json();
-            
-            if (data.status === 'ok' && data.items && data.items.length > 0) {
-                let validArticles = data.items.slice(0, 3).map(item => ({
-                    title: item.title.replace(/<[^>]*>?/gm, ''),
-                    link: item.link,
-                    pubDate: new Date(item.pubDate)
-                }));
-                localStorage.setItem(cacheKey, JSON.stringify(validArticles)); 
-                return { source, articles: validArticles };
+                // 서버 차단을 막기 위해 0.15초씩 아주 짧게 숨을 고르며 순서대로 호출
+                for (const source of specializedSources) {
+                    if (Object.keys(sourceDataMap).length >= 9) break;
+
+                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source.url)}&count=5`;
+                    const cacheKey = `newsCache_${source.name}_v8`;
+
+                    try {
+                        const response = await fetch(apiUrl);
+                        const data = await response.json();
+
+                        if (data.status === 'ok' && data.items && data.items.length > 0) {
+                            let validArticles = [];
+                            for (const item of data.items) {
+                                if (validArticles.length >= 3) break;
+                                const cleanTitle = item.title.replace(/<[^>]*>?/gm, '');
+
+                                // 🚨 위쪽 구글 뉴스(Editor's Pick)에 이미 있는 기사인지 검사해서 중복 컷!
+                                let isDuplicate = excludeTitles.some(exTitle => exTitle === cleanTitle.toLowerCase());
+                                if (isDuplicate) continue;
+
+                                validArticles.push({ title: cleanTitle, link: item.link, pubDate: new Date(item.pubDate) });
+                            }
+                            if (validArticles.length > 0) {
+                                sourceDataMap[source.name] = validArticles;
+                                localStorage.setItem(cacheKey, JSON.stringify(validArticles));
+                            }
+                        }
+                    } catch (e) {}
+
+                    // 에러 시 캐시 로드
+                    // 에러 시 캐시 로드
+                    if (!sourceDataMap[source.name]) {
+                        const cachedData = localStorage.getItem(cacheKey);
+                        if (cachedData) {
+                            const parsedData = JSON.parse(cachedData);
+                            parsedData.forEach(item => item.pubDate = new Date(item.pubDate));
+                            sourceDataMap[source.name] = parsedData;
+                        }
+                    }
+
+                    // 🚨 수정 1: 0.15초는 무료 서버가 공격으로 오해하기 쉬워 0.4초로 늘립니다.
+                    await new Promise(resolve => setTimeout(resolve, 400));
+                }
+
+                let newsHTML = "";
+                specializedSources.forEach(source => {
+                    const articles = sourceDataMap[source.name];
+                    if (articles && articles.length > 0) {
+                        const iconUrl = `https://www.google.com/s2/favicons?domain=${source.domain}&sz=64`;
+                        newsHTML += `<div class="news-card"><div class="source-header"><img src="${iconUrl}" alt="logo" class="source-icon">${source.name}</div><ul class="article-list">`;
+                        articles.forEach(news => {
+                            const dateStr = news.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                            newsHTML += `<li class="article-item"><a href="${news.link}" target="_blank" class="article-title">${news.title}</a><div class="article-date"><i class="far fa-clock"></i> ${dateStr}</div></li>`;
+                        });
+                        newsHTML += `</ul></div>`;
+                    }
+                });
+
+                // 🚨 수정 2: 제가 실수로 지워버렸던 에러 처리(else) 블록 완벽 복구!
+                // 이제 데이터를 못 가져오면 Fetching이 멈추고 안내 문구가 뜹니다.
+                if (newsHTML !== "" && rssContainer) {
+                    rssContainer.innerHTML = newsHTML;
+                } else if (rssContainer) {
+                    rssContainer.innerHTML = '<p style="color: #FF5555; grid-column: 1 / -1; text-align: center;">서버 접속량이 많아 일시적으로 데이터를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p>';
+                }
             }
-            throw new Error("Invalid data");
-        } catch (e) {
-            // 실패 시 로컬 캐시에서 백업 데이터 불러오기
-            const cachedData = localStorage.getItem(cacheKey);
-            if (cachedData) {
-                const parsedData = JSON.parse(cachedData);
-                parsedData.forEach(item => item.pubDate = new Date(item.pubDate));
-                return { source, articles: parsedData };
-            }
-            return null; // 캐시도 없으면 null 반환
-        }
-    });
 
-    // 2. 병렬 요청이 모두 완료될 때까지 기다립니다. (0.5초 딜레이 제거됨)
-    const results = await Promise.all(promises);
-
-    // 3. 성공한 데이터만 필터링하고 최대 9개까지만 자릅니다.
-    const validResults = results.filter(res => res !== null).slice(0, 9);
-
-    let newsHTML = "";
-    
-    // 4. 화면에 렌더링합니다.
-    validResults.forEach(({ source, articles }) => {
-        const iconUrl = `https://www.google.com/s2/favicons?domain=${source.domain}&sz=64`;
-        newsHTML += `
-            <div class="news-card">
-                <div class="source-header">
-                    <img src="${iconUrl}" alt="logo" class="source-icon">
-                    ${source.name}
-                </div>
-                <ul class="article-list">
-        `;
-        articles.forEach(news => {
-            const dateStr = news.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-            newsHTML += `
-                <li class="article-item">
-                    <a href="${news.link}" target="_blank" class="article-title">${news.title}</a>
-                    <div class="article-date"><i class="far fa-clock"></i> ${dateStr}</div>
-                </li>
-            `;
-        });
-        newsHTML += `</ul></div>`;
-    });
-
-    if (newsHTML !== "" && rssContainer) {
-        rssContainer.innerHTML = newsHTML;
-    } else if (rssContainer) {
-        rssContainer.innerHTML = '<p style="color: #FF5555; grid-column: 1 / -1; text-align: center;">No news available at the moment.</p>';
-    }
-}
-
-            fetchGooglePicks();
-            fetchSpecializedNews();
+            // 🚨 실행 순서: 구글을 먼저 부르고, 뽑힌 제목들을 전문 매체로 넘겨서 중복 차단!
+            const pickedTitles = await fetchGooglePicks();
+            await fetchSpecializedNews(pickedTitles);
         }
 
         window.addEventListener('DOMContentLoaded', fetchGridNews);
