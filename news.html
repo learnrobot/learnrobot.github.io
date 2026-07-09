@@ -545,7 +545,7 @@ body::before {
             // 2. Editor's Pick (Google News) - 단일 요청 (가장 안정적인 rss2json으로 복구)
             // ==========================================
             async function fetchGooglePicks() {
-                const googleQuery = "robotics OR humanoid OR AI -fortune -wsj -bloomberg -nytimes -reuters -businessinsider";
+                const googleQuery = "robotics OR humanoid OR AI -fortune -wsj -bloomberg -nytimes -businessinsider -wired -nature -medium -technologyreview -hbr -telegraph";
                 const rssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(googleQuery)}&hl=en-US&gl=US&ceid=US:en`;
                 
                 // 🚨 구글은 AllOrigins 대신 찰떡궁합인 rss2json으로 다시 복구! (1번 요청이라 차단 위험 없음)
