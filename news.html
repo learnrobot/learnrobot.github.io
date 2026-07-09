@@ -545,7 +545,7 @@ body::before {
             // 2. Editor's Pick (Google News) - 단일 요청 (가장 안정적인 rss2json으로 복구)
             // ==========================================
             async function fetchGooglePicks() {
-                const googleQuery = "robotics OR humanoid OR AI -fortune -wsj -bloomberg -nytimes -businessinsider -wired -nature -medium -technologyreview -hbr -telegraph";
+                const googleQuery = "robotics OR humanoid OR AI -fortune -wsj -bloomberg -nytimes -reuters -businessinsider";
                 const rssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(googleQuery)}&hl=en-US&gl=US&ceid=US:en`;
                 
                 // 🚨 구글은 AllOrigins 대신 찰떡궁합인 rss2json으로 다시 복구! (1번 요청이라 차단 위험 없음)
@@ -606,14 +606,15 @@ body::before {
     const dateStr = news.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     const borderStyle = index < finalPicks.length - 1 ? 'border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px;' : 'padding-bottom: 0;';
     
-    // 🚨 제목에서 마지막 " - " 기호를 찾아 기사 제목과 언론사를 분리합니다.
+    // 🚨 일반 하이픈(-), 엔대시(–), 엠대시(—), 파이프(|), HTML 특수기호까지 모두 잡아냅니다.
     let displayTitle = news.title;
     let sourceText = "";
-    const lastDashIndex = news.title.lastIndexOf(" - ");
     
-    if (lastDashIndex !== -1) {
-        displayTitle = news.title.substring(0, lastDashIndex);
-        sourceText = news.title.substring(lastDashIndex); // " - 언론사명" 부분
+    const match = news.title.match(/(.*)([\s]+(?:[-–—|]|&[a-zA-Z0-9#]+;)[\s]+)(.*)$/i);
+    
+    if (match) {
+        displayTitle = match[1]; // 기사 제목 부분
+        sourceText = match[2] + match[3]; // " - 언론사명" 부분
     }
 
     html += `
@@ -712,10 +713,9 @@ body::before {
 
                     try {
                         // race the RSS fetch against a timeout so slow networks fail fast
-                        // race the RSS fetch against a timeout so slow networks fail fast
                         const xmlDoc = await Promise.race([
                             fetchRSS(source.url),
-                            new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 10000)) // 🚨 Robohub이 응답할 수 있도록 10초로 연장
+                            new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 6000))
                         ]);
 
                         const items = xmlDoc ? xmlDoc.querySelectorAll('item, entry') : [];
