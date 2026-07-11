@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Let's LearnRobot.com</title>
     
-	<link rel="icon" href="image/favicon.png?v=2" type="image/png">
-	
+    <link rel="icon" href="image/favicon.png?v=2" type="image/png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-	
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -24,12 +24,15 @@
         * { box-sizing: border-box; }
         body, html {
             margin: 0; padding: 0;
-            width: 100%; height: 100vh; /* 화면 높이 100% 고정 */
-            overflow: hidden; /* 스크롤바 생성 방지 */
+            width: 100%; height: 100vh;
+            overflow: hidden; 
             
-            /* 깊은 연구소 느낌의 배경 (가운데만 살짝 밝은 그라데이션) */
+            /* 🚨 수정: 원본 배경 대신 명판 이미지를 화면 전체에 꽉 채웁니다 */
             background-color: #0b0d10; 
-            background-image: radial-gradient(circle at center, #1a242f 0%, #0b0d10 70%);
+            background-image: url('image/metal plate.jpg');
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
             color: #fff;
             
             display: flex;
@@ -45,22 +48,24 @@
             justify-content: center;
             width: 100%;
             height: 100%;
-            gap: 5vh; /* 화면 높이에 비례하여 요소들 사이의 간격 자동 조절 */
+            gap: 5vh;
             padding: 20px;
         }
 
         /* 1. 심플한 타이틀 영역 */
-        .title-area { text-align: center; }
+        .title-area { 
+            text-align: center; 
+            transform: translateY(-12vh); /* 🚨 수정: 명판 배경과 겹치지 않게 타이틀만 위로 끌어올림 */
+        }
         .main-title {
             font-family: 'Orbitron', sans-serif;
-            /* 글자가 길어졌으므로 모바일 화면을 위해 폰트 크기를 살짝 줄였습니다 */
             font-size: clamp(2.2rem, 5vw, 4rem); 
             font-weight: 900;
             letter-spacing: 3px;
             margin: 0 0 10px 0;
             text-shadow: 0 0 30px rgba(134, 209, 209, 0.4);
-            white-space: nowrap; /* 🚨 핵심: 어떤 일이 있어도 줄바꿈을 하지 않고 한 줄로 강제 고정 */
-            text-transform: none; /* 🚨 핵심: 강제로 대문자로 바꾸지 않고 입력한 그대로 출력 */
+            white-space: nowrap; 
+            text-transform: none; 
         }
         .sub-title {
             font-family: 'Orbitron', sans-serif;
@@ -73,7 +78,7 @@
         /* 2. 중앙 네온 로봇 (블루프린트 스타일) */
         .neon-robot-wrapper {
             position: relative;
-            height: 45vh; /* 로봇이 화면 높이의 45%만 차지하게 하여 레이아웃 보호 */
+            height: 45vh; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -82,9 +87,8 @@
         .neon-robot-svg {
             height: 100%;
             width: auto;
-            max-width: 90vw; /* 🚨 추가됨: 어떤 경우에도 화면 가로폭의 90%를 넘지 않게 강제 축소 */
+            max-width: 90vw; 
             filter: drop-shadow(0 0 15px rgba(134, 209, 209, 0.5));
-            /* 로봇이 우주에 떠있는 것처럼 부드럽게 위아래로 움직임 */
             animation: float-and-pulse 4s ease-in-out infinite alternate;
         }
 
@@ -99,14 +103,14 @@
             }
         }
 
-/* 3. 입장 버튼 */
+        /* 3. 입장 버튼 (🚨 수정: 원래 스타일로 완벽히 되돌림) */
         .door-handle-btn {
             display: inline-flex;
             align-items: center;
             gap: 15px;
             background: transparent;
-            color: #86D1D1; /* 🚨 로봇과 같은 청록색으로 변경 */
-            border: 2px solid #86D1D1; /* 🚨 테두리 색상도 청록색으로 변경 */
+            color: #86D1D1; 
+            border: 2px solid #86D1D1; 
             padding: 15px 40px;
             border-radius: 30px; 
             font-family: 'Orbitron', sans-serif;
@@ -117,14 +121,15 @@
             transition: all 0.3s ease;
         }
         
-.door-handle-btn:hover {
-            background: #FFFB03; /* 🚨 쨍한 노란색 배경 */
-            color: #0b0d10; /* 글씨는 어두운 색으로 반전시켜 가독성 확보 */
-            border-color: #FFFB03; /* 테두리도 노란색으로 */
-            box-shadow: 0 0 20px rgba(255, 251, 3, 0.6); /* 🚨 노란색 네온 빛 발사 */
-            transform: scale(1.05); /* 살짝 커지는 입체감 */
+        .door-handle-btn:hover {
+            background: #FFFB03; 
+            color: #0b0d10; 
+            border-color: #FFFB03; 
+            box-shadow: 0 0 20px rgba(255, 251, 3, 0.6); 
+            transform: scale(1.05); 
         }
-		/* [신규] 핫스팟 클릭 및 텍스트 효과 */
+
+        /* 핫스팟 클릭 및 텍스트 효과 */
         .intro-hotspot {
             cursor: pointer;
             transition: all 0.3s ease;
@@ -139,61 +144,64 @@
             stroke: #FFFB03;
         }
         
-        /* 양옆 공간에 나타나는 SVG 글자 폰트 강제 설정 */
-        .svg-tech-title { fill: #FFFB03; font-family: 'Orbitron', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: 2px;}
-        .svg-human-desc { fill: #86D1D1; font-family: 'Orbitron', sans-serif; font-size: 26px; }
-        #tech-display-text {
-            color: #FFFB03;
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-shadow: 0 0 15px rgba(255, 251, 3, 0.6);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-		/* [추가] 투명한 클릭 보조 영역(hitbox)에는 네온 테두리가 생기지 않도록 방지 */
+/* 양옆 공간에 나타나는 SVG 글자 폰트 강제 설정 */
+.svg-tech-title { 
+    fill: #FFFB03; 
+    font-family: 'Orbitron', sans-serif; 
+    font-size: 26px; 
+    font-weight: 700; 
+    letter-spacing: 2px;
+    filter: drop-shadow(0px 0px 5px rgba(0,0,0,1)); /* 새로 추가 (검은색 테두리/그림자 효과) */
+}
+.svg-human-desc { 
+    fill: #86D1D1; 
+    font-family: 'Orbitron', sans-serif; 
+    font-size: 26px; 
+    font-weight: 900; /* 🚨 추가: 글씨 굵기를 최고(Black) 수준으로 두껍게 */
+    letter-spacing: 1px;
+    /* 🚨 수정: 검은색 그림자를 두 겹으로 겹치고 반경을 넓혀 배경과 완벽히 분리 */
+    filter: drop-shadow(0px 0px 8px rgba(0,0,0,1)) drop-shadow(0px 2px 4px rgba(0,0,0,1)); 
+}
+
+        /* 투명한 클릭 보조 영역(hitbox)에는 네온 테두리가 생기지 않도록 방지 */
         .intro-hotspot:hover .hitbox, .intro-hotspot.active .hitbox {
             stroke: none !important;
         }
-		/* 📱 [신규] 모바일 화면 전용 확대 (화면 폭 768px 이하일 때만 작동) */
+
+        /* 팔 안쪽 어두운 선은 클릭/호버 시에도 노란색으로 변하지 않도록 방지 */
+        .intro-hotspot:hover .inner-arm, .intro-hotspot.active .inner-arm {
+            stroke: #0b0d10 !important;
+        }
+
+        /* 📱 모바일 화면 전용 확대 */
         @media (max-width: 768px) {
             .neon-robot-svg {
-                max-width: 105vw !important; /* 가로 제한을 풀어서 로봇을 1.4배 줌인! */
+                max-width: 105vw !important; 
                 width: 105vw;
             }
-            .svg-tech-title { 
-                font-size: 20px !important; /* 모바일에서 제목 폰트 빵빵하게 */
-            }
-            .svg-human-desc { 
-                font-size: 26px !important; /* 모바일에서 설명 폰트 빵빵하게 */
-            }
-            /* 글씨를 키웠을 때 화면 밖으로 잘리지 않도록 글자들을 로봇 쪽(안쪽)으로 살짝 당김 */
+            .svg-tech-title { font-size: 20px !important; }
+            .svg-human-desc { font-size: 26px !important; }
             #info-head text, #info-arm text { transform: translateX(45px); }
             #info-body text, #info-leg text { transform: translateX(-45px); }
         }
-		/* 팔 안쪽 어두운 선은 클릭/호버 시에도 노란색으로 변하지 않도록 방지 */
-.intro-hotspot:hover .inner-arm, .intro-hotspot.active .inner-arm {
-    stroke: #0b0d10 !important;
-}
     </style>
 </head>
 <body>
 
     <div class="gateway-container">
         
-<div class="title-area">
+        <div class="title-area">
             <h1 class="main-title">Learn<span style="color: #FFFB03;">Robot</span>.com</h1>
-           
         </div>
 
         <div class="neon-robot-wrapper" style="flex-direction: column;">
             <svg class="neon-robot-svg" viewBox="0 0 1200 500" xmlns="http://www.w3.org/2000/svg">
                 
+                <!-- 🚨 수정: 이 안에는 로봇 뼈대만 들어가도록 원상복구 -->
                 <g transform="translate(450, 0)">
                     
                     <g class="intro-hotspot" onclick="showIntroInfo('head', this)">
-                        <rect x="100" y="50" width="100" height="90" rx="20" fill="#0b0d10" stroke="#86D1D1" stroke-width="4"/>
+                        <rect x="100" y="50" width="100" height="90" rx="20" fill="transparent" stroke="#86D1D1" stroke-width="4"/>
                         <circle cx="130" cy="90" r="10" fill="#FFFB03" />
                         <circle cx="170" cy="90" r="10" fill="#FFFB03" />
                         <line x1="120" y1="120" x2="180" y2="120" stroke="#86D1D1" stroke-width="3" />
@@ -203,32 +211,47 @@
                         </circle>
                     </g>
 
-                 <g class="intro-hotspot" onclick="showIntroInfo('arm', this)">
+                    <g class="intro-hotspot" onclick="showIntroInfo('arm', this)">
+    <!-- 🚨 마스크 정의: 24px 두꺼운 선에서 안쪽 16px 두께만큼을 완전히 투명하게 파냅니다 -->
+    <defs>
+        <mask id="hollow-arms-mask">
+            <!-- 전체를 보이게(하얀색) -->
+            <rect x="0" y="0" width="100%" height="100%" fill="white" />
+            <!-- 안쪽을 안 보이게(검은색) 처리. (마우스 호버 시 노란색으로 변하지 않도록 style 고정) -->
+            <path d="M 65 180 L 35 250 L 45 320" fill="none" stroke="black" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" style="stroke: black !important;" />
+            <path d="M 235 180 L 265 250 L 255 320" fill="none" stroke="black" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" style="stroke: black !important;" />
+        </mask>
+    </defs>
+
     <rect x="10" y="160" width="280" height="190" fill="transparent" class="hitbox" stroke="none" />
     
-    <path d="M 65 180 L 35 250 L 45 320" fill="none" stroke="#86D1D1" stroke-width="24" stroke-linejoin="round" stroke-linecap="round" />
-    <path d="M 65 180 L 35 250 L 45 320" fill="none" stroke="#0b0d10" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" class="inner-arm" />
+    <!-- 양쪽 팔 (위에서 만든 mask를 적용하여 가운데를 뚫음) -->
+    <g mask="url(#hollow-arms-mask)">
+        <path d="M 65 180 L 35 250 L 45 320" fill="none" stroke="#86D1D1" stroke-width="24" stroke-linejoin="round" stroke-linecap="round" />
+        <path d="M 235 180 L 265 250 L 255 320" fill="none" stroke="#86D1D1" stroke-width="24" stroke-linejoin="round" stroke-linecap="round" />
+    </g>
+    
+    <!-- 왼쪽 관절 및 손 -->
     <circle cx="35" cy="250" r="5" fill="#FFFB03" /> 
     <path d="M 33 345 L 33 330 L 45 320 L 57 330 L 57 345" fill="none" stroke="#86D1D1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
     
-    <path d="M 235 180 L 265 250 L 255 320" fill="none" stroke="#86D1D1" stroke-width="24" stroke-linejoin="round" stroke-linecap="round" />
-    <path d="M 235 180 L 265 250 L 255 320" fill="none" stroke="#0b0d10" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" class="inner-arm" />
+    <!-- 오른쪽 관절 및 손 -->
     <circle cx="265" cy="250" r="5" fill="#FFFB03" /> 
     <path d="M 243 345 L 243 330 L 255 320 L 267 330 L 267 345" fill="none" stroke="#86D1D1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
 </g>
 
                     <g class="intro-hotspot" onclick="showIntroInfo('leg', this)">
                         <rect x="80" y="320" width="140" height="175" fill="transparent" class="hitbox" stroke="none" />
-                        <rect x="115" y="330" width="24" height="140" rx="6" fill="#0b0d10" stroke="#86D1D1" stroke-width="4" />
-                        <rect x="161" y="330" width="24" height="140" rx="6" fill="#0b0d10" stroke="#86D1D1" stroke-width="4" />
-                        <rect x="102" y="470" width="50" height="15" rx="5" fill="#0b0d10" stroke="#86D1D1" stroke-width="4" />
-                        <rect x="148" y="470" width="50" height="15" rx="5" fill="#0b0d10" stroke="#86D1D1" stroke-width="4" />
+                        <rect x="115" y="330" width="24" height="140" rx="6" fill="transparent" stroke="#86D1D1" stroke-width="4" />
+                        <rect x="161" y="330" width="24" height="140" rx="6" fill="transparent" stroke="#86D1D1" stroke-width="4" />
+                        <rect x="102" y="470" width="50" height="15" rx="5" fill="transparent" stroke="#86D1D1" stroke-width="4" />
+                        <rect x="148" y="470" width="50" height="15" rx="5" fill="transparent" stroke="#86D1D1" stroke-width="4" />
                     </g>
 
                     <g class="intro-hotspot" onclick="showIntroInfo('body', this)">
                         <rect x="75" y="160" width="150" height="170" rx="25" fill="transparent" class="hitbox" stroke="none" />
                         
-                        <rect x="75" y="160" width="150" height="170" rx="25" fill="#0b0d10" stroke="#86D1D1" stroke-width="4" />
+                        <rect x="75" y="160" width="150" height="170" rx="25" fill="transparent" stroke="#86D1D1" stroke-width="4" />
                         
                         <line x1="95" y1="185" x2="205" y2="185" stroke="#2C9999" stroke-width="2" stroke-dasharray="5,5" />
                         
@@ -237,12 +260,14 @@
                         <rect x="133" y="221" width="34" height="54" rx="3" fill="#86D1D1">
                             <animate attributeName="opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite" />
                         </rect>
-                        <path d="M 153 228 L 141 248 L 151 248 L 146 266 L 159 244 L 149 244 Z" fill="#0b0d10" />
+                        <path d="M 153 228 L 141 248 L 151 248 L 146 266 L 159 244 L 149 244 Z" fill="transparent" />
                         
                         <line x1="95" y1="305" x2="205" y2="305" stroke="#2C9999" stroke-width="2" stroke-dasharray="5,5" />
                     </g>
                 </g> 
-               <g id="info-head" class="info-group" style="opacity: 0; transition: opacity 0.3s ease;">
+                
+                <!-- 🚨 수정: 텍스트 정보는 로봇 그룹 바깥쪽 제자리에 원상복구 (로봇과 안 겹침) -->
+                <g id="info-head" class="info-group" style="opacity: 0; transition: opacity 0.3s ease;">
                     <line x1="550" y1="95" x2="420" y2="95" stroke="#FFFB03" stroke-width="2" stroke-dasharray="4,4"/>
                     <text x="400" y="90" class="svg-tech-title" text-anchor="end">AI & VISION</text>
                     <text x="400" y="125" class="svg-human-desc" text-anchor="end">Like human brain & eyes</text>
@@ -270,43 +295,36 @@
         </div>
 
         <script>
-            function showIntroInfo(partId, element) {
-                // 1. 모든 핫스팟 활성화 효과 초기화
-                document.querySelectorAll('.intro-hotspot').forEach(el => el.classList.remove('active'));
-                if(element) element.classList.add('active');
-                
-                // 2. 모든 양옆 텍스트/선 숨기기
-                document.querySelectorAll('.info-group').forEach(el => {
-                    el.style.opacity = '0';
-                });
-                
-                // 3. 클릭한 부위의 텍스트/선만 부드럽게 나타내기
-                const infoEl = document.getElementById('info-' + partId);
-                if(infoEl) {
-                    infoEl.style.opacity = '1';
-                }
-            }
-        </script>
+    function showIntroInfo(partId, element) {
+        document.querySelectorAll('.intro-hotspot').forEach(el => el.classList.remove('active'));
+        if(element) element.classList.add('active');
+        
+        document.querySelectorAll('.info-group').forEach(el => {
+            el.style.opacity = '0';
+        });
+        
+        const infoEl = document.getElementById('info-' + partId);
+        if(infoEl) {
+            infoEl.style.opacity = '1';
+        }
+    }
+
+    // 🚨 바탕 클릭 시 리셋 기능 추가
+    document.addEventListener('click', function(event) {
+        // 클릭한 요소가 로봇 부위(.intro-hotspot) 내부가 아니라면 리셋 실행
+        if (!event.target.closest('.intro-hotspot')) {
+            // 모든 활성화 상태 제거
+            document.querySelectorAll('.intro-hotspot').forEach(el => el.classList.remove('active'));
+            // 모든 텍스트 패널 투명하게 숨김
+            document.querySelectorAll('.info-group').forEach(el => el.style.opacity = '0');
+        }
+    });
+</script>
 
         <a href="news.html" class="door-handle-btn">
-    Robot News & Learning Platform
-</a>
+            Robot News & Learning Platform
+        </a>
 
     </div>
-	<script>
-        function showIntroTech(techName, element) {
-            // 모든 핫스팟 효과 초기화 후 클릭한 곳만 활성화
-            document.querySelectorAll('.intro-hotspot').forEach(el => el.classList.remove('active'));
-            if(element) element.classList.add('active');
-            
-            // 텍스트 부드럽게 나타나기
-            const display = document.getElementById('tech-display-text');
-            display.style.opacity = 0;
-            setTimeout(() => {
-                display.innerText = techName;
-                display.style.opacity = 1;
-            }, 150);
-        }
-    </script>
 </body>
 </html>
