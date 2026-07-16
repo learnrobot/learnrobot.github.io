@@ -103,22 +103,34 @@
             }
         }
 
-        /* 3. 입장 버튼 (🚨 수정: 원래 스타일로 완벽히 되돌림) */
+     /* 3. 입장 버튼 그룹 */
+        .button-group {
+            display: flex;
+            flex-direction: row; /* 세로(column)에서 가로(row)로 변경 */
+            gap: 20px; 
+            width: 100%;
+            justify-content: center; /* 가운데 정렬 */
+            flex-wrap: wrap; /* 모바일처럼 화면이 좁을 땐 자연스럽게 줄바꿈되도록 방어 */
+        }
+
+        /* 개별 버튼 디자인 */
         .door-handle-btn {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 15px;
+            justify-content: center; 
             background: transparent;
             color: #86D1D1; 
             border: 2px solid #86D1D1; 
-            padding: 15px 40px;
+            padding: 12px 30px;
             border-radius: 30px; 
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.2rem, 2vw, 1.3rem);
+            font-size: clamp(1rem, 1.5vw, 1.2rem); 
             font-weight: 700;
             text-decoration: none;
             letter-spacing: 2px;
             transition: all 0.3s ease;
+            box-sizing: border-box;
+            /* 기존에 있던 width: 80vw; 와 max-width: 300px; 삭제 */
         }
         
         .door-handle-btn:hover {
@@ -321,10 +333,15 @@
     });
 </script>
 
-        <a href="news.html" class="door-handle-btn">
-            Robot News & Learning Platform
-        </a>
-
-    </div>
+<!-- 버튼 그룹으로 분리 및 가로 정렬 적용 -->
+        <div class="button-group">
+            <a href="news.html" class="door-handle-btn">
+                Read News
+            </a>
+            <!-- 연결 주소를 main.html로 수정 -->
+            <a href="main.html" class="door-handle-btn">
+                Learn Robotics
+            </a>
+        </div>
 </body>
 </html>
