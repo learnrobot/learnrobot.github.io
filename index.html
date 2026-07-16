@@ -334,21 +334,19 @@
     });
 </script>
 
-<!-- 버튼 그룹으로 분리 및 가로 정렬 적용 -->
-        <div class="button-group">
-            <a href="news.html" class="door-handle-btn">
-                Latest News
-            </a>
-            <!-- 연결 주소를 main.html로 수정 -->
-            <a href="main.html" class="door-handle-btn">
-                Robotics Tour
-            </a>
-			<a href="robotics_101.html" class="door-handle-btn">
-                Robotics 101
-            </a>
-			<a href="industry_index.html" class="door-handle-btn">
+<div class="button-group">
+    <div onclick="window.location.href='news.html'" class="door-handle-btn" style="cursor: pointer;">
+        Latest News
+    </div>
+    <div onclick="window.location.href='main.html'" class="door-handle-btn" style="cursor: pointer;">
+        Robotics Tour
+    </div>
+    <div onclick="window.location.href='robotics_101.html'" class="door-handle-btn" style="cursor: pointer;">
+        Robotics 101
+    </div>
+    <div onclick="window.location.href='industry_index.html'" class="door-handle-btn" style="cursor: pointer;">
         Industry Index
-    </a>
-        </div>
+    </div>
+</div>
 </body>
 </html>
