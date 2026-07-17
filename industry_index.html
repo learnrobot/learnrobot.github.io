@@ -732,33 +732,32 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
             .sidebar-close { display: block !important; }
         }
 
-        /* --- 검색창 디자인 --- */
-     .search-container {
-    position: relative; /* 자식(아이콘)의 기준점 */
+.search-container {
+    position: relative;
     display: inline-block;
-    max-width: 600px;
-    width: auto; /* 적당한 고정 너비 (필요시 조절) */
-    margin: 0 20px; /* 양옆 여백을 줘서 메뉴/배너와 거리 두기 */
-    flex-shrink: 0; /* 화면이 줄어도 검색창 크기는 찌그러지지 않게 방어 */
+    margin-top: 15px; 
+    /* 양옆에만 강렬한 테두리 추가 */
+    border-left: 3px solid #FFFB03; 
+    border-right: 3px solid #FFFB03;
+    padding: 0 5px;
 }
 
-    .search-input {
-  width: 250px; /* 너비를 적절하게 고정 */
-    padding: 8px 35px 8px 15px !important; /* 위아래 간격을 줄임 */
-    background-color: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    border-radius: 10px !important; /* 알약 모양으로 변경 */
+.search-input {
+    width: 200px;
+    padding: 8px 35px 8px 10px !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    border: none !important; /* 기본 테두리는 없앰 */
+    border-radius: 0 !important;
     color: #fff !important;
-    font-size: 0.85rem !important;
-    height: 36px !important; /* 높이 고정 */
     transition: all 0.3s ease;
 }
-        /* 검색창 활성화 시 네온 글로우 효과 */
+
 .search-input:focus {
-    width: 250px; /* 클릭하면 살짝 길어짐 */
-    border-color: #FFFB03 !important;
-    box-shadow: 0 0 10px rgba(255, 251, 3, 0.4) !important;
-    background-color: rgba(0, 0, 0, 0.5) !important;
+    width: 250px;
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    /* 포커스 시 위아래로 얇은 선이 생기며 박스가 닫히는 느낌 */
+    border-top: 1px solid rgba(255, 251, 3, 0.5) !important;
+    border-bottom: 1px solid rgba(255, 251, 3, 0.5) !important;
 }
 
 .search-icon {
@@ -871,7 +870,7 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
         <!-- Search 바 (CSS의 margin 초기화 적용) -->
         <!-- margin-top 수치를 15px, 20px 등으로 조절하면서 원하시는 위치를 잡아보세요 -->
 <div class="search-container" style="margin: 0; margin-top: 20px;">
-            <input type="text" id="searchInput" placeholder="Search" onkeyup="searchLinks()" class="search-input">
+            <input type="text" id="searchInput" placeholder="find robots" onkeyup="searchLinks()" class="search-input">
             <i class="fas fa-search search-icon"></i>
         </div>
     </div>
