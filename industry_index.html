@@ -743,7 +743,7 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
 }
 
     .search-input {
-  width: 200px; /* 너비를 적절하게 고정 */
+  width: 250px; /* 너비를 적절하게 고정 */
     padding: 8px 35px 8px 15px !important; /* 위아래 간격을 줄임 */
     background-color: rgba(255, 255, 255, 0.05) !important;
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -869,7 +869,8 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
     
 
         <!-- Search 바 (CSS의 margin 초기화 적용) -->
-        <div class="search-container" style="margin: 0;">
+        <!-- margin-top 수치를 15px, 20px 등으로 조절하면서 원하시는 위치를 잡아보세요 -->
+<div class="search-container" style="margin: 0; margin-top: 20px;">
             <input type="text" id="searchInput" placeholder="Search" onkeyup="searchLinks()" class="search-input">
             <i class="fas fa-search search-icon"></i>
         </div>
