@@ -237,7 +237,7 @@
             color: var(--text-main); 
             font-weight: 900; 
             display: flex; align-items: center; gap: 10px; 
-            text-shadow: 0 0 15px rgba(255, 255, 0, 0.5); 
+            
         }
         
         .logo-image {
@@ -850,12 +850,18 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
 </head>
 <body>
 
-<header style="position: relative;"> <a href="#" class="logo-link" title="Home" onclick="renderHome()">
-        <div class="logo">
-            <img src="image/favicon.png" alt="LearnRobot 로고" class="logo-image"> 
-            <span style="font-family: 'Chakra Petch'; font-size: 1.8rem; letter-spacing: 1px; color: var(--text-main);">LEARN<span style="color: #FFFB03;">ROBOT</span></span>
-        </div>
+<header style="height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; background: rgba(30, 30, 30, 0.95); border-bottom: 1px solid rgba(255, 255, 255, 0.1); z-index: 10;">
+    <div style="flex: 1; display: flex; justify-content: flex-start;">
+    <a href="index.html" class="logo-link" style="text-decoration: none;">
+        <div class="logo" style="display: flex; align-items: center; gap: 15px;">
+            <img src="image/favicon.png" alt="Logo" class="logo-image" style="height: 65px; width: auto; border-radius: 50%;"> 
+        <div style="font-family: 'Orbitron', sans-serif; font-style: italic; display: flex; flex-direction: column; line-height: 0.8; margin-top: 5px;">
+                <span style="color: #ffffff; font-size: 2.2rem; font-weight: 900; z-index: 2; letter-spacing: 1px;-webkit-text-stroke: 0.3px #000;">LEARN</span>
+                <span style="color: #FFFB03; font-size: 3.6rem; font-weight: 900; z-index: 1; margin-left: 50px; margin-top: -5px;-webkit-text-stroke: 0.3px #000;">ROBOT</span>
+            </div>
+        </div> <!-- [수정] 누락되었던 로고 div 닫는 태그 추가 -->
     </a>
+</div>
 
    <div class="quick-nav">
         <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
