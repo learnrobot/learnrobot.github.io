@@ -851,38 +851,50 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
 <body>
 
 <header style="height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; background: rgba(30, 30, 30, 0.95); border-bottom: 1px solid rgba(255, 255, 255, 0.1); z-index: 10;">
-    <div style="flex: 1; display: flex; justify-content: flex-start;">
-    <a href="index.html" class="logo-link" style="text-decoration: none;">
-        <div class="logo" style="display: flex; align-items: center; gap: 15px;">
-            <img src="image/favicon.png" alt="Logo" class="logo-image" style="height: 65px; width: auto; border-radius: 50%;"> 
-        <div style="font-family: 'Orbitron', sans-serif; font-style: italic; display: flex; flex-direction: column; line-height: 0.8; margin-top: 5px;">
-                <span style="color: #ffffff; font-size: 2.2rem; font-weight: 900; z-index: 2; letter-spacing: 1px;-webkit-text-stroke: 0.3px #000;">LEARN</span>
-                <span style="color: #FFFB03; font-size: 3.6rem; font-weight: 900; z-index: 1; margin-left: 50px; margin-top: -5px;-webkit-text-stroke: 0.3px #000;">ROBOT</span>
+    
+    <!-- 1. 로고 + Home + Search 그룹 (왼쪽으로 밀착) -->
+    <div style="display: flex; align-items: center; gap: 25px;">
+        <!-- 로고 -->
+        <a href="index.html" class="logo-link" style="text-decoration: none;">
+            <div class="logo" style="display: flex; align-items: center; gap: 15px;">
+                <img src="image/favicon.png" alt="Logo" class="logo-image" style="height: 65px; width: auto; border-radius: 50%;"> 
+                <div style="font-family: 'Orbitron', sans-serif; font-style: italic; display: flex; flex-direction: column; line-height: 0.8; margin-top: 5px;">
+                    <span style="color: #ffffff; font-size: 2.2rem; font-weight: 900; z-index: 2; letter-spacing: 1px;-webkit-text-stroke: 0.3px #000;">LEARN</span>
+                    <span style="color: #FFFB03; font-size: 3.6rem; font-weight: 900; z-index: 1; margin-left: 50px; margin-top: -5px;-webkit-text-stroke: 0.3px #000;">ROBOT</span>
+                </div>
             </div>
-        </div> <!-- [수정] 누락되었던 로고 div 닫는 태그 추가 -->
-    </a>
-</div>
-
-   <div class="quick-nav">
-        <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
-    </div>
-
-    <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search" onkeyup="searchLinks()" class="search-input">
-    <i class="fas fa-search search-icon"></i>
-</div>
-    
-    <div class="header-ad-container">
-        <a href="#" target="_blank" class="ad-banner">
-            <span class="ad-company-name">Learn Robot</span>
-            <img src="" alt="광고배너" class="ad-image" style="display: none;">
         </a>
+
+        <!-- Home 버튼 (CSS의 margin 초기화 적용) -->
+        <div class="quick-nav" style="margin: 0;">
+            <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Home</a>
+        </div>
+
+        <!-- Search 바 (CSS의 margin 초기화 적용) -->
+        <div class="search-container" style="margin: 0;">
+            <input type="text" id="searchInput" placeholder="Search the robot" onkeyup="searchLinks()" class="search-input">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+    </div>
+
+    <!-- 2 & 3. 기존 회사 배너 삭제 후 애드센스 배너 삽입 -->
+    <div class="header-ad-container" style="flex-grow: 1; display: flex; justify-content: center; align-items: center; margin: 0 20px;">
+        <!-- 구글 애드센스 코드 (헤더용 수평형 권장) -->
+        <ins class="adsbygoogle"
+             style="display:inline-block; width:100%; max-width:728px; height:90px;"
+             data-ad-client="ca-pub-2674022896970936"
+             data-ad-slot="6304115087"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     </div>
     
+    <!-- 모바일 메뉴 햄버거 버튼 -->
     <button class="menu-toggle" onclick="toggleSidebar()">
         <i class="fas fa-bars"></i>
     </button>
 
+    <!-- 우측 SNS 아이콘 -->
     <div class="auth-buttons" style="display: flex; align-items: center; gap: 15px; height: 100%;">
         <div class="sns-icons" style="display: flex; align-items: center; gap: 15px; margin: 0;">
             <a href="https://www.instagram.com/learnrobot" target="_blank" title="Instagram" style="display: flex; align-items: center; color: #2C9999; font-size: 1.8rem; text-decoration: none;">
@@ -1225,34 +1237,7 @@ window.onload = () => {
     startAdRotation(); 
 };
 
-/* --- 광고 로테이션 기능 수정 (즉시 실행 + 10초 반복) --- */
-function startAdRotation() {
-    // 1. 광고를 변경하는 내부 함수 정의
-    const showNextAd = () => {
-        if (!links || links.length === 0) return;
-        
-        // 내 사이트(Learn Robot)가 광고에 안 나오게 하려면 필터링 (선택사항)
-        // const externalLinks = links.filter(l => !l.url.includes("learnrobot.com"));
-        // const randomLink = externalLinks[Math.floor(Math.random() * externalLinks.length)];
-        
-        const randomLink = links[Math.floor(Math.random() * links.length)];
-        
-        const adText = document.querySelector('.ad-banner .ad-company-name');
-        const adAnchor = document.querySelector('.ad-banner');
-        
-        if (adText && adAnchor) {
-            adText.innerHTML = randomLink.title;
-            adAnchor.href = randomLink.url;
-            adAnchor.target = "_blank";
-        }
-    };
 
-    // 2. 페이지 로드 직후 즉시 실행 (기본값 Learn Robot을 바로 덮어씌움)
-    showNextAd();
-
-    // 3. 이후 10초마다 반복
-    setInterval(showNextAd, 10000);
-}
 
 // 키보드 이벤트 리스너 통합 (스페이스바)
 document.addEventListener('keydown', (e) => {
