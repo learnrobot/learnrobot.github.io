@@ -21,6 +21,8 @@
     <title>Let's LearnRobot.com</title>
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Orbitron:wght@500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA===" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<!-- 기존 폰트 링크 아래에 아래 코드를 추가하세요 -->
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 
     <style>
 	body {
@@ -963,6 +965,47 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
 </button>
         </div>
     </div>
+	<!-- Company Details Modal -->
+<<!-- Company Details Modal -->
+<div id="company-modal" class="modal" style="z-index: 10000;">
+    <div class="modal-content" style="width: 500px; max-width: 90%; text-align: left; position: relative;">
+        <!-- 닫기 버튼 -->
+        <button onclick="closeCompanyModal()" style="position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: #FFFB03; font-size: 1.5rem; cursor: pointer;">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <!-- 회사 이름 (Rajdhani 폰트 적용된 한 개만 남김) -->
+        <h2 id="modal-company-title" style="color: #FFFB03; font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 10px; font-size: 2rem;">Company Name</h2>
+        
+        <!-- 회사 기본 설명 -->
+        <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+            <p id="modal-company-desc" style="color: #E0E0E0; font-size: 0.95rem; line-height: 1.5;">Description goes here.</p>
+        </div>
+        
+        <!-- 사업 분야 -->
+        <div style="margin-bottom: 10px;">
+            <strong style="color: #2C9999; font-size: 1.1rem;">Business Area:</strong>
+            <span id="modal-company-area" style="color: #fff; margin-left: 10px;">Area</span>
+        </div>
+        
+        <!-- 모델명 -->
+        <div style="margin-bottom: 10px;">
+            <strong style="color: #2C9999; font-size: 1.1rem;">Models:</strong>
+            <span id="modal-company-models" style="color: #fff; margin-left: 10px;">Models</span>
+        </div>
+
+        <!-- [신규 추가] 최신 뉴스 링크 구역 -->
+        <div style="margin-bottom: 25px;">
+            <strong style="color: #2C9999; font-size: 1.1rem;">Videos:</strong>
+            <a id="modal-company-news" href="#" target="_blank" style="color: #FFFB03; margin-left: 10px; text-decoration: underline; font-size: 0.95rem;">
+                Search Latest News <i class="fas fa-external-link-alt" style="font-size: 0.8rem; margin-left: 3px;"></i>
+            </a>
+        </div>
+        
+        <!-- 웹사이트 이동 버튼 -->
+        <a id="modal-company-link" href="#" target="_blank" class="btn btn-primary" style="display: block; text-align: center; text-decoration: none; width: 100%; box-sizing: border-box;">Visit Website</a>
+    </div>
+</div>
  <script>
 /* --- 데이터 및 전역 변수 설정 --- */
 const backgroundImages = [
@@ -1060,19 +1103,20 @@ function closeHomeText() {
     }
 }
 // [수정 완료] 중복 그리드 생성 방지 버전
+// 1. 기존 함수 수정 (<a> 태그를 <div>로 변경하고 클릭 이벤트 연결)
 function renderSpecificLinksSortedCustom(dataList, container) {
     if (!container) return; 
-    
-    // 이미 밖에서(filterLinks 함수 등에서) 그리드 상자를 만들어 보냈으므로,
-    // 여기서 또 <div class="link-grid">를 만들면 안 됩니다.
     
     container.innerHTML = ''; // 기존 내용 초기화
 
     dataList.forEach(link => {
-        const card = document.createElement('a');
+        // [수정됨] <a> 대신 <div> 사용
+        const card = document.createElement('div');
         card.className = 'link-card'; 
-        card.href = link.url;
-        card.target = "_blank"; 
+        card.style.cursor = 'pointer'; // 클릭 가능한 마우스 커서 표시
+        
+        // [추가됨] 클릭 시 팝업을 여는 이벤트 추가
+        card.onclick = () => openCompanyModal(link);
 
         const displayUrl = link.url.replace(/^https?:\/\//, '').split('/')[0];
         const flagClass = link.country ? `fi fi-${link.country}` : 'fas fa-globe';
@@ -1093,11 +1137,41 @@ function renderSpecificLinksSortedCustom(dataList, container) {
             </div>
         `;
         
-        // [핵심] 새로 만든 박스가 아니라, 받아온 container(그리드)에 직접 넣습니다.
         container.appendChild(card);
     });
 }
 
+// 2. [신규 추가] 팝업 열기/닫기 제어 함수
+function openCompanyModal(link) {
+    const companyTitle = link.title || 'Unknown Company';
+    document.getElementById('modal-company-title').innerHTML = companyTitle;
+    document.getElementById('modal-company-desc').innerText = link.description || 'Information updating...';
+    document.getElementById('modal-company-area').innerText = link.businessArea || 'N/A';
+    
+    let modelsText = 'N/A';
+    if (link.models && Array.isArray(link.models)) {
+        modelsText = link.models.join(', ');
+    } else if (link.models) {
+        modelsText = link.models;
+    }
+    document.getElementById('modal-company-models').innerText = modelsText;
+    
+    // [수정된 부분] 1. <br> 태그 등을 제거하고 핵심 회사명/모델명만 추출
+    // 예: "Enabot (EBO)<br>(Family robot)" -> "Enabot (EBO)"
+    let cleanSearchTerm = companyTitle.split('<br>')[0].trim();
+    
+    // [수정된 부분] 2. 유튜브 검색 링크로 연결
+    const encodedTerm = encodeURIComponent(cleanSearchTerm);
+    const newsLink = document.getElementById('modal-company-news');
+    newsLink.href = `https://www.youtube.com/results?search_query=${encodedTerm}+robot`;
+    newsLink.innerHTML = `Watch on YouTube <i class="fab fa-youtube" style="font-size: 0.9rem; margin-left: 3px;"></i>`;
+    
+    document.getElementById('modal-company-link').href = link.url || '#';
+    document.getElementById('company-modal').style.display = 'flex';
+}
+function closeCompanyModal() {
+    document.getElementById('company-modal').style.display = 'none';
+}
 function filterLinks(category) {
     removeCountryStats();
     const container = document.getElementById('link-container');
@@ -1304,6 +1378,7 @@ const backgroundImages = ['welcome.png', 'image/3.future_world.png', 'image/6.so
         });
       }
     </script>
+	
   </body> </html>
 </body>
 </html>
