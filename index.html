@@ -205,7 +205,18 @@
         .intro-hotspot:hover .inner-arm, .intro-hotspot.active .inner-arm {
             stroke: #0b0d10 !important;
         }
+/* Industry Portal 버튼 전용 네온 그린 스타일 */
+.door-handle-btn.portal-btn {
+    color: #00E676;
+    border-color: #00E676;
+    background: rgba(0, 230, 118, 0.15);
+}
 
+.door-handle-btn.portal-btn:hover {
+    background: #00E676;
+    color: #0b0d10;
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.6);
+}
         /* 📱 모바일 화면 전용 확대 */
         @media (max-width: 768px) {
             .neon-robot-svg {
@@ -364,7 +375,7 @@
     <div onclick="window.location.href='robotics_101.html'" class="door-handle-btn" style="cursor: pointer;">
         Robotics 101
     </div>
-	<div onclick="window.location.href='industry_portal.html'" class="door-handle-btn" style="cursor: pointer;">
+	<div onclick="window.location.href='industry_portal.html'" class="door-handle-btn portal-btn" style="cursor: pointer;">
         Industry Portal
     </div>
 	    
