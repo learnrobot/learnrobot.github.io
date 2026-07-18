@@ -12,8 +12,9 @@
      crossorigin="anonymous"></script>
     <link rel="icon" href="image/favicon.png?v=2" type="image/png">
     <link rel="apple-touch-icon" href="welcome.png">
-    <meta name="google-site-verification" content="FEpIR1oMYg0czAkllEA7RgDPG61TMyu6Mz4N0TVcD-o" />
-<link rel="preload" as="image" href="6.softwares.jpg">
+    <!-- 변경할 코드 (href 부분을 초기 배경 이미지 이름으로 바꿉니다) -->
+<meta name="google-site-verification" content="FEpIR1oMYg0czAkllEA7RgDPG61TMyu6Mz4N0TVcD-o" />
+<link rel="preload" as="image" href="image/3.future_world.png">
 <meta name="description" content="The one-stop destination for robots, components, and advanced technology.">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.2/css/flag-icons.min.css" />
     <meta charset="UTF-8">
@@ -26,14 +27,12 @@
 
     <style>
 	body {
-        background-image: url('welcome.png'); /* 기본 배경 이미지 */
+        background-image: url('image_d4315f.png'); /* 기본 배경 이미지 */
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
     }
-/* --- 메인 내비게이션 스타일 (새로 추가) --- */
-/* index.html의 <style> 태그 안 */
-/* [수정] 네비게이션 스타일 교체 (메뉴 3개 -> 홈 버튼 1개) */
+
 .quick-nav {
     display: flex;
     align-items: center;
@@ -124,27 +123,55 @@
 .glow-bottom {
     box-shadow: inset 0 -20px 20px -10px rgba(255, 255, 255, 0.6) !important;
 }
-/* robot links by nation 스타일 */
+
 .country-stats-overlay {
-    position: absolute; 
-    top: 3%; /* 위치를 조금 위로 조정 */
-    right: 1%; /* 오른쪽 여백 확보 */
+    position: fixed !important;
+    top: 155px !important; /* 버튼 바로 밑에 딱 붙임 */
+    right: 35px !important;
     
-    background: rgba(0, 0, 0, 0.5); /* 가독성을 위해 배경을 좀 더 어둡게 */
-    backdrop-filter: blur(5px);
+    /* 1. 배경을 반투명한 다크 톤으로 변경하여 페이지 전체 톤과 맞춤 */
+    background: rgba(20, 20, 20, 0.85) !important; 
     
-    padding: 20px; 
-    border-radius: 12px; 
-    border: 1px solid rgba(44, 153, 153, 0.3);
+    /* 2. 뒷배경 이미지가 은은하게 비치도록 블러(유리) 효과 추가 */
+    backdrop-filter: blur(8px) !important;
     
-    /* [핵심] 세로 정렬 설정 */
-    display: flex; 
-    flex-direction: column; 
-    gap: 12px; /* 항목 간 간격 */
+    padding: 15px !important;
+    border-radius: 8px !important; 
     
-    width: 130px; /* 너비 고정 (세로로 길게 보기 위함) */
-    z-index: 5; 
-    pointer-events: none; /* 클릭 통과 */
+    /* 3. 테두리 두께를 살짝 얇게(2px -> 1px) 조절해 투박함을 없애고 세련미 강조 */
+    border: 1px solid #FFFB03 !important; 
+    box-shadow: 0 0 15px rgba(255, 251, 3, 0.15) !important; 
+    
+    width: 160px !important;
+    z-index: 9999 !important;
+}
+
+/* 통계 토글 버튼 스타일 */
+/* 통계 토글 버튼 스타일 수정 */
+/* Sort by Nation 버튼 위치 변경 */
+/* 통계 토글 버튼 (헤더 아래 우측 고정) */
+.stats-toggle-btn {
+    position: fixed !important;
+    top: 110px !important; /* 헤더 아래로 분리 */
+    right: 35px !important; /* SNS 버튼 라인에 맞춤 */
+    background: rgba(44, 153, 153, 0.4) !important;
+    border: 2px solid #FFFB03 !important;
+    color: #FFFB03 !important;
+    padding: 8px 20px !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+    z-index: 10000 !important; /* 절대 가려지지 않음 */
+    box-shadow: 0 0 10px rgba(255, 251, 3, 0.3) !important;
+}
+
+
+
+.stats-toggle-btn:hover {
+    background: rgba(255, 251, 3, 0.2);
+    transform: scale(1.05);
 }
 .stats-title {
     grid-column: span 12 !important; 
@@ -454,7 +481,8 @@ aside {
             flex: 1; 
             overflow-y: auto; 
             overflow-x: hidden; 
-            background-image: url('welcome.png'); 
+			
+            background-image: url('image/3.future_world.png'); 
             background-color: transparent; 
             background-repeat: no-repeat;
             background-position: center center;
@@ -856,7 +884,8 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
     <!-- 1. 로고 + Home + Search 그룹 (왼쪽으로 밀착) -->
     <div style="display: flex; align-items: center; gap: 25px;">
         <!-- 로고 -->
-        <a href="index.html" class="logo-link" style="text-decoration: none;">
+        <!-- 로고 (클릭 시 검색창 초기화 및 홈 화면 즉시 렌더링) -->
+        <a href="#" class="logo-link" style="text-decoration: none;" onclick="document.getElementById('searchInput').value=''; renderHome(); return false;">
             <div class="logo" style="display: flex; align-items: center; gap: 15px;">
                 <img src="image/favicon.png" alt="Logo" class="logo-image" style="height: 65px; width: auto; border-radius: 50%;"> 
                 <div style="font-family: 'Orbitron', sans-serif; font-style: italic; display: flex; flex-direction: column; line-height: 0.8; margin-top: 5px;">
@@ -966,7 +995,7 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
         </div>
     </div>
 	<!-- Company Details Modal -->
-<<!-- Company Details Modal -->
+<!-- Company Details Modal -->
 <div id="company-modal" class="modal" style="z-index: 10000;">
     <div class="modal-content" style="width: 500px; max-width: 90%; text-align: left; position: relative;">
         <!-- 닫기 버튼 -->
@@ -1009,7 +1038,6 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
  <script>
 /* --- 데이터 및 전역 변수 설정 --- */
 const backgroundImages = [
-'welcome.png', 
 'image/3.future_world.png',
 'image/6.softwares.jpg', 
 'image/4.h_parts.png', 
@@ -1222,42 +1250,83 @@ function removeCountryStats() {
     if (existing) existing.remove();
 }
 
-function renderCountryStats() {
-    const mainArea = document.querySelector('main');
-    if (!mainArea) return;
-    
-    removeCountryStats(); // 기존 통계창 삭제
-
-    const statsOverlay = document.createElement('div');
-    statsOverlay.className = 'country-stats-overlay';
-
-    // 국가별 카운트 계산
-    const counts = {};
-    links.forEach(l => { 
-        if (l.country) counts[l.country] = (counts[l.country] || 0) + 1; 
-    });
-
-    // [정렬 로직] 내림차순 정렬 (이미 되어있던 부분)
-    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-
-    // 제목 생성 (Grid 속성 제거됨)
-    let html = `<div class="stats-title">Robot Links <br> by nation</div>`;
-
-    // 상위 12개 국가만 표시 (세로로 너무 길어지지 않게 조절)
-    // map 함수 안에 인덱스(i)를 추가하여 순위(1, 2, 3...) 표시 가능
-    html += sorted.slice(0, 12).map(([code, count], index) => `
-        <div class="stat-item">
-            <div style="display:flex; align-items:center; gap:10px;">
-                <span style="color:#888; font-size:0.8rem; width:15px;">${index + 1}</span> <span class="fi fi-${code}"></span>
-            </div>
-            <span class="stat-count">${count}</span>
-        </div>
-    `).join('');
-
-    statsOverlay.innerHTML = html;
-    mainArea.appendChild(statsOverlay);
+// 통계창을 띄우고 숨기는 로직
+function toggleCountryStats() {
+    const overlay = document.querySelector('.country-stats-overlay');
+    overlay.style.display = (overlay.style.display === 'block') ? 'none' : 'block';
 }
 
+// 1. 통계창 토글 및 제어 로직
+// 1. 통계창 열고 닫기 (상태 강제 지정 가능)
+function toggleCountryStats(forceState) {
+    const overlay = document.querySelector('.country-stats-overlay');
+    if (!overlay) return;
+    
+    if (forceState !== undefined) {
+        overlay.style.display = forceState ? 'block' : 'none';
+    } else {
+        overlay.style.display = (overlay.style.display === 'none' || overlay.style.display === '') ? 'block' : 'none';
+    }
+}
+
+// 2. 통계창 렌더링 (접속 시 무조건 펼쳐짐)
+// 2. 통계창 렌더링 (중복 텍스트 제거)
+function renderCountryStats() {
+    // 버튼 렌더링
+    let btn = document.getElementById('stats-toggle-btn');
+    if (!btn) {
+        btn = document.createElement('button');
+        btn.id = 'stats-toggle-btn';
+        btn.className = 'stats-toggle-btn';
+        btn.innerHTML = 'Sort by Nation';
+        btn.onclick = () => toggleCountryStats();
+        document.body.appendChild(btn); 
+    }
+
+    // 통계창 오버레이 렌더링
+    let overlay = document.querySelector('.country-stats-overlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.className = 'country-stats-overlay';
+        
+        const counts = {};
+        links.forEach(l => { if (l.country) counts[l.country] = (counts[l.country] || 0) + 1; });
+        const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+
+        // [핵심] Sort by Nation 텍스트(타이틀)를 삭제하고 바로 리스트만 출력합니다.
+        let html = sorted.slice(0, 12).map(([code, count], index) => `
+            <div class="stat-item" onclick="filterByCountry('${code}')" style="cursor: pointer; padding: 4px 0;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="color:#FFF; font-size:0.8rem; width:15px; font-weight: bold;">${index + 1}</span> 
+                    <span class="fi fi-${code}"></span>
+                </div>
+                <span class="stat-count">${count}</span>
+            </div>
+        `).join('');
+        
+        overlay.innerHTML = html;
+        document.body.appendChild(overlay); 
+    }
+    
+    toggleCountryStats(true); 
+}
+
+// 3. 국가 클릭 시 필터링 및 접기
+// 3. 국가 클릭 시 필터링 및 접기
+function filterByCountry(countryCode) {
+    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+    
+    // [핵심] 리스트 클릭 시 오버레이 창 숨기기(false). (버튼은 그대로 남음)
+    toggleCountryStats(false); 
+
+    const container = document.getElementById('link-container');
+    // Back to all 버튼 생성 코드 삭제됨
+    container.innerHTML = `<div class="link-grid" id="country-grid"></div>`;
+
+    const targetGrid = document.getElementById('country-grid');
+    const filteredLinks = links.filter(link => link.country && link.country.toLowerCase() === countryCode.toLowerCase());
+    renderSpecificLinksSortedCustom(filteredLinks, targetGrid);
+}
 function updateCategoryCounts() {
     let hw = 0, sw = 0;
     document.querySelectorAll('.category-btn').forEach(btn => {
@@ -1354,31 +1423,7 @@ document.addEventListener('keydown', (e) => {
         font-weight: bold;
     ">Privacy Policy</a>
 </div>
-<script>
-const backgroundImages = ['welcome.png', 'image/3.future_world.png', 'image/6.softwares.jpg'];
-    let currentBgIndex = 0;
 
-    function setInitialBackground() {
-        // body 태그에 첫 번째 이미지 적용
-        document.body.style.backgroundImage = `url('${backgroundImages[currentBgIndex]}')`;
-    }
-
-    // 페이지 로드 시 실행
-    window.addEventListener('DOMContentLoaded', setInitialBackground);
-      // 여기에 보여주신 코드를 붙여넣습니다.
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then(registration => {
-              console.log('ServiceWorker 등록 성공:', registration.scope);
-            })
-            .catch(error => {
-              console.log('ServiceWorker 등록 실패:', error);
-            });
-        });
-      }
-    </script>
-	
-  </body> </html>
+  
 </body>
 </html>
