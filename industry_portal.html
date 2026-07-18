@@ -124,26 +124,51 @@
     box-shadow: inset 0 -20px 20px -10px rgba(255, 255, 255, 0.6) !important;
 }
 
+/* --- 일체형 국가 통계창 디자인 --- */
 .country-stats-overlay {
     position: fixed !important;
-    top: 155px !important; /* 버튼 바로 밑에 딱 붙임 */
+    top: 110px !important; /* 헤더 바로 아래 위치 */
     right: 35px !important;
     
-    /* 1. 배경을 반투명한 다크 톤으로 변경하여 페이지 전체 톤과 맞춤 */
+    /* 반투명 유리 배경 통일 */
     background: rgba(20, 20, 20, 0.85) !important; 
-    
-    /* 2. 뒷배경 이미지가 은은하게 비치도록 블러(유리) 효과 추가 */
     backdrop-filter: blur(8px) !important;
     
-    padding: 15px !important;
-    border-radius: 8px !important; 
-    
-    /* 3. 테두리 두께를 살짝 얇게(2px -> 1px) 조절해 투박함을 없애고 세련미 강조 */
+    /* 전체를 하나의 캡슐로 묶어주는 노란색 테두리 */
     border: 1px solid #FFFB03 !important; 
+    border-radius: 8px !important; 
     box-shadow: 0 0 15px rgba(255, 251, 3, 0.15) !important; 
     
-    width: 160px !important;
-    z-index: 9999 !important;
+    width: 170px !important;
+    z-index: 10000 !important;
+    
+    /* 내부 버튼이 둥근 모서리를 튀어나오지 않게 방어 */
+    overflow: hidden !important; 
+}
+
+/* 캡슐 상단: 버튼 역할 (Sort by Nation) */
+.stats-unified-header {
+    background: rgba(44, 153, 153, 0.4) !important;
+    color: #FFFB03 !important;
+    padding: 10px !important;
+    text-align: center !important;
+    font-family: 'Chakra Petch', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+    cursor: pointer !important;
+    /* 리스트와의 노란색 구분선 */
+    border-bottom: 1px solid #FFFB03 !important; 
+    transition: background 0.3s;
+}
+
+.stats-unified-header:hover {
+    background: rgba(255, 251, 3, 0.3) !important;
+}
+
+/* 캡슐 하단: 통계 리스트 영역 */
+.stats-unified-list {
+    padding: 12px 15px !important;
+    display: block; /* 자바스크립트에서 껐다 켰다 할 영역 */
 }
 
 /* 통계 토글 버튼 스타일 */
@@ -1245,82 +1270,77 @@ function closeSidebar() {
 }
 
 /* --- 통계 및 카운트 --- */
+/* --- 통계 및 카운트 --- */
 function removeCountryStats() { 
     const existing = document.querySelector('.country-stats-overlay');
     if (existing) existing.remove();
+    
+    // (찌꺼기 방지) 구버전 분리형 버튼이 화면에 남아있다면 강제 삭제
+    const oldBtn = document.getElementById('stats-toggle-btn');
+    if (oldBtn) oldBtn.remove();
 }
 
-// 통계창을 띄우고 숨기는 로직
-function toggleCountryStats() {
-    const overlay = document.querySelector('.country-stats-overlay');
-    overlay.style.display = (overlay.style.display === 'block') ? 'none' : 'block';
-}
-
-// 1. 통계창 토글 및 제어 로직
-// 1. 통계창 열고 닫기 (상태 강제 지정 가능)
+// 1. 리스트 열고 닫기 (버튼은 그대로 두고 아래 리스트만 접음)
 function toggleCountryStats(forceState) {
-    const overlay = document.querySelector('.country-stats-overlay');
-    if (!overlay) return;
+    const list = document.getElementById('stats-unified-list');
+    if (!list) return;
     
     if (forceState !== undefined) {
-        overlay.style.display = forceState ? 'block' : 'none';
+        list.style.display = forceState ? 'block' : 'none';
     } else {
-        overlay.style.display = (overlay.style.display === 'none' || overlay.style.display === '') ? 'block' : 'none';
+        list.style.display = (list.style.display === 'none' || list.style.display === '') ? 'block' : 'none';
     }
 }
 
-// 2. 통계창 렌더링 (접속 시 무조건 펼쳐짐)
-// 2. 통계창 렌더링 (중복 텍스트 제거)
+// 2. 일체형 캡슐 렌더링
 function renderCountryStats() {
-    // 버튼 렌더링
-    let btn = document.getElementById('stats-toggle-btn');
-    if (!btn) {
-        btn = document.createElement('button');
-        btn.id = 'stats-toggle-btn';
-        btn.className = 'stats-toggle-btn';
-        btn.innerHTML = 'Sort by Nation';
-        btn.onclick = () => toggleCountryStats();
-        document.body.appendChild(btn); 
-    }
+    removeCountryStats(); // 중복 방지용 싹 지우기
 
-    // 통계창 오버레이 렌더링
-    let overlay = document.querySelector('.country-stats-overlay');
-    if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.className = 'country-stats-overlay';
-        
-        const counts = {};
-        links.forEach(l => { if (l.country) counts[l.country] = (counts[l.country] || 0) + 1; });
-        const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    let overlay = document.createElement('div');
+    overlay.className = 'country-stats-overlay'; // 전체를 감싸는 캡슐
 
-        // [핵심] Sort by Nation 텍스트(타이틀)를 삭제하고 바로 리스트만 출력합니다.
-        let html = sorted.slice(0, 12).map(([code, count], index) => `
-            <div class="stat-item" onclick="filterByCountry('${code}')" style="cursor: pointer; padding: 4px 0;">
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <span style="color:#FFF; font-size:0.8rem; width:15px; font-weight: bold;">${index + 1}</span> 
-                    <span class="fi fi-${code}"></span>
-                </div>
-                <span class="stat-count">${count}</span>
+    // 상단 버튼(헤더) 영역 추가
+    let header = document.createElement('div');
+    header.className = 'stats-unified-header';
+    header.innerHTML = 'Sort by Nation <i class="fas fa-chevron-down" style="font-size:0.8rem; margin-left:8px;"></i>';
+    header.onclick = () => toggleCountryStats(); // 클릭 시 리스트 접기/펴기
+    overlay.appendChild(header);
+
+    // 하단 리스트 영역 추가
+    let listContainer = document.createElement('div');
+    listContainer.id = 'stats-unified-list';
+    listContainer.className = 'stats-unified-list';
+
+    const counts = {};
+    links.forEach(l => { if (l.country) counts[l.country] = (counts[l.country] || 0) + 1; });
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+
+    let html = sorted.slice(0, 12).map(([code, count], index) => `
+        <div class="stat-item" onclick="filterByCountry('${code}')" style="cursor: pointer; padding: 4px 0;">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <span style="color:#FFF; font-size:0.8rem; width:15px; font-weight: bold;">${index + 1}</span> 
+                <span class="fi fi-${code}"></span>
             </div>
-        `).join('');
-        
-        overlay.innerHTML = html;
-        document.body.appendChild(overlay); 
-    }
+            <span class="stat-count">${count}</span>
+        </div>
+    `).join('');
     
-    toggleCountryStats(true); 
+    listContainer.innerHTML = html;
+    overlay.appendChild(listContainer);
+    
+    // 완성된 캡슐을 화면에 부착
+    document.body.appendChild(overlay); 
+    toggleCountryStats(true); // 처음엔 펼친 상태로 시작
 }
 
-// 3. 국가 클릭 시 필터링 및 접기
-// 3. 국가 클릭 시 필터링 및 접기
+// 3. 국가 클릭 시 필터링 및 리스트 접기
 function filterByCountry(countryCode) {
     document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
     
-    // [핵심] 리스트 클릭 시 오버레이 창 숨기기(false). (버튼은 그대로 남음)
+    // 리스트 클릭 시 통계 목록만 숨김 (Sort by Nation 타이틀은 남음)
     toggleCountryStats(false); 
 
     const container = document.getElementById('link-container');
-    // Back to all 버튼 생성 코드 삭제됨
     container.innerHTML = `<div class="link-grid" id="country-grid"></div>`;
 
     const targetGrid = document.getElementById('country-grid');
