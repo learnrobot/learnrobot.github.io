@@ -79,7 +79,7 @@
 .group-title {
     font-family: 'Chakra Petch', sans-serif;
     font-size: 0.95rem;
-    color: #2C9999;
+    color: #FFFFFF;
     font-weight: 700;
     margin-bottom: 4px;
     display: flex;
@@ -795,18 +795,18 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
     position: relative;
     display: inline-block;
     margin-top: 15px; 
-    /* 양옆에만 강렬한 테두리 추가 (청록색으로 변경) */
-    border-left: 3px solid #2C9999; 
-    border-right: 3px solid #2C9999;
-    padding: 0 5px;
+    /* 양옆에 있던 테두리 코드 삭제 */
 }
 
 .search-input {
     width: 200px;
     padding: 8px 35px 8px 10px !important;
     background-color: rgba(0, 0, 0, 0.4) !important;
-    border: none !important; /* 기본 테두리는 없앰 */
-    border-radius: 0 !important;
+    
+    /* 👇 여기에 전체 테두리 색상과 굵기를 지정합니다 */
+    border: 2px solid #2C9999 !important; 
+    
+    border-radius: 0 !important; /* 모서리 둥글기 0 (완벽한 직사각형) */
     color: #fff !important;
     transition: all 0.3s ease;
 }
@@ -814,9 +814,9 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
 .search-input:focus {
     width: 250px;
     background-color: rgba(0, 0, 0, 0.8) !important;
-    /* 포커스 시 위아래로 얇은 선이 생기며 박스가 닫히는 느낌 (청록색으로 변경) */
-    border-top: 1px solid rgba(44, 153, 153, 0.5) !important;
-    border-bottom: 1px solid rgba(44, 153, 153, 0.5) !important;
+    
+    /* 👇 마우스로 클릭했을 때 변할 테두리 색상입니다 (예: 노란색) */
+    border: 2px solid #FFFB03 !important; 
 }
 
 .search-icon {
@@ -975,7 +975,7 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
 
     <div class="sidebar-category-list" style="flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 5px;"> 
         <div class="category-group" style="padding: 10px; margin-bottom: 10px;">
-            <div class="group-title" style="color: #2C9999; font-weight: 700; border-bottom: 1px solid rgba(44,153,153,0.2); padding-bottom: 5px; margin-bottom: 8px;">
+            <div class="group-title" style="color: #FFFFFF; font-weight: 700; border-bottom: 1px solid rgba(44,153,153,0.2); padding-bottom: 5px; margin-bottom: 8px;">
                 Robot Types <span id="count-hardware" style="font-size: 0.8rem;">(0)</span>
             </div>
             <button class="category-btn cat-hardware" onclick="filterLinks('humanoid')">Humanoid</button> 
@@ -991,7 +991,7 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
         </div>
 
         <div class="category-group" style="padding: 10px;">
-            <div class="group-title" style="color: #2C9999; font-weight: 700; border-bottom: 1px solid rgba(44,153,153,0.2); padding-bottom: 5px; margin-bottom: 8px;">
+            <div class="group-title" style="color: #FFFFFF; font-weight: 700; border-bottom: 1px solid rgba(44,153,153,0.2); padding-bottom: 5px; margin-bottom: 8px;">
                 Ecosystem <span id="count-software" style="font-size: 0.8rem;">(0)</span>
             </div>
             <button class="category-btn cat-software" onclick="filterLinks('ai')">AI</button>
@@ -1004,7 +1004,7 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
         </div>
     </div> <div class="sidebar-contact-text-wrapper" style="margin-top: 0; padding: 20px 5px 10px 5px; border-top: 1px solid rgba(255,255,255,0.1); flex-shrink: 0;">
         <p style="font-size: 0.8rem; color: #FFFB03; font-weight: 600; margin-bottom: 5px;">Contact to add your robot</p>
-        <a href="mailto:learnrobot@learnrobot.com" style="color: #2C9999; text-decoration: none; font-size: 0.9rem;">learnrobot@learnrobot.com</a>
+        <a href="mailto:learnrobot@learnrobot.com" style="color: #FFFFFF; text-decoration: none; font-size: 0.9rem;">learnrobot@learnrobot.com</a>
     </div>
 </aside>
 
