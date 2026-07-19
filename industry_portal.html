@@ -72,7 +72,8 @@
     border-radius: 12px;
     padding: 4px 8px; /* 내부 여백 조절 */
     margin-bottom: 4px; /* 박스 간 간격 */
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(50, 50, 50, 0.5);
+	backdrop-filter: none;
 }
 /* 박스 상단 제목 (Robot Types / Ecosystem) */
 .group-title {
@@ -131,7 +132,7 @@
     right: 35px !important;
     
     /* 반투명 유리 배경 통일 */
-    background: rgba(20, 20, 20, 0.85) !important; 
+    background: rgba(30, 30, 30, 0.7) !important; 
     backdrop-filter: blur(8px) !important;
     
     /* 전체를 하나의 캡슐로 묶어주는 노란색 테두리 */
@@ -260,19 +261,26 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
 
+/* 1. body에 배경을 지정하고 부드러운 전환 효과 추가 */
         body { 
             background-color: var(--bg-dark); 
+            background-image: url('image/3.future_world.png'); /* 기본 배경 전체 적용 */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: var(--text-main); 
             font-family: 'Chakra Petch', sans-serif !important;
             display: flex; flex-direction: column; height: 100vh; 
             overflow-x: hidden; 
-            overflow-y: scroll;   
+            overflow-y: scroll;
+            transition: background-image 0.8s ease-in-out; /* 배경 이미지 전환 효과 */
         }
 
         /* --- HEADER --- */
         header {
-            background: rgba(30, 30, 30, 0.95); 
-            backdrop-filter: blur(10px);
+    background: rgba(20, 20, 20, 0.4s) !important; 
+    backdrop-filter: blur(4px) saturate(120%) !important;
+    -webkit-backdrop-filter: blur(4px) saturate(120%) !important;
             height: 80px;
             display: flex;
             align-items: center;
@@ -393,28 +401,29 @@
     line-height: 1.2;         /* 높이 정렬 보정 */
 }
 
+/* 2. 컨테이너의 불투명한 배경색 제거 */
         .container { 
             display: flex; 
             flex: 1; 
             overflow: hidden; 
+            background-color: transparent !important; /* 투명하게 변경 */
             background-image: none;
-            background-color: var(--bg-dark); 
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover; 
-            background-attachment: fixed;
-        } 
+        }
 
-aside {
-    width: var(--sidebar-width);
-    background: var(--bg-dark); 
-    padding: 0.5rem 1.5rem; /* 🚀 상단 padding을 1rem에서 0.5rem으로 축소 */
-    display: flex;
-    flex-direction: column;
-    gap: 0px; /* 🚀 간격을 없앰 */
-    height: 100%; 
-    z-index: 5;
-}
+/* 3. 사이드바에 반투명 + 블러(유리) 효과 적용 */
+        aside {
+    width: var(--sidebar-width) !important; 
+    background: rgba(70, 70, 70, 0.45) !important; 
+    backdrop-filter: blur(1px) saturate(120%) !important;
+    -webkit-backdrop-filter: blur(1px) saturate(120%) !important;
+            border-right: 1px solid rgba(255, 255, 255, 0.1); /* 경계선 추가 */
+            padding: 0.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0px; 
+            height: 100%; 
+            z-index: 5;
+        }
 
 .sidebar-category-list { 
     flex-grow: 1; 
@@ -502,23 +511,18 @@ aside {
             text-align: left;
         }
 
-       main { 
+/* 4. main 영역의 기존 배경 설정 제거 */
+        main { 
             flex: 1; 
             overflow-y: auto; 
             overflow-x: hidden; 
-			
-            background-image: url('image/3.future_world.png'); 
-            background-color: transparent; 
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover; 
-            background-attachment: scroll; 
-            transition: background-image 0.8s ease-in-out;
+            background-color: transparent !important; /* 투명하게 변경 */
+            background-image: none !important;        /* 배경은 body에서 처리하므로 제거 */
             display: flex; 
             justify-content: flex-start; 
             align-items: flex-start; 
             position: relative;
-        }
+        }s
 
         #link-container {
             width: 100%;
@@ -537,7 +541,7 @@ aside {
     position: relative;
    font-size: 1.3rem !important;
     color: #F5F5F5 !important;
-    background-color: rgba(0, 0, 0, 0.2) !important; /* 가독성을 위해 조금 더 어둡게 */
+    background-color: rgba(0, 0, 0, 0) !important; /* 가독성을 위해 조금 더 어둡게 */
     backdrop-filter: blur(1px);
     
 text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
@@ -593,8 +597,8 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
 
 .link-card {
     /* 카드끼리 붙지 않도록 마진 대신 그리드 gap을 사용하며, 높이를 고정합니다 */
-    background: rgba(20, 20, 20, 0.8) !important; 
-    backdrop-filter: blur(5px) !important;
+    background: rgba(30, 30, 30, 0.45) !important; 
+    backdrop-filter: blur(20px) !important;
     border: 1px solid rgba(255, 255, 255, 0.15) !important;
     border-radius: 12px !important;
     padding: 0.8rem !important; /* 내부 여백 확보 */
@@ -904,7 +908,8 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
 </head>
 <body>
 
-<header style="height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; background: rgba(30, 30, 30, 0.95); border-bottom: 1px solid rgba(255, 255, 255, 0.1); z-index: 10;">
+<!-- 헤더의 background를 수정하고 backdrop-filter 추가 -->
+<header style="height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; background: rgba(70, 70, 70, 0.45); backdrop-filter: blur(2px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); z-index: 10;">
     
     <!-- 1. 로고 + Home + Search 그룹 (왼쪽으로 밀착) -->
     <div style="display: flex; align-items: center; gap: 25px;">
@@ -962,13 +967,14 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
 </header>
 
     <div class="container">
-  <aside id="sidebar" style="width: 280px; background: #1E1E1E; padding: 10px 1.5rem; display: flex; flex-direction: column; height: 100%;">
+<!-- 사이드바의 background를 수정하고 backdrop-filter 추가 -->
+<aside id="sidebar" style="width: 280px; background: rgba(10, 10, 10, 0.6); backdrop-filter: blur(3px); padding: 10px 1.5rem; display: flex; flex-direction: column; height: 100%;">
     <button class="sidebar-close" onclick="closeSidebar()" style="display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; text-align: right; margin-bottom: 10px;">
         <i class="fas fa-times"></i>
     </button>
 
     <div class="sidebar-category-list" style="flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 5px;"> 
-        <div class="category-group" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 10px; margin-bottom: 10px;">
+        <div class="category-group" style="padding: 10px; margin-bottom: 10px;">
             <div class="group-title" style="color: #2C9999; font-weight: 700; border-bottom: 1px solid rgba(44,153,153,0.2); padding-bottom: 5px; margin-bottom: 8px;">
                 Robot Types <span id="count-hardware" style="font-size: 0.8rem;">(0)</span>
             </div>
@@ -984,7 +990,7 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
             <button class="category-btn cat-hardware" onclick="filterLinks('farm')">Farm</button>
         </div>
 
-        <div class="category-group" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 10px;">
+        <div class="category-group" style="padding: 10px;">
             <div class="group-title" style="color: #2C9999; font-weight: 700; border-bottom: 1px solid rgba(44,153,153,0.2); padding-bottom: 5px; margin-bottom: 8px;">
                 Ecosystem <span id="count-software" style="font-size: 0.8rem;">(0)</span>
             </div>
@@ -1081,21 +1087,13 @@ let preventSearchFocus = false;
 /* --- 배경 로테이션 로직 (수정됨) --- */
 function rotateBackgroundImage() {
     if (isPaused) return;
-    const mainContent = document.querySelector('main');
-    const h1 = document.querySelector('.home-content h1'); 
+    const bodyElement = document.body; // main 대신 body를 타겟으로 변경
     
-    if (!mainContent) return;
+    if (!bodyElement) return;
 
-    // 1. 이미지 변경 (이 부분은 유지)
+    // 1. 이미지 변경 (body의 배경을 바꿈)
     currentBgIndex = (currentBgIndex + 1) % backgroundImages.length;
-    mainContent.style.backgroundImage = `url('${backgroundImages[currentBgIndex]}')`;
-    
-    // 2. 텍스트 삭제 로직 제거 (아래 내용을 삭제하세요)
-    /* if (currentBgIndex > 4 && h1) { 
-        h1.style.opacity = '0'; 
-        ...
-    }
-    */
+    bodyElement.style.backgroundImage = `url('${backgroundImages[currentBgIndex]}')`;
 }
 
 let rotationInterval = setInterval(rotateBackgroundImage, 20000);
