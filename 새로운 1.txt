@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+    <title>Robotics 101 - LearnRobot</title>
+    <meta name="description" content="Learn robotics from basics to advanced. Your guide to the future of technology.">
+    
+    <link rel="icon" href="image/favicon.png?v=2" type="image/png">
+    <link rel="apple-touch-icon" href="image/welcome.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700;900&family=Orbitron:wght@500;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <style>
+        :root {
+            --bg-dark: #1a1a1a;
+            --primary-color: #2C9999;
+            --accent-color: #FFFB03;
+            --text-main: #e0e0e0;
+            --sidebar-width: 280px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden; 
+            background: url('image/welcome.png') center/cover fixed no-repeat !important; 
+            color: var(--text-main);
+            font-family: 'Chakra Petch', sans-serif;
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column; height: 100vh;
+        }
+
+        /* --- Header (Glassmorphism) --- */
+        header {
+            background: rgba(20, 20, 20, 0.75); 
+            backdrop-filter: blur(8px) saturate(120%);
+            -webkit-backdrop-filter: blur(8px) saturate(120%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+            height: 90px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 1.5rem; z-index: 9999; flex-shrink: 0;
+        }
+
+        .logo-link { text-decoration: none; display: flex; align-items: center; gap: 15px; }
+        .logo-image { height: 55px; width: auto; border-radius: 50%; }
+
+        .auth-buttons { display: flex; gap: 15px; align-items: center; margin-left: auto; }
+        .sns-icons a { color: #2C9999; font-size: 1.6rem; transition: all 0.3s ease; }
+        .sns-icons a:hover { color: #FFFB03; transform: translateY(-3px); }
+
+        /* --- Layout --- */
+        .container-fluid { display: flex; flex: 1; overflow: hidden; padding: 0; margin: 0; }
+        
+        aside {
+            width: var(--sidebar-width); 
+            background: rgba(20, 20, 20, 0.75); 
+            backdrop-filter: blur(8px) saturate(120%);
+            border-right: 1px solid rgba(255, 255, 255, 0.1); 
+            padding: 15px; display: flex; flex-direction: column;
+            flex-shrink: 0; gap: 10px; z-index: 100; overflow-y: auto;
+        }
+        
+        aside::-webkit-scrollbar { width: 4px; }
+        aside::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.2); border-radius: 3px; }
+
+        main {
+            flex: 1; overflow-y: auto; scroll-behavior: smooth;
+            background: rgba(15, 15, 15, 0.85); 
+            padding: 0; position: relative;
+        }
+
+        /* --- Sidebar UI --- */
+        .category-group {
+            border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px;
+            padding: 12px; background: rgba(255, 255, 255, 0.03);
+            margin-bottom: 10px;
+        }
+        .group-title { color: #86D1D1; font-weight: 800; border-bottom: 1px solid rgba(134, 209, 209, 0.4); padding-bottom: 8px; margin-bottom: 8px; }
+        .category-btn {
+            width: 100%; text-align: left; background: transparent; border: none; color: #ccc;
+            padding: 8px 10px; font-family: 'Chakra Petch', sans-serif; font-size: 0.95rem; 
+            cursor: pointer; border-radius: 6px; transition: all 0.2s; display: flex; align-items: center; gap: 10px;
+        }
+        .category-btn:hover { background: rgba(44, 153, 153, 0.1); color: #fff; }
+
+        /* --- Content Sections --- */
+        section { 
+            padding: 60px 40px; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+            min-height: 80vh; display: flex; flex-direction: column; justify-content: center;
+        }
+        .content-header h1 { color: #2C9999; font-size: 2.5rem; font-weight: 900; margin-bottom: 15px; }
+        .content-header p { color: #aaa; font-size: 1.1rem; margin-bottom: 30px; }
+        
+        .article-content { line-height: 1.7; color: #ccc; font-family: 'Roboto', sans-serif; font-size: 1.05rem; }
+        .article-content h3 { color: #FFFB03; margin-top: 40px; font-family: 'Chakra Petch', sans-serif; }
+        
+        .analogy-box { background: rgba(44, 153, 153, 0.1); border-left: 4px solid #2C9999; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        .analogy-title { color: #FFFB03; font-weight: bold; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
+
+        /* --- Interactive Lab Card --- */
+        .lab-card { 
+            background: rgba(0,0,0,0.5); border: 2px solid var(--primary-color); 
+            border-radius: 15px; padding: 30px; text-align: center; 
+            max-width: 800px; width: 100%; margin: 40px auto 0 auto; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+        }
+        .lab-btn { background: transparent; border: 2px solid #555; color: #ddd; padding: 10px 18px; border-radius: 8px; margin: 5px; cursor: pointer; transition: all 0.3s; font-weight: bold; font-family: 'Chakra Petch', sans-serif; }
+        .lab-btn:hover { border-color: var(--accent-color); color: var(--accent-color); transform: translateY(-2px); }
+
+        /* Floating Top Button */
+        #topBtn {
+            position: fixed; bottom: 30px; right: 30px; background: rgba(44, 153, 153, 0.2); 
+            color: #2C9999; border: 2px solid #2C9999; border-radius: 50%; width: 50px; height: 50px;
+            display: none; justify-content: center; align-items: center; font-size: 1.2rem; cursor: pointer;
+            backdrop-filter: blur(5px); z-index: 9999; transition: all 0.3s ease;
+        }
+        #topBtn:hover { background: #2C9999; color: #fff; transform: translateY(-5px); box-shadow: 0 0 15px rgba(44, 153, 153, 0.6); }
+
+        @media (max-width: 1024px) {
+            .container-fluid { flex-direction: column; }
+            aside { width: 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); height: auto; max-height: 250px; }
+            section { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo-link">
+        <img src="image/favicon.png" alt="Logo" class="logo-image"> 
+        <div style="font-family: 'Orbitron', sans-serif; font-style: italic; display: flex; flex-direction: column; line-height: 0.8;">
+            <span style="color: #ffffff; font-size: 1.5rem; font-weight: 900; letter-spacing: 1px;">LEARN</span>
+            <span style="color: #FFFB03; font-size: 2.2rem; font-weight: 900; margin-left: 20px;">
+                <span style="position: relative; display: inline-block;">
+                    R
+                    <img src="image/santa_hat.png" alt="Santa Hat" style="position: absolute; top: -12px; left: -8px; width: 30px; height: auto; pointer-events: none; transform: rotate(-10deg);">
+                </span>OBOT
+            </span>
+        </div>
+    </a>
+
+    <div class="header-ad-zone" style="max-width: 500px; display: none;">
+        <!-- AdSense Code Here if needed -->
+    </div>
+
+    <div class="auth-buttons">
+        <div class="sns-icons">
+            <a href="mailto:learnrobot@learnrobot.com"><i class="fas fa-envelope"></i></a>
+            <a href="https://www.instagram.com/learnrobot" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/learnrobot" target="_blank"><i class="fab fa-x-twitter"></i></a>
+        </div>
+    </div>
+</header>
+
+<div class="container-fluid">
+    <aside id="sidebarMenu">
+        <div class="category-group">
+            <div class="group-title">Robotics 101 Curriculum</div>
+            <button class="category-btn" onclick="scrollToId('mechanics')"><i class="fas fa-wrench" style="color:#86D1D1; width:20px;"></i> 1. Mechanics</button>
+            <button class="category-btn" onclick="scrollToId('electronics')"><i class="fas fa-bolt" style="color:#FFFB03; width:20px;"></i> 2. Electronics</button>
+            <button class="category-btn" onclick="scrollToId('programming')"><i class="fas fa-code" style="color:#2ecc71; width:20px;"></i> 3. Programming</button>
+            <button class="category-btn" onclick="scrollToId('ai')"><i class="fas fa-brain" style="color:#e67e22; width:20px;"></i> 4. AI & Vision</button>
+            <button class="category-btn" onclick="scrollToId('ros')"><i class="fas fa-project-diagram" style="color:#9b59b6; width:20px;"></i> 5. ROS 2</button>
+        </div>
+        
+        <div class="category-group" style="padding: 0; background: transparent; border: none;">
+            <div style="background: rgba(0,0,0,0.4); padding: 15px; border-radius: 10px; border: 1px solid rgba(134,209,209,0.3); text-align: center;">
+                <div style="color: #86D1D1; font-weight: 700; font-size: 0.9rem; margin-bottom: 10px;"><i class="fas fa-star" style="color: #FFFB03;"></i> Featured Players</div>
+                <h2 id="sl-name" style="color: #fff; font-size: 1.1rem; font-weight: 900; margin: 5px 0;">Boston Dynamics</h2>
+                <div id="sl-category" style="color: #ccc; font-size: 0.85rem; margin-bottom: 10px;">Humanoid & Quadruped</div>
+                <a id="sl-link" href="https://bostondynamics.com" target="_blank" style="display: block; background: #FFFB03; color: #000; padding: 6px; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 0.9rem;">Visit Site</a>
+            </div>
+        </div>
+    </aside>
+
+    <main id="main-scroll-area">
+        
+        <!-- Section 1: Mechanics & Balance -->
+        <section id="mechanics">
+            <div class="content-header">
+                <h1>❶ Mechanics: The Body & Skeleton</h1>
+                <p>Robots use metal and motors exactly how we use bones and muscles.</p>
+            </div>
+            
+            <div class="article-content">
+                <div class="analogy-box">
+                    <div class="analogy-title"><i class="fas fa-child"></i> The Human Body Analogy</div>
+                    <p>
+                        1. <strong>Links (Bones):</strong> Made of Aluminum or Carbon Fiber.<br>
+                        2. <strong>Joints (Elbows/Knees):</strong> Revolute (Spin) or Prismatic (Slide).<br>
+                        3. <strong>Actuators (Muscles):</strong> Motors that pull the links to create movement.
+                    </p>
+                </div>
+                <p>
+                    Actuators provide the strength. <strong>Servo Motors</strong> hold precise angles for robot arms, while <strong>Hydraulics</strong> lift heavy objects using fluid pressure.
+                </p>
+            </div>
+
+            <!-- Integrated Lab -->
+            <div class="lab-card">
+                <h3 style="color:#86D1D1; margin-top:0;">Interactive Lab: Balance & Base</h3>
+                <p style="color:#aaa; font-size:0.9rem;">How does a walking robot not fall over?</p>
+                
+                <div style="height: 120px; display: flex; justify-content: center; align-items: center; margin: 20px 0;">
+                    <i id="balance-bot" class="fas fa-robot" style="font-size: 4rem; color: #FF5555; transform: rotate(45deg); transition: all 0.5s;"></i>
+                </div>
+                
+                <div id="balance-msg" style="background: rgba(15, 20, 25, 0.9); padding: 8px 15px; border-radius: 20px; display: inline-block; margin-bottom: 15px; color: #FF5555; border: 1px solid rgba(255,255,255,0.1);">IMU Sensor Missing!</div>
+                
+                <div>
+                    <button class="lab-btn" onclick="equipIMU()"><i class="fas fa-microchip"></i> Equip IMU Sensor</button>
+                    <button class="lab-btn" onclick="removeIMU()"><i class="fas fa-hammer"></i> Remove Sensor</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Electronics & Battery -->
+        <section id="electronics">
+            <div class="content-header">
+                <h1>❷ Electronics: The Nervous System</h1>
+                <p>Wires carry signals from the brain to the muscles.</p>
+            </div>
+            
+            <div class="article-content">
+                <div class="analogy-box">
+                    <div class="analogy-title"><i class="fas fa-bolt"></i> The Nervous System Analogy</div>
+                    <p>
+                        1. <strong>Microcontroller:</strong> The reflex brain (Arduino).<br>
+                        2. <strong>Sensors:</strong> Eyes and ears (Cameras, Lidar, IMU).<br>
+                        3. <strong>Battery:</strong> The heart pumping energy (LiPo).
+                    </p>
+                </div>
+                <p>
+                    Sensors convert the physical world into electrical signals. For example, <strong>LiDAR</strong> fires lasers to measure distance, while <strong>Motor Drivers</strong> safely translate weak brain signals into high voltage for the motors.
+                </p>
+            </div>
+
+            <div class="lab-card">
+                <h3 style="color:#FFFB03; margin-top:0;">Interactive Lab: Battery Management</h3>
+                <p style="color:#aaa; font-size:0.9rem;">Processing AI and lifting items drains power rapidly.</p>
+                
+                <div style="width: 100%; max-width: 400px; height: 40px; border: 3px solid #fff; border-radius: 8px; margin: 20px auto; padding: 3px; display: flex; align-items: center;">
+                    <div id="battery-level" style="height: 100%; width: 100%; background: #2ecc71; border-radius: 4px; transition: all 0.3s; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">100%</div>
+                </div>
+                
+                <div>
+                    <button class="lab-btn" onclick="useBattery(30)"><i class="fas fa-eye"></i> Run AI (-30%)</button>
+                    <button class="lab-btn" onclick="useBattery(40)"><i class="fas fa-box"></i> Lift Box (-40%)</button>
+                    <button class="lab-btn" onclick="recharge()" style="border-color: #2ecc71; color: #2ecc71;"><i class="fas fa-bolt"></i> Charge</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Programming -->
+        <section id="programming">
+            <div class="content-header">
+                <h1>❸ Programming: The Recipe</h1>
+                <p>Writing algorithms to instruct the robot's every move.</p>
+            </div>
+            
+            <div class="article-content">
+                <p>
+                    Every robot runs on a continuous <strong>Sense-Think-Act</strong> loop. 
+                    <br><br>
+                    <strong>Python</strong> is widely used for Artificial Intelligence because it is readable, while <strong>C++</strong> is utilized for real-time motor control where millisecond speed is critical.
+                </p>
+            </div>
+
+            <div class="lab-card">
+                <h3 style="color:#2ecc71; margin-top:0;">Interactive Lab: Path Planning</h3>
+                <p style="color:#aaa; font-size:0.9rem;">What happens when the programmed path is blocked?</p>
+                
+                <div style="position: relative; height: 80px; border-bottom: 2px solid #555; margin: 30px 20px;">
+                    <i class="fas fa-flag-checkered" style="position: absolute; right: 0; bottom: 0; font-size: 2rem; color: #2ecc71;"></i>
+                    <div id="maze-obs" style="position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); display: none; font-size: 2.5rem; color: #FF5555;"><i class="fas fa-road-barrier"></i></div>
+                    <i id="maze-bot" class="fas fa-robot" style="position: absolute; left: 0; bottom: 0; font-size: 2rem; color: #86D1D1; transition: all 0.5s;"></i>
+                </div>
+                
+                <div id="maze-msg" style="font-size: 0.9rem; color: #ccc; margin-bottom: 15px;">Path clear.</div>
+                
+                <div>
+                    <button id="maze-btn" class="lab-btn" onclick="toggleObstacle()"><i class="fas fa-cube"></i> Toggle Obstacle</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: AI & Vision -->
+        <section id="ai">
+            <div class="content-header">
+                <h1>❹ AI & Perception: The Mind</h1>
+                <p>Translating sensor data into actual understanding.</p>
+            </div>
+            
+            <div class="article-content">
+                <p>
+                    A camera only sees pixels. <strong>Computer Vision (AI)</strong> looks at those pixels and identifies objects using Neural Networks trained on thousands of images.
+                </p>
+            </div>
+
+            <div class="lab-card">
+                <h3 style="color:#e67e22; margin-top:0;">Interactive Lab: Vision Perception</h3>
+                
+                <div id="vision-box" style="width: 100%; height: 200px; background: #222; border-radius: 8px; border: 2px solid #555; position: relative; margin: 20px 0; display: flex; justify-content: center; align-items: center;">
+                    <span id="vision-text" style="color: #888;">Standard Camera View</span>
+                    <div id="bounding-box" style="display: none; position: absolute; border: 2px solid #FFFB03; background: rgba(255,251,3,0.1); color: #FFFB03; font-weight: bold; padding: 4px; width: 50%; height: 50%;">HUMAN: 98%</div>
+                </div>
+                
+                <div>
+                    <button class="lab-btn" onclick="toggleVisionLab()"><i class="fas fa-eye"></i> Toggle AI Vision</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: ROS -->
+        <section id="ros">
+            <div class="content-header">
+                <h1>❺ ROS 2: The Conductor</h1>
+                <p>The operating system that ties everything together seamlessly.</p>
+            </div>
+            
+            <div class="article-content">
+                <div class="analogy-box">
+                    <div class="analogy-title"><i class="fas fa-project-diagram"></i> The Manager Analogy</div>
+                    <p>
+                        ROS 2 (Robot Operating System) acts as the manager. It breaks tasks into small <strong>Nodes</strong>. One node reads the camera, another spins the wheels, and ROS ensures they communicate without crashing.
+                    </p>
+                </div>
+                <p>
+                    Before building physical hardware, engineers use <strong>Gazebo</strong>, a 3D physics simulator, to test algorithms safely in a digital twin environment.
+                </p>
+            </div>
+        </section>
+
+        <div style="text-align: center; padding: 30px; border-top: 1px solid rgba(255,255,255,0.1); color: #555; font-size: 0.9rem;">
+            &copy; 2026 LearnRobot.com. Demystifying the future.
+        </div>
+
+    </main>
+</div>
+
+<button id="topBtn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+
+<script>
+    // --- Navigation & Scroll ---
+    function scrollToId(id) {
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    const mainArea = document.getElementById("main-scroll-area");
+    const topBtn = document.getElementById("topBtn");
+    
+    if (mainArea && topBtn) {
+        mainArea.addEventListener('scroll', () => {
+            topBtn.style.display = mainArea.scrollTop > 300 ? "flex" : "none";
+        });
+    }
+
+    function scrollToTop() {
+        if(mainArea) mainArea.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- Interactive Labs Logic ---
+    
+    // Balance Lab
+    function equipIMU() {
+        const bot = document.getElementById('balance-bot');
+        const msg = document.getElementById('balance-msg');
+        bot.style.transform = 'rotate(0deg)';
+        bot.style.color = '#2ecc71';
+        msg.innerHTML = 'IMU Sensor Online! Balance restored.';
+        msg.style.color = '#2ecc71';
+    }
+    function removeIMU() {
+        const bot = document.getElementById('balance-bot');
+        const msg = document.getElementById('balance-msg');
+        bot.style.transform = 'rotate(45deg)';
+        bot.style.color = '#FF5555';
+        msg.innerHTML = 'IMU Sensor Missing!';
+        msg.style.color = '#FF5555';
+    }
+
+    // Battery Lab
+    let batt = 100;
+    function useBattery(amt) {
+        batt = Math.max(0, batt - amt);
+        updateBatt();
+    }
+    function recharge() {
+        batt = 100;
+        updateBatt();
+    }
+    function updateBatt() {
+        const bar = document.getElementById('battery-level');
+        bar.style.width = batt + '%';
+        bar.innerText = batt + '%';
+        bar.style.background = batt > 40 ? '#2ecc71' : (batt > 15 ? '#f1c40f' : '#e74c3c');
+    }
+
+    // Path Planning Lab
+    let obsActive = false;
+    function toggleObstacle() {
+        obsActive = !obsActive;
+        const obs = document.getElementById('maze-obs');
+        const bot = document.getElementById('maze-bot');
+        const msg = document.getElementById('maze-msg');
+        
+        if (obsActive) {
+            obs.style.display = 'block';
+            bot.style.left = '30%';
+            msg.innerHTML = '<span style="color:#FF5555">Obstacle detected!</span> Detouring...';
+        } else {
+            obs.style.display = 'none';
+            bot.style.left = '80%';
+            msg.innerHTML = 'Path clear. Goal reached.';
+        }
+    }
+
+    // Vision Lab
+    let visionActive = false;
+    function toggleVisionLab() {
+        visionActive = !visionActive;
+        const box = document.getElementById('bounding-box');
+        const text = document.getElementById('vision-text');
+        
+        if (visionActive) {
+            box.style.display = 'flex';
+            box.style.justifyContent = 'center';
+            box.style.alignItems = 'center';
+            text.style.display = 'none';
+        } else {
+            box.style.display = 'none';
+            text.style.display = 'block';
+        }
+    }
+
+    // Sidebar Dynamic Spotlight Rotation
+    const players = [
+        { name: 'Boston Dynamics', cat: 'Humanoid & Quadruped', url: 'https://bostondynamics.com' },
+        { name: 'FANUC', cat: 'Industrial Automation', url: 'https://www.fanuc.com' },
+        { name: 'Universal Robots', cat: 'Collaborative Robots', url: 'https://www.universal-robots.com' }
+    ];
+    let pIdx = 0;
+    setInterval(() => {
+        pIdx = (pIdx + 1) % players.length;
+        document.getElementById('sl-name').innerText = players[pIdx].name;
+        document.getElementById('sl-category').innerText = players[pIdx].cat;
+        document.getElementById('sl-link').href = players[pIdx].url;
+    }, 5000);
+
+</script>
+</body>
+</html>
