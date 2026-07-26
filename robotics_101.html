@@ -1783,12 +1783,12 @@ body {
 </style>
 
 
-<!-- [수정 후] 상단 여백(margin-top: 65px) 증가 & 뱃지 애니메이션 노란색으로 변경 -->
 <div class="content-header" style="border-bottom: 2px solid #2C9999 !important; padding-bottom: 0px; margin-bottom: -15px; display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap; margin-top: 65px; padding: 0 25px;">
     <h1 id="main-hero-title" style="color: #2C9999; font-size: 2.9rem; font-weight: 900; margin: 0; font-family: 'Chakra Petch', sans-serif;">Robotics 101</h1>
     
-    <div style="background: rgba(255, 251, 3, 0.1); border: 1px solid #FFFB03; color: #FFFB03; padding: 6px 15px; border-radius: 20px; font-size: 1.3rem; font-weight: 0; font-family: 'Chakra Petch', sans-serif; animation: neonPulseYellow 2s infinite alternate;">
-        <i class="fas fa-graduation-cap"></i> Learn & Earn a Certificate for 101 course!
+    <!-- 💡 만화책 스타일 말풍선 적용 -->
+    <div class="cert-bubble-comic">
+        <i class="fas fa-graduation-cap"></i> Learn & Earn Your Robotics 101 Certificate!
     </div>
 </div>
 
@@ -1797,21 +1797,7 @@ body {
 
 
         <section id="mechanics">
-<div class="neon-bridge-box">
-    <strong style="color: #9b59b6; font-family: 'Chakra Petch', sans-serif; font-size: 0.85rem; text-transform : letter-spacing: 1px;">
-        <i class="fas fa-route"></i> From the interactive tour
-    </strong>
-    <div class="path-flow-container">
-        <span class="badge-origin"><i class="fas fa-child"></i> 1. Balance</span>
-        <span class="badge-origin"><i class="fas fa-egg"></i> 5. Grippers</span>
-        <span class="badge-origin"><i class="fas fa-cogs"></i> 9. Motors</span>
-        <i class="fas fa-angle-double-right badge-arrow"></i>
-        <span class="badge-dest"><i class="fas fa-wrench"></i> Mechanics</span>
-    </div>
-    <div class="path-desc">
-        Explore the physical hardware and joints that made those movements possible.
-    </div>
-</div>
+
 
             <div class="content-header">
     <h1>❶ Robot Mechanics: The Body, Muscles & Secrets</h1>
@@ -1967,21 +1953,7 @@ body {
         </section>
 
         <section id="electronics">
-<div class="neon-bridge-box">
-    <strong style="color: #9b59b6; font-family: 'Chakra Petch', sans-serif; font-size: 0.85rem; text-transform:letter-spacing: 1px;">
-        <i class="fas fa-route"></i> From the interactive tour
-    </strong>
-    <div class="path-flow-container">
-        <span class="badge-origin"><i class="fas fa-battery-quarter"></i> 2. Battery</span>
-        <span class="badge-origin"><i class="fas fa-handshake"></i> 4. Etiquette</span>
-        <span class="badge-origin"><i class="fas fa-shield-alt"></i> 10. Safety</span>
-        <i class="fas fa-angle-double-right badge-arrow"></i>
-        <span class="badge-dest"><i class="fas fa-bolt"></i> Electronics</span>
-    </div>
-    <div class="path-desc">
-        Discover how electricity and sensitive torque sensors act as the nervous system of the robot.
-    </div>
-</div>
+
 
             <div class="content-header">
     <h1>❷ Electronics: The Nervous System & Senses</h1>
@@ -2152,20 +2124,7 @@ body {
 <div id="inline-quiz-electronics"></div>
 </section> 
 <section id="programming">
-<div class="neon-bridge-box">
-    <strong style="color: #9b59b6; font-family: 'Chakra Petch', sans-serif; font-size: 0.85rem; text-transform:letter-spacing: 1px;">
-        <i class="fas fa-route"></i> From the interactive tour
-    </strong>
-    <div class="path-flow-container">
-        <span class="badge-origin"><i class="fas fa-route"></i> 7. Path Planning</span>
-        <span class="badge-origin"><i class="fas fa-users"></i> 8. Swarm</span>
-        <i class="fas fa-angle-double-right badge-arrow"></i>
-        <span class="badge-dest"><i class="fas fa-code"></i> Programming</span>
-    </div>
-    <div class="path-desc">
-        Uncover the secret code and algorithms that allow robots to make smart decisions on the fly.
-    </div>
-</div>
+
 
     
     <div class="content-header">
@@ -2272,20 +2231,7 @@ body {
         </section>
 
         <section id="ai">
-<div class="neon-bridge-box">
-    <strong style="color: #9b59b6; font-family: 'Chakra Petch', sans-serif; font-size: 0.85rem; text-transform: letter-spacing: 1px;">
-        <i class="fas fa-route"></i> From the interactive tour
-    </strong>
-    <div class="path-flow-container">
-        <span class="badge-origin"><i class="fas fa-eye"></i> 3. Vision AI</span>
-        <span class="badge-origin"><i class="fas fa-brain"></i> 6. AI Training</span>
-        <i class="fas fa-angle-double-right badge-arrow"></i>
-        <span class="badge-dest"><i class="fas fa-network-wired"></i> AI & Perception</span>
-    </div>
-    <div class="path-desc">
-        Dive into the deep learning models and LiDAR lasers that allow machines to see and learn.
-    </div>
-</div>
+
 
             <div class="content-header">
     <h1>❹ AI & Perception: The Robot's Mind</h1>
@@ -2350,21 +2296,7 @@ body {
         </section>
 
         <section id="ros">
-<div class="neon-bridge-box">
-    <strong style="color: #9b59b6; font-family: 'Chakra Petch', sans-serif; font-size: 0.85rem; text-transform:letter-spacing: 1px;">
-        <i class="fas fa-route"></i> From the interactive tour
-    </strong>
-    <div class="path-flow-container">
-        <span class="badge-origin"><i class="fas fa-eye"></i> Vision</span>
-        <span class="badge-origin"><i class="fas fa-cogs"></i> Motors</span>
-        <span class="badge-origin"><i class="fas fa-brain"></i> AI</span>
-        <i class="fas fa-angle-double-right badge-arrow"></i>
-        <span class="badge-dest"><i class="fas fa-project-diagram"></i> ROS 2</span>
-    </div>
-    <div class="path-desc">
-        Wondering how they all talk to each other without crashing? Welcome to the ultimate robot operating system.
-    </div>
-</div>
+
             <div class="content-header">
     <h1>❺ ROS 2: The Robot Operating System</h1>
     <p>The Manager that makes all parts work together.</p>
@@ -3514,6 +3446,55 @@ document.addEventListener('DOMContentLoaded', renderSectionQuizzes);
         .cert-box { transform: scale(1) !important; width: 100% !important; max-width: none !important; box-shadow: none !important; border: 12px solid #1a365d !important; outline: none !important; background: #fff !important; padding: 40px !important;}
         .print-btn, .wiki-close { display: none !important; }
     }
+/* [신규] 카툰 스타일 완벽 말풍선 */
+.cert-bubble-comic {
+    position: relative;
+    background: #111; /* 배경은 어둡게 */
+    border: 3px solid #FFFB03; /* 만화책처럼 굵은 테두리 */
+    color: #FFFB03;
+    padding: 10px 22px;
+    border-radius: 20px; /* 둥근 알약 형태 */
+    font-family: 'Roboto', sans-serif; /* 가독성 좋은 폰트 */
+    font-weight: 900; /* 아주 굵은 글씨체로 카툰 느낌 강조 */
+    font-size: 0.95rem;
+    
+    /* 핵심 1: 번지는 네온이 아닌, 만화책 특유의 '단색 그림자(Solid shadow)' 줘서 입체감 부여 */
+    box-shadow: 5px 5px 0px rgba(255, 251, 3, 0.4); 
+    
+    /* 핵심 2: 통통 튀는 바운스 애니메이션 적용 */
+    animation: comic-bounce 2.5s infinite ease-in-out;
+    margin-left: 20px;
+    z-index: 10;
+}
+
+/* 말풍선 꼬리 외곽선 (아래로 뾰족하게) */
+.cert-bubble-comic::before {
+    content: '';
+    position: absolute;
+    bottom: -15px; /* 박스 아래로 튀어나옴 */
+    left: 25px; /* 왼쪽으로 치우침 */
+    border-width: 15px 15px 0 0;
+    border-style: solid;
+    border-color: #FFFB03 transparent transparent transparent;
+}
+
+/* 말풍선 꼬리 내부 (까맣게 파내서 선만 남기기) */
+.cert-bubble-comic::after {
+    content: '';
+    position: absolute;
+    bottom: -11px;
+    left: 28px;
+    border-width: 12px 12px 0 0;
+    border-style: solid;
+    border-color: #111 transparent transparent transparent;
+}
+
+/* 통통 튀고 살짝 까딱거리는 카툰 애니메이션 */
+@keyframes comic-bounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    33% { transform: translateY(-6px) rotate(2deg); }
+    66% { transform: translateY(2px) rotate(-1deg); }
+}
 </style>
 
 <div id="cert-overlay" class="cert-modal-overlay">
