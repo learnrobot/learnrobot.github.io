@@ -1039,9 +1039,7 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
 <div id="company-modal" class="modal" style="z-index: 10000;">
     <div class="modal-content" style="width: 500px; max-width: 90%; text-align: left; position: relative;">
         <!-- 닫기 버튼 -->
-        <button onclick="closeCompanyModal()" style="position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: #FFFB03; font-size: 1.5rem; cursor: pointer;">
-            <i class="fas fa-times"></i>
-        </button>
+       
         
         <!-- 회사 이름 (Rajdhani 폰트 적용된 한 개만 남김) -->
         <h2 id="modal-company-title" style="color: #FFFB03; font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 10px; font-size: 2rem;">Company Name</h2>
@@ -1452,6 +1450,15 @@ document.addEventListener('keydown', (e) => {
             e.preventDefault();
             document.getElementById('searchInput').focus();
         }
+    }
+});
+// 모달 외부 배경 클릭 시 팝업 닫기
+window.addEventListener('click', function(event) {
+    const companyModal = document.getElementById('company-modal');
+    
+    // 클릭한 대상(event.target)이 모달 내부 콘텐츠가 아닌 어두운 배경(companyModal) 자체일 때만 닫기 함수 실행
+    if (event.target === companyModal) {
+        closeCompanyModal();
     }
 });
 </script>
