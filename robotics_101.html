@@ -1788,7 +1788,7 @@ body {
     
     <!-- 💡 만화책 스타일 말풍선 적용 -->
     <div class="cert-bubble-comic">
-        <i class="fas fa-graduation-cap"></i> Learn & Earn Your Robotics 101 Certificate!
+        <i class="fas fa-graduation-cap"></i> Quiz ahead to earn Your Robotics 101 Certificate!
     </div>
 </div>
 
@@ -3217,7 +3217,7 @@ function renderSectionQuizzes() {
         // 2. 퀴즈 4개를 2줄(2x2 그리드)로 자동 배치하는 컨테이너
         let html = `<div style="margin-top: 40px; padding-top: 25px; border-top: 2px dashed ${sec.color}55;">
                         <div style="color: ${sec.color}; font-size: 1.4rem; font-weight: 900; margin-bottom: 15px; font-family: 'Chakra Petch', sans-serif;">
-                            <i class="fas fa-gamepad"></i> Check what you learned : ${sec.title}
+                            <i class="fas fa-gamepad"></i> Quiz : ${sec.title}
                         </div>
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 15px;">`;
         
@@ -3456,7 +3456,7 @@ document.addEventListener('DOMContentLoaded', renderSectionQuizzes);
     border-radius: 20px; /* 둥근 알약 형태 */
     font-family: 'Roboto', sans-serif; /* 가독성 좋은 폰트 */
     font-weight: 900; /* 아주 굵은 글씨체로 카툰 느낌 강조 */
-    font-size: 0.95rem;
+    font-size: 1.55rem;
     
     /* 핵심 1: 번지는 네온이 아닌, 만화책 특유의 '단색 그림자(Solid shadow)' 줘서 입체감 부여 */
     box-shadow: 5px 5px 0px rgba(255, 251, 3, 0.4); 
