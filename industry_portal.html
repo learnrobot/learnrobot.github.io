@@ -801,7 +801,7 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
 .search-input {
     width: 200px;
     padding: 8px 35px 8px 10px !important;
-    background-color: rgba(0, 0, 0, 0.4) !important;
+    background-color: rgba(0, 0, 0, 0.7) !important;
     
     /* 👇 여기에 전체 테두리 색상과 굵기를 지정합니다 */
     border: 2px solid #2C9999 !important; 
@@ -911,10 +911,9 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
 <!-- 헤더의 background를 수정하고 backdrop-filter 추가 -->
 <header style="height: 100px; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; background: rgba(70, 70, 70, 0.45); backdrop-filter: blur(2px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); z-index: 10;">
     
-    <!-- 1. 로고 + Home + Search 그룹 (왼쪽으로 밀착) -->
+    <!-- 1. 로고 + Home 버튼 그룹 (왼쪽으로 밀착) -->
     <div style="display: flex; align-items: center; gap: 25px;">
         <!-- 로고 -->
-        <!-- 로고 (클릭 시 검색창 초기화 및 홈 화면 즉시 렌더링) -->
         <a href="#" class="logo-link" style="text-decoration: none;" onclick="document.getElementById('searchInput').value=''; renderHome(); return false;">
             <div class="logo" style="display: flex; align-items: center; gap: 15px;">
                 <img src="image/favicon.png" alt="Logo" class="logo-image" style="height: 65px; width: auto; border-radius: 50%;"> 
@@ -925,20 +924,20 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
             </div>
         </a>
 
-        <!-- Home 버튼 (CSS의 margin 초기화 적용) -->
-    
-
-        <!-- Search 바 (CSS의 margin 초기화 적용) -->
-        <!-- margin-top 수치를 15px, 20px 등으로 조절하면서 원하시는 위치를 잡아보세요 -->
-<div class="search-container" style="margin: 0; margin-top: 20px;">
-            <input type="text" id="searchInput" placeholder="find robots" onkeyup="searchLinks()" class="search-input">
-            <i class="fas fa-search search-icon"></i>
-        </div>
+<!-- 새롭게 추가된 Home 버튼 -->
+<a href="https://www.learnrobot.com" class="nav-btn" style="margin-top: 10px; width: 42px; height: 42px; padding: 0; display: flex; justify-content: center; align-items: center; border-radius: 8px; background-color: rgba(0, 0, 0, 0.7); border: 2px solid #2C9999; color: #2C9999;" title="Home">
+    <i class="fas fa-home" style="font-size: 1.3rem; margin: 0;"></i>
+</a>
     </div>
 
-    <!-- 2 & 3. 기존 회사 배너 삭제 후 애드센스 배너 삽입 -->
-    <div class="header-ad-container" style="flex-grow: 1; display: flex; justify-content: center; align-items: center; margin: 0 20px;">
-        <!-- 구글 애드센스 코드 (헤더용 수평형 권장) -->
+    <!-- 2. Search 바 (기존 그룹에서 분리, margin-left: auto를 통해 오른쪽으로 밀어내기) -->
+    <div class="search-container" style="margin: 0; margin-top: 15px; margin-left: auto; margin-right: 30px;">
+        <input type="text" id="searchInput" placeholder="find robots" onkeyup="searchLinks()" class="search-input">
+        <i class="fas fa-search search-icon"></i>
+    </div>
+
+    <!-- 3. 기존 애드센스 배너 (광고 배너 영역 고정) -->
+    <div class="header-ad-container" style="display: flex; justify-content: center; align-items: center; margin: 0 20px;">
         <ins class="adsbygoogle"
              style="display:inline-block; width:100%; max-width:728px; height:90px;"
              data-ad-client="ca-pub-2674022896970936"
