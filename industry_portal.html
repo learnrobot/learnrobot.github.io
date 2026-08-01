@@ -1004,8 +1004,14 @@ text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
         </div>
     </div> <div class="sidebar-contact-text-wrapper" style="margin-top: 0; padding: 20px 5px 10px 5px; border-top: 1px solid rgba(255,255,255,0.1); flex-shrink: 0;">
         <p style="font-size: 1.0rem; color: #FFFB03; font-weight: 600; margin-bottom: 5px;">Contact to add your robot</p>
-        <a href="mailto:learnrobot@learnrobot.com" style="color: #FFFFFF; text-decoration: none; font-size: 1.0rem;">learnrobot@learnrobot.com</a>
+        <div style="position: relative; display: inline-block;">
+        <!-- mailto: 제거, onclick에 이미 정의된 함수 연결 -->
+        <a href="#" onclick="copyContactEmail(event)" style="color: #FFFFFF; text-decoration: none; font-size: 1.0rem; cursor: pointer;">learnrobot@learnrobot.com</a>
+        
+        <!-- 스크립트에서 호출할 "Copied!" 메시지 표시 영역 -->
+        <span id="copy-confirm-text" style="position: absolute; left: 100%; top: 0; margin-left: 10px; color: #FFFB03; font-size: 0.9rem; font-weight: bold; opacity: 0; transition: opacity 0.3s; pointer-events: none;"></span>
     </div>
+</div>
 </aside>
 
         <main>
@@ -1379,6 +1385,42 @@ function searchLinks() {
     filtered.sort((a, b) => a.title.localeCompare(b.title));
 
     renderSpecificLinksSortedCustom(filtered, targetGrid);
+}
+
+function copyContactEmail(event) {
+    event.preventDefault();
+    const email = 'learnrobot@learnrobot.com';
+
+    const showCopied = () => {
+        const confirmText = document.getElementById('copy-confirm-text');
+        if (!confirmText) return;
+        confirmText.textContent = 'Copied!';
+        confirmText.style.opacity = '1';
+        setTimeout(() => { confirmText.style.opacity = '0'; }, 1500);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(showCopied).catch(() => {
+            fallbackCopy(email);
+            showCopied();
+        });
+    } else {
+        fallbackCopy(email);
+        showCopied();
+    }
+}
+
+function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
 }
 
 /* --- 초기 실행 및 공통 리스너 --- */
