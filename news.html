@@ -167,7 +167,7 @@ body::before {
             pointer-events: none; 
         }
 
-        /* 🚨 robotics_tour.html과 100% 동일한 Navbar 설정 🚨 */
+        /* 🚨 main.html과 100% 동일한 Navbar 설정 🚨 */
         .navbar {
             background: rgba(20, 20, 20, 0.75) !important; 
             backdrop-filter: blur(4px) saturate(120%) !important;
@@ -355,7 +355,7 @@ body::before {
 </head>
 <body>
 
-    <!-- 🚨 3등분 분할까지 완벽하게 robotics_tour.html과 일치시킨 Navbar -->
+    <!-- 🚨 3등분 분할까지 완벽하게 main.html과 일치시킨 Navbar -->
     <nav class="navbar">
         
         <!-- 좌측: 로고 100% 동기화 -->
@@ -372,7 +372,7 @@ body::before {
             </a>
         </div>
 
-        <!-- 중앙: robotics_tour.html의 광고 여백과 동일한 빈 공간 강제 할당 -->
+        <!-- 중앙: main.html의 광고 여백과 동일한 빈 공간 강제 할당 -->
         <div class="header-ad-zone" style="flex-grow: 1; display: flex; justify-content: center; align-items: center; height: 90px; max-width: 728px; overflow: hidden; margin: 0 20px;">
             <ins class="adsbygoogle"
                  style="display:inline-block; width:100%; max-width:728px; height:90px;"
@@ -386,7 +386,7 @@ body::before {
         <!-- 우측: 링크 영역 (How Robots Work는 버튼 스타일) -->
         <div class="nav-links" style="flex: 1; display: flex; justify-content: flex-end; align-items: center;">
             
-            <a href="robotics_tour.html" class="btn-main">Robotics Tour <i class="fas fa-arrow-right"></i></a>
+            <a href="main.html" class="btn-main">How Robots Work <i class="fas fa-arrow-right"></i></a>
         </div>
 
     
@@ -446,7 +446,7 @@ body::before {
     </section>
 
     <section id="realtime-news" class="container" style="padding-top: 20px;">
-        <h2 class="section-title">Tech Media</h2>
+        <h2 class="section-title">Top Tech Sources</h2>
         <div class="news-grid top-tech-grid" id="rss-news-container">
             <p style="color: var(--primary); font-size: 1.2rem; grid-column: 1 / -1; text-align: center; padding: 80px 0; font-family: 'Chakra Petch', sans-serif;">
                 <i class="fas fa-spinner fa-spin"></i> Fetching latest news from specialized sources...
@@ -459,10 +459,10 @@ body::before {
     
 
     <section class="cta-section">
-        <h2 class="cta-title">Find out how robots work.</h2>
+        <h2 class="cta-title">Dive into an interactive tour of how robots work.</h2>
         
-        <a href="robotics_tour.html" class="cta-btn">
-            Robotics Tour
+        <a href="main.html" class="cta-btn">
+            How Robots Work
         </a>
     </section>
 
@@ -539,52 +539,119 @@ body::before {
             }
 
             // ==========================================
-            // 2. Editor's Pick (나만의 자체 백엔드 API 연동)
+            // 2. Editor's Pick (Google News)
             // ==========================================
-            async function fetchGNewsAPI() {
-                const container = document.getElementById('google-news-container');
+           // ==========================================
+            // 2. Editor's Pick (Google News) - 단일 요청 (가장 안정적인 rss2json으로 복구)
+            // ==========================================
+            async function fetchGooglePicks() {
+                const googleQuery = "robotics OR humanoid OR AI -fortune -wsj -bloomberg -nature -nytimes ";
+                const rssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(googleQuery)}&hl=en-US&gl=US&ceid=US:en`;
+                
+                // 🚨 구글은 AllOrigins 대신 찰떡궁합인 rss2json으로 다시 복구! (1번 요청이라 차단 위험 없음)
+                const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=10`;
+                
+                let finalPicks = [];
+                const cacheKey = "newsCache_google_v10"; // 확실한 초기화
+
                 try {
-                    // 방금 만든 나만의 서버 주소로 요청!
-                    const response = await fetch("https://us-central1-learnrobot.cloudfunctions.net/getRoboticsNews");
+                    const response = await fetch(apiUrl);
                     const data = await response.json();
 
-                    if (data && data.articles && data.articles.length > 0) {
-                        let html = '';
-                        // 가장 최신 기사 3개만 잘라서 화려한 카드로 만듭니다.
-                        const topArticles = data.articles.slice(0, 3);
-                        
-                        topArticles.forEach(article => {
-                            const dateStr = new Date(article.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-                            // 이미지가 없으면 기본 로고를 띄웁니다.
-                            const imageUrl = article.image || 'image/favicon.png'; 
-                            const sourceName = article.source.name || 'News';
+                    if (data.status === 'ok' && data.items) {
+                        function isTooSimilar(t1, t2) {
+                            const stopWords = ['how', 'the', 'and', 'for', 'with', 'from', 'this', 'that', 'robot', 'humanoid', 'artificial', 'intelligence', 'robotics'];
+                            const w1 = t1.toLowerCase().split(/\W+/).filter(w => w.length > 2 && !stopWords.includes(w));
+                            const w2 = t2.toLowerCase().split(/\W+/).filter(w => w.length > 2 && !stopWords.includes(w));
+                            let match = 0;
+                            w1.forEach(w => { if(w2.includes(w)) match++; });
+                            return match >= 3;
+                        }
 
-                            html += `
-                            <div class="news-card" style="border-color: #2C9999 !important; padding: 20px;">
-                                <img src="${imageUrl}" alt="News Image" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.1);">
-                                <a href="${article.url}" target="_blank" class="news-title" style="font-size: 1.1rem; margin-bottom: 10px; display: block; text-decoration: none; color: #fff;">${article.title}</a>
-                                <p class="news-summary" style="font-size: 0.9rem; margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; color: #aaa;">${article.description}</p>
-                                <div class="news-footer" style="margin-top: auto; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
-                                    <span class="news-date" style="color: #666; font-size: 0.85rem;"><i class="far fa-clock"></i> ${dateStr}</span>
-                                    <span style="color: #FFFB03; font-size: 0.85rem; font-family: 'Chakra Petch', sans-serif; font-weight: bold;">${sourceName}</span>
-                                </div>
-                            </div>
-                            `;
-                        });
-                        container.innerHTML = html;
-                        
-                        // 하단 전문 매체와 기사가 겹치지 않게 제목 목록을 넘겨줍니다.
-                        return topArticles.map(a => a.title.toLowerCase());
-                    } else {
-                        container.innerHTML = '<p style="color: #FF5555; grid-column: 1 / -1; text-align: center;">No news found at the moment.</p>';
-                        return [];
+                        for (const item of data.items) {
+                            if (finalPicks.length >= 3) break;
+                            const cleanTitle = item.title.replace(/<[^>]*>?/gm, '');
+
+                            let isDuplicate = finalPicks.some(p => isTooSimilar(p.title, cleanTitle));
+                            if (!isDuplicate) {
+                                finalPicks.push({
+                                    title: cleanTitle,
+                                    link: item.link,
+                                    pubDate: new Date(item.pubDate)
+                                });
+                            }
+                        }
+
+                        if (finalPicks.length > 0) {
+                            localStorage.setItem(cacheKey, JSON.stringify(finalPicks));
+                        }
                     }
-                } catch (error) {
-                    console.error("API Fetch Error:", error);
-                    container.innerHTML = '<p style="color: #FF5555; grid-column: 1 / -1; text-align: center;">Failed to load API news. Please try again later.</p>';
-                    return [];
+                } catch (e) {
+                    console.log("Google fetch error, restoring from cache");
                 }
+
+                // 🚨 통신 실패 시 과거 백업(final, v8 등)까지 영혼 끌어모아 복구
+                if (finalPicks.length === 0) {
+                    const cached = localStorage.getItem(cacheKey) || localStorage.getItem("newsCache_google_final") || localStorage.getItem("newsCache_google_v8");
+                    if (cached) {
+                        finalPicks = JSON.parse(cached);
+                        finalPicks.forEach(item => item.pubDate = new Date(item.pubDate));
+                    }
+                }
+
+                const googleContainer = document.getElementById('google-news-container');
+                if (finalPicks.length > 0 && googleContainer) {
+                    let html = `<div class="news-card" style="grid-column: 1 / -1; border-color: #4285F4 !important; padding: 20px 25px;"><ul class="article-list" style="gap: 12px;">`;
+                    finalPicks.forEach((news, index) => {
+                        const dateStr = news.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                        const borderStyle = index < finalPicks.length - 1 ? 'border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px;' : 'padding-bottom: 0;';
+                        
+                        // 🚨 1. 구글이 숨겨둔 특수 공백(&nbsp;)과 깨진 기호들을 실제 기호로 강제 세탁합니다.
+                        let cleanText = news.title.replace(/&nbsp;/gi, ' ').replace(/&#8211;/g, '–');
+                        let displayTitle = cleanText;
+                        let sourceText = "";
+                        
+                        // 🚨 2. 정규식 강화: 뒤에서부터 가장 마지막에 있는 하이픈(-)이나 파이프(|)를 무조건 찾아냅니다.
+                        const match = cleanText.match(/(.*?)\s*([-–—|])\s*([^-–—|]+)$/);
+                        if (match) {
+                            displayTitle = match[1].trim(); 
+                            sourceText = " " + match[2] + " " + match[3].trim(); 
+                        }
+
+                        // 🚨 3. 분리해낸 언론사명(sourceText)에 var(--primary) 대신 확실한 헥스코드(#2C9999)를 주입합니다.
+                        html += `
+                            <li class="article-item" style="${borderStyle}">
+                               <a href="${news.link}" target="_blank" class="article-title" style="display:inline; margin-bottom:0; line-height:1.5;">
+                                    ${displayTitle}
+                                    <span style="color: #2C9999; font-size: 0.9rem;">${sourceText}</span>
+                                </a>
+                                <span class="article-date" style="display:inline-block; margin-left: 8px; color: #888; font-size: 0.85rem;"><i class="far fa-clock"></i> ${dateStr}</span>
+                            </li>
+                        `;
+                    });
+                    html += `</ul></div>`;
+                    googleContainer.innerHTML = html;
+                } else if (googleContainer) {
+                    googleContainer.innerHTML = '<p style="color: #FF5555; grid-column: 1 / -1; text-align: center;">현재 뉴스를 불러올 수 없습니다. 잠시 후 새로고침 해주세요.</p>';
+                }
+
+                return finalPicks.map(article => article.title.toLowerCase());
             }
+
+           // ==========================================
+            // 2. 전문 매체 전용 로직 (위쪽 구글 픽은 절대 건드리지 않음)
+            // ==========================================
+            // ==========================================
+            // 3. 전문 매체 전용 로직 (점진적 개별 렌더링으로 체감 속도 극대화)
+            // ==========================================
+            // ==========================================
+            // 3. 전문 매체 전용 로직 (안전한 순차 렌더링 + 예비 캐시 총동원)
+            // ==========================================
+           // ==========================================
+            // 3. 전문 매체 전용 로직 (6개 엄선 & 딜레이 없는 동시 다발 렌더링!)
+            // ==========================================
+            // ==========================================
+            // 3. 전문 매체 전용 로직 (6개 엄선 & 시차 출발 동시 렌더링)
             // ==========================================
             async function fetchSpecializedNews(excludeTitles = []) {
                 const specializedSources = [
@@ -758,8 +825,7 @@ body::before {
             } // fetchSpecializedNews 끝
 
             // 🚨 핵심 부품 복구: 만들어둔 위/아래 뉴스를 실제로 '실행'하는 명령어입니다!
-            // 🚨 자체 백엔드 API 실행으로 변경!
-            const pickedTitles = await fetchGNewsAPI();
+            const pickedTitles = await fetchGooglePicks();
             await fetchSpecializedNews(pickedTitles);
 
         } // <-- 🚨 자바스크립트 에러를 막아주는 진짜 마지막 닫는 괄호 복구!
