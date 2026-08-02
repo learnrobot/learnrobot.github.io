@@ -552,7 +552,7 @@ body::before {
                 const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=10`;
                 
                 let finalPicks = [];
-                const cacheKey = "newsCache_google_v10"; // 확실한 초기화
+                const cacheKey = "newsCache_google_v11"; // 확실한 초기화
 
                 try {
                     const response = await fetch(apiUrl);
@@ -573,13 +573,21 @@ body::before {
                             const cleanTitle = item.title.replace(/<[^>]*>?/gm, '');
 
                             let isDuplicate = finalPicks.some(p => isTooSimilar(p.title, cleanTitle));
-                            if (!isDuplicate) {
-                                finalPicks.push({
-                                    title: cleanTitle,
-                                    link: item.link,
-                                    pubDate: new Date(item.pubDate)
-                                });
-                            }
+if (!isDuplicate) {
+    // 🚀 구글 뉴스 description 태그 안에 숨은 이미지까지 추출
+    let extractedThumb = item.thumbnail || (item.enclosure && item.enclosure.link) || '';
+    if (!extractedThumb && item.description) {
+        const imgMatch = item.description.match(/<img[^>]+src="([^">]+)"/);
+        if (imgMatch) extractedThumb = imgMatch[1];
+    }
+
+    finalPicks.push({
+        title: cleanTitle,
+        link: item.link,
+        pubDate: new Date(item.pubDate),
+        thumbnail: extractedThumb});
+    
+}
                         }
 
                         if (finalPicks.length > 0) {
@@ -619,15 +627,22 @@ body::before {
                         }
 
                         // 🚨 3. 분리해낸 언론사명(sourceText)에 var(--primary) 대신 확실한 헥스코드(#2C9999)를 주입합니다.
-                        html += `
-                            <li class="article-item" style="${borderStyle}">
-                               <a href="${news.link}" target="_blank" class="article-title" style="display:inline; margin-bottom:0; line-height:1.5;">
-                                    ${displayTitle}
-                                    <span style="color: #2C9999; font-size: 0.9rem;">${sourceText}</span>
-                                </a>
-                                <span class="article-date" style="display:inline-block; margin-left: 8px; color: #888; font-size: 0.85rem;"><i class="far fa-clock"></i> ${dateStr}</span>
-                            </li>
-                        `;
+                       // 기존 html += ... 생성 루프 부분을 아래와 같이 통째로 교체합니다.
+html += `
+    <li class="article-item" style="${borderStyle} display: flex; align-items: flex-start; gap: 15px;">
+        
+        <!-- 🚀 PRO FIX: 썸네일이 존재할 경우에만 이미지 태그 렌더링 (에러 시 숨김 처리) -->
+        ${news.thumbnail ? `<img src="${news.thumbnail}" alt="News Image" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; flex-shrink: 0; background: var(--panel-bg);" onerror="this.style.display='none'">` : ''}
+        
+        <div style="flex-grow: 1; min-width: 0;">
+           <a href="${news.link}" target="_blank" class="article-title" style="display:inline-block; margin-bottom:6px; line-height:1.4;">
+                ${displayTitle}
+                <span style="color: #2C9999; font-size: 0.9rem; font-weight: bold;">${sourceText}</span>
+            </a>
+            <span class="article-date" style="display:inline-block; color: #888; font-size: 0.85rem;"><i class="far fa-clock"></i> ${dateStr}</span>
+        </div>
+    </li>
+`;
                     });
                     html += `</ul></div>`;
                     googleContainer.innerHTML = html;
@@ -710,7 +725,7 @@ body::before {
                 const fetchPromises = specializedSources.map(async (source, index) => {
                     await new Promise(resolve => setTimeout(resolve, index * 100)); // faster stagger
 
-                    const cacheKey = `newsCache_${source.name}_final`;
+                    const cacheKey = `newsCache_${source.name}_final_v2`;
                     let validArticles = [];
 
                     try {
@@ -735,6 +750,18 @@ body::before {
                                     let title = safeText(titleNode) || safeText(descNode).split('\n')[0] || '';
                                     // link extraction: handle Atom <link href="..." rel="alternate">, RSS <link>, <guid>, or anchor in description
                                     let link = '';
+									let thumbnail = '';
+const mediaContent = item.querySelector('content, thumbnail');
+const enclosure = item.querySelector('enclosure');
+if (mediaContent && mediaContent.getAttribute('url')) {
+    thumbnail = mediaContent.getAttribute('url');
+} else if (enclosure && enclosure.getAttribute('url') && enclosure.getAttribute('type')?.includes('image')) {
+    thumbnail = enclosure.getAttribute('url');
+} else if (descNode) {
+    // 본문에 포함된 img 태그에서 src 추출
+    const imgMatch = (descNode.textContent || '').match(/<img[^>]+src="([^">]+)"/);
+    if (imgMatch) thumbnail = imgMatch[1];
+}
                                     try {
                                         // Prefer explicit href on any <link> elements (Atom often uses <link href="..."/>)
                                         const linkEls = item.querySelectorAll('link');
@@ -782,7 +809,12 @@ body::before {
                                     let isDuplicate = excludeTitles.some(exTitle => exTitle === title.toLowerCase());
                                     if (isDuplicate) continue;
 
-                                    validArticles.push({ title: title, link: link || source.url, pubDate: new Date(dateNode ? dateNode.textContent : Date.now()) });
+                                    validArticles.push({ 
+    title: title, 
+    link: link || source.url, 
+    pubDate: new Date(dateNode ? dateNode.textContent : Date.now()), 
+    thumbnail: thumbnail 
+});
                                 }
                             if (validArticles.length > 0) localStorage.setItem(cacheKey, JSON.stringify(validArticles));
                         }
@@ -813,10 +845,15 @@ body::before {
                     const slot = document.getElementById(`news-slot-${index}`);
                     const iconUrl = `https://www.google.com/s2/favicons?domain=${source.domain}&sz=64`;
                     let cardHTML = `<div class="news-card"><div class="source-header"><img src="${iconUrl}" alt="logo" class="source-icon">${source.name}</div><ul class="article-list">`;
-                    validArticles.forEach(news => {
-                        const dateStr = news.pubDate ? news.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
-                        cardHTML += `<li class="article-item"><a href="${news.link}" target="_blank" class="article-title">${news.title}</a><div class="article-date"><i class="far fa-clock"></i> ${dateStr}</div></li>`;
-                    });
+                   validArticles.forEach(news => {
+    const dateStr = news.pubDate ? news.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
+
+    cardHTML += `
+        <li class="article-item">
+            <a href="${news.link}" target="_blank" class="article-title">${news.title}</a>
+            <div class="article-date"><i class="far fa-clock"></i> ${dateStr}</div>
+        </li>`;
+});
                     cardHTML += `</ul></div>`;
                     if (slot) slot.outerHTML = cardHTML;
                 });
