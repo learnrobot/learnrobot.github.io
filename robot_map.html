@@ -51,15 +51,22 @@
             zoom: 13,
             disableDefaultUI: true, // 복잡한 구글 기본 버튼들 숨기기
             zoomControl: true, // 줌인/줌아웃 버튼만 살리기
-            styles: [ 
-                { "elementType": "geometry", "stylers": [{ "color": "#212121" }] }, 
-                { "elementType": "labels.text.fill", "stylers": [{ "color": "#757575" }] },
-                { "elementType": "labels.text.stroke", "stylers": [{ "color": "#212121" }] },
-                { "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#000000" }] },
-                // 🚨 방해되는 일반 장소(상가, 병원, 공원 등) 아이콘 전부 끄기
-                { "featureType": "poi", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }]},
-                { "featureType": "transit", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }]}
-            ]
+styles: [ 
+    { "elementType": "geometry", "stylers": [{ "color": "#212121" }] }, 
+    { "elementType": "labels.text.fill", "stylers": [{ "color": "#757575" }] },
+    { "elementType": "labels.text.stroke", "stylers": [{ "color": "#212121" }] },
+    { "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#000000" }] },
+    // 🚨 방해되는 일반 장소(상가, 병원, 공원 등) 아이콘 전부 끄기
+    { "featureType": "poi", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }]},
+    { "featureType": "transit", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }]},
+    
+    // 👇 이 아래 두 줄을 추가해 주세요 👇
+    // 1. 도로 번호(고속도로, 국도 등 파란색 기호) 숨기기
+    { "featureType": "road", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }]},
+    // 2. 행정구역(시, 도 마크 등) 등 기타 남은 기본 아이콘 숨기기 (선택 사항)
+    { "featureType": "administrative", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }]},
+	{ "featureType": "landscape", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }]},
+]
         });
 
         infowindow = new google.maps.InfoWindow();
@@ -76,6 +83,10 @@
                 }
             );
         }
+		map.addListener("idle", () => {
+        const currentCenter = map.getCenter();
+        searchRobotsNear(currentCenter);
+    });
     }
 
     function searchRobotsNear(location) {
