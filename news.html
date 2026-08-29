@@ -684,34 +684,34 @@ html += `
 
                 const fallbackData = {
                     "TechCrunch": [
-                        { title: "Robotics startups to watch", link: "https://techcrunch.com/" },
-                        { title: "Robots in industry: trends", link: "https://techcrunch.com/" },
-                        { title: "AI and robotics: integration", link: "https://techcrunch.com/" }
+                        { title: "Robotics startups to watch", link: "https://techcrunch.com/category/robotics/" },
+                        { title: "Robots in industry: trends", link: "https://techcrunch.com/category/robotics/" },
+                        { title: "AI and robotics: integration", link: "https://techcrunch.com/category/robotics/" }
                     ],
                     "IEEE Spectrum": [
-                        { title: "Robotics advances roundup", link: "https://spectrum.ieee.org/" },
-                        { title: "New robot control methods", link: "https://spectrum.ieee.org/" },
-                        { title: "Sensor fusion in robotics", link: "https://spectrum.ieee.org/" }
+                        { title: "Robotics advances roundup", link: "https://spectrum.ieee.org/category/robotics/" },
+                        { title: "New robot control methods", link: "https://spectrum.ieee.org/category/robotics/" },
+                        { title: "Sensor fusion in robotics", link: "https://spectrum.ieee.org/category/robotics/" }
                     ],
                     "The Robot Report": [
-                        { title: "Industry update: robots", link: "https://www.therobotreport.com/" },
-                        { title: "Factory automation news", link: "https://www.therobotreport.com/" },
-                        { title: "Service robots market", link: "https://www.therobotreport.com/" }
+                        { title: "Industry update: robots", link: "https://www.therobotreport.com/category/robotics/" },
+                        { title: "Factory automation news", link: "https://www.therobotreport.com/category/robotics/" },
+                        { title: "Service robots market", link: "https://www.therobotreport.com/category/robotics/" }
                     ],
                     "TechXplore": [
-                        { title: "New robotics research", link: "https://techxplore.com/" },
-                        { title: "Soft robotics breakthroughs", link: "https://techxplore.com/" },
-                        { title: "Robotic locomotion advances", link: "https://techxplore.com/" }
+                        { title: "New robotics research", link: "https://techxplore.com/category/robotics/" },
+                        { title: "Soft robotics breakthroughs", link: "https://techxplore.com/category/robotics/" },
+                        { title: "Robotic locomotion advances", link: "https://techxplore.com/category/robotics/" }
                     ],
                     "ScienceDaily": [
-                        { title: "Latest robotics studies", link: "https://www.sciencedaily.com/" },
-                        { title: "Materials for robots", link: "https://www.sciencedaily.com/" },
-                        { title: "Bio-inspired robotics", link: "https://www.sciencedaily.com/" }
+                        { title: "Latest robotics studies", link: "https://www.sciencedaily.com/category/robotics/" },
+                        { title: "Materials for robots", link: "https://www.sciencedaily.com/category/robotics/" },
+                        { title: "Bio-inspired robotics", link: "https://www.sciencedaily.com/category/robotics/" }
                     ],
                     "Robohub": [
-                        { title: "Robohub: robotics news roundup", link: "https://robohub.org/" },
-                        { title: "Robohub: research & industry updates", link: "https://robohub.org/" },
-                        { title: "Robohub: interviews and analysis", link: "https://robohub.org/" }
+                        { title: "Robohub: robotics news roundup", link: "https://robohub.org/category/robotics/" },
+                        { title: "Robohub: research & industry updates", link: "https://robohub.org/category/robotics/" },
+                        { title: "Robohub: interviews and analysis", link: "https://robohub.org/category/robotics/" }
                     ]
                 };
 
@@ -735,9 +735,9 @@ html += `
                     try {
                         // race the RSS fetch against a timeout so slow networks fail fast
                         const xmlDoc = await Promise.race([
-                            fetchRSS(source.url),
-                            new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 6000))
-                        ]);
+    fetchRSS(source.url),
+    new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 10000))
+]);
 
                         const items = xmlDoc ? xmlDoc.querySelectorAll('item, entry') : [];
                         if (items && items.length > 0) {
