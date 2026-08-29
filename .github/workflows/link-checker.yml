@@ -1,0 +1,28 @@
+name: Weekly Link Health Check
+
+on:
+  schedule:
+    # 매주 일요일 자정(UTC 기준)에 자동 실행
+    - cron: '0 0 * * 0'
+  
+  # 수동으로 버튼을 눌러서 실행할 수 있게 해주는 옵션
+  workflow_dispatch: 
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest # GitHub의 우분투 서버 빌림
+
+    steps:
+      # 1. 내 저장소의 파일들(data.js, 스크립트 등)을 서버로 가져오기
+      - name: 저장소 코드 가져오기
+        uses: actions/checkout@v4
+
+      # 2. Node.js 설치하기
+      - name: Node.js 세팅
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # 최신 노드 버전
+
+      # 3. 아까 만든 링크 검사 스크립트 실행하기
+      - name: 링크 검사 실행
+        run: node scripts/check-links.js
