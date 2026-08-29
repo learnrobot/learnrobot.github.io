@@ -113,68 +113,95 @@
             flex-wrap: wrap; /* 모바일처럼 화면이 좁을 땐 자연스럽게 줄바꿈되도록 방어 */
         }
 
-/* 1. Sci-Fi Cyberpunk UI 버튼 베이스 */
+/* 1. 미래지향적 버튼 베이스 디자인 (수정 버전) */
 .door-handle-btn {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     
-    font-family: 'Chekra Patch', sans-serif;
-    font-size: clamp(1rem, 1.5vw, 1.15rem); 
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem); 
     font-weight: 700;
     
-    /* [수정 1] 모든 버튼을 완벽히 똑같은 크기로 강제 고정하여 쏠림 현상 해결 */
     width: 180px; 
-    padding: 12px 0; 
+    padding: 15px 0 18px 0; 
     box-sizing: border-box;
     
-    /* [수정 3] 폰트 색상 변경하는 곳 */
-    color: #86D1D1; /* 👈 평상시 폰트 색상 (주황색) */
+    /* [수정] 배경을 테마 색상이 은은하게 묻어나는 반투명 스타일로 변경 */
+    background: linear-gradient(135deg, rgba(20, 25, 30, 0.8), rgba(10, 12, 15, 0.9));
     
-    /* [수정 2] 배경 명판과 어울리도록 더 연한 회색으로 변경 */
-    background: #3c4048; 
+    /* [수정] 텍스트 색상을 기본적으로 해당 테마 색상으로 설정하고 네온 발광 추가 */
+    color: var(--theme-color);
+    text-shadow: 0 0 8px var(--theme-color), 0 0 20px var(--theme-color);
     
-    /* 버튼의 입체적 음영 */
+    /* 팔각형 사이버펑크 컷아웃 형태 */
+    clip-path: polygon(15px 0, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 calc(100% - 15px), 0 15px);
+    
+    /* 테두리와 네온 글로우 효과 강화 */
+    border: 1.5px solid var(--theme-color);
     box-shadow: 
-        inset 0px 2px 2px rgba(255, 255, 255, 0.2), 
-        inset 0px -4px 4px rgba(0, 0, 0, 0.6);
+        0 0 12px var(--theme-color), 
+        inset 0 0 12px var(--theme-color);
         
-    clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px), 0 10px);
-    
     cursor: pointer;
-    transition: transform 0.1s ease, background 0.2s ease, box-shadow 0.1s ease, color 0.2s ease;
+    transition: all 0.3s ease;
 }
 
-/* 이미지 속 우측 하단 포인트 라인 */
+/* 2. 하단 게이지/바코드 느낌 */
 .door-handle-btn::after {
     content: '';
     position: absolute;
-    bottom: 8px; 
-    right: 18px;
-    width: 22px;
-    height: 3px;
-    background-color: #86D1D1; /* 👈 포인트 라인 색상 (폰트 색상과 세트로 맞추시면 좋습니다) */
-    transition: background-color 0.2s ease;
+    bottom: 6px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 4px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--theme-color),
+        var(--theme-color) 4px,
+        transparent 4px,
+        transparent 6px
+    );
+    opacity: 0.9;
+    filter: drop-shadow(0 0 4px var(--theme-color));
+    transition: width 0.3s ease;
 }
 
-/* 마우스를 올렸을 때 (Hover) */
+/* 3. 마우스 올렸을 때 (Hover) */
 .door-handle-btn:hover {
-    background: #4a4e57; /* 마우스 올렸을 때 배경을 더 연하게 */
-    color: #ffaa33; /* 👈 마우스 올렸을 때 폰트 색상 (밝은 주황색) */
+    background: var(--theme-color); /* 마우스 올리면 버튼 전체가 해당 색상으로 화려하게 채워짐 */
+    color: #0b0d10; /* 글자색은 어둡게 반전되어 가독성 극대화 */
+    text-shadow: none;
+    box-shadow: 
+        0 0 25px var(--theme-color), 
+        0 0 50px var(--theme-color);
 }
 
 .door-handle-btn:hover::after {
-    background-color: #ffaa33; /* 👈 마우스 올렸을 때 포인트 라인 색상 */
+    background: repeating-linear-gradient(
+        90deg,
+        #0b0d10,
+        #0b0d10 4px,
+        transparent 4px,
+        transparent 6px
+    );
+    width: 80%;
 }
 
-/* 버튼을 클릭했을 때 (Active) */
+/* 4. 클릭했을 때 (Active) */
 .door-handle-btn:active {
-    transform: translateY(3px); 
-    box-shadow: 
-        inset 0px 4px 6px rgba(0, 0, 0, 0.8), 
-        inset 0px -1px 2px rgba(255, 255, 255, 0.1);
+    transform: scale(0.95);
 }
+
+/* 5. 각 버튼별 고유 테마 컬러 지정 (CSS 변수) */
+.btn-blue   { --theme-color: #00d2ff; }
+.btn-green  { --theme-color: #00ff88; }
+.btn-purple { --theme-color: #b052ff; }
+.btn-orange { --theme-color: #ff8c00; }
+.btn-pink   { --theme-color: #ff00ea; }
+
 /* 양옆 공간에 나타나는 SVG 글자 폰트 강제 설정 (가독성 강화) */
 .svg-tech-title { 
     fill: #FFFB03; 
@@ -377,19 +404,19 @@
 </script>
 
 <div class="button-group">
-    <div onclick="window.location.href='news.html'" class="door-handle-btn hover-news" style="cursor: pointer;">
+    <div onclick="window.location.href='news.html'" class="door-handle-btn btn-blue">
         Latest News
     </div>
-    <div onclick="window.location.href='robotics_tour.html'" class="door-handle-btn hover-tour" style="cursor: pointer;">
+    <div onclick="window.location.href='robotics_tour.html'" class="door-handle-btn btn-green">
         Robotics Tour
     </div>
-    <div onclick="window.location.href='robotics_101.html'" class="door-handle-btn hover-101" style="cursor: pointer;">
+    <div onclick="window.location.href='robotics_101.html'" class="door-handle-btn btn-purple">
         Robotics 101
     </div>
-    <div onclick="window.location.href='industry_portal.html'" class="door-handle-btn hover-portal" style="cursor: pointer;">
+    <div onclick="window.location.href='industry_portal.html'" class="door-handle-btn btn-orange">
         Industry Portal
     </div>
-    <div onclick="window.location.href='robot_map.html'" class="door-handle-btn hover-map" style="cursor: pointer;">
+    <div onclick="window.location.href='robot_map.html'" class="door-handle-btn btn-pink">
         Robots near Me
     </div>
 </div>
