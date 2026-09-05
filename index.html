@@ -114,6 +114,7 @@
         }
 
 /* 1. 미래지향적 버튼 베이스 디자인 (수정 버전) */
+/* 1. 산업용 플레이트 버튼 베이스 디자인 (디자인 3) */
 .door-handle-btn {
     position: relative;
     display: flex;
@@ -123,26 +124,26 @@
     font-family: 'Chakra Petch', sans-serif;
     font-size: clamp(0.9rem, 1.2vw, 1.1rem); 
     font-weight: 700;
-    
+    -webkit-text-stroke: 0.5px #1a1e24;
+	
     width: 180px; 
     padding: 15px 0 18px 0; 
     box-sizing: border-box;
     
-    /* [수정] 배경을 테마 색상이 은은하게 묻어나는 반투명 스타일로 변경 */
-    background: linear-gradient(135deg, rgba(20, 25, 30, 0.8), rgba(10, 12, 15, 0.9));
+    /* [핵심] 텍스트가 잘 보이도록 배경을 밝은 회색 계열의 금속 플레이트로 변경 */
+    background: linear-gradient(180deg, #d8dce3 0%, #a2abb5 100%);
     
-    /* [수정] 텍스트 색상을 기본적으로 해당 테마 색상으로 설정하고 네온 발광 추가 */
-    color: var(--theme-color);
-    text-shadow: 0 0 8px var(--theme-color), 0 0 20px var(--theme-color);
+    /* [핵심] 글자색을 어둡게 반전시키고 얇은 흰색 그림자로 음각 느낌 추가 */
+    color: #1a1e24;
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.6);
     
-    /* 팔각형 사이버펑크 컷아웃 형태 */
-    clip-path: polygon(15px 0, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 calc(100% - 15px), 0 15px);
+    /* 기존의 팔각형 컷아웃(clip-path)을 지우고 깔끔한 둥근 모서리 적용 */
+    clip-path: none; 
+    border-radius: 8px;
     
-    /* 테두리와 네온 글로우 효과 강화 */
-    border: 1.5px solid var(--theme-color);
-    box-shadow: 
-        0 0 12px var(--theme-color), 
-        inset 0 0 12px var(--theme-color);
+    /* 각 버튼 고유의 테마 색상으로 얇은 윤곽선(미세 윤곽) 부여 */
+    border: 2px solid var(--theme-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6); /* 명판이 떠 있는 듯한 입체감 */
         
     cursor: pointer;
     transition: all 0.3s ease;
@@ -152,11 +153,41 @@
 .door-handle-btn::after {
     content: '';
     position: absolute;
-    bottom: 6px; 
+    bottom: 8px; 
     left: 50%;
     transform: translateX(-50%);
     width: 60%;
-    height: 4px;
+    height: 3px;
+    
+    /* 밝은 배경에 맞춰 점선도 기본적으로 어둡게 세팅 */
+    background: repeating-linear-gradient(
+        90deg,
+        #1a1e24,
+        #1a1e24 4px,
+        transparent 4px,
+        transparent 6px
+    );
+    opacity: 0.7;
+    transition: width 0.3s ease, background 0.3s ease;
+}
+
+/* 3. 마우스 올렸을 때 (Hover) */
+.door-handle-btn:hover {
+    /* 마우스 오버 시 금속 플레이트가 살짝 밝아짐 */
+    background: linear-gradient(180deg, #e6eaf0 0%, #b0b9c3 100%);
+    color: #000000;
+    
+    /* 테두리의 네온 컬러가 은은하게 밖으로 퍼져나가는 효과 */
+    box-shadow: 
+        0 6px 12px rgba(0, 0, 0, 0.5), 
+        0 0 15px var(--theme-color), 
+        inset 0 0 8px rgba(255, 255, 255, 0.5);
+        
+    transform: translateY(-2px);
+}
+
+.door-handle-btn:hover::after {
+    /* 마우스를 올리면 점선 게이지가 길어지며 테마 네온 컬러로 발광 */
     background: repeating-linear-gradient(
         90deg,
         var(--theme-color),
@@ -164,35 +195,14 @@
         transparent 4px,
         transparent 6px
     );
-    opacity: 0.9;
-    filter: drop-shadow(0 0 4px var(--theme-color));
-    transition: width 0.3s ease;
-}
-
-/* 3. 마우스 올렸을 때 (Hover) */
-.door-handle-btn:hover {
-    background: var(--theme-color); /* 마우스 올리면 버튼 전체가 해당 색상으로 화려하게 채워짐 */
-    color: #0b0d10; /* 글자색은 어둡게 반전되어 가독성 극대화 */
-    text-shadow: none;
-    box-shadow: 
-        0 0 25px var(--theme-color), 
-        0 0 50px var(--theme-color);
-}
-
-.door-handle-btn:hover::after {
-    background: repeating-linear-gradient(
-        90deg,
-        #0b0d10,
-        #0b0d10 4px,
-        transparent 4px,
-        transparent 6px
-    );
     width: 80%;
+    filter: drop-shadow(0 0 4px var(--theme-color));
 }
 
 /* 4. 클릭했을 때 (Active) */
 .door-handle-btn:active {
-    transform: scale(0.95);
+    transform: scale(0.96) translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
 }
 
 /* 5. 각 버튼별 고유 테마 컬러 지정 (CSS 변수) */
