@@ -969,11 +969,13 @@ background: rgba(44, 153, 153, 0.15);
 <div id="google_translate_element" style="position: absolute; bottom: 0; left: 0; width: 1px; height: 1px; overflow: hidden; opacity: 0;"></div>
         <div class="sns-icons">
             <div class="email-hover-wrap">
-                <a href="mailto:learnrobot@learnrobot.com">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <div class="email-tooltip">learnrobot@learnrobot.com</div>
-            </div>
+    <!-- href="#" 로 변경하고 클릭 시 copyEmail 함수 실행 -->
+    <a href="#" onclick="copyEmail(event)">
+        <i class="fas fa-envelope"></i>
+    </a>
+    <!-- 툴팁 문구 변경 및 ID 추가 -->
+    <div class="email-tooltip" id="email-tooltip-text">click to copy</div>
+</div>
             <a href="https://www.instagram.com/learnrobot" target="_blank">
                 <i class="fab fa-instagram"></i>
             </a>
@@ -2316,5 +2318,29 @@ ad: `
 <div class="floating-top-btn" onclick="scrollToId('hero-intro')" title="Go to Top">
     <i class="fas fa-arrow-up"></i>
 </div>
+<script>
+    function copyEmail(event) {
+        event.preventDefault(); // 클릭 시 화면이 맨 위로 튕기는 현상 방지
+        
+        const emailAddress = "learnrobot@learnrobot.com";
+        const tooltip = document.getElementById('email-tooltip-text');
+        
+        // 클립보드에 이메일 주소 복사
+        navigator.clipboard.writeText(emailAddress).then(() => {
+            // 복사 성공 시 툴팁 문구를 2초 동안 'Copied!'로 변경
+            tooltip.innerText = "Copied!";
+            tooltip.style.color = "#2ecc71"; // 복사 성공 시 초록색으로 강조
+            tooltip.style.borderColor = "#2ecc71";
+            
+            setTimeout(() => {
+                tooltip.innerText = "click to copy";
+                tooltip.style.color = "#FFFB03"; // 원래 색상으로 복구
+                tooltip.style.borderColor = "#FFFB03";
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    }
+</script>
 </body> 
 </html>
