@@ -279,6 +279,23 @@
             #info-head text, #info-arm text { transform: translateX(45px); }
             #info-body text, #info-leg text { transform: translateX(-45px); }
         }
+@keyframes button-wave {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+.door-handle-btn {
+    animation: button-wave 4s ease-in-out infinite;
+}
+.door-handle-btn:nth-child(1) { animation-delay: 0s; }
+.door-handle-btn:nth-child(2) { animation-delay: 0.3s; }
+.door-handle-btn:nth-child(3) { animation-delay: 0.6s; }
+.door-handle-btn:nth-child(4) { animation-delay: 0.9s; }
+.door-handle-btn:nth-child(5) { animation-delay: 1.2s; }
+
+/* 마우스를 올렸을 때 애니메이션 멈춤 */
+.door-handle-btn:hover {
+    animation: none;
+}
     </style>
 </head>
 <body>
