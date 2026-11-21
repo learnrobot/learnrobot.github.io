@@ -172,18 +172,20 @@
 }
 
 /* 3. 마우스 올렸을 때 (Hover) */
+/* 마우스를 올렸을 때 애니메이션 멈춤 */
 .door-handle-btn:hover {
-    /* 마우스 오버 시 금속 플레이트가 살짝 밝아짐 */
-    background: linear-gradient(180deg, #e6eaf0 0%, #b0b9c3 100%);
-    color: #000000;
-    
-    /* 테두리의 네온 컬러가 은은하게 밖으로 퍼져나가는 효과 */
-    box-shadow: 
-        0 6px 12px rgba(0, 0, 0, 0.5), 
-        0 0 15px var(--theme-color), 
-        inset 0 0 8px rgba(255, 255, 255, 0.5);
-        
-    transform: translateY(-2px);
+    animation: none;
+}
+
+/* ❄️ 크리스마스 눈 내리는 효과 캔버스 */
+#snow-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* 필수: 로봇과 버튼 클릭을 방해하지 않음 */
+    z-index: 9999;
 }
 
 .door-handle-btn:hover::after {
@@ -295,11 +297,23 @@
 /* 마우스를 올렸을 때 애니메이션 멈춤 */
 .door-handle-btn:hover {
     animation: none;
+/* ❄️ 크리스마스 눈 내리는 효과 캔버스 */
+#snow-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* 필수: 로봇과 버튼 클릭을 방해하지 않음 */
+    z-index: 9999;
+}
 }
     </style>
 </head>
 <body>
 
+    <canvas id="snow-canvas"></canvas>
+    
     <div class="gateway-container">
         
    
@@ -448,5 +462,64 @@
         Robots near Me
     </div>
 </div>
+<script>
+    const canvas = document.getElementById('snow-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    });
+
+    // 눈송이 개수 (너무 많지 않게 70개로 설정)
+    const flakeCount = 70;
+    const flakes = [];
+
+    for (let i = 0; i < flakeCount; i++) {
+        flakes.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            radius: Math.random() * 2.5 + 1,      // 크기 (1px ~ 3.5px)
+            speedY: Math.random() * 1 + 0.4,      // 내리는 속도
+            speedX: (Math.random() - 0.5) * 0.5,  // 좌우 흔들림
+            opacity: Math.random() * 0.6 + 0.3    // 투명도
+        });
+    }
+
+    function drawSnow() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < flakeCount; i++) {
+            const f = flakes[i];
+            ctx.beginPath();
+            ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
+            
+            // 흰색 눈송이에 로봇 테마 컬러(#86D1D1) 빛 번짐 추가
+            ctx.fillStyle = `rgba(255, 255, 255, ${f.opacity})`;
+            ctx.shadowBlur = 6;
+            ctx.shadowColor = '#86D1D1';
+            ctx.fill();
+
+            // 위치 이동
+            f.y += f.speedY;
+            f.x += f.speedX + Math.sin(f.y * 0.01) * 0.3;
+
+            // 화면 아래로 벗어나면 위에서 다시 생성
+            if (f.y > height) {
+                f.y = -5;
+                f.x = Math.random() * width;
+            }
+            if (f.x > width) f.x = 0;
+            if (f.x < 0) f.x = width;
+        }
+
+        requestAnimationFrame(drawSnow);
+    }
+
+    drawSnow();
+</script>
 </body>
 </html>
